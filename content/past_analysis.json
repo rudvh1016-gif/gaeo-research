@@ -28,6 +28,41 @@
    "dartCheck": [
     "분기보고서와 반기보고서에서 메모리 매출과 영업이익이 실제로 늘었는지 확인한다.",
     "신규 시설투자 관련 공시가 나왔는지, 나왔다면 규모와 일정이 어떻게 적혔는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 46.8,
+     "text": "2025년 매출액은 2024년보다 46.8% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/000660.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 48.6,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 48.6%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/000660.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 35.6,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 35.6%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/000660.json"
+    }
    ]
   },
   {
@@ -56,6 +91,24 @@
    "dartCheck": [
     "다음 분기보고서에서 장기보험 이익이 계속 이어졌는지 확인한다.",
     "반기보고서 재무제표 주석에서 보험 계산 기준 변경으로 생긴 일회성 효과가 어떻게 적혀 있는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 19.8,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 19.8%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/001450.json"
+    }
    ]
   },
   {
@@ -84,6 +137,41 @@
    "dartCheck": [
     "분기보고서와 반기보고서에서 MLCC 부문 매출과 다른 부문 매출이 각각 어떻게 바뀌었는지 확인한다.",
     "단일판매·공급계약 체결 같은 회사 자체의 계약 공시가 나왔는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": -0.3,
+     "text": "2025년 매출액은 2024년보다 -0.3% 줄었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/001820.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 4.4,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 4.4%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/001820.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 4.5,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 4.5%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/001820.json"
+    }
    ]
   },
   {
@@ -114,6 +202,41 @@
     "단일판매·공급계약 체결 공시가 실제로 나왔는지, 발주처와 공사 내용이 무엇인지 확인한다.",
     "분기보고서에서 부채와 자본의 변화, 자본성 채권 발행 조건이 어떻게 적혔는지 본다.",
     "거래소의 투자주의·경고 관련 안내가 이후에도 있었는지 함께 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 5.4,
+     "text": "2025년 매출액은 2024년보다 5.4% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 2.3,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 2.3%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 25.7,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 25.7%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    }
    ]
   },
   {
@@ -143,6 +266,41 @@
    "dartCheck": [
     "공사 수주나 단일판매·공급계약 체결 공시가 실제로 나왔는지 확인한다.",
     "반기보고서에서 매출, 영업이익, 부채비율, 우발채무가 어떻게 바뀌었는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 5.4,
+     "text": "2025년 매출액은 2024년보다 5.4% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 2.3,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 2.3%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 25.7,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 25.7%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    }
    ]
   },
   {
@@ -172,6 +330,41 @@
     "단일판매·공급계약 체결 공시에서 산업단지 관련 공사 계약이 있는지 확인한다.",
     "반기보고서와 이후 분기보고서에서 영업이익과 부채비율이 계속 좋아졌는지 확인한다.",
     "투자주의나 투자경고 같은 시장 조치가 있었는지 거래소 공시도 함께 살펴본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 5.4,
+     "text": "2025년 매출액은 2024년보다 5.4% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 2.3,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 2.3%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 25.7,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 25.7%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    }
    ]
   },
   {
@@ -200,6 +393,41 @@
    "dartCheck": [
     "단일판매·공급계약 체결 공시가 새로 나왔는지 확인한다.",
     "3분기 실적이 나오면 분기보고서의 매출과 영업이익, 부채 규모가 어떻게 바뀌었는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 5.4,
+     "text": "2025년 매출액은 2024년보다 5.4% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 2.3,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 2.3%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 25.7,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 25.7%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/002990.json"
+    }
    ]
   },
   {
@@ -228,6 +456,41 @@
    "dartCheck": [
     "3분기 분기보고서에서 화물 매출과 영업이익이 실제로 늘었는지 확인한다.",
     "아시아나항공 통합과 관련한 주요사항보고서나 진행 공시가 나왔는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 41.2,
+     "text": "2025년 매출액은 2024년보다 41.2% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/003490.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 4.4,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 4.4%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/003490.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 5.6,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 5.6%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/003490.json"
+    }
    ]
   },
   {
@@ -258,6 +521,41 @@
     "반기보고서에서 국내와 해외 매출, 영업이익이 어떻게 바뀌었는지 확인한다.",
     "수출 전용 공장 같은 시설 투자 공시가 계획대로 진행됐는지 확인한다.",
     "기업가치 제고 계획 공시에서 약속한 배당 방향이 실제로 지켜졌는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 2.2,
+     "text": "2025년 매출액은 2024년보다 2.2% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/004370.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 5.2,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 5.2%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/004370.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 6.0,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 6.0%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/004370.json"
+    }
    ]
   },
   {
@@ -286,6 +584,41 @@
    "dartCheck": [
     "반기보고서에서 매출과 영업이익, 영업이익이 줄어든 원인 설명을 확인한다.",
     "지역별·차종별 판매 실적 공시에서 하이브리드 판매가 계속 늘었는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 6.3,
+     "text": "2025년 매출액은 2024년보다 6.3% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/005380.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 6.2,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 6.2%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/005380.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 8.1,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 8.1%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/005380.json"
+    }
    ]
   },
   {
@@ -314,6 +647,41 @@
    "dartCheck": [
     "2분기 실적 공시와 반기보고서에서 메모리 부문의 매출과 영업이익이 실제로 늘었는지 확인한다.",
     "사업보고서에서 고대역폭메모리 관련 투자와 생산 설비 계획이 어떻게 적혀 있는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 10.9,
+     "text": "2025년 매출액은 2024년보다 10.9% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/005930.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 13.1,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 13.1%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/005930.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 10.4,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 10.4%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/005930.json"
+    }
    ]
   },
   {
@@ -342,6 +710,41 @@
    "dartCheck": [
     "신정동 부지 건축허가와 착공 관련 공시가 실제로 나왔는지 확인한다.",
     "3분기 실적이 나오면 분기보고서의 호텔 부문 매출과 이익이 계속 늘었는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 32.5,
+     "text": "2025년 매출액은 2024년보다 32.5% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/006730.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 28.3,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 28.3%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/006730.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 8.4,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 8.4%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/006730.json"
+    }
    ]
   },
   {
@@ -370,6 +773,41 @@
    "dartCheck": [
     "분기보고서에서 매출과 영업이익이 실제로 늘었는지 확인한다.",
     "사업보고서에서 주요 제품 구성과 설비 투자 계획이 어떻게 적혀 있는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 30.0,
+     "text": "2025년 매출액은 2024년보다 30.0% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/007660.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 18.8,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 18.8%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/007660.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 21.2,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 21.2%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/007660.json"
+    }
    ]
   },
   {
@@ -398,6 +836,41 @@
    "dartCheck": [
     "분기보고서와 반기보고서에서 MLCC와 기판 부문 매출과 영업이익이 실제로 늘었는지 확인한다.",
     "시설 투자나 증설 관련 공시가 있었는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 9.9,
+     "text": "2025년 매출액은 2024년보다 9.9% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/009150.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 8.1,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 8.1%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/009150.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 7.5,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 7.5%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/009150.json"
+    }
    ]
   },
   {
@@ -426,6 +899,41 @@
    "dartCheck": [
     "단일판매·공급계약 체결 공시로 장기공급계약이 실제로 맺어졌는지 확인한다.",
     "신규 시설투자 공시와 분기보고서에서 해외 공장 증설 일정과 부품 사업 매출을 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 9.9,
+     "text": "2025년 매출액은 2024년보다 9.9% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/009150.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 8.1,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 8.1%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/009150.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 7.5,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 7.5%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/009150.json"
+    }
    ]
   },
   {
@@ -455,7 +963,15 @@
    "dartCheck": [
     "사업보고서에서 우선주에 주는 배당 조건이 보통주와 어떻게 다른지 확인한다.",
     "현금배당 결정 공시에서 우선주 배당이 실제로 어떻게 정해졌는지 본다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "010120-202607231603",
@@ -483,6 +999,41 @@
    "dartCheck": [
     "단일판매·공급계약 체결 공시에서 해외 전력 설비 계약이 실제로 있었는지 확인한다.",
     "분기보고서와 반기보고서에서 수주잔고와 영업이익이 늘었는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 9.1,
+     "text": "2025년 매출액은 2024년보다 9.1% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/010120.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 8.6,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 8.6%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/010120.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 13.3,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 13.3%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/010120.json"
+    }
    ]
   },
   {
@@ -511,6 +1062,41 @@
    "dartCheck": [
     "분기보고서의 사업부문별 매출에서 기판 사업과 광학 부품 사업 비중이 어떻게 바뀌었는지 확인한다.",
     "주요 고객 의존도에 대한 설명이 사업보고서에 어떻게 적혔는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 3.3,
+     "text": "2025년 매출액은 2024년보다 3.3% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/011070.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 3.0,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 3.0%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/011070.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 5.9,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 5.9%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/011070.json"
+    }
    ]
   },
   {
@@ -540,6 +1126,41 @@
    "dartCheck": [
     "국책사업 선정이나 관련 계약에 대한 공시가 실제로 나왔는지 확인한다.",
     "분기보고서에서 영업이익이 실제로 회복되고 있는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": -4.7,
+     "text": "2025년 매출액은 2024년보다 -4.7% 줄었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/017670.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 6.3,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 6.3%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/017670.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 2.9,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 2.9%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/017670.json"
+    }
    ]
   },
   {
@@ -569,6 +1190,41 @@
    "dartCheck": [
     "분기보고서와 반기보고서에서 매출과 영업이익이 계속 늘었는지 확인한다.",
     "선박 취득이나 신조 발주 관련 공시가 계획대로 진행됐는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 5.3,
+     "text": "2025년 매출액은 2024년보다 5.3% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/028670.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 9.1,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 9.1%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/028670.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 5.3,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 5.3%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/028670.json"
+    }
    ]
   },
   {
@@ -599,6 +1255,41 @@
     "선박 취득 결정 관련 주요사항보고서에서 투자 규모와 자금 조달 방식이 어떻게 적혔는지 확인한다.",
     "최대주주 등의 주식 담보 제공 관련 공시와 새 배당 정책 공시가 나왔는지 본다.",
     "3분기 분기보고서에서 유조선 부문 이익이 실제로 늘었는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 5.3,
+     "text": "2025년 매출액은 2024년보다 5.3% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/028670.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 9.1,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 9.1%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/028670.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 5.3,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 5.3%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/028670.json"
+    }
    ]
   },
   {
@@ -628,6 +1319,41 @@
    "dartCheck": [
     "유형자산 취득 결정 공시에서 새 공장 부지와 건물 취득 내용을 확인하고, 그 뒤 투자가 계획대로 진행됐는지 본다.",
     "분기보고서에서 장비 매출과 영업이익이 실제로 늘었는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 3.2,
+     "text": "2025년 매출액은 2024년보다 3.2% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/042700.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 43.6,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 43.6%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/042700.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 31.0,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 31.0%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/042700.json"
+    }
    ]
   },
   {
@@ -656,6 +1382,41 @@
    "dartCheck": [
     "분기보고서와 반기보고서에서 매출과 영업이익이 어떻게 바뀌었는지 직접 확인한다.",
     "단일판매·공급계약 체결처럼 회사 자체의 재료가 될 공시가 있었는지 확인한다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "REVENUE_YOY",
+     "year": "2025",
+     "vs": "2024",
+     "fsDiv": "CFS",
+     "value": 86.2,
+     "text": "2025년 매출액은 2024년보다 86.2% 늘었다(연결 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/080220.json"
+    },
+    {
+     "kind": "OPERATING_MARGIN",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 11.9,
+     "text": "2025년 영업이익률(영업이익 ÷ 매출액)은 11.9%였다(연결 · 자체 계산).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/080220.json"
+    },
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 17.4,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 17.4%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/080220.json"
+    }
    ]
   },
   {
@@ -684,6 +1445,24 @@
    "dartCheck": [
     "반기보고서에서 보험손익과 투자손익이 각각 얼마나 늘었는지, 일회성 요인이 있었는지 확인한다.",
     "주주환원 관련 공시, 예를 들어 배당이나 자기주식 관련 결정이 나왔는지 본다."
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   },
+   "dartFacts": [
+    {
+     "kind": "ROE_YEAR_END_EQUITY",
+     "year": "2025",
+     "fsDiv": "CFS",
+     "value": 5.0,
+     "text": "2025년 ROE(당기순이익 ÷ 기말 자본총계)는 5.0%였다(연결 · 자체 계산 · 평균자본이 아닌 기말 기준).",
+     "source": "OpenDART 단일회사 전체 재무제표 · 사업보고서(연간) · dart_financials/088350.json"
+    }
    ]
   },
   {
@@ -712,7 +1491,15 @@
    "dartCheck": [
     "3분기 분기보고서에서 배터리 부문 영업이익이 흑자를 이어 갔는지 확인한다.",
     "분기보고서의 부문별 실적에서 정유, 배터리, 윤활유 이익이 각각 어떻게 바뀌었는지 본다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "195940-202608271515",
@@ -740,7 +1527,15 @@
    "dartCheck": [
     "분기보고서와 반기보고서에서 케이캡 매출과 사업부별 손익을 확인한다.",
     "기술수출 계약 체결 공시가 나왔는지, 유럽 계약 논의가 실제 공시로 이어졌는지 확인한다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "257720-202608121215",
@@ -768,7 +1563,15 @@
    "dartCheck": [
     "분기보고서의 지역별 매출에서 미국 매출 비중이 실제로 커졌는지 확인한다.",
     "3분기 실적이 나오면 매출과 영업이익 성장이 이어졌는지 본다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "257720-202608121233",
@@ -796,7 +1599,15 @@
    "dartCheck": [
     "반기보고서나 잠정실적 공시에서 2분기 매출과 영업이익이 실제로 늘었는지 확인한다.",
     "사업보고서에서 지역별 매출 가운데 미국 비중이 어떻게 바뀌었는지 본다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "257720-202608121245",
@@ -824,7 +1635,15 @@
    "dartCheck": [
     "반기보고서에서 잠정실적과 확정 실적이 같은지, 재고자산과 판매관리비가 어떻게 바뀌었는지 확인한다.",
     "유상증자 결정 공시의 내용과 임시주주총회 결과 공시가 나왔는지 확인한다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "267260-202607231603",
@@ -852,7 +1671,15 @@
    "dartCheck": [
     "단일판매·공급계약 체결 공시로 북미 수주가 실제로 이어졌는지 확인한다.",
     "분기보고서의 수주잔고와 매출 변화를 본다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "316140-202608132220",
@@ -881,7 +1708,15 @@
    "dartCheck": [
     "자기주식 취득과 소각 결정 공시 뒤 취득 결과 보고와 실제 소각이 이뤄졌는지 확인한다.",
     "분기보고서에서 연체율, 대손충당금, 보험 자회사 실적이 어떻게 바뀌었는지 본다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   },
   {
    "snapshotId": "402340-202607231603",
@@ -909,7 +1744,21 @@
    "dartCheck": [
     "사업보고서와 반기보고서에서 자회사 지분 현황과 장부가치를 확인한다.",
     "자기주식 취득이나 배당 같은 주주환원 관련 공시가 있었는지 확인한다."
-   ]
+   ],
+   "editedAt": "2026-09-24",
+   "sectionOrigin": {
+    "whatWeSaw": "ORIGINAL_RESTATED",
+    "whyViewed": "ORIGINAL_RESTATED",
+    "wrongIf": "EDIT_SUPPLEMENT",
+    "studyNext": "EDIT_SUPPLEMENT",
+    "dartCheck": "EDIT_SUPPLEMENT"
+   }
   }
- ]
+ ],
+ "editedAt": "2026-09-24",
+ "sectionOriginVocabulary": {
+  "ORIGINAL_RESTATED": "당시 기록을 수치 없이 다시 정리한 것",
+  "EDIT_SUPPLEMENT": "2026-09-24 편집에서 정리·보충한 것 — 당시의 판단으로 읽지 않는다",
+  "dartFacts": "2026-09-24 편집에서 OpenDART 사업보고서 값으로 덧붙인 사실과 자체 계산 — 당시 분석의 근거가 아니다"
+ }
 }

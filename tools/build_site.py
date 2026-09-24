@@ -81,23 +81,41 @@ def ul(items):
     return '<ul>' + ''.join(f'<li>{e(x)}</li>' for x in items) + '</ul>'
 
 
+def facts_block(r):
+    facts = r.get('dartFacts') or []
+    if not facts:
+        return ('<h3>공시 재무 사실</h3><p class="small">이 회사의 사업보고서 재무 자료가 아직 수집되지 않았습니다 — '
+                '재무가 없다는 뜻이 아닙니다. <a href="/disclosure-research.html?code=' + e(r["ticker"]) + '">재무 변화표에서 확인 →</a></p>')
+    return (f'<h3>공시 재무 사실 <span class="meta">{e(r.get("editedAt", ""))} 편집에서 덧붙임 · 당시 분석의 근거가 아님</span></h3>'
+            + ul([f['text'] for f in facts])
+            + f'<p class="small">출처: {e(facts[0]["source"])} · 영업이익률·ROE 는 공시 값으로 직접 계산했습니다. '
+            + f'<a href="/disclosure-research.html?code={e(r["ticker"])}">재무 변화표 →</a></p>')
+
+
 def record_page(r):
     path = f'/research/deep-analysis/{r["ticker"]}/{stamp(r["snapshotId"])}/'
     title = f'{r["stockName"]} 과거 분석 기록 ({r["analyzedAt"][:10]})'
     body = head(title, f'{r["stockName"]} — {r["title"]}. 작성 당시 기준의 과거 분석 기록이며 현재의 매수·매도 추천이 아닙니다.', path)
+    edited = f' · 이번 편집일 {e(r["editedAt"])}' if r.get('editedAt') else ''
+    facts = facts_block(r)
     body += f'''<p class="small"><a href="/past-analysis/">← 과거 정밀분석 목록</a></p>
 <article>
 <h1>{e(r["stockName"])} <span class="meta">{e(r["ticker"])}</span></h1>
-<p class="note past"><b>과거 분석 기록</b> · 작성 당시 기준 {e(when(r["analyzedAt"]))} · <b>현재의 매수·매도 추천이 아님</b></p>
+<p class="note past"><b>과거 분석 기록</b> · 원래 분석일 {e(when(r["analyzedAt"]))}{edited} · <b>현재의 매수·매도 추천이 아님</b></p>
 <h2>{e(r["title"])}</h2>
+<h3>당시 기록 <span class="meta">원래 분석일 {e(r["analyzedAt"][:10])} · 수치 없이 다시 정리</span></h3>
 <dl class="qa">
 <dt>당시 무엇을 봤나</dt><dd>{ul(r["whatWeSaw"])}</dd>
 <dt>왜 그렇게 봤나</dt><dd>{ul(r["whyViewed"])}</dd>
+</dl>
+<h3>이번 편집에서 정리·보충한 생각 <span class="meta">{e(r.get("editedAt") or "편집일 미기록")} · 당시의 판단이 아님</span></h3>
+<dl class="qa">
 <dt>무엇이면 틀릴 수 있었나</dt><dd>{ul(r["wrongIf"])}</dd>
 <dt>이후 공부할 점</dt><dd>{ul(r["studyNext"])}</dd>
 <dt>지금 DART에서 확인할 것</dt><dd>{ul(r["dartCheck"])}<p><a href="/disclosure-research.html?code={e(r["ticker"])}">{e(r["stockName"])}의 최근 공시·재무 변화 보기 →</a></p></dd>
 </dl>
-<p class="small">옮기면서 뺀 것: 당시 시세와 주가배수, 컨센서스·목표주가, 투자자별 매매 수치, 증권사·기사 인용, 점수와 매수·매도 판단. 남은 것은 당시의 생각 흐름입니다.</p>
+{facts}
+<p class="small">옮기면서 뺀 것: 당시 시세와 주가배수, 컨센서스·목표주가, 투자자별 매매 수치, 증권사·기사 인용, 점수와 매수·매도 판단. 출처가 확인되는 공시 재무 사실은 위 「공시 재무 사실」에 편집일 기준으로 따로 붙였습니다.</p>
 </article>
 '''
     return path, body + TAIL
@@ -114,7 +132,7 @@ def index_page(records, path):
     body = head('과거 정밀분석', '예전에 남긴 종목 분석 기록을 「당시 무엇을 봤고, 무엇이면 틀릴 수 있었는지」 중심으로 다시 정리했습니다. 작성 당시 기준이며 매수·매도 추천이 아닙니다.', path)
     body += f'''<h1>과거 정밀분석</h1>
 <p class="note past"><b>과거 분석 기록</b>입니다. 모두 작성 당시 기준이며 <b>현재의 매수·매도 추천이 아닙니다.</b></p>
-<p class="lede">2026년 7~8월에 남긴 분석 {len(records)}건({len(by)}개 회사)입니다. 당시 시세·주가배수·컨센서스·수급 수치와 매매 판단은 빼고, 생각의 흐름과 지금 공시로 확인할 점만 남겼습니다.</p>
+<p class="lede">2026년 7~8월에 남긴 분석 {len(records)}건({len(by)}개 회사)입니다. 당시 시세·주가배수·컨센서스·수급 수치와 매매 판단은 빼고 생각의 흐름을 남겼습니다. 2026-09-24 편집에서 보충한 내용과 공시 재무 사실은 쪽마다 따로 표시했습니다.</p>
 <ul class="list">{''.join(rows)}</ul>
 '''
     return body + TAIL
