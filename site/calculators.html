@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>계산기 · GAEO</title>
+<meta name="description" content="수수료·세금 포함 주식 손익분기, 공모주 배정, 평단가, 양도세, 복리, 대출 상환, 전세 vs 월세 계산기. 입력값은 브라우저에서만 계산합니다.">
+<link rel="canonical" href="https://gaeoteam.com/calculators.html">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="계산기 · GAEO">
+<meta property="og:description" content="수수료·세금 포함 주식 손익분기, 공모주 배정, 평단가, 양도세, 복리, 대출 상환, 전세 vs 월세 계산기. 입력값은 브라우저에서만 계산합니다.">
+<meta property="og:url" content="https://gaeoteam.com/calculators.html">
+<link rel="stylesheet" href="/assets/fonts/wanted-sans/WantedSansVariable.css">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body data-page="calc">
+<header id="site-head"></header>
+<main id="main" class="wrap">
+  <h1>계산기</h1>
+  <p class="lede">입력한 숫자는 이 브라우저 안에서만 계산하고 어디로도 보내지 않습니다. 세율·한도는 해마다 바뀌니 공식 자료의 값으로 고쳐 넣으세요.</p>
+  <div id="articles"><p class="meta">불러오는 중…</p></div>
+</main>
+<footer id="site-foot"></footer>
+<script src="/assets/site.js"></script>
+<script src="/content/calculators.js"></script>
+<script src="/assets/calc-widgets.js"></script>
+<script src="/assets/articles.js"></script>
+<script>
+GaeoArticles.render({ el: "articles", data: typeof CALCULATORS !== "undefined" ? CALCULATORS : null, base: "/calculators.html", title: "계산기",
+  cats: [{ key: "stock", label: "주식" }, { key: "tax", label: "세금" }, { key: "finance", label: "재테크" }, { key: "etf", label: "ETF·연금" }, { key: "youth", label: "청년" }],
+  widget: function (it) { return GaeoCalc.html(it); }, afterDetail: function (it) { GaeoCalc.wire(it); } });
+</script>
+</body>
+</html>

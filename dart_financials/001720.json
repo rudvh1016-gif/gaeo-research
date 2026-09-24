@@ -1,0 +1,130 @@
+{
+ "ticker": "001720",
+ "updatedAt": "2026-09-14T04:12:37.994089+00:00",
+ "years": {
+  "2023": {
+   "checkedAt": "2026-09-14T04:12:37.994068+00:00",
+   "status": "NO_DATA"
+  },
+  "2024": {
+   "collectedAt": "2026-09-14T04:12:36.842482+00:00",
+   "coverage": 1.0,
+   "found": [
+    "revenue",
+    "operatingIncome",
+    "netIncome",
+    "totalAssets",
+    "totalLiabilities",
+    "totalEquity",
+    "operatingCashFlow",
+    "investingCashFlow",
+    "sgaExpenses",
+    "interestExpense",
+    "issuedCapital"
+   ],
+   "fsDiv": "CFS",
+   "matchedBy": {
+    "interestExpense": "account_id",
+    "investingCashFlow": "account_id",
+    "issuedCapital": "account_id",
+    "netIncome": "account_id",
+    "operatingCashFlow": "account_id",
+    "operatingIncome": "account_id",
+    "revenue": "account_id",
+    "sgaExpenses": "account_id",
+    "totalAssets": "account_id",
+    "totalEquity": "account_id",
+    "totalLiabilities": "account_id"
+   },
+   "missing": [],
+   "notApplicable": [
+    "costOfSales",
+    "grossProfit",
+    "currentAssets",
+    "currentLiabilities",
+    "nonCurrentLiabilities"
+   ],
+   "reprtCode": "11011",
+   "sectorHandling": "FINANCIAL_SECTOR_SPECIAL_HANDLING_REQUIRED",
+   "status": "OK",
+   "values": {
+    "costOfSales": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "currentAssets": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "currentLiabilities": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "grossProfit": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "interestExpense": 189236796820,
+    "investingCashFlow": -8977105755,
+    "issuedCapital": 82200000000,
+    "netIncome": 149387962241,
+    "nonCurrentLiabilities": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "operatingCashFlow": -664508717254,
+    "operatingIncome": 170377256793,
+    "revenue": 2764259939189,
+    "sgaExpenses": 187871696097,
+    "totalAssets": 10609935089040,
+    "totalEquity": 1688472265975,
+    "totalLiabilities": 8921462823065
+   }
+  },
+  "2025": {
+   "collectedAt": "2026-09-14T04:12:35.701361+00:00",
+   "coverage": 1.0,
+   "found": [
+    "revenue",
+    "operatingIncome",
+    "netIncome",
+    "totalAssets",
+    "totalLiabilities",
+    "totalEquity",
+    "operatingCashFlow",
+    "investingCashFlow",
+    "sgaExpenses",
+    "interestExpense",
+    "issuedCapital"
+   ],
+   "fsDiv": "CFS",
+   "matchedBy": {
+    "interestExpense": "account_id",
+    "investingCashFlow": "account_id",
+    "issuedCapital": "account_id",
+    "netIncome": "account_id",
+    "operatingCashFlow": "account_id",
+    "operatingIncome": "account_id",
+    "revenue": "account_id",
+    "sgaExpenses": "account_id",
+    "totalAssets": "account_id",
+    "totalEquity": "account_id",
+    "totalLiabilities": "account_id"
+   },
+   "missing": [],
+   "notApplicable": [
+    "costOfSales",
+    "grossProfit",
+    "currentAssets",
+    "currentLiabilities",
+    "nonCurrentLiabilities"
+   ],
+   "reprtCode": "11011",
+   "sectorHandling": "FINANCIAL_SECTOR_SPECIAL_HANDLING_REQUIRED",
+   "status": "OK",
+   "values": {
+    "costOfSales": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "currentAssets": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "currentLiabilities": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "grossProfit": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "interestExpense": 211522077540,
+    "investingCashFlow": 107825378048,
+    "issuedCapital": 82200000000,
+    "netIncome": 112278184228,
+    "nonCurrentLiabilities": "NOT_APPLICABLE_FINANCIAL_SECTOR",
+    "operatingCashFlow": -442109352801,
+    "operatingIncome": 136145617008,
+    "revenue": 2466380710168,
+    "sgaExpenses": 194662234188,
+    "totalAssets": 10379574597460,
+    "totalEquity": 1832693975299,
+    "totalLiabilities": 8546880622161
+   }
+  }
+ }
+}

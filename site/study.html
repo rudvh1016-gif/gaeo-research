@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>종목 공부 · GAEO</title>
+<meta name="description" content="회사가 무슨 일을 하고 어떻게 돈을 버는지 쉬운 말로 정리한 종목 공부 노트. 작성 당시 기준이며 매수·매도 추천이 아닙니다.">
+<link rel="canonical" href="https://gaeoteam.com/study.html">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="종목 공부 · GAEO">
+<meta property="og:description" content="회사가 무슨 일을 하고 어떻게 돈을 버는지 쉬운 말로 정리한 종목 공부 노트. 작성 당시 기준이며 매수·매도 추천이 아닙니다.">
+<meta property="og:url" content="https://gaeoteam.com/study.html">
+<link rel="stylesheet" href="/assets/fonts/wanted-sans/WantedSansVariable.css">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body data-page="study">
+<header id="site-head"></header>
+<main id="main" class="wrap">
+  <h1>종목 공부</h1>
+  <p class="lede">회사가 무슨 일을 하고 어떻게 돈을 버는지 쉬운 말로 정리했습니다. 모두 <b>작성 당시 기준</b>이며 지금의 매수·매도 추천이 아닙니다.</p>
+  <div id="articles"><p class="meta">불러오는 중…</p></div>
+</main>
+<footer id="site-foot"></footer>
+<script src="/assets/site.js"></script>
+<script src="/content/stock_study.js"></script>
+<script src="/assets/articles.js"></script>
+<script>
+GaeoArticles.render({ el: "articles", data: typeof STOCK_STUDY !== "undefined" ? STOCK_STUDY : null, base: "/study.html", title: "종목 공부", pastNote: true,
+  cats: [{ key: "kr", label: "국내 기업" }, { key: "global", label: "해외 기업" }],
+  widget: function (it) { return /^\d{6}$/.test(it.code || "") ? "<p class=\"small\"><a href=\"/disclosure-research.html?code=" + it.code + "\">이 회사의 최근 공시 보기 →</a></p>" : ""; } });
+</script>
+</body>
+</html>

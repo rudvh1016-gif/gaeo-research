@@ -1,0 +1,48 @@
+# GitHub Pages 배포 — _site(허용목록으로 조립한 파일)만 올린다. 저장소 전체를 내보내지 않는다.
+# 소유자 설정 1회: Settings → Pages → Build and deployment → Source: GitHub Actions
+name: pages
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: [corporate-action-evidence]   # 수집 커밋(GITHUB_TOKEN)은 push 이벤트를 만들지 않으므로 완료 뒤 다시 배포
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: 사이트 조립 (커스텀 도메인 전에는 임시 주소 하위경로에 맞춘다)
+        run: python3 tools/build_site.py
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - name: 배포 전 공개 검사 (실패하면 배포하지 않는다)
+        run: python3 tools/public_checks.py --all
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

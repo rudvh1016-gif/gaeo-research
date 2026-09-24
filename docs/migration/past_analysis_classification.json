@@ -1,0 +1,616 @@
+{
+ "source": "gaeo-analyst-team analysis_archive.js @ 1555788912 (34 snapshots, 26 companies)",
+ "method": "docs/migration/MIGRATION.md §과거 정밀분석",
+ "records": [
+  {
+   "snapshotId": "000660-202607231603",
+   "ticker": "000660",
+   "stockName": "SK하이닉스",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·이동평균·밸류에이션·기관 전망 수치와 수급, 해외 지수 기사 전언을 빼도, 하락 추세 안의 반등을 메모리 업황 기대와 나눠 본 자체 추세 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "001450-202608141150",
+   "ticker": "001450",
+   "stockName": "현대해상",
+   "analyzedAt": "2026-08-14 11:50",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·전망가격·수급 수치와 뉴스 전달을 걷어내도, 실적 급증 속 일회성 이익 비중과 신고가의 거래 강도를 따져 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "001820-202608131010",
+   "ticker": "001820",
+   "stockName": "삼화콘덴서",
+   "analyzedAt": "2026-08-13 10:10",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 목표가·투자자별 매매 자료와 뉴스 전달, 판단 문구를 지웠지만, 업계 소식에 기대 오른 테마성 상승이라는 판단과 사업부별 실적 차이에 대한 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "002990-202608130930",
+   "ticker": "002990",
+   "stockName": "금호건설",
+   "analyzedAt": "2026-08-13 09:30",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·기술지표·증권사 목표가·수급 수치와 정치 발언 기사 전언을 빼도, 정책 기대만으로 오른 주가와 확정 계약 부재·약한 재무를 나눠 본 자체 위험 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "002990-202608132137",
+   "ticker": "002990",
+   "stockName": "금호건설",
+   "analyzedAt": "2026-08-13 21:37",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·전망가격·수급 수치와 거래소 조치 관련 뉴스 전달을 걷어내도, 급등 뒤 되돌림과 본업·재무 개선, 아직 기대 단계인 국가산단 참여를 나누어 본 자체 판단이 뚜렷해 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "002990-202608210946",
+   "ticker": "002990",
+   "stockName": "금호건설",
+   "analyzedAt": "2026-08-21 09:46",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이격·가치지표·증권사 목표가와 의견, 투자자별 매매 자료, 판단 문구를 지웠지만, 본업 개선과 확정되지 않은 산업단지 기대를 나눠 본 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "NEWS_RELAY",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "002990-202608271515",
+   "ticker": "002990",
+   "stockName": "금호건설",
+   "analyzedAt": "2026-08-27 15:15",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·이동평균 이격·밸류에이션·증권사 목표가·수급 점수를 빼도, 업종 전체 흐름에 올라탄 상승과 회사 고유 재료 부재를 나눠 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "003490-202608271515",
+   "ticker": "003490",
+   "stockName": "대한항공",
+   "analyzedAt": "2026-08-27 15:15",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "결론이 점수 합산과 수급·증권사 의견 전달에 크게 기대 있었지만, 추세 회복과 적자 지속, 화물운임과 기름값의 관계를 본 자체 판단은 따로 떼어 낼 수 있어 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "THIRD_PARTY_REPORT"
+   ]
+  },
+  {
+   "snapshotId": "004370-202608101528",
+   "ticker": "004370",
+   "stockName": "농심",
+   "analyzedAt": "2026-08-10 15:28",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 전망치와 목표가, 투자자별 매매 자료, 판단 문구를 지웠지만, 해외가 성장을 이끌고 국내는 약하다는 점과 가격 인상·수출 공장 같은 사업 요인에 대한 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "005380-202607231603",
+   "ticker": "005380",
+   "stockName": "현대차",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·밸류에이션·목표가·수급 수치와 시장 반응 기사 전언을 빼도, 매출과 이익이 엇갈린 실적을 하이브리드 판매와 원가 부담으로 나눠 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "005930-202607231603",
+   "ticker": "005930",
+   "stockName": "삼성전자",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·가치지표·전망가격·외국인 수급 수치와 해외 지수·실적 뉴스 전달을 걷어내도, 이동평균 아래 반등을 추세 전환으로 보기 이르다는 자체 판단과 메모리 업황 논리가 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "005930-202608121215",
+   "ticker": "005930",
+   "stockName": "삼성전자",
+   "analyzedAt": "2026-08-12 12:15",
+   "classification": "PRIVATE_ONLY",
+   "reason": "이 기록의 핵심 판단은 특정 증권사의 주주환원 전망과 증권가 업황 전망, 목표가 괴리, 투자자별 매매 자료에 기대고 있어, 이를 빼면 따로 떼어 남길 자체 추론이 거의 없었다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY"
+   ]
+  },
+  {
+   "snapshotId": "006730-202608271515",
+   "ticker": "006730",
+   "stockName": "서부T&D",
+   "analyzedAt": "2026-08-27 15:15",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·이동평균·밸류에이션·증권사 목표가·수급 점수를 빼도, 호텔 실적 회복과 부지 개발 일정이라는 사업 동력과 장기 추세선 아래라는 조건을 함께 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "SCORE",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "007660-202607231603",
+   "ticker": "007660",
+   "stockName": "이수페타시스",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·가치지표·전망가격·수급 수치와 같은 주제 종목 뉴스 전달을 걷어내도, 저점 반등의 약한 힘과 구조적 기판 수요 대비 비싼 가격을 저울질한 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "009150-202607231603",
+   "ticker": "009150",
+   "stockName": "삼성전기",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 목표가, 투자자별 매매 자료, 판단 문구를 지웠지만, 수요 기대가 실적으로 증명돼야 한다는 자체 추론과 약한 거래를 동반한 반등이라는 판단은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "NEWS_RELAY"
+   ]
+  },
+  {
+   "snapshotId": "009150-202608141150",
+   "ticker": "009150",
+   "stockName": "삼성전기",
+   "analyzedAt": "2026-08-14 11:50",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·기술지표·밸류에이션·목표가·수급 수치와 빅테크 투자 기사 전언을 빼도, 논의 단계의 장기공급계약 기대와 빠른 주가 상승 부담을 나눠 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "009155-202607231603",
+   "ticker": "009155",
+   "stockName": "삼성전기우",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·가치지표·보통주 기준 전망가격 수치를 걷어내도, 우선주가 보통주를 따라 움직이고 거래가 적어 신호를 조심해야 한다는 자체 판단이 교육적으로 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "010120-202607231603",
+   "ticker": "010120",
+   "stockName": "LS일렉트릭",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 목표가, 투자자별 매매 자료, 업종 등락 전달, 판단 문구를 지웠지만, 전력 설비 수요와 단기 추세 회복을 함께 본 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "NEWS_RELAY"
+   ]
+  },
+  {
+   "snapshotId": "011070-202607231603",
+   "ticker": "011070",
+   "stockName": "LG이노텍",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·기술지표·밸류에이션·목표가·수급 수치와 해외 지수 기사 전언을 빼도, 깊은 하락 뒤 반등이 추세 전환인지 되돌림인지 구분하려 한 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "017670-202607231603",
+   "ticker": "017670",
+   "stockName": "SK텔레콤",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "결론의 큰 축이던 기관 수급 수치와 가치지표·전망가격을 걷어내도, 이동평균 위의 건강한 추세와 국책사업 최종 선정이라는 확인 대상, 이익 회복 기대를 나눈 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "028670-202608101402",
+   "ticker": "028670",
+   "stockName": "팬오션",
+   "analyzedAt": "2026-08-10 14:02",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 목표가와 의견 인용, 투자자별 매매 자료, 판단 문구를 지웠지만, 해운 시황과 회사 공시 실적, 사업 다각화를 함께 본 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "028670-202608101452",
+   "ticker": "028670",
+   "stockName": "팬오션",
+   "analyzedAt": "2026-08-10 14:52",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·기술지표·밸류에이션·증권사별 목표가·수급 수치와 운임 기사 전언을 빼도, 부문별 실적 성장과 장기운송계약, 투자 자금·담보·배당 정책 위험을 함께 따진 자체 판단이 충분히 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "042700-202607231603",
+   "ticker": "042700",
+   "stockName": "한미반도체",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·가치지표·전망가격·외국인 수급 수치와 기사 제목 전달을 걷어내도, 이동평균 아래의 약한 흐름과 미래 성장을 많이 반영한 비싼 가격, 불투명한 이익 전망을 짚은 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "080220-202607231603",
+   "ticker": "080220",
+   "stockName": "제주반도체",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표, 투자자별 매매 자료, 시장 등락 전달, 판단 문구를 지웠지만, 회사 고유 재료 없이 시장 전체 분위기에 따라 반등했다는 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "NEWS_RELAY"
+   ]
+  },
+  {
+   "snapshotId": "088350-202608141150",
+   "ticker": "088350",
+   "stockName": "한화생명",
+   "analyzedAt": "2026-08-14 11:50",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·기술지표·밸류에이션·목표가·수급 수치와 시장 반응 기사 전언을 빼도, 보험손익과 투자손익이 함께 좋아진 실적과 짧은 기간 급등 부담을 나눠 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "096770-202608141150",
+   "ticker": "096770",
+   "stockName": "SK이노베이션",
+   "analyzedAt": "2026-08-14 11:50",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·가치지표·전망가격·수급 수치와 증권사 목표 상향 전달을 걷어내도, 흑자 전환과 추세 전환을 인정하면서 거래량 부족과 배터리 적자 재발 가능성을 따진 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "THIRD_PARTY_REPORT"
+   ]
+  },
+  {
+   "snapshotId": "195940-202608271515",
+   "ticker": "195940",
+   "stockName": "HK이노엔",
+   "analyzedAt": "2026-08-27 15:15",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 목표가와 의견, 투자자별 매매 자료, 영역별 점수와 판단 문구를 지웠지만, 주력 신약과 수액 사업의 호조와 한 제품 의존 위험을 함께 본 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "SCORE"
+   ]
+  },
+  {
+   "snapshotId": "257720-202608121215",
+   "ticker": "257720",
+   "stockName": "실리콘투",
+   "analyzedAt": "2026-08-12 12:15",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·기술지표·밸류에이션·증권사별 목표가와 의견·수급 수치를 빼도, 수출 구조 변화라는 사업 동력과 급등 뒤 과열 위험을 나눠 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "257720-202608121233",
+   "ticker": "257720",
+   "stockName": "실리콘투",
+   "analyzedAt": "2026-08-12 12:33",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·가치지표·전망가격·수급 수치와 증권사별 목표 전달, 수출 통계 인용을 걷어내도, 빠른 성장은 인정하되 단기 과열과 미확인 실적 발표를 구분한 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "THIRD_PARTY_REPORT"
+   ]
+  },
+  {
+   "snapshotId": "257720-202608121245",
+   "ticker": "257720",
+   "stockName": "실리콘투",
+   "analyzedAt": "2026-08-12 12:45",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 추정치와 목표가, 투자자별 매매 자료, 판단 문구를 지웠지만, 회사가 공시한 실적과 이익률 개선, 기술적 과열을 함께 본 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "THIRD_PARTY_REPORT",
+    "NEWS_RELAY"
+   ]
+  },
+  {
+   "snapshotId": "267260-202607231603",
+   "ticker": "267260",
+   "stockName": "HD현대일렉트릭",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "시세·이동평균·밸류에이션·목표가·수급 수치와 시장·업종 등락 기사 전언을 빼도, 업종 수요 동력과 중기 추세선 아래 반등이라는 조건을 함께 본 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  },
+  {
+   "snapshotId": "316140-202608132220",
+   "ticker": "316140",
+   "stockName": "우리금융지주",
+   "analyzedAt": "2026-08-13 22:20",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가치지표·전망가격·수급 수치, 경쟁사 비교 수치, 증권사 의견과 경영진 수사 관련 뉴스 전달을 걷어내도, 실적·주주환원 개선과 연체 증가·지배구조 부담을 함께 저울질한 자체 판단이 남아 복원한다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "SCORE",
+    "THIRD_PARTY_REPORT"
+   ]
+  },
+  {
+   "snapshotId": "402340-202607231603",
+   "ticker": "402340",
+   "stockName": "SK스퀘어",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "SANITIZE_AND_RESTORE",
+   "reason": "가격·이동평균·가치지표·증권사 목표가와 전망치, 투자자별 매매 자료, 판단 문구를 지웠지만, 지주회사가 자회사 강세를 따라가지 못한 할인 현상에 대한 자체 추론은 남길 만했다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "TARGET_PRICE",
+    "NAVER_FLOW",
+    "RECOMMENDATION",
+    "NEWS_RELAY"
+   ]
+  },
+  {
+   "snapshotId": "475150-202607231603",
+   "ticker": "475150",
+   "stockName": "SK이터닉스",
+   "analyzedAt": "2026-07-23 16:03",
+   "classification": "PRIVATE_ONLY",
+   "reason": "급등 이유 설명이 유가·전쟁·투자 후보·외부 협력 등 기사 전언에 기대고 나머지가 시세·기술지표·밸류에이션·목표가·수급 수치여서, 이를 빼면 과열이라는 일반론 말고 떼어 낼 자체 추론이 거의 남지 않아 공개하지 않는다.",
+   "removed": [
+    "NAVER_PRICE",
+    "NAVER_VALUATION",
+    "CONSENSUS",
+    "NAVER_FLOW",
+    "NEWS_RELAY",
+    "RECOMMENDATION",
+    "TARGET_PRICE"
+   ]
+  }
+ ]
+}

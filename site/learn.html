@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>투자 공부 · GAEO</title>
+<meta name="description" content="주식 기초, 세금·절세 계좌, 경제위기의 역사, 부동산 기초를 처음부터 쉽게 정리한 투자 공부 노트.">
+<link rel="canonical" href="https://gaeoteam.com/learn.html">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="투자 공부 · GAEO">
+<meta property="og:description" content="주식 기초, 세금·절세 계좌, 경제위기의 역사, 부동산 기초를 처음부터 쉽게 정리한 투자 공부 노트.">
+<meta property="og:url" content="https://gaeoteam.com/learn.html">
+<link rel="stylesheet" href="/assets/fonts/wanted-sans/WantedSansVariable.css">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body data-page="learn">
+<header id="site-head"></header>
+<main id="main" class="wrap">
+  <h1>투자 공부</h1>
+  <p class="lede">주식·세금·부동산 기초를 처음부터 쉽게 정리했습니다. 제도와 세율은 작성일 기준이라 바뀌었을 수 있으니 공식 자료로 한 번 더 확인하세요.</p>
+  <div class="tabs" role="tablist" aria-label="공부 분야"><button role="tab" id="t-stock" aria-selected="true">주식 공부</button><button role="tab" id="t-estate" aria-selected="false">부동산 공부</button></div>
+  <div id="articles"><p class="meta">불러오는 중…</p></div>
+</main>
+<footer id="site-foot"></footer>
+<script src="/assets/site.js"></script>
+<script src="/content/stock_lessons.js"></script>
+<script src="/content/estate_lessons.js"></script>
+<script src="/assets/articles.js"></script>
+<script>
+(function () {
+  var SETS = {
+    stock: { data: typeof STOCK_LESSONS !== "undefined" ? STOCK_LESSONS : null, cats: [
+      { key: "beginner", label: "주식 첫걸음" }, { key: "chart", label: "차트 기초" }, { key: "capitalism", label: "자본주의" }, { key: "crisis", label: "경제위기의 역사" },
+      { key: "tax", label: "세금·절세" }, { key: "isa", label: "ISA" }, { key: "product", label: "투자상품" }, { key: "macro", label: "시장을 움직이는 손" },
+      { key: "industry", label: "산업 공부" }, { key: "etf", label: "ETF·연금" }, { key: "youth", label: "청년 돈생활" }] },
+    estate: { data: typeof ESTATE_LESSONS !== "undefined" ? ESTATE_LESSONS : null, cats: [
+      { key: "buy", label: "내 집 마련" }, { key: "rent", label: "전월세" }, { key: "loan", label: "대출" }, { key: "auction", label: "경매·공매" },
+      { key: "strategy", label: "투자 접근법" }, { key: "tax", label: "부동산 세금" }] }
+  };
+  var t = Gaeo.param("t") === "estate" ? "estate" : "stock";
+  function go(kind) {
+    document.getElementById("t-stock").setAttribute("aria-selected", kind === "stock");
+    document.getElementById("t-estate").setAttribute("aria-selected", kind === "estate");
+    GaeoArticles.render({ el: "articles", data: SETS[kind].data, cats: SETS[kind].cats, base: "/learn.html?t=" + kind, title: kind === "stock" ? "주식 공부" : "부동산 공부" });
+  }
+  document.getElementById("t-stock").onclick = function () { history.replaceState(null, "", "/learn.html?t=stock"); go("stock"); };
+  document.getElementById("t-estate").onclick = function () { history.replaceState(null, "", "/learn.html?t=estate"); go("estate"); };
+  go(t);
+})();
+</script>
+</body>
+</html>

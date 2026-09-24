@@ -1,0 +1,8 @@
+# 자동 생성 산출물은 줄 단위로 섞지 않는다(짝 파일이 서로 다른 세대가 되는 사고 방지).
+dart_today.js   -merge
+disclosure_research/*.json -merge
+gaeo_coverage/corporate_action_evidence.json -merge
+
+# OpenDART 일일 호출 원장 — 드라이버(dart_budget.py --git-merge)가 조상·우리·상대 세 판본을 더한다.
+# 등록은 clone 마다: `python3 dart_budget.py --install-git-merge-driver`
+research_archive/dart/api_budget.json merge=dartbudget

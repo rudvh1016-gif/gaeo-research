@@ -1,0 +1,26 @@
+# 검사 — 모든 push/PR. 네트워크 0(OpenDART 호출 없음) · LLM 0.
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # --history 검사가 이력 전체를 본다
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python3 -m pip install --quiet cryptography
+      - name: 수집기 시험 (오프라인)
+        run: python3 -m unittest test_disclosure_research test_dart_budget_ledger test_corporate_action_evidence test_dart_pipeline test_dart_financials_collect test_dart_live_hardening test_corporate_action_classify test_secret_hygiene
+      - name: 사이트 조립
+        run: python3 tools/build_site.py
+      - name: 공개 누출·이력·세척본·디자인 상한 검사
+        run: python3 tools/public_checks.py --all

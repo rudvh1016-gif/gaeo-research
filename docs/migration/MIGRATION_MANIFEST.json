@@ -1,0 +1,3537 @@
+{
+ "sourceRepo": "rudvh1016-gif/gaeo-analyst-team",
+ "sourceCommit": "15557889129f0786ccef159df37689b435706065",
+ "note": "옛 이력은 가져오지 않았다. 아래 파일만 새 이력의 첫 커밋에 담았다. identical=false 는 이전 중 고친 파일(수집기 2개·시험 5개).",
+ "copied": [
+  {
+   "path": "LICENSE",
+   "from": "LICENSE",
+   "sha256": "94b999af6f64353cf4c530d9657083849bf18fe008215f4016ef095d44e49fe6",
+   "sourceSha256": "94b999af6f64353cf4c530d9657083849bf18fe008215f4016ef095d44e49fe6",
+   "identical": true
+  },
+  {
+   "path": "build_dart_today.py",
+   "from": "build_dart_today.py",
+   "sha256": "d5c926a6425de5e2999e0535c2e52c79e286def3b14cfd88402ad0211f1ced4d",
+   "sourceSha256": "d5c926a6425de5e2999e0535c2e52c79e286def3b14cfd88402ad0211f1ced4d",
+   "identical": true
+  },
+  {
+   "path": "build_disclosure_research.py",
+   "from": "build_disclosure_research.py",
+   "sha256": "0323e8ac1bfac108cc59a86a7f3ffb9a243b8a2e2cdf4c4257dc82ac78966cac",
+   "sourceSha256": "0323e8ac1bfac108cc59a86a7f3ffb9a243b8a2e2cdf4c4257dc82ac78966cac",
+   "identical": true
+  },
+  {
+   "path": "collect_corporate_action_evidence.py",
+   "from": "collect_corporate_action_evidence.py",
+   "sha256": "55fbe577050cf0e1acb09329a897c51314808df8c8e13691a62fc9a3fc1d5b73",
+   "sourceSha256": "8a969e821b1f14748fc6a71201263d39a7dce3c9c42d0cb3826048425ac829f6",
+   "identical": false
+  },
+  {
+   "path": "collect_dart.py",
+   "from": "collect_dart.py",
+   "sha256": "709caf4d019defe9942b97f3e1d5e9e43249ac175e64b1f895bb3aca3d0bcc79",
+   "sourceSha256": "0575b334c3f4d38715afa3eefe60d3eff6d1fea8e3193abacef94f4ec0e8375e",
+   "identical": false
+  },
+  {
+   "path": "collect_dart_financials.py",
+   "from": "collect_dart_financials.py",
+   "sha256": "6277a8684e5e4ea2d453672113aa4638681540e2e0d249e93f95419eec5482de",
+   "sourceSha256": "6277a8684e5e4ea2d453672113aa4638681540e2e0d249e93f95419eec5482de",
+   "identical": true
+  },
+  {
+   "path": "config/disclosure_research_vocab.json",
+   "from": "config/disclosure_research_vocab.json",
+   "sha256": "906dab192f33445301098a838cbfd480425b09da21e6d8528e3bef7a456e2cf4",
+   "sourceSha256": "906dab192f33445301098a838cbfd480425b09da21e6d8528e3bef7a456e2cf4",
+   "identical": true
+  },
+  {
+   "path": "content/calculators.js",
+   "from": "calculators.js",
+   "sha256": "a93ec6b7c6f264c3d4423c415b9e1eb0b89759ba84998d131bfc0b4f2512d1ab",
+   "sourceSha256": "a93ec6b7c6f264c3d4423c415b9e1eb0b89759ba84998d131bfc0b4f2512d1ab",
+   "identical": true
+  },
+  {
+   "path": "content/estate_lessons.js",
+   "from": "estate_lessons.js",
+   "sha256": "b76a59614dbe29b740a4e1f833c33863516e6cce3ccef624411184f3682aa5ae",
+   "sourceSha256": "b76a59614dbe29b740a4e1f833c33863516e6cce3ccef624411184f3682aa5ae",
+   "identical": true
+  },
+  {
+   "path": "content/stock_lessons.js",
+   "from": "stock_lessons.js",
+   "sha256": "c97162673b4a42a401ea1e29573a156b96a4d3227c9dcdcc2257b18f6c2a96cf",
+   "sourceSha256": "c97162673b4a42a401ea1e29573a156b96a4d3227c9dcdcc2257b18f6c2a96cf",
+   "identical": true
+  },
+  {
+   "path": "corporate_action_classify.py",
+   "from": "corporate_action_classify.py",
+   "sha256": "9518a55708d719b4c010db5f97019920e014f78480932a85be22f07944c53e37",
+   "sourceSha256": "9518a55708d719b4c010db5f97019920e014f78480932a85be22f07944c53e37",
+   "identical": true
+  },
+  {
+   "path": "dart_budget.py",
+   "from": "dart_budget.py",
+   "sha256": "cbfb0b3454279e379711c5ee811b080a00519a29f23c2c36f8cabc9fb154ffa7",
+   "sourceSha256": "cbfb0b3454279e379711c5ee811b080a00519a29f23c2c36f8cabc9fb154ffa7",
+   "identical": true
+  },
+  {
+   "path": "dart_client.py",
+   "from": "dart_client.py",
+   "sha256": "1ab087c98e2e8c990a68e4c9b77eb51128aa8615f0a1daa3ea1083a1a18c328a",
+   "sourceSha256": "1ab087c98e2e8c990a68e4c9b77eb51128aa8615f0a1daa3ea1083a1a18c328a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000070.json",
+   "from": "dart_financials/000070.json",
+   "sha256": "52d81915dadc0ddcf6772238caadd1ff6c0b280da4d1d73393f2c1f864343ffe",
+   "sourceSha256": "52d81915dadc0ddcf6772238caadd1ff6c0b280da4d1d73393f2c1f864343ffe",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000080.json",
+   "from": "dart_financials/000080.json",
+   "sha256": "64684d628ec050b64192df5a7cbc561e0ecd17b489e49bc85caf355ad4697b90",
+   "sourceSha256": "64684d628ec050b64192df5a7cbc561e0ecd17b489e49bc85caf355ad4697b90",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000100.json",
+   "from": "dart_financials/000100.json",
+   "sha256": "99073239ebca9d0e8b86478fbe5940c4f6dedd5eb9459ce155a57d3625755f79",
+   "sourceSha256": "99073239ebca9d0e8b86478fbe5940c4f6dedd5eb9459ce155a57d3625755f79",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000120.json",
+   "from": "dart_financials/000120.json",
+   "sha256": "8ec39bee6b2fe2a7f6d202d1be486601c81c2a7c2989bc35e2a924fc80e34919",
+   "sourceSha256": "8ec39bee6b2fe2a7f6d202d1be486601c81c2a7c2989bc35e2a924fc80e34919",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000150.json",
+   "from": "dart_financials/000150.json",
+   "sha256": "4e5f4883099128e2f115deddc7c650064b77962cb942976bbf29e62f7919536c",
+   "sourceSha256": "4e5f4883099128e2f115deddc7c650064b77962cb942976bbf29e62f7919536c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000210.json",
+   "from": "dart_financials/000210.json",
+   "sha256": "a0a1a8c0dc9a80351fda8ee27c3704d05f8b76422397e651cc96f956e17ffc78",
+   "sourceSha256": "a0a1a8c0dc9a80351fda8ee27c3704d05f8b76422397e651cc96f956e17ffc78",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000240.json",
+   "from": "dart_financials/000240.json",
+   "sha256": "ffdd6c4116c127127ad70b028828caab2062bc02a73bb4fa8d603822ce4a9071",
+   "sourceSha256": "ffdd6c4116c127127ad70b028828caab2062bc02a73bb4fa8d603822ce4a9071",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000250.json",
+   "from": "dart_financials/000250.json",
+   "sha256": "a32e80c2a061b492b4d95f5e0bb4867a534f07d98a5b9b72ef6782811f59f9e0",
+   "sourceSha256": "a32e80c2a061b492b4d95f5e0bb4867a534f07d98a5b9b72ef6782811f59f9e0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000270.json",
+   "from": "dart_financials/000270.json",
+   "sha256": "1b8dbfd718d87bf4c398f968326150ed0003c35d77a527138cdbc5c3f77ccce5",
+   "sourceSha256": "1b8dbfd718d87bf4c398f968326150ed0003c35d77a527138cdbc5c3f77ccce5",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000370.json",
+   "from": "dart_financials/000370.json",
+   "sha256": "3115cf2e49558928777e0d826063b574181ab2639a7832c82eb81aba864c1fda",
+   "sourceSha256": "3115cf2e49558928777e0d826063b574181ab2639a7832c82eb81aba864c1fda",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000400.json",
+   "from": "dart_financials/000400.json",
+   "sha256": "4e40a046e972988daad8bb8a729e2db2229a8e04f2c8245161f762fd0e058c19",
+   "sourceSha256": "4e40a046e972988daad8bb8a729e2db2229a8e04f2c8245161f762fd0e058c19",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000430.json",
+   "from": "dart_financials/000430.json",
+   "sha256": "1f3477f6fa11f3e55842438acfc65e1230713cc9443c611588dda7e0897767c6",
+   "sourceSha256": "1f3477f6fa11f3e55842438acfc65e1230713cc9443c611588dda7e0897767c6",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000490.json",
+   "from": "dart_financials/000490.json",
+   "sha256": "77e3f1533fee72a2f2204a0ca622ea6d84e4165510197c4853c74055c57ffa8c",
+   "sourceSha256": "77e3f1533fee72a2f2204a0ca622ea6d84e4165510197c4853c74055c57ffa8c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000500.json",
+   "from": "dart_financials/000500.json",
+   "sha256": "2f71455daf2d771c9ce4ceaf8029107e64d260602334cd8ca945e29c94736153",
+   "sourceSha256": "2f71455daf2d771c9ce4ceaf8029107e64d260602334cd8ca945e29c94736153",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000640.json",
+   "from": "dart_financials/000640.json",
+   "sha256": "7e79283d8c2a9f232ea9d85d1e3df5cf8ed8be3cf7c171ded9848e51702ed1af",
+   "sourceSha256": "7e79283d8c2a9f232ea9d85d1e3df5cf8ed8be3cf7c171ded9848e51702ed1af",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000660.json",
+   "from": "dart_financials/000660.json",
+   "sha256": "f55de0d43f65fa53e98b5be6a572eae5333901804e866b6ce0e517c80337746e",
+   "sourceSha256": "f55de0d43f65fa53e98b5be6a572eae5333901804e866b6ce0e517c80337746e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000670.json",
+   "from": "dart_financials/000670.json",
+   "sha256": "f2520ddf736b87aa8b35b4281e4a84f6fbf8c41a74c1e7f1d32eb77b3637e7a6",
+   "sourceSha256": "f2520ddf736b87aa8b35b4281e4a84f6fbf8c41a74c1e7f1d32eb77b3637e7a6",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000720.json",
+   "from": "dart_financials/000720.json",
+   "sha256": "a8245a097ba066416af4a29d195d9e899b4ed2be45058a92e3934291e49a1bee",
+   "sourceSha256": "a8245a097ba066416af4a29d195d9e899b4ed2be45058a92e3934291e49a1bee",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000810.json",
+   "from": "dart_financials/000810.json",
+   "sha256": "92fffa04a1292fc9d2681e73145b262d76454e7a884e7b962a95438c042406fc",
+   "sourceSha256": "92fffa04a1292fc9d2681e73145b262d76454e7a884e7b962a95438c042406fc",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000880.json",
+   "from": "dart_financials/000880.json",
+   "sha256": "d9f8cf1053796b7b2e2ba1878e4c8113ababbe9225553eae9476c68f18137193",
+   "sourceSha256": "d9f8cf1053796b7b2e2ba1878e4c8113ababbe9225553eae9476c68f18137193",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/000990.json",
+   "from": "dart_financials/000990.json",
+   "sha256": "5d3b33ad3f3276e28488c7ee9789a8a8e8ea32c79376a9b4fbff5971eef8f8eb",
+   "sourceSha256": "5d3b33ad3f3276e28488c7ee9789a8a8e8ea32c79376a9b4fbff5971eef8f8eb",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001040.json",
+   "from": "dart_financials/001040.json",
+   "sha256": "c03b9d2f881025af06a0fcfa0f797b4df497bcba480b7979eb31a173669eea8e",
+   "sourceSha256": "c03b9d2f881025af06a0fcfa0f797b4df497bcba480b7979eb31a173669eea8e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001060.json",
+   "from": "dart_financials/001060.json",
+   "sha256": "5ad4027f7ba6cc9440eddc43cbe97c8121ffde02cf155e284ee75a6da712f0c1",
+   "sourceSha256": "5ad4027f7ba6cc9440eddc43cbe97c8121ffde02cf155e284ee75a6da712f0c1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001120.json",
+   "from": "dart_financials/001120.json",
+   "sha256": "cca32b3c6a7fdc97d4c0ad0f0285d10bb28f2f1c37ddf2f783157a59a1d25e78",
+   "sourceSha256": "cca32b3c6a7fdc97d4c0ad0f0285d10bb28f2f1c37ddf2f783157a59a1d25e78",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001200.json",
+   "from": "dart_financials/001200.json",
+   "sha256": "dc1a2a73a120ff67ce428860d5c6ba64e81b993520cbfd8c761a2ea07ef680ca",
+   "sourceSha256": "dc1a2a73a120ff67ce428860d5c6ba64e81b993520cbfd8c761a2ea07ef680ca",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001230.json",
+   "from": "dart_financials/001230.json",
+   "sha256": "bcf93bce334ee2fc6f094b32f91e11d9caa760b926f1551ffedda42e2dde0e3d",
+   "sourceSha256": "bcf93bce334ee2fc6f094b32f91e11d9caa760b926f1551ffedda42e2dde0e3d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001270.json",
+   "from": "dart_financials/001270.json",
+   "sha256": "c6f0ed4ec1a131cedf3026ccc516c355658b5432cbc73d4fc1d93eed3d820dca",
+   "sourceSha256": "c6f0ed4ec1a131cedf3026ccc516c355658b5432cbc73d4fc1d93eed3d820dca",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001390.json",
+   "from": "dart_financials/001390.json",
+   "sha256": "266078691167207fcb428246fec68f4757945617769f4de53f19ffef6af87dfa",
+   "sourceSha256": "266078691167207fcb428246fec68f4757945617769f4de53f19ffef6af87dfa",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001430.json",
+   "from": "dart_financials/001430.json",
+   "sha256": "11e923ca8e5dccdf09eb88044aca894c9442cf7de0208b81024088a7a332da47",
+   "sourceSha256": "11e923ca8e5dccdf09eb88044aca894c9442cf7de0208b81024088a7a332da47",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001440.json",
+   "from": "dart_financials/001440.json",
+   "sha256": "920b8b43962deb6e1ce09e627954addbca3d5f541daf3a46bb5ece101e780417",
+   "sourceSha256": "920b8b43962deb6e1ce09e627954addbca3d5f541daf3a46bb5ece101e780417",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001450.json",
+   "from": "dart_financials/001450.json",
+   "sha256": "7cf404a6f72dfef616ad6b86b8b9558c8c83cb4ca509eb481630c2fc12ea365d",
+   "sourceSha256": "7cf404a6f72dfef616ad6b86b8b9558c8c83cb4ca509eb481630c2fc12ea365d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001500.json",
+   "from": "dart_financials/001500.json",
+   "sha256": "bfc2aba25f8732577b4e28488725f7e4a392f3547480f1950f72fb35e25068c1",
+   "sourceSha256": "bfc2aba25f8732577b4e28488725f7e4a392f3547480f1950f72fb35e25068c1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001510.json",
+   "from": "dart_financials/001510.json",
+   "sha256": "961d62ff5401578f20938f01a61bfd808963dc31bcaefb35b51e696abfe2fe1e",
+   "sourceSha256": "961d62ff5401578f20938f01a61bfd808963dc31bcaefb35b51e696abfe2fe1e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001530.json",
+   "from": "dart_financials/001530.json",
+   "sha256": "20dd9f7bbad9b4b0f8adc934743247b3adead4b2f9a6d6dd922a2d44bc9ba490",
+   "sourceSha256": "20dd9f7bbad9b4b0f8adc934743247b3adead4b2f9a6d6dd922a2d44bc9ba490",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001570.json",
+   "from": "dart_financials/001570.json",
+   "sha256": "3304107fe55c7e35d7c5ccb407ab47b698c9e302784f01595dd5310c23d4fd05",
+   "sourceSha256": "3304107fe55c7e35d7c5ccb407ab47b698c9e302784f01595dd5310c23d4fd05",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001680.json",
+   "from": "dart_financials/001680.json",
+   "sha256": "01ef00b6e97d21516f7a14a1220ad86b8aa19a7e35426b44499a951ffa6d6424",
+   "sourceSha256": "01ef00b6e97d21516f7a14a1220ad86b8aa19a7e35426b44499a951ffa6d6424",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001720.json",
+   "from": "dart_financials/001720.json",
+   "sha256": "91d12791a928b8bd2766257d1cd5235117c3255415f7247554da74f2a6fa3d13",
+   "sourceSha256": "91d12791a928b8bd2766257d1cd5235117c3255415f7247554da74f2a6fa3d13",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001740.json",
+   "from": "dart_financials/001740.json",
+   "sha256": "a4672020d708b619420521e9df442850eb57cf70b23455b42ce31f328119d2fe",
+   "sourceSha256": "a4672020d708b619420521e9df442850eb57cf70b23455b42ce31f328119d2fe",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001750.json",
+   "from": "dart_financials/001750.json",
+   "sha256": "a690352210d5f486a434ad7dada26025f90ab5f3c580c446dcb0acb33a602115",
+   "sourceSha256": "a690352210d5f486a434ad7dada26025f90ab5f3c580c446dcb0acb33a602115",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001800.json",
+   "from": "dart_financials/001800.json",
+   "sha256": "3e2dc74b328ffbb524639e188f00b68b61d660bbfd200f981688dab785502d74",
+   "sourceSha256": "3e2dc74b328ffbb524639e188f00b68b61d660bbfd200f981688dab785502d74",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001820.json",
+   "from": "dart_financials/001820.json",
+   "sha256": "d65340331ff86410eadf336abfae17e653aa4821cffbd2edb3fe90afdb419fc1",
+   "sourceSha256": "d65340331ff86410eadf336abfae17e653aa4821cffbd2edb3fe90afdb419fc1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/001940.json",
+   "from": "dart_financials/001940.json",
+   "sha256": "d01aa0097a94dad33bda42c317baa4f572c0c33594a0518c2da5a689dd76c99d",
+   "sourceSha256": "d01aa0097a94dad33bda42c317baa4f572c0c33594a0518c2da5a689dd76c99d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002020.json",
+   "from": "dart_financials/002020.json",
+   "sha256": "eefc31b17573f5073bc11b35ba180370e8a27fe415f090bd0d2792bd366dd1a9",
+   "sourceSha256": "eefc31b17573f5073bc11b35ba180370e8a27fe415f090bd0d2792bd366dd1a9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002030.json",
+   "from": "dart_financials/002030.json",
+   "sha256": "92dbe0e1ec357cdce1bac8436e798cd4a4fbaf9ff963ebdf2b3d694397539725",
+   "sourceSha256": "92dbe0e1ec357cdce1bac8436e798cd4a4fbaf9ff963ebdf2b3d694397539725",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002240.json",
+   "from": "dart_financials/002240.json",
+   "sha256": "eda895f66aeba316dcff8e9b8485d96263f34b3eca2472566c6a5670bba3061c",
+   "sourceSha256": "eda895f66aeba316dcff8e9b8485d96263f34b3eca2472566c6a5670bba3061c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002310.json",
+   "from": "dart_financials/002310.json",
+   "sha256": "f922103774c7adda74ea785401b821123fb3fe628afe775cb5e1e278cb616c3d",
+   "sourceSha256": "f922103774c7adda74ea785401b821123fb3fe628afe775cb5e1e278cb616c3d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002320.json",
+   "from": "dart_financials/002320.json",
+   "sha256": "9b662727a6ac71bdc43eef9f973c2020c83a32bf764731268375381543ea9541",
+   "sourceSha256": "9b662727a6ac71bdc43eef9f973c2020c83a32bf764731268375381543ea9541",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002350.json",
+   "from": "dart_financials/002350.json",
+   "sha256": "5c998ec7053441c2e23ed141d6885c053433481f55af05b7ae0e259cf513d0c7",
+   "sourceSha256": "5c998ec7053441c2e23ed141d6885c053433481f55af05b7ae0e259cf513d0c7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002380.json",
+   "from": "dart_financials/002380.json",
+   "sha256": "100eb57efc34f9e4010481209fed1f22dfa232e6c75ab044e76b2c0df4c0122e",
+   "sourceSha256": "100eb57efc34f9e4010481209fed1f22dfa232e6c75ab044e76b2c0df4c0122e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002710.json",
+   "from": "dart_financials/002710.json",
+   "sha256": "14462c0694cfc00729cbcc40a4deb28855a1e1a53bc62404121c6fb2fc46ce6e",
+   "sourceSha256": "14462c0694cfc00729cbcc40a4deb28855a1e1a53bc62404121c6fb2fc46ce6e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002790.json",
+   "from": "dart_financials/002790.json",
+   "sha256": "b80d9653829d3baf039e7d5d7d6c2d55f4f262d833e68c472e3dce8235d4b164",
+   "sourceSha256": "b80d9653829d3baf039e7d5d7d6c2d55f4f262d833e68c472e3dce8235d4b164",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002840.json",
+   "from": "dart_financials/002840.json",
+   "sha256": "f72f5de84b3f071a8e9bb9a1e38a66fc52a07ba5f8dc7e128bb14a54995a2677",
+   "sourceSha256": "f72f5de84b3f071a8e9bb9a1e38a66fc52a07ba5f8dc7e128bb14a54995a2677",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002900.json",
+   "from": "dart_financials/002900.json",
+   "sha256": "2799333c2328b117efe50a2f728058b89dee576363bef854865d448c20b8af73",
+   "sourceSha256": "2799333c2328b117efe50a2f728058b89dee576363bef854865d448c20b8af73",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002960.json",
+   "from": "dart_financials/002960.json",
+   "sha256": "42ca6bf903a01d9b054e1d0ad97ba8605c33c73a0d8c6cc3b0f420d264500232",
+   "sourceSha256": "42ca6bf903a01d9b054e1d0ad97ba8605c33c73a0d8c6cc3b0f420d264500232",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/002990.json",
+   "from": "dart_financials/002990.json",
+   "sha256": "753644290d41141c8588a0b1fbb33c025ee14c7a8ec1dfd8e2eff9f7f7208d46",
+   "sourceSha256": "753644290d41141c8588a0b1fbb33c025ee14c7a8ec1dfd8e2eff9f7f7208d46",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003000.json",
+   "from": "dart_financials/003000.json",
+   "sha256": "ceffa22aab7993cf03433fc3eb528756ad34ca43799191b9e8d07cb858741b9c",
+   "sourceSha256": "ceffa22aab7993cf03433fc3eb528756ad34ca43799191b9e8d07cb858741b9c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003030.json",
+   "from": "dart_financials/003030.json",
+   "sha256": "362d100fd1c61843236bdc3b818432c6a83299602bd618139047f04cf804f72d",
+   "sourceSha256": "362d100fd1c61843236bdc3b818432c6a83299602bd618139047f04cf804f72d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003070.json",
+   "from": "dart_financials/003070.json",
+   "sha256": "44c0de0bf3b2f19884f91fe89a6e831024ccb6a555ab22e90640952db8c98672",
+   "sourceSha256": "44c0de0bf3b2f19884f91fe89a6e831024ccb6a555ab22e90640952db8c98672",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003090.json",
+   "from": "dart_financials/003090.json",
+   "sha256": "aaa6fccbbbf50514e304888cba0465673b17c37bf7cff0f63d7dd6a83d27fbb9",
+   "sourceSha256": "aaa6fccbbbf50514e304888cba0465673b17c37bf7cff0f63d7dd6a83d27fbb9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003160.json",
+   "from": "dart_financials/003160.json",
+   "sha256": "4189ce1c8d4946ebd8ebe23697c89e17f954d0075a171e02397bd81d7def371b",
+   "sourceSha256": "4189ce1c8d4946ebd8ebe23697c89e17f954d0075a171e02397bd81d7def371b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003200.json",
+   "from": "dart_financials/003200.json",
+   "sha256": "ead85914e69c8f657d6342eb2e8a29ace4320e56db6566d37777bde0ece75a0d",
+   "sourceSha256": "ead85914e69c8f657d6342eb2e8a29ace4320e56db6566d37777bde0ece75a0d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003230.json",
+   "from": "dart_financials/003230.json",
+   "sha256": "d5a0fbe7d2fe6cdde19c7bfc75d30ff4dc9f9e05cb9fb4cfbc0fd10c86ea992d",
+   "sourceSha256": "d5a0fbe7d2fe6cdde19c7bfc75d30ff4dc9f9e05cb9fb4cfbc0fd10c86ea992d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003240.json",
+   "from": "dart_financials/003240.json",
+   "sha256": "34ace5f87f018a474488496ca23ef9541078cc5821b2c255b4b183c813c84390",
+   "sourceSha256": "34ace5f87f018a474488496ca23ef9541078cc5821b2c255b4b183c813c84390",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003280.json",
+   "from": "dart_financials/003280.json",
+   "sha256": "f1e0fb75de45ee879ab270747e7ec84a30be6ca2634ed602a7e711208fdf8938",
+   "sourceSha256": "f1e0fb75de45ee879ab270747e7ec84a30be6ca2634ed602a7e711208fdf8938",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003300.json",
+   "from": "dart_financials/003300.json",
+   "sha256": "f963197ae9d0d0f84e8e979007d5a10680c7e3b7509d117439b0c9b8600f3d58",
+   "sourceSha256": "f963197ae9d0d0f84e8e979007d5a10680c7e3b7509d117439b0c9b8600f3d58",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003380.json",
+   "from": "dart_financials/003380.json",
+   "sha256": "46a82013ffe9d510bb2d3f770b7e58d901901eca859b4cd0d2fd4be94990a507",
+   "sourceSha256": "46a82013ffe9d510bb2d3f770b7e58d901901eca859b4cd0d2fd4be94990a507",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003470.json",
+   "from": "dart_financials/003470.json",
+   "sha256": "0d79840bffea2c898658c13ad84fe7cd5ca600d268d231c91c394850b03f3cac",
+   "sourceSha256": "0d79840bffea2c898658c13ad84fe7cd5ca600d268d231c91c394850b03f3cac",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003490.json",
+   "from": "dart_financials/003490.json",
+   "sha256": "7e21227abbf77ebfc481bcd528d0ca6bd525383ab4441f4c3d0e81d80c33333d",
+   "sourceSha256": "7e21227abbf77ebfc481bcd528d0ca6bd525383ab4441f4c3d0e81d80c33333d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003530.json",
+   "from": "dart_financials/003530.json",
+   "sha256": "5ff9df3c38006144d91bd6b6b512c82604e90fc946af9fff40e95f4430976c9a",
+   "sourceSha256": "5ff9df3c38006144d91bd6b6b512c82604e90fc946af9fff40e95f4430976c9a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003540.json",
+   "from": "dart_financials/003540.json",
+   "sha256": "87a2f9286dda93ca636de687f517186a35f82e61b36648715ddeac77b0971a70",
+   "sourceSha256": "87a2f9286dda93ca636de687f517186a35f82e61b36648715ddeac77b0971a70",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003550.json",
+   "from": "dart_financials/003550.json",
+   "sha256": "c3d242c98089ba900173ef9e7ad09567dcb4e12b2aec3db4bae11b2fccdd3d10",
+   "sourceSha256": "c3d242c98089ba900173ef9e7ad09567dcb4e12b2aec3db4bae11b2fccdd3d10",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003570.json",
+   "from": "dart_financials/003570.json",
+   "sha256": "b996a51aa6bec5180a6bc7c047eb703fe9dcef5af6ec0d44528e8bfe4351e47b",
+   "sourceSha256": "b996a51aa6bec5180a6bc7c047eb703fe9dcef5af6ec0d44528e8bfe4351e47b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003620.json",
+   "from": "dart_financials/003620.json",
+   "sha256": "5017e49d21bbbdd068bdbdb1385ebc147d31cd1eb4869c57e9f7a2734b0deb06",
+   "sourceSha256": "5017e49d21bbbdd068bdbdb1385ebc147d31cd1eb4869c57e9f7a2734b0deb06",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003670.json",
+   "from": "dart_financials/003670.json",
+   "sha256": "16be7cbd67a36edeca1eeecfe25914ffa89637ad58a2e744cb3b19f13f3d94e8",
+   "sourceSha256": "16be7cbd67a36edeca1eeecfe25914ffa89637ad58a2e744cb3b19f13f3d94e8",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003690.json",
+   "from": "dart_financials/003690.json",
+   "sha256": "1893d320a334c8c38208cd2b61edbce704586387f9a6a02977d27bf254afe82e",
+   "sourceSha256": "1893d320a334c8c38208cd2b61edbce704586387f9a6a02977d27bf254afe82e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003850.json",
+   "from": "dart_financials/003850.json",
+   "sha256": "724e7b730a4205eafe1a9a9a75185a3d8a02e79cc972fe2c2725fbe26db190bf",
+   "sourceSha256": "724e7b730a4205eafe1a9a9a75185a3d8a02e79cc972fe2c2725fbe26db190bf",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003920.json",
+   "from": "dart_financials/003920.json",
+   "sha256": "979356f551c99495a3a09c882fa998322824da5c7e79a4a489d8ffb27e2c36c9",
+   "sourceSha256": "979356f551c99495a3a09c882fa998322824da5c7e79a4a489d8ffb27e2c36c9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/003960.json",
+   "from": "dart_financials/003960.json",
+   "sha256": "70115ed3f30184266aa1475d238461087191bf659c35b1cdcef2fd3c6e7a1027",
+   "sourceSha256": "70115ed3f30184266aa1475d238461087191bf659c35b1cdcef2fd3c6e7a1027",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004000.json",
+   "from": "dart_financials/004000.json",
+   "sha256": "25c52a84e3072375ed57814b0e8675896ce16a217d9b785f706b0d4cd98a43d6",
+   "sourceSha256": "25c52a84e3072375ed57814b0e8675896ce16a217d9b785f706b0d4cd98a43d6",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004020.json",
+   "from": "dart_financials/004020.json",
+   "sha256": "8e808f6e44c6b185f449bfc24a17418299f0013f591878d88360a05276553b12",
+   "sourceSha256": "8e808f6e44c6b185f449bfc24a17418299f0013f591878d88360a05276553b12",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004170.json",
+   "from": "dart_financials/004170.json",
+   "sha256": "23ee336d1ee7c789d51b457978ea9f9194ad4f968d51ecba5189ed4cadb927cc",
+   "sourceSha256": "23ee336d1ee7c789d51b457978ea9f9194ad4f968d51ecba5189ed4cadb927cc",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004360.json",
+   "from": "dart_financials/004360.json",
+   "sha256": "2f0ccef79cc52eb68d3877462663596b4a84e7b0131b3e8e4df2740bba9028c9",
+   "sourceSha256": "2f0ccef79cc52eb68d3877462663596b4a84e7b0131b3e8e4df2740bba9028c9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004370.json",
+   "from": "dart_financials/004370.json",
+   "sha256": "5a2f14abd6d70c02720236174ac719c6288fa350d5c24bff92ee89d574bbd9d3",
+   "sourceSha256": "5a2f14abd6d70c02720236174ac719c6288fa350d5c24bff92ee89d574bbd9d3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004430.json",
+   "from": "dart_financials/004430.json",
+   "sha256": "8d21a3d8ab5662743e3f508f6dca3777d0c02a34fb7f9edf835b8ecc09a72f16",
+   "sourceSha256": "8d21a3d8ab5662743e3f508f6dca3777d0c02a34fb7f9edf835b8ecc09a72f16",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004490.json",
+   "from": "dart_financials/004490.json",
+   "sha256": "734a8f70f76f79dd141fcd84ac3b9a9a289c2507f9f4b0d01eb96e3e4a4e1ada",
+   "sourceSha256": "734a8f70f76f79dd141fcd84ac3b9a9a289c2507f9f4b0d01eb96e3e4a4e1ada",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004690.json",
+   "from": "dart_financials/004690.json",
+   "sha256": "c791af9386affc8a5b21c61428729820d682b443d7f55639fce7e67b68615089",
+   "sourceSha256": "c791af9386affc8a5b21c61428729820d682b443d7f55639fce7e67b68615089",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004700.json",
+   "from": "dart_financials/004700.json",
+   "sha256": "491a092d87e30d1650e09cb00c9d4d08ba5004b79e73d580916afcd31fd75b13",
+   "sourceSha256": "491a092d87e30d1650e09cb00c9d4d08ba5004b79e73d580916afcd31fd75b13",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004710.json",
+   "from": "dart_financials/004710.json",
+   "sha256": "1e4a7872dc4f7912deb627f0007ad723290f07ef9743a57f30eeb6d39c0e6c65",
+   "sourceSha256": "1e4a7872dc4f7912deb627f0007ad723290f07ef9743a57f30eeb6d39c0e6c65",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004800.json",
+   "from": "dart_financials/004800.json",
+   "sha256": "f7658646c8d85af3cbe75fb205a551838cb69debf087e2604d60d6917aba9d6e",
+   "sourceSha256": "f7658646c8d85af3cbe75fb205a551838cb69debf087e2604d60d6917aba9d6e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004980.json",
+   "from": "dart_financials/004980.json",
+   "sha256": "202cbd0f0711dfe448ee9e89272dca325101e0de8ebf70bb6c88a2f215afe8b1",
+   "sourceSha256": "202cbd0f0711dfe448ee9e89272dca325101e0de8ebf70bb6c88a2f215afe8b1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/004990.json",
+   "from": "dart_financials/004990.json",
+   "sha256": "d261d35381bd283d14e09ddceb94c4e96deeb2a81e18b99e236278a6a0f37c43",
+   "sourceSha256": "d261d35381bd283d14e09ddceb94c4e96deeb2a81e18b99e236278a6a0f37c43",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005070.json",
+   "from": "dart_financials/005070.json",
+   "sha256": "b6bb2b6820902e47c23fae2a806b99785cdda8cea338615a3aa729da9141bf65",
+   "sourceSha256": "b6bb2b6820902e47c23fae2a806b99785cdda8cea338615a3aa729da9141bf65",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005090.json",
+   "from": "dart_financials/005090.json",
+   "sha256": "a9f6f4b1989c3df86a4315cb74d8dd60bfa46361417a9952c346c8ec5e90e42a",
+   "sourceSha256": "a9f6f4b1989c3df86a4315cb74d8dd60bfa46361417a9952c346c8ec5e90e42a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005180.json",
+   "from": "dart_financials/005180.json",
+   "sha256": "232584d96f7352c62bffeac4a784b3a1bb7bfadecc421ee5257f9f17a380399b",
+   "sourceSha256": "232584d96f7352c62bffeac4a784b3a1bb7bfadecc421ee5257f9f17a380399b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005250.json",
+   "from": "dart_financials/005250.json",
+   "sha256": "dd7e11002268662e9861f50f5d81d2164e0a955511d10578419cd8f491dd871d",
+   "sourceSha256": "dd7e11002268662e9861f50f5d81d2164e0a955511d10578419cd8f491dd871d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005290.json",
+   "from": "dart_financials/005290.json",
+   "sha256": "c17d4dc8cfad077f6d26c924c314807d983cb56f3b8441bff959f6bcd0ac9ac6",
+   "sourceSha256": "c17d4dc8cfad077f6d26c924c314807d983cb56f3b8441bff959f6bcd0ac9ac6",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005300.json",
+   "from": "dart_financials/005300.json",
+   "sha256": "2473c97cce2fa04ae3cb9dc3f1a1f965b20e895ed06023db31dff5cbc1aae682",
+   "sourceSha256": "2473c97cce2fa04ae3cb9dc3f1a1f965b20e895ed06023db31dff5cbc1aae682",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005380.json",
+   "from": "dart_financials/005380.json",
+   "sha256": "06dad5d1bb2a478280c5b503badee5c1d209a177f2658ee982c2af7f9a4d69c0",
+   "sourceSha256": "06dad5d1bb2a478280c5b503badee5c1d209a177f2658ee982c2af7f9a4d69c0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005420.json",
+   "from": "dart_financials/005420.json",
+   "sha256": "130cfc069367a5c1c6ef7886e9fab853502a4f5c9206400b6d22be92ff921e62",
+   "sourceSha256": "130cfc069367a5c1c6ef7886e9fab853502a4f5c9206400b6d22be92ff921e62",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005430.json",
+   "from": "dart_financials/005430.json",
+   "sha256": "57b6ac7e0b85843c8e37f8b74b725ca913c2c259726e1b8f1c58713349685e63",
+   "sourceSha256": "57b6ac7e0b85843c8e37f8b74b725ca913c2c259726e1b8f1c58713349685e63",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005440.json",
+   "from": "dart_financials/005440.json",
+   "sha256": "aff0d7fcd985a3dc577767c88335c19fe02767674985f48b5e82ae5d479d101a",
+   "sourceSha256": "aff0d7fcd985a3dc577767c88335c19fe02767674985f48b5e82ae5d479d101a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005490.json",
+   "from": "dart_financials/005490.json",
+   "sha256": "1f738cf4825f5af08b7289be4a0a47a40da9d0259f1e6bc15b16da854b89c709",
+   "sourceSha256": "1f738cf4825f5af08b7289be4a0a47a40da9d0259f1e6bc15b16da854b89c709",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005500.json",
+   "from": "dart_financials/005500.json",
+   "sha256": "da1c8bc578aae44381da106fec6b11c9e0af8baf9d33f5afbcaa87d41eca62cb",
+   "sourceSha256": "da1c8bc578aae44381da106fec6b11c9e0af8baf9d33f5afbcaa87d41eca62cb",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005610.json",
+   "from": "dart_financials/005610.json",
+   "sha256": "c983aa26e575366fb1c85bc7b55de2e8bb4b6b5b84e80297faeb5513c45c21ca",
+   "sourceSha256": "c983aa26e575366fb1c85bc7b55de2e8bb4b6b5b84e80297faeb5513c45c21ca",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005690.json",
+   "from": "dart_financials/005690.json",
+   "sha256": "14f14acad790a2c8a1453484ead6998b2c67181102cf7b3f2b4a6d0e1393294f",
+   "sourceSha256": "14f14acad790a2c8a1453484ead6998b2c67181102cf7b3f2b4a6d0e1393294f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005720.json",
+   "from": "dart_financials/005720.json",
+   "sha256": "4c310eed57b52187c7756bdba54ed733da4b04623fddcdc911007b115f326b71",
+   "sourceSha256": "4c310eed57b52187c7756bdba54ed733da4b04623fddcdc911007b115f326b71",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005810.json",
+   "from": "dart_financials/005810.json",
+   "sha256": "eaa2f31667fe20a1947bf96fc985cdcbfe545e853c8d2d53d54fb6b025bd52a4",
+   "sourceSha256": "eaa2f31667fe20a1947bf96fc985cdcbfe545e853c8d2d53d54fb6b025bd52a4",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005830.json",
+   "from": "dart_financials/005830.json",
+   "sha256": "85e912bd7230a18aeedabdcd5929cddb6b88be7f24972a7ccc783b66a3b23584",
+   "sourceSha256": "85e912bd7230a18aeedabdcd5929cddb6b88be7f24972a7ccc783b66a3b23584",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005850.json",
+   "from": "dart_financials/005850.json",
+   "sha256": "d64c369c8c09df3711879f9c0c9a814fbfe2224c1ecb2b6778a6ea0ed7e1d9af",
+   "sourceSha256": "d64c369c8c09df3711879f9c0c9a814fbfe2224c1ecb2b6778a6ea0ed7e1d9af",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005880.json",
+   "from": "dart_financials/005880.json",
+   "sha256": "af4623991c3e69004e26bd86fec30359650497e8335d9d05a2060dca9356d4a5",
+   "sourceSha256": "af4623991c3e69004e26bd86fec30359650497e8335d9d05a2060dca9356d4a5",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005930.json",
+   "from": "dart_financials/005930.json",
+   "sha256": "7732c1ef3972658d9b092be9a57c7fe567565e862b938b86b9916bf5aaa5c250",
+   "sourceSha256": "7732c1ef3972658d9b092be9a57c7fe567565e862b938b86b9916bf5aaa5c250",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005940.json",
+   "from": "dart_financials/005940.json",
+   "sha256": "b67a657b49877a87b1ae57bb36d6f68d602155033395696fcf2127221528f5c9",
+   "sourceSha256": "b67a657b49877a87b1ae57bb36d6f68d602155033395696fcf2127221528f5c9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/005950.json",
+   "from": "dart_financials/005950.json",
+   "sha256": "3a3440738692e23f3d692e54c4dc447a82bea411dceb82ad47a4e437e643f91d",
+   "sourceSha256": "3a3440738692e23f3d692e54c4dc447a82bea411dceb82ad47a4e437e643f91d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006040.json",
+   "from": "dart_financials/006040.json",
+   "sha256": "fcacb3940f9d03c7885df50769e447aa27c6af49ea17aac022f8c489f91d5936",
+   "sourceSha256": "fcacb3940f9d03c7885df50769e447aa27c6af49ea17aac022f8c489f91d5936",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006110.json",
+   "from": "dart_financials/006110.json",
+   "sha256": "adfdd003893a304a6e8f8053d225f13a7d35aefb412851bbf4ef14ee3aba3ead",
+   "sourceSha256": "adfdd003893a304a6e8f8053d225f13a7d35aefb412851bbf4ef14ee3aba3ead",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006120.json",
+   "from": "dart_financials/006120.json",
+   "sha256": "3782609dcac410636164e3db0bdfe9ecc48adc25a5811cbdb91b7f23dc05585d",
+   "sourceSha256": "3782609dcac410636164e3db0bdfe9ecc48adc25a5811cbdb91b7f23dc05585d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006220.json",
+   "from": "dart_financials/006220.json",
+   "sha256": "510aa8304e73b26cb6603341bdcfef3c34910e2c67d16b013dcd35f2ee12f397",
+   "sourceSha256": "510aa8304e73b26cb6603341bdcfef3c34910e2c67d16b013dcd35f2ee12f397",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006260.json",
+   "from": "dart_financials/006260.json",
+   "sha256": "95fbb837bcd7d61cb37403c71d6e88c58c54fee1bfca88ed0049e4d035c6e55c",
+   "sourceSha256": "95fbb837bcd7d61cb37403c71d6e88c58c54fee1bfca88ed0049e4d035c6e55c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006280.json",
+   "from": "dart_financials/006280.json",
+   "sha256": "76f29df883aa94d8086ae473370d05b9e4a3bd0e4286f783f5c4d6bace0de84a",
+   "sourceSha256": "76f29df883aa94d8086ae473370d05b9e4a3bd0e4286f783f5c4d6bace0de84a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006340.json",
+   "from": "dart_financials/006340.json",
+   "sha256": "a3463963b965fa5879c103f0c66fc6b262f150e615387d3a0773e573bc81d751",
+   "sourceSha256": "a3463963b965fa5879c103f0c66fc6b262f150e615387d3a0773e573bc81d751",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006360.json",
+   "from": "dart_financials/006360.json",
+   "sha256": "bf855e4dd612d81c47c3a42fbb46dd7380461386e2ba80caf255560f35b70cd3",
+   "sourceSha256": "bf855e4dd612d81c47c3a42fbb46dd7380461386e2ba80caf255560f35b70cd3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006380.json",
+   "from": "dart_financials/006380.json",
+   "sha256": "d0a899a54dc2326f9b1184de213e3da1549a5fb37275922942728f72fe85b143",
+   "sourceSha256": "d0a899a54dc2326f9b1184de213e3da1549a5fb37275922942728f72fe85b143",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006400.json",
+   "from": "dart_financials/006400.json",
+   "sha256": "1ed0d9b22db315424a152b3b8b9e6786efe5915047a36a3407eff4b22e52c088",
+   "sourceSha256": "1ed0d9b22db315424a152b3b8b9e6786efe5915047a36a3407eff4b22e52c088",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006650.json",
+   "from": "dart_financials/006650.json",
+   "sha256": "06418000ec088490658cb8ec7e0b2dc58770e9143dd87139929761d2c7a58555",
+   "sourceSha256": "06418000ec088490658cb8ec7e0b2dc58770e9143dd87139929761d2c7a58555",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006730.json",
+   "from": "dart_financials/006730.json",
+   "sha256": "f3d2f59b9603cab0a2dc6fd957789c1b83e26bf18e8bd617f5cf2a0e166dab1d",
+   "sourceSha256": "f3d2f59b9603cab0a2dc6fd957789c1b83e26bf18e8bd617f5cf2a0e166dab1d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/006800.json",
+   "from": "dart_financials/006800.json",
+   "sha256": "dff0f77ee40c681887851bc168356ad6e9eccf5015c14a858ed06a0e59db9387",
+   "sourceSha256": "dff0f77ee40c681887851bc168356ad6e9eccf5015c14a858ed06a0e59db9387",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007070.json",
+   "from": "dart_financials/007070.json",
+   "sha256": "569630eb834e973c1d7097c161f879f61b53f135bdc46ff1f51a2b8318e386a7",
+   "sourceSha256": "569630eb834e973c1d7097c161f879f61b53f135bdc46ff1f51a2b8318e386a7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007310.json",
+   "from": "dart_financials/007310.json",
+   "sha256": "ba4d129b23ec0a88d7babe6672529d8f25a95b952d1f54f8e5cfe38080454c48",
+   "sourceSha256": "ba4d129b23ec0a88d7babe6672529d8f25a95b952d1f54f8e5cfe38080454c48",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007340.json",
+   "from": "dart_financials/007340.json",
+   "sha256": "3e54d33a1ace91d5a67be093faeb6b2eebd0c75ca47d3de00b297180b5c58e87",
+   "sourceSha256": "3e54d33a1ace91d5a67be093faeb6b2eebd0c75ca47d3de00b297180b5c58e87",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007390.json",
+   "from": "dart_financials/007390.json",
+   "sha256": "274ff947fbca2acae5550d6e18a1c1e361c7f15d0d9c318dc43e3d9ada4d048a",
+   "sourceSha256": "274ff947fbca2acae5550d6e18a1c1e361c7f15d0d9c318dc43e3d9ada4d048a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007660.json",
+   "from": "dart_financials/007660.json",
+   "sha256": "677d95a7dfe45d3db89409eee1f66b37e47d3b3f1b59d33807b521cb1a0f0ed1",
+   "sourceSha256": "677d95a7dfe45d3db89409eee1f66b37e47d3b3f1b59d33807b521cb1a0f0ed1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007690.json",
+   "from": "dart_financials/007690.json",
+   "sha256": "4ee7d7af1ef938b8db434e07f4bcacd3cf7a76eaffb243b19e22c4f165fe90f2",
+   "sourceSha256": "4ee7d7af1ef938b8db434e07f4bcacd3cf7a76eaffb243b19e22c4f165fe90f2",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007700.json",
+   "from": "dart_financials/007700.json",
+   "sha256": "fc604692b2838ab91f95719678b01b8dbdbfef378be5a1aaabad5318601b47ff",
+   "sourceSha256": "fc604692b2838ab91f95719678b01b8dbdbfef378be5a1aaabad5318601b47ff",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/007810.json",
+   "from": "dart_financials/007810.json",
+   "sha256": "90f93decabe06e2a12fa9487aaad2735c9227affd7d32fc3324b152ee2e88a7d",
+   "sourceSha256": "90f93decabe06e2a12fa9487aaad2735c9227affd7d32fc3324b152ee2e88a7d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/008060.json",
+   "from": "dart_financials/008060.json",
+   "sha256": "accf94e303259dbe60bcf54a92510b22c5507115476aafe9aea97dae9d005505",
+   "sourceSha256": "accf94e303259dbe60bcf54a92510b22c5507115476aafe9aea97dae9d005505",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/008490.json",
+   "from": "dart_financials/008490.json",
+   "sha256": "58359ee8ec66443bcafdcae55f3c6f1937b7225bf00d8d2253befcd559fdb3d4",
+   "sourceSha256": "58359ee8ec66443bcafdcae55f3c6f1937b7225bf00d8d2253befcd559fdb3d4",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/008730.json",
+   "from": "dart_financials/008730.json",
+   "sha256": "87f29683bd6d689c00b22ce865967e85e73b87b53fe90ce5ab12ee153b5da45c",
+   "sourceSha256": "87f29683bd6d689c00b22ce865967e85e73b87b53fe90ce5ab12ee153b5da45c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/008770.json",
+   "from": "dart_financials/008770.json",
+   "sha256": "82169ac4ab4d4f4deabb5fa24d412f99cc0d54eebc974cd0e39af587a788e499",
+   "sourceSha256": "82169ac4ab4d4f4deabb5fa24d412f99cc0d54eebc974cd0e39af587a788e499",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/008930.json",
+   "from": "dart_financials/008930.json",
+   "sha256": "8c9cd248faa8b8a60eee2681eef2fa4e180da23923d3abe2e2d647d93a094420",
+   "sourceSha256": "8c9cd248faa8b8a60eee2681eef2fa4e180da23923d3abe2e2d647d93a094420",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009150.json",
+   "from": "dart_financials/009150.json",
+   "sha256": "962894eb6a5e78e0b4aa9f36263170f2d4737981bfb938993dcb03ea028796ed",
+   "sourceSha256": "962894eb6a5e78e0b4aa9f36263170f2d4737981bfb938993dcb03ea028796ed",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009160.json",
+   "from": "dart_financials/009160.json",
+   "sha256": "1ae8e33eb8daf08d91d195ab18193817c5fbe435daf4d9e705909cc1c7e2032c",
+   "sourceSha256": "1ae8e33eb8daf08d91d195ab18193817c5fbe435daf4d9e705909cc1c7e2032c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009240.json",
+   "from": "dart_financials/009240.json",
+   "sha256": "408a6bd3d3979fd28a48c9773c24991be47fe4449cdeda196e2f4484619e5e9e",
+   "sourceSha256": "408a6bd3d3979fd28a48c9773c24991be47fe4449cdeda196e2f4484619e5e9e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009290.json",
+   "from": "dart_financials/009290.json",
+   "sha256": "d56b24e1f25c43b390afa8ff230af13d3c9967d0f587d92d9248919231618a8c",
+   "sourceSha256": "d56b24e1f25c43b390afa8ff230af13d3c9967d0f587d92d9248919231618a8c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009410.json",
+   "from": "dart_financials/009410.json",
+   "sha256": "4c2eac14b673746bdb7054404479ab7b8176027a082f5bf15e400d1aacd39a2e",
+   "sourceSha256": "4c2eac14b673746bdb7054404479ab7b8176027a082f5bf15e400d1aacd39a2e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009420.json",
+   "from": "dart_financials/009420.json",
+   "sha256": "7ab3944dc890e63f2378695708f265d11002d0084754042b0629767f6ce03d0c",
+   "sourceSha256": "7ab3944dc890e63f2378695708f265d11002d0084754042b0629767f6ce03d0c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009450.json",
+   "from": "dart_financials/009450.json",
+   "sha256": "7e862cc5a5db39fc4d33aa2d73a5c5ee92cc89a30958d0e9307d85c43a83d394",
+   "sourceSha256": "7e862cc5a5db39fc4d33aa2d73a5c5ee92cc89a30958d0e9307d85c43a83d394",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009540.json",
+   "from": "dart_financials/009540.json",
+   "sha256": "7e2cf10dec2d3320ad7184af3560b997c34c8a3589d5c41884f2eefd0bced656",
+   "sourceSha256": "7e2cf10dec2d3320ad7184af3560b997c34c8a3589d5c41884f2eefd0bced656",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009830.json",
+   "from": "dart_financials/009830.json",
+   "sha256": "22de0534b11db3998da378fbb64c9db4cc84f848febdeefbb04d7a2d7530c657",
+   "sourceSha256": "22de0534b11db3998da378fbb64c9db4cc84f848febdeefbb04d7a2d7530c657",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009900.json",
+   "from": "dart_financials/009900.json",
+   "sha256": "12190636b667fe5bcf9d5d7dcd781e686697c944d460d769c8a83d8d2f2ea708",
+   "sourceSha256": "12190636b667fe5bcf9d5d7dcd781e686697c944d460d769c8a83d8d2f2ea708",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/009970.json",
+   "from": "dart_financials/009970.json",
+   "sha256": "f41e1b20efa19a95441090ddfe9a796fa80eab09b6c7d4cd0a20ed7f7d47cc1c",
+   "sourceSha256": "f41e1b20efa19a95441090ddfe9a796fa80eab09b6c7d4cd0a20ed7f7d47cc1c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010060.json",
+   "from": "dart_financials/010060.json",
+   "sha256": "402b5eeac86acafb6b3931710a33aa270a1e55cb7c944f277a21c959cda64208",
+   "sourceSha256": "402b5eeac86acafb6b3931710a33aa270a1e55cb7c944f277a21c959cda64208",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010120.json",
+   "from": "dart_financials/010120.json",
+   "sha256": "7affae53aac26dce22ebb34d529cbe04ccd4ac0d17074cd39d31528d693b2398",
+   "sourceSha256": "7affae53aac26dce22ebb34d529cbe04ccd4ac0d17074cd39d31528d693b2398",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010130.json",
+   "from": "dart_financials/010130.json",
+   "sha256": "111647c8b78d2f9bbdde04069786f59e4481c489d20636d28707fd6a3f367e4a",
+   "sourceSha256": "111647c8b78d2f9bbdde04069786f59e4481c489d20636d28707fd6a3f367e4a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010140.json",
+   "from": "dart_financials/010140.json",
+   "sha256": "765d67999a9e1b1c8350d758b54af299ed00a5800b55fbcb524bce3a30dfb90e",
+   "sourceSha256": "765d67999a9e1b1c8350d758b54af299ed00a5800b55fbcb524bce3a30dfb90e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010170.json",
+   "from": "dart_financials/010170.json",
+   "sha256": "d39eb979748e29ba93b79b867d439d7b829080a7bea3467f32a9a22990f56497",
+   "sourceSha256": "d39eb979748e29ba93b79b867d439d7b829080a7bea3467f32a9a22990f56497",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010690.json",
+   "from": "dart_financials/010690.json",
+   "sha256": "c98a74d456d09ab4b720ba93c0a7465b594ece57d55139d6ce9edc38e8a85cc5",
+   "sourceSha256": "c98a74d456d09ab4b720ba93c0a7465b594ece57d55139d6ce9edc38e8a85cc5",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010780.json",
+   "from": "dart_financials/010780.json",
+   "sha256": "a3a510436968eef599b182c8185d5025a4b4c2d1780fccf1dcbcb1d3652bacac",
+   "sourceSha256": "a3a510436968eef599b182c8185d5025a4b4c2d1780fccf1dcbcb1d3652bacac",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010820.json",
+   "from": "dart_financials/010820.json",
+   "sha256": "e90e9ed310053acc29aba94ecd2b732d2ebfb28fadeb7c09e513133445145b1b",
+   "sourceSha256": "e90e9ed310053acc29aba94ecd2b732d2ebfb28fadeb7c09e513133445145b1b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/010950.json",
+   "from": "dart_financials/010950.json",
+   "sha256": "7237238d64900709a7950f925feccefd4bc50804a5862b6a8e5f877ef8254ec3",
+   "sourceSha256": "7237238d64900709a7950f925feccefd4bc50804a5862b6a8e5f877ef8254ec3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011070.json",
+   "from": "dart_financials/011070.json",
+   "sha256": "d2a07377c941bd135c0c76cee2d3e11f79f2a4899079e5c13264c95275119590",
+   "sourceSha256": "d2a07377c941bd135c0c76cee2d3e11f79f2a4899079e5c13264c95275119590",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011170.json",
+   "from": "dart_financials/011170.json",
+   "sha256": "ab359bc7ad18b57e310e710f9c50a3f4fb08eac2cde4c7369fcdb4f23f5d7d98",
+   "sourceSha256": "ab359bc7ad18b57e310e710f9c50a3f4fb08eac2cde4c7369fcdb4f23f5d7d98",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011200.json",
+   "from": "dart_financials/011200.json",
+   "sha256": "2890cdfd423894707df07cc9de8abd4dea30018a299cc0a4577d5ec2666254cd",
+   "sourceSha256": "2890cdfd423894707df07cc9de8abd4dea30018a299cc0a4577d5ec2666254cd",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011210.json",
+   "from": "dart_financials/011210.json",
+   "sha256": "187ed625206dc1e0996c220e5f78f54f63b0ab9c160e07d564fe4e07d22449de",
+   "sourceSha256": "187ed625206dc1e0996c220e5f78f54f63b0ab9c160e07d564fe4e07d22449de",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011760.json",
+   "from": "dart_financials/011760.json",
+   "sha256": "6a2596da2dcaf527e0ab882519834b26228c6d78e8627c3da6e36645e8cb686d",
+   "sourceSha256": "6a2596da2dcaf527e0ab882519834b26228c6d78e8627c3da6e36645e8cb686d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011780.json",
+   "from": "dart_financials/011780.json",
+   "sha256": "f60a52bf20e08c69cdb9b4b614a2eea4ada4d3b3d19e1a5da6ce385fec2114cf",
+   "sourceSha256": "f60a52bf20e08c69cdb9b4b614a2eea4ada4d3b3d19e1a5da6ce385fec2114cf",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011790.json",
+   "from": "dart_financials/011790.json",
+   "sha256": "951a514fe3821516981027803d9e302d819db5ff728b1a2a6262335c2d3badbf",
+   "sourceSha256": "951a514fe3821516981027803d9e302d819db5ff728b1a2a6262335c2d3badbf",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/011930.json",
+   "from": "dart_financials/011930.json",
+   "sha256": "4975e7634f91a2389ba540f0cd1c79bd1de045b2e9b1a79303bdb6dcad532eb2",
+   "sourceSha256": "4975e7634f91a2389ba540f0cd1c79bd1de045b2e9b1a79303bdb6dcad532eb2",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/012030.json",
+   "from": "dart_financials/012030.json",
+   "sha256": "fa8a47d8a251011a5cb63e9e6abd16ee9f96bf5fe59569e8e4076fb4dd3c1e9e",
+   "sourceSha256": "fa8a47d8a251011a5cb63e9e6abd16ee9f96bf5fe59569e8e4076fb4dd3c1e9e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/012330.json",
+   "from": "dart_financials/012330.json",
+   "sha256": "7d5f666a3de550087e0672e36e115af6cdb0393613643c8c15bd288bf277c469",
+   "sourceSha256": "7d5f666a3de550087e0672e36e115af6cdb0393613643c8c15bd288bf277c469",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/012450.json",
+   "from": "dart_financials/012450.json",
+   "sha256": "8b6811ae50809129b9c6c527766c7f562fc98730d2abcc0eb78aebcf640ac017",
+   "sourceSha256": "8b6811ae50809129b9c6c527766c7f562fc98730d2abcc0eb78aebcf640ac017",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/012510.json",
+   "from": "dart_financials/012510.json",
+   "sha256": "6c1df236db8ab8c1c9bb71a21f71d0f42f29111ff82ab2598dbbc52c62184c7d",
+   "sourceSha256": "6c1df236db8ab8c1c9bb71a21f71d0f42f29111ff82ab2598dbbc52c62184c7d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/012630.json",
+   "from": "dart_financials/012630.json",
+   "sha256": "834e60661e375262a69c5e4aa261c9f731f06158a80f8ae1641ac8083d5b58f1",
+   "sourceSha256": "834e60661e375262a69c5e4aa261c9f731f06158a80f8ae1641ac8083d5b58f1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/012750.json",
+   "from": "dart_financials/012750.json",
+   "sha256": "156501c3fd6ede400820f5e89612b31890181aa0c4840e9d0a8b51c06fdbb263",
+   "sourceSha256": "156501c3fd6ede400820f5e89612b31890181aa0c4840e9d0a8b51c06fdbb263",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/013030.json",
+   "from": "dart_financials/013030.json",
+   "sha256": "eae4d2827b8044241ec30403100a88d035d1ab7d1aae8287457a6135a41476ca",
+   "sourceSha256": "eae4d2827b8044241ec30403100a88d035d1ab7d1aae8287457a6135a41476ca",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/014620.json",
+   "from": "dart_financials/014620.json",
+   "sha256": "e4eabc4fb40512a506fbb888987835560ac2612dc3720b2f8d5f1ec97f65508b",
+   "sourceSha256": "e4eabc4fb40512a506fbb888987835560ac2612dc3720b2f8d5f1ec97f65508b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/014680.json",
+   "from": "dart_financials/014680.json",
+   "sha256": "37e4fd7757e2f3740e3a1f8df4886831b3d0a82e56fbae7919ed80e97abf6fd2",
+   "sourceSha256": "37e4fd7757e2f3740e3a1f8df4886831b3d0a82e56fbae7919ed80e97abf6fd2",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/014820.json",
+   "from": "dart_financials/014820.json",
+   "sha256": "f1ea8d81e45161915ab6d57ac020be0723c733a8b58fa86bc441403da78e34f7",
+   "sourceSha256": "f1ea8d81e45161915ab6d57ac020be0723c733a8b58fa86bc441403da78e34f7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/014830.json",
+   "from": "dart_financials/014830.json",
+   "sha256": "f1acea0f2f56ecb4a44fc33af2c424c2881d9bc9a9d5caeb53dfe914c52f2e8a",
+   "sourceSha256": "f1acea0f2f56ecb4a44fc33af2c424c2881d9bc9a9d5caeb53dfe914c52f2e8a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/015360.json",
+   "from": "dart_financials/015360.json",
+   "sha256": "f7234c4ef09da06843dd7eade9c9bbed14bbb5413f1562826980cce2d940b4c9",
+   "sourceSha256": "f7234c4ef09da06843dd7eade9c9bbed14bbb5413f1562826980cce2d940b4c9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/015760.json",
+   "from": "dart_financials/015760.json",
+   "sha256": "5cc6e1f7d791cedf3e079a1b6ab1ce8e12df58a57fe0cfd8c541ccc764bd8581",
+   "sourceSha256": "5cc6e1f7d791cedf3e079a1b6ab1ce8e12df58a57fe0cfd8c541ccc764bd8581",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/016360.json",
+   "from": "dart_financials/016360.json",
+   "sha256": "1935a23ac82c2e71e17f2ae1ba629e7aec01d7772bb79b23ac63c1670b267529",
+   "sourceSha256": "1935a23ac82c2e71e17f2ae1ba629e7aec01d7772bb79b23ac63c1670b267529",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/016380.json",
+   "from": "dart_financials/016380.json",
+   "sha256": "1e22cf6c19d2cba45567a8e0824ff00464c332003c70bde2687bfd6589b529b3",
+   "sourceSha256": "1e22cf6c19d2cba45567a8e0824ff00464c332003c70bde2687bfd6589b529b3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/016590.json",
+   "from": "dart_financials/016590.json",
+   "sha256": "94ac4bfe2a2c24a8367af54f72fe0c6899115988cfa1057839546adc3448a3cb",
+   "sourceSha256": "94ac4bfe2a2c24a8367af54f72fe0c6899115988cfa1057839546adc3448a3cb",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/016610.json",
+   "from": "dart_financials/016610.json",
+   "sha256": "e3e5c62cf369efd82c323bffe9891c71752c494464119098d78009cdd31a12ba",
+   "sourceSha256": "e3e5c62cf369efd82c323bffe9891c71752c494464119098d78009cdd31a12ba",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/016800.json",
+   "from": "dart_financials/016800.json",
+   "sha256": "527f81f8eb64d4947838cafaa667c6690aab9bda1df1c0f0173df08dc877a252",
+   "sourceSha256": "527f81f8eb64d4947838cafaa667c6690aab9bda1df1c0f0173df08dc877a252",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017390.json",
+   "from": "dart_financials/017390.json",
+   "sha256": "4eaf49118aa46ae09239049ef7397084895a84d915af71f52ec2eeabd563d5d4",
+   "sourceSha256": "4eaf49118aa46ae09239049ef7397084895a84d915af71f52ec2eeabd563d5d4",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017670.json",
+   "from": "dart_financials/017670.json",
+   "sha256": "62ffab41e6fea5834b2268e627573719add4b108f8bb95a8ae3ca483c0b5b7dc",
+   "sourceSha256": "62ffab41e6fea5834b2268e627573719add4b108f8bb95a8ae3ca483c0b5b7dc",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017800.json",
+   "from": "dart_financials/017800.json",
+   "sha256": "b42dfe26648c9ca9efc45d3795b236f21e2d76ab431f672a72d079c0a346f714",
+   "sourceSha256": "b42dfe26648c9ca9efc45d3795b236f21e2d76ab431f672a72d079c0a346f714",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017810.json",
+   "from": "dart_financials/017810.json",
+   "sha256": "9b55c9a1a8b0ff5fb2531da2c384526e25595a9c29bb50875290cd583d2b9d46",
+   "sourceSha256": "9b55c9a1a8b0ff5fb2531da2c384526e25595a9c29bb50875290cd583d2b9d46",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017860.json",
+   "from": "dart_financials/017860.json",
+   "sha256": "f0f11387163d1e184649c26e2412711b60d04a5d69f54f44e35247f608dceaa0",
+   "sourceSha256": "f0f11387163d1e184649c26e2412711b60d04a5d69f54f44e35247f608dceaa0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017900.json",
+   "from": "dart_financials/017900.json",
+   "sha256": "0e01cdc35e56fd63e868b70698442675c41c9411d1a95b9c83d69b39f3aafe6a",
+   "sourceSha256": "0e01cdc35e56fd63e868b70698442675c41c9411d1a95b9c83d69b39f3aafe6a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017940.json",
+   "from": "dart_financials/017940.json",
+   "sha256": "f464d27e2f87b7386b62a1e214c25209a30411bba0a6acf0a2b5ffdad5f57a8f",
+   "sourceSha256": "f464d27e2f87b7386b62a1e214c25209a30411bba0a6acf0a2b5ffdad5f57a8f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/017960.json",
+   "from": "dart_financials/017960.json",
+   "sha256": "79814baeb0438007e99fe775994bb19072701a88375325846f313cb66960bc9a",
+   "sourceSha256": "79814baeb0438007e99fe775994bb19072701a88375325846f313cb66960bc9a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/018250.json",
+   "from": "dart_financials/018250.json",
+   "sha256": "f62e22a7081063f31ea7d1b739aa72e16d5a7ff97e0838414780c1bf610c080e",
+   "sourceSha256": "f62e22a7081063f31ea7d1b739aa72e16d5a7ff97e0838414780c1bf610c080e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/018260.json",
+   "from": "dart_financials/018260.json",
+   "sha256": "85ae3ef72e654b953fa03685ab4b19bda63a6f7a1aa3fd3e8701b8fbc2cef089",
+   "sourceSha256": "85ae3ef72e654b953fa03685ab4b19bda63a6f7a1aa3fd3e8701b8fbc2cef089",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/018290.json",
+   "from": "dart_financials/018290.json",
+   "sha256": "e73815a77718bdc4f67d8f6d71fa65f3b09027adce79f3faf3498e2c13245271",
+   "sourceSha256": "e73815a77718bdc4f67d8f6d71fa65f3b09027adce79f3faf3498e2c13245271",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/018670.json",
+   "from": "dart_financials/018670.json",
+   "sha256": "eb0ee6650af1076795e09b24a16b3ccd927315332749b9fe556314e86b540f47",
+   "sourceSha256": "eb0ee6650af1076795e09b24a16b3ccd927315332749b9fe556314e86b540f47",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/018880.json",
+   "from": "dart_financials/018880.json",
+   "sha256": "24dedeb8041717d99d755feaf0e589523b19cef5a7f915c474c02ff6c41d9495",
+   "sourceSha256": "24dedeb8041717d99d755feaf0e589523b19cef5a7f915c474c02ff6c41d9495",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/019170.json",
+   "from": "dart_financials/019170.json",
+   "sha256": "9277930908bda979b2115152785bb31f103d797c9a1cfcb663c8fef2e4472f6f",
+   "sourceSha256": "9277930908bda979b2115152785bb31f103d797c9a1cfcb663c8fef2e4472f6f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/019210.json",
+   "from": "dart_financials/019210.json",
+   "sha256": "9d15bb6855a607e0f1102d6aa17849c36b10bbdba704a71ebf870f548d8d3865",
+   "sourceSha256": "9d15bb6855a607e0f1102d6aa17849c36b10bbdba704a71ebf870f548d8d3865",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/020000.json",
+   "from": "dart_financials/020000.json",
+   "sha256": "0b89a387377954ac16d023d3b52dc667073b3111810d35022ba2ed6a94ddcad9",
+   "sourceSha256": "0b89a387377954ac16d023d3b52dc667073b3111810d35022ba2ed6a94ddcad9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/020150.json",
+   "from": "dart_financials/020150.json",
+   "sha256": "c144602acffaf61a0f0d60216fb128eaeb50d0e3cfe1157b77d43903353141ce",
+   "sourceSha256": "c144602acffaf61a0f0d60216fb128eaeb50d0e3cfe1157b77d43903353141ce",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/020560.json",
+   "from": "dart_financials/020560.json",
+   "sha256": "420232748094a1004d168d244560c56cbe146ed108c89f380da72751fb59ec9c",
+   "sourceSha256": "420232748094a1004d168d244560c56cbe146ed108c89f380da72751fb59ec9c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/021240.json",
+   "from": "dart_financials/021240.json",
+   "sha256": "3a064461389a0ca67e84f45270c1c28329adcf91cfda726f79068504fe48d012",
+   "sourceSha256": "3a064461389a0ca67e84f45270c1c28329adcf91cfda726f79068504fe48d012",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/022100.json",
+   "from": "dart_financials/022100.json",
+   "sha256": "4f231140a49a34499667f769b968e9f26906b5ef3b04eb54edffe03f532be586",
+   "sourceSha256": "4f231140a49a34499667f769b968e9f26906b5ef3b04eb54edffe03f532be586",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/023160.json",
+   "from": "dart_financials/023160.json",
+   "sha256": "08897e914b4bf38a5c31ce469a8724fd37868439a6c3c4c67c5ca40e45c9ff2a",
+   "sourceSha256": "08897e914b4bf38a5c31ce469a8724fd37868439a6c3c4c67c5ca40e45c9ff2a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/023530.json",
+   "from": "dart_financials/023530.json",
+   "sha256": "4b91f9507df378afe1301ee19cc564bd7b84fb2f43f7b2a19b3f59080e9c9abe",
+   "sourceSha256": "4b91f9507df378afe1301ee19cc564bd7b84fb2f43f7b2a19b3f59080e9c9abe",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/023590.json",
+   "from": "dart_financials/023590.json",
+   "sha256": "f6f4dc64297e0b9c58e7d1ac26d5911a78c42acbc6b78caebfc9f803377340f7",
+   "sourceSha256": "f6f4dc64297e0b9c58e7d1ac26d5911a78c42acbc6b78caebfc9f803377340f7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/024110.json",
+   "from": "dart_financials/024110.json",
+   "sha256": "d0b8cba94e4f93ff75a5995ceacd1b9c10a8a02e66e2c9860e06654ac7029671",
+   "sourceSha256": "d0b8cba94e4f93ff75a5995ceacd1b9c10a8a02e66e2c9860e06654ac7029671",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/024720.json",
+   "from": "dart_financials/024720.json",
+   "sha256": "ba24ed934d51f2743cd3546a5c2467bd2d1ae94f78bc60331bc2e151caa53e6a",
+   "sourceSha256": "ba24ed934d51f2743cd3546a5c2467bd2d1ae94f78bc60331bc2e151caa53e6a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/025540.json",
+   "from": "dart_financials/025540.json",
+   "sha256": "139350e5d49eb6fc74c5ab9c46c88b625a66d1ab968c6a494298dcb2ecac0a0d",
+   "sourceSha256": "139350e5d49eb6fc74c5ab9c46c88b625a66d1ab968c6a494298dcb2ecac0a0d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/025860.json",
+   "from": "dart_financials/025860.json",
+   "sha256": "08d213b76d41eb5c714a83b5ab7b07c624c90247cb9c12a88912fc0ce42d797e",
+   "sourceSha256": "08d213b76d41eb5c714a83b5ab7b07c624c90247cb9c12a88912fc0ce42d797e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/026890.json",
+   "from": "dart_financials/026890.json",
+   "sha256": "fb3c76dfb3b2089cb03c14ee520af3cc31adf49de6d851adfa57ac2c2b90d206",
+   "sourceSha256": "fb3c76dfb3b2089cb03c14ee520af3cc31adf49de6d851adfa57ac2c2b90d206",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/026960.json",
+   "from": "dart_financials/026960.json",
+   "sha256": "c15b348ac3a96027d66ac7a595b6b2607fea1510f0230b67073075ec9c1f0802",
+   "sourceSha256": "c15b348ac3a96027d66ac7a595b6b2607fea1510f0230b67073075ec9c1f0802",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/027410.json",
+   "from": "dart_financials/027410.json",
+   "sha256": "df54c53fb8e4ef10dade2d3fb8531c94d282a1596838931a0073191d913831ea",
+   "sourceSha256": "df54c53fb8e4ef10dade2d3fb8531c94d282a1596838931a0073191d913831ea",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/028050.json",
+   "from": "dart_financials/028050.json",
+   "sha256": "5ffbccbce914492fbacbb7930bace507189490c01beb8f0accc54529a888ff11",
+   "sourceSha256": "5ffbccbce914492fbacbb7930bace507189490c01beb8f0accc54529a888ff11",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/028260.json",
+   "from": "dart_financials/028260.json",
+   "sha256": "4e5a208e3a362c3ec5ef4fee40f8d80439d90f9696d58f7ca2c58bb5037a549d",
+   "sourceSha256": "4e5a208e3a362c3ec5ef4fee40f8d80439d90f9696d58f7ca2c58bb5037a549d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/028300.json",
+   "from": "dart_financials/028300.json",
+   "sha256": "7dd178f770a2ad86a181fe6ee172754575b35595a90b03131431220c1991a87d",
+   "sourceSha256": "7dd178f770a2ad86a181fe6ee172754575b35595a90b03131431220c1991a87d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/028670.json",
+   "from": "dart_financials/028670.json",
+   "sha256": "5888ef4d195f45fe2a83b67fd2fa4e46acf3e289c3ca001c10666d19fd6dd359",
+   "sourceSha256": "5888ef4d195f45fe2a83b67fd2fa4e46acf3e289c3ca001c10666d19fd6dd359",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/029460.json",
+   "from": "dart_financials/029460.json",
+   "sha256": "b19e6d194e05ac6be497607ffd7c2dff781d40bafd6d5b38e9e262b1b01d574d",
+   "sourceSha256": "b19e6d194e05ac6be497607ffd7c2dff781d40bafd6d5b38e9e262b1b01d574d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/029530.json",
+   "from": "dart_financials/029530.json",
+   "sha256": "e5dd2e38fc5151a0fd4cf7eaa7a65e9bd25f3e59f896acc0d82ea262b19f807f",
+   "sourceSha256": "e5dd2e38fc5151a0fd4cf7eaa7a65e9bd25f3e59f896acc0d82ea262b19f807f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/029780.json",
+   "from": "dart_financials/029780.json",
+   "sha256": "0a9f260851a5c1cad2150dbc4fb7e53d959923a6a4bed122e43f1a399890ad0e",
+   "sourceSha256": "0a9f260851a5c1cad2150dbc4fb7e53d959923a6a4bed122e43f1a399890ad0e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030000.json",
+   "from": "dart_financials/030000.json",
+   "sha256": "ea24d9620f24024db79d5f6449979aefe523fbc68c234b394f1256b24b0f4c2e",
+   "sourceSha256": "ea24d9620f24024db79d5f6449979aefe523fbc68c234b394f1256b24b0f4c2e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030190.json",
+   "from": "dart_financials/030190.json",
+   "sha256": "9a8b928850272e5677cfa8c80fcbb56a4a2de20297a67f0eb4754ba22fb9b71d",
+   "sourceSha256": "9a8b928850272e5677cfa8c80fcbb56a4a2de20297a67f0eb4754ba22fb9b71d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030200.json",
+   "from": "dart_financials/030200.json",
+   "sha256": "8ae8f8dfb50ce5d663f456619907d3c34fa7bc1903c35e2a479a46dfa2f4f958",
+   "sourceSha256": "8ae8f8dfb50ce5d663f456619907d3c34fa7bc1903c35e2a479a46dfa2f4f958",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030210.json",
+   "from": "dart_financials/030210.json",
+   "sha256": "b097151d6348b7cd035dcc9b7ffe72c77f42efcf0dfa6cd2da9450f532b86452",
+   "sourceSha256": "b097151d6348b7cd035dcc9b7ffe72c77f42efcf0dfa6cd2da9450f532b86452",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030520.json",
+   "from": "dart_financials/030520.json",
+   "sha256": "d38350448d8ac0c8613f5971621fa5036b7bb8b4653616e2bccb3b97962e01ac",
+   "sourceSha256": "d38350448d8ac0c8613f5971621fa5036b7bb8b4653616e2bccb3b97962e01ac",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030530.json",
+   "from": "dart_financials/030530.json",
+   "sha256": "ed34225724c432621b1674ee4de4083f711fb12ab56a8c29a8ad1bcc5a43cf4f",
+   "sourceSha256": "ed34225724c432621b1674ee4de4083f711fb12ab56a8c29a8ad1bcc5a43cf4f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/030610.json",
+   "from": "dart_financials/030610.json",
+   "sha256": "97dda25d2ab69acbeeba6ef88334e424dadb8b5a9911690488a6597cc11dd0a9",
+   "sourceSha256": "97dda25d2ab69acbeeba6ef88334e424dadb8b5a9911690488a6597cc11dd0a9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/031210.json",
+   "from": "dart_financials/031210.json",
+   "sha256": "ebf37dc32dfa00802c5123fd23ab50401971003544b4751f0466ba29c581f04d",
+   "sourceSha256": "ebf37dc32dfa00802c5123fd23ab50401971003544b4751f0466ba29c581f04d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/031330.json",
+   "from": "dart_financials/031330.json",
+   "sha256": "672bcd66c469fd91559af88c5c9bf1fe64173e3cbdc69e77559abfb52d1f7fd3",
+   "sourceSha256": "672bcd66c469fd91559af88c5c9bf1fe64173e3cbdc69e77559abfb52d1f7fd3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/031430.json",
+   "from": "dart_financials/031430.json",
+   "sha256": "232535bef4af8f83c0f5f4d80bd3582bb3792d2bae590dcb1d3d553e9f275e27",
+   "sourceSha256": "232535bef4af8f83c0f5f4d80bd3582bb3792d2bae590dcb1d3d553e9f275e27",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/031980.json",
+   "from": "dart_financials/031980.json",
+   "sha256": "43b67fbe30f4c2fe8678e8d5007e0d630135f4cec4b37011bc5cfdd1f504a84e",
+   "sourceSha256": "43b67fbe30f4c2fe8678e8d5007e0d630135f4cec4b37011bc5cfdd1f504a84e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/032190.json",
+   "from": "dart_financials/032190.json",
+   "sha256": "206bc47cdda828d1c0341f6a48c21fbf25ca5ea2c908208cf06e8b3add3d0472",
+   "sourceSha256": "206bc47cdda828d1c0341f6a48c21fbf25ca5ea2c908208cf06e8b3add3d0472",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/032350.json",
+   "from": "dart_financials/032350.json",
+   "sha256": "51f846dde31f47d658f6abfcd85616b5f95984565d0c2f525b06d5e785bb1493",
+   "sourceSha256": "51f846dde31f47d658f6abfcd85616b5f95984565d0c2f525b06d5e785bb1493",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/032500.json",
+   "from": "dart_financials/032500.json",
+   "sha256": "4393eb91031a3487855fb24b1f7a569567ee1cbc658608510eb9205fc3b2ea24",
+   "sourceSha256": "4393eb91031a3487855fb24b1f7a569567ee1cbc658608510eb9205fc3b2ea24",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/032640.json",
+   "from": "dart_financials/032640.json",
+   "sha256": "c19d02032735924e394af42e703d5b8d8cb1460a6ab37a1528a8c4926debf9ce",
+   "sourceSha256": "c19d02032735924e394af42e703d5b8d8cb1460a6ab37a1528a8c4926debf9ce",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/032820.json",
+   "from": "dart_financials/032820.json",
+   "sha256": "3a2fbd39204d0a4955e7b728bec90bfbd96a8285aa1b44b74842235a60db8dda",
+   "sourceSha256": "3a2fbd39204d0a4955e7b728bec90bfbd96a8285aa1b44b74842235a60db8dda",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/032830.json",
+   "from": "dart_financials/032830.json",
+   "sha256": "b8ae00c24a93de65e6ddae7e8652c4f7581367c7210f3176e67badde64c3abd2",
+   "sourceSha256": "b8ae00c24a93de65e6ddae7e8652c4f7581367c7210f3176e67badde64c3abd2",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/033100.json",
+   "from": "dart_financials/033100.json",
+   "sha256": "c67f4a81b412cdb717c1f877f58a7a783323e69245f13ad5ab141126425dfa98",
+   "sourceSha256": "c67f4a81b412cdb717c1f877f58a7a783323e69245f13ad5ab141126425dfa98",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/033240.json",
+   "from": "dart_financials/033240.json",
+   "sha256": "71de2a564555e5665c37ae95e51407403fe9f65960a57960f7bdcbff65d3e813",
+   "sourceSha256": "71de2a564555e5665c37ae95e51407403fe9f65960a57960f7bdcbff65d3e813",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/033270.json",
+   "from": "dart_financials/033270.json",
+   "sha256": "9753016853de7f8e65ace1725077ecf332eeac10bf66472a1b998dfeeb180e7b",
+   "sourceSha256": "9753016853de7f8e65ace1725077ecf332eeac10bf66472a1b998dfeeb180e7b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/033500.json",
+   "from": "dart_financials/033500.json",
+   "sha256": "f0d8132231c3a6e66858b2fb0fa769f459428e8becf3ad998e2f37d2a731bb2a",
+   "sourceSha256": "f0d8132231c3a6e66858b2fb0fa769f459428e8becf3ad998e2f37d2a731bb2a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/033640.json",
+   "from": "dart_financials/033640.json",
+   "sha256": "1bcd1c0abb9b3e12734f52882d015a9efd8458aeff8fd36c0783db16d0f58268",
+   "sourceSha256": "1bcd1c0abb9b3e12734f52882d015a9efd8458aeff8fd36c0783db16d0f58268",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/033780.json",
+   "from": "dart_financials/033780.json",
+   "sha256": "442c45e774cde457ec15c1a04cb5b65f322cd381d847d00ed5e67fefbf34332b",
+   "sourceSha256": "442c45e774cde457ec15c1a04cb5b65f322cd381d847d00ed5e67fefbf34332b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034020.json",
+   "from": "dart_financials/034020.json",
+   "sha256": "418bbb742c534126b23b5b48f07953b9d65f16e129d6f0365cbaabd8a74ad9b9",
+   "sourceSha256": "418bbb742c534126b23b5b48f07953b9d65f16e129d6f0365cbaabd8a74ad9b9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034120.json",
+   "from": "dart_financials/034120.json",
+   "sha256": "88d4004d5f0df42c541d5f63bf0330451f3ad806a2667b01a13e1e876fe60b45",
+   "sourceSha256": "88d4004d5f0df42c541d5f63bf0330451f3ad806a2667b01a13e1e876fe60b45",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034220.json",
+   "from": "dart_financials/034220.json",
+   "sha256": "547b94984a63af31098e876d59aa5f31a81c233edffdc3e6261409d58e74793e",
+   "sourceSha256": "547b94984a63af31098e876d59aa5f31a81c233edffdc3e6261409d58e74793e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034230.json",
+   "from": "dart_financials/034230.json",
+   "sha256": "78c8ae54036438986bc9b1283909cec74fffb6b61c9ce82d09fc63947f233480",
+   "sourceSha256": "78c8ae54036438986bc9b1283909cec74fffb6b61c9ce82d09fc63947f233480",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034310.json",
+   "from": "dart_financials/034310.json",
+   "sha256": "b1069718a6792dc63e903eb37654906ffbb1fd83d7c534bf26e3f867f24ca20d",
+   "sourceSha256": "b1069718a6792dc63e903eb37654906ffbb1fd83d7c534bf26e3f867f24ca20d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034730.json",
+   "from": "dart_financials/034730.json",
+   "sha256": "3c0202970f47fc65536f3a98035d29e7769bac9b0d275040b3394fc45dc13fef",
+   "sourceSha256": "3c0202970f47fc65536f3a98035d29e7769bac9b0d275040b3394fc45dc13fef",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034830.json",
+   "from": "dart_financials/034830.json",
+   "sha256": "cd94fb9f7cae3205a03725eda0cc0453e82fb8f783e3adb738ce8ee7c5e87182",
+   "sourceSha256": "cd94fb9f7cae3205a03725eda0cc0453e82fb8f783e3adb738ce8ee7c5e87182",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/034950.json",
+   "from": "dart_financials/034950.json",
+   "sha256": "05e5529824bcc812e232a21f39d3ec8225c2f414d4594a081f73d90c674f0ce7",
+   "sourceSha256": "05e5529824bcc812e232a21f39d3ec8225c2f414d4594a081f73d90c674f0ce7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/035250.json",
+   "from": "dart_financials/035250.json",
+   "sha256": "bab61803ab0566c8f4cf5b3867bc6ec108896e2ef3a98bd485b4618e882502c2",
+   "sourceSha256": "bab61803ab0566c8f4cf5b3867bc6ec108896e2ef3a98bd485b4618e882502c2",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/035420.json",
+   "from": "dart_financials/035420.json",
+   "sha256": "38a7b808caa7bb9ed80ee992c9ba864e29502f1c9458239fc0cfcca8fc0a3e91",
+   "sourceSha256": "38a7b808caa7bb9ed80ee992c9ba864e29502f1c9458239fc0cfcca8fc0a3e91",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/035720.json",
+   "from": "dart_financials/035720.json",
+   "sha256": "0e6aafcc124f3ccb8fbd3893bbd2c00e415400d752587a099d463887168c4061",
+   "sourceSha256": "0e6aafcc124f3ccb8fbd3893bbd2c00e415400d752587a099d463887168c4061",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/035760.json",
+   "from": "dart_financials/035760.json",
+   "sha256": "1418c8555ad9f3f8fbcf80cc54524aefbb7a6879a66a6d680a2800a85b5e4a46",
+   "sourceSha256": "1418c8555ad9f3f8fbcf80cc54524aefbb7a6879a66a6d680a2800a85b5e4a46",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/035900.json",
+   "from": "dart_financials/035900.json",
+   "sha256": "c18e0b1504b80b3f3b4deb9c6a4617e8276fa1f7379b4a03cca4719ae586a07e",
+   "sourceSha256": "c18e0b1504b80b3f3b4deb9c6a4617e8276fa1f7379b4a03cca4719ae586a07e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036460.json",
+   "from": "dart_financials/036460.json",
+   "sha256": "45de16c7fa9ad1faf73a7b7f19e3a7b51c83adacbf4eb89ff40e6e70eb5bf137",
+   "sourceSha256": "45de16c7fa9ad1faf73a7b7f19e3a7b51c83adacbf4eb89ff40e6e70eb5bf137",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036530.json",
+   "from": "dart_financials/036530.json",
+   "sha256": "53be1e0863d9246740ff22a0d8bb47e176fa09bff343c6b75656f87dea9bb455",
+   "sourceSha256": "53be1e0863d9246740ff22a0d8bb47e176fa09bff343c6b75656f87dea9bb455",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036540.json",
+   "from": "dart_financials/036540.json",
+   "sha256": "6b9a7356c926535a83a3659cc66561c3711aa9f7c95471879485d69423c97a5b",
+   "sourceSha256": "6b9a7356c926535a83a3659cc66561c3711aa9f7c95471879485d69423c97a5b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036570.json",
+   "from": "dart_financials/036570.json",
+   "sha256": "83ab5477a2a384de8cbe25e4cd4ade4ffc5480f5ecf8b4c6956e0e29c63df44a",
+   "sourceSha256": "83ab5477a2a384de8cbe25e4cd4ade4ffc5480f5ecf8b4c6956e0e29c63df44a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036810.json",
+   "from": "dart_financials/036810.json",
+   "sha256": "e6cd9fbc60b562af762ab83dd05129eb8b1279a09e1e15ed541e4869e5684026",
+   "sourceSha256": "e6cd9fbc60b562af762ab83dd05129eb8b1279a09e1e15ed541e4869e5684026",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036830.json",
+   "from": "dart_financials/036830.json",
+   "sha256": "507fbcc2c58a4b145943a9417f4f3c52570fb4ccd171a16977058a93dc47fbfe",
+   "sourceSha256": "507fbcc2c58a4b145943a9417f4f3c52570fb4ccd171a16977058a93dc47fbfe",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/036930.json",
+   "from": "dart_financials/036930.json",
+   "sha256": "b561e3a8546b4c563a3f02318c3f6e03a95cdbfe963abef18056f146f15e83c0",
+   "sourceSha256": "b561e3a8546b4c563a3f02318c3f6e03a95cdbfe963abef18056f146f15e83c0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/037460.json",
+   "from": "dart_financials/037460.json",
+   "sha256": "b72b3b1fec81a043db2ec3481deaeb4a881e7e6164a3db578457a4b741dc50b0",
+   "sourceSha256": "b72b3b1fec81a043db2ec3481deaeb4a881e7e6164a3db578457a4b741dc50b0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/037710.json",
+   "from": "dart_financials/037710.json",
+   "sha256": "0bbfdc0d533c1a0e9058a5ef65ac155ade34b3f47caea9c244de8e588a203a5d",
+   "sourceSha256": "0bbfdc0d533c1a0e9058a5ef65ac155ade34b3f47caea9c244de8e588a203a5d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/038500.json",
+   "from": "dart_financials/038500.json",
+   "sha256": "bbce3a8066589b0281435a3708338824eed46baffc3ab9e68fb01a07fb5ca5b0",
+   "sourceSha256": "bbce3a8066589b0281435a3708338824eed46baffc3ab9e68fb01a07fb5ca5b0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/039030.json",
+   "from": "dart_financials/039030.json",
+   "sha256": "2d4b463e4bc4521d652bd25408a41cd3020ccdb5f80c12a6860186b1a58141d7",
+   "sourceSha256": "2d4b463e4bc4521d652bd25408a41cd3020ccdb5f80c12a6860186b1a58141d7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/039130.json",
+   "from": "dart_financials/039130.json",
+   "sha256": "d7fa045600bdb6bc5fc289566ffa50a6defaa431c8dff7a23b7a252ba7655319",
+   "sourceSha256": "d7fa045600bdb6bc5fc289566ffa50a6defaa431c8dff7a23b7a252ba7655319",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/039200.json",
+   "from": "dart_financials/039200.json",
+   "sha256": "519352364c40cf6f36e026bb1141c0503102aa88c384478038b18ac19b0062f9",
+   "sourceSha256": "519352364c40cf6f36e026bb1141c0503102aa88c384478038b18ac19b0062f9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/039490.json",
+   "from": "dart_financials/039490.json",
+   "sha256": "9cb0b4bbf176e49232de0a930e1d75513ed4813a55afcd74a877679c0b569345",
+   "sourceSha256": "9cb0b4bbf176e49232de0a930e1d75513ed4813a55afcd74a877679c0b569345",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/041510.json",
+   "from": "dart_financials/041510.json",
+   "sha256": "6fc192324c25694027321a810a0a963b01df9beeda624e5c7e59abd1f2ef61b6",
+   "sourceSha256": "6fc192324c25694027321a810a0a963b01df9beeda624e5c7e59abd1f2ef61b6",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/041830.json",
+   "from": "dart_financials/041830.json",
+   "sha256": "e9e5e4d8360bf83c832d645a5a1db848b7f3d4285d045928b60447368d6cc4b5",
+   "sourceSha256": "e9e5e4d8360bf83c832d645a5a1db848b7f3d4285d045928b60447368d6cc4b5",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/041960.json",
+   "from": "dart_financials/041960.json",
+   "sha256": "c53528c311023e0858b67ef74989c73104fb1255423a1a09789a0442336c154f",
+   "sourceSha256": "c53528c311023e0858b67ef74989c73104fb1255423a1a09789a0442336c154f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/042660.json",
+   "from": "dart_financials/042660.json",
+   "sha256": "06584c50a9a95dc05ee2b4a37434850b2945c8706fab47e04c76fe656b0e3415",
+   "sourceSha256": "06584c50a9a95dc05ee2b4a37434850b2945c8706fab47e04c76fe656b0e3415",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/042700.json",
+   "from": "dart_financials/042700.json",
+   "sha256": "c3d5ed8b2348be34eeb8030f617f534754af7e6b2be4b65ab4dc33d4dda3a07e",
+   "sourceSha256": "c3d5ed8b2348be34eeb8030f617f534754af7e6b2be4b65ab4dc33d4dda3a07e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/043260.json",
+   "from": "dart_financials/043260.json",
+   "sha256": "8a816fad9f026b1a592741f02c601006f8ce973b4aaf1e5ef051e1c1520808a7",
+   "sourceSha256": "8a816fad9f026b1a592741f02c601006f8ce973b4aaf1e5ef051e1c1520808a7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/044490.json",
+   "from": "dart_financials/044490.json",
+   "sha256": "58368ca143544b5cfcc1de56c616abcda50fa084b67ae70f3099b896cb083171",
+   "sourceSha256": "58368ca143544b5cfcc1de56c616abcda50fa084b67ae70f3099b896cb083171",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/045100.json",
+   "from": "dart_financials/045100.json",
+   "sha256": "1e09a3691eb97f82e7cdd6eddc1a2bb3e5225b51135d2c1c1da5884e22f9b38b",
+   "sourceSha256": "1e09a3691eb97f82e7cdd6eddc1a2bb3e5225b51135d2c1c1da5884e22f9b38b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/046890.json",
+   "from": "dart_financials/046890.json",
+   "sha256": "4674f34f4e3deb81516bd33d46438b6069ec794fa5e7e31cb873cfecb68281c0",
+   "sourceSha256": "4674f34f4e3deb81516bd33d46438b6069ec794fa5e7e31cb873cfecb68281c0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/047040.json",
+   "from": "dart_financials/047040.json",
+   "sha256": "f44a3bae9e9dc37a6cc6f941b40f9744cba490e75601d215d550b5dcd8c54fda",
+   "sourceSha256": "f44a3bae9e9dc37a6cc6f941b40f9744cba490e75601d215d550b5dcd8c54fda",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/047050.json",
+   "from": "dart_financials/047050.json",
+   "sha256": "8a87c3d585876d144330f9ade4f2dda2ac639d787524ff0533dc3243cebb8572",
+   "sourceSha256": "8a87c3d585876d144330f9ade4f2dda2ac639d787524ff0533dc3243cebb8572",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/047810.json",
+   "from": "dart_financials/047810.json",
+   "sha256": "1386df1bee1c1c0352eb2112e93b88ef564f2a107c667e231b638fc72705808f",
+   "sourceSha256": "1386df1bee1c1c0352eb2112e93b88ef564f2a107c667e231b638fc72705808f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/048410.json",
+   "from": "dart_financials/048410.json",
+   "sha256": "daf3d6d4ffb24e5ced6b923f1b679a8fd74751539209338e3ff5239cb4884084",
+   "sourceSha256": "daf3d6d4ffb24e5ced6b923f1b679a8fd74751539209338e3ff5239cb4884084",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/050890.json",
+   "from": "dart_financials/050890.json",
+   "sha256": "bb709554329686e082459f8975a691c08a30367bf28970455f4924fded2f6772",
+   "sourceSha256": "bb709554329686e082459f8975a691c08a30367bf28970455f4924fded2f6772",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/051600.json",
+   "from": "dart_financials/051600.json",
+   "sha256": "649248b47f5d0fdbe65e9e74a871b3483d0a5d7d569adb5c6a7bc6e13a691ae4",
+   "sourceSha256": "649248b47f5d0fdbe65e9e74a871b3483d0a5d7d569adb5c6a7bc6e13a691ae4",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/051900.json",
+   "from": "dart_financials/051900.json",
+   "sha256": "6b81192474f6f45fcb9cb629ba7693db5b3712d8287984e570ebc37082e6bb68",
+   "sourceSha256": "6b81192474f6f45fcb9cb629ba7693db5b3712d8287984e570ebc37082e6bb68",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/051910.json",
+   "from": "dart_financials/051910.json",
+   "sha256": "0325ebfeef5febf03cdc99f0e177d9efe20890aa65b2310f4e3983e8d8ecdd1c",
+   "sourceSha256": "0325ebfeef5febf03cdc99f0e177d9efe20890aa65b2310f4e3983e8d8ecdd1c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/052020.json",
+   "from": "dart_financials/052020.json",
+   "sha256": "41c41b4a7540e901ed4f53d3d4d7f0c7f341a560e29109db564523266205f414",
+   "sourceSha256": "41c41b4a7540e901ed4f53d3d4d7f0c7f341a560e29109db564523266205f414",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/052400.json",
+   "from": "dart_financials/052400.json",
+   "sha256": "d4f14b47038b5298d02bbc22ae638edafa780f17c88067be6203fb0eba23b447",
+   "sourceSha256": "d4f14b47038b5298d02bbc22ae638edafa780f17c88067be6203fb0eba23b447",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/052690.json",
+   "from": "dart_financials/052690.json",
+   "sha256": "6451507831bbcd2d68a076095505f30f0ad99236b5ce49f77aca2c7ee624a630",
+   "sourceSha256": "6451507831bbcd2d68a076095505f30f0ad99236b5ce49f77aca2c7ee624a630",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/053610.json",
+   "from": "dart_financials/053610.json",
+   "sha256": "41c7004e1f70d9d93f81dbc1a7e0e4f9d389cff31d77a854fa700d3a8c912b33",
+   "sourceSha256": "41c7004e1f70d9d93f81dbc1a7e0e4f9d389cff31d77a854fa700d3a8c912b33",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/053800.json",
+   "from": "dart_financials/053800.json",
+   "sha256": "b41642149a30aceb3b5e5255a1232a935b865eb8ea08e06d55450c945d306f8f",
+   "sourceSha256": "b41642149a30aceb3b5e5255a1232a935b865eb8ea08e06d55450c945d306f8f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/055550.json",
+   "from": "dart_financials/055550.json",
+   "sha256": "51e6a79571d840e3c0775bfdb8f7a1b6ff5d9d4f5eae3cf6a652e0e2d052ca67",
+   "sourceSha256": "51e6a79571d840e3c0775bfdb8f7a1b6ff5d9d4f5eae3cf6a652e0e2d052ca67",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/056080.json",
+   "from": "dart_financials/056080.json",
+   "sha256": "5444498dc2cc9fb8c7a0fdd9bbccdfdedbeaa759f9655c395185d8931813ddf5",
+   "sourceSha256": "5444498dc2cc9fb8c7a0fdd9bbccdfdedbeaa759f9655c395185d8931813ddf5",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/056190.json",
+   "from": "dart_financials/056190.json",
+   "sha256": "e7e7a604bb511c45b05e011e4f5fd923db34555ce0a4060277901232eba8b872",
+   "sourceSha256": "e7e7a604bb511c45b05e011e4f5fd923db34555ce0a4060277901232eba8b872",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/057050.json",
+   "from": "dart_financials/057050.json",
+   "sha256": "7f5c1db7a793e667ed5693908774e7824088ebcbe9d5241d36a2ee4fa0f0d112",
+   "sourceSha256": "7f5c1db7a793e667ed5693908774e7824088ebcbe9d5241d36a2ee4fa0f0d112",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/058430.json",
+   "from": "dart_financials/058430.json",
+   "sha256": "f03a86ff00e0c82e34ae36722fb72a06ea3b4c8877789165ee32638b7daf0990",
+   "sourceSha256": "f03a86ff00e0c82e34ae36722fb72a06ea3b4c8877789165ee32638b7daf0990",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/058470.json",
+   "from": "dart_financials/058470.json",
+   "sha256": "4c1ceaa8148893e2881716bc3af897ad38b40c2a2518fecbff79cdf8c84af0bf",
+   "sourceSha256": "4c1ceaa8148893e2881716bc3af897ad38b40c2a2518fecbff79cdf8c84af0bf",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/058610.json",
+   "from": "dart_financials/058610.json",
+   "sha256": "d896469cb40466faef7ddf07fade80150d3706b380c68df723b273d896726a87",
+   "sourceSha256": "d896469cb40466faef7ddf07fade80150d3706b380c68df723b273d896726a87",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/058650.json",
+   "from": "dart_financials/058650.json",
+   "sha256": "746111c9d5797becb0d03ad07f62f3e874a0df15b2d39e7436602b0b45d28288",
+   "sourceSha256": "746111c9d5797becb0d03ad07f62f3e874a0df15b2d39e7436602b0b45d28288",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/059090.json",
+   "from": "dart_financials/059090.json",
+   "sha256": "0eb4cfb19da06aa68086385560ccfa18b0288d027161e168fd3d6912da77a34f",
+   "sourceSha256": "0eb4cfb19da06aa68086385560ccfa18b0288d027161e168fd3d6912da77a34f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/060250.json",
+   "from": "dart_financials/060250.json",
+   "sha256": "3408cbc2d56e089b01cd68a7cfae374ca6886018f43ccb76545971741c99951d",
+   "sourceSha256": "3408cbc2d56e089b01cd68a7cfae374ca6886018f43ccb76545971741c99951d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/060280.json",
+   "from": "dart_financials/060280.json",
+   "sha256": "af76e7e9a74842ff99ffc7e1e078bad2ee4738f99adfa51077495b633121bc70",
+   "sourceSha256": "af76e7e9a74842ff99ffc7e1e078bad2ee4738f99adfa51077495b633121bc70",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/060370.json",
+   "from": "dart_financials/060370.json",
+   "sha256": "aacf03628f44b18b7cebc26e3b5b491a2e3069c897a0027527140b444db608d1",
+   "sourceSha256": "aacf03628f44b18b7cebc26e3b5b491a2e3069c897a0027527140b444db608d1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/060980.json",
+   "from": "dart_financials/060980.json",
+   "sha256": "ab4d3227b11d5af4ae6dabef472465ecea68594aadd19e10b8e96437ca08b9f9",
+   "sourceSha256": "ab4d3227b11d5af4ae6dabef472465ecea68594aadd19e10b8e96437ca08b9f9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/062040.json",
+   "from": "dart_financials/062040.json",
+   "sha256": "25f1a240e1838fbbbec1a28b0b613763b9f074c3951e8580c2b8a583d31f8cdb",
+   "sourceSha256": "25f1a240e1838fbbbec1a28b0b613763b9f074c3951e8580c2b8a583d31f8cdb",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/064290.json",
+   "from": "dart_financials/064290.json",
+   "sha256": "c33dbafef14ab8cd259e8356754a31853d474018726e96dae1f8fbf689cae5a7",
+   "sourceSha256": "c33dbafef14ab8cd259e8356754a31853d474018726e96dae1f8fbf689cae5a7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/064350.json",
+   "from": "dart_financials/064350.json",
+   "sha256": "78dabd5ab85797f35a1a914cc5504e35af490b37a612ced35b92b776a35aa5d0",
+   "sourceSha256": "78dabd5ab85797f35a1a914cc5504e35af490b37a612ced35b92b776a35aa5d0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/064400.json",
+   "from": "dart_financials/064400.json",
+   "sha256": "1bee5cfe75d30d590f0c7edb764cf877b2927196e2594b6858cba4b155caf97e",
+   "sourceSha256": "1bee5cfe75d30d590f0c7edb764cf877b2927196e2594b6858cba4b155caf97e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/064760.json",
+   "from": "dart_financials/064760.json",
+   "sha256": "bc18337ba68824b795eaaf4f2f58bdbafbd84fa629de87a9963d8611112c5c95",
+   "sourceSha256": "bc18337ba68824b795eaaf4f2f58bdbafbd84fa629de87a9963d8611112c5c95",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/064960.json",
+   "from": "dart_financials/064960.json",
+   "sha256": "0d91e17276aa5a21c5d8bb88dacf2d48cb7ef5bb5c0ff2d2b91c73d90fe187a1",
+   "sourceSha256": "0d91e17276aa5a21c5d8bb88dacf2d48cb7ef5bb5c0ff2d2b91c73d90fe187a1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/065350.json",
+   "from": "dart_financials/065350.json",
+   "sha256": "78f6075750419558cbc1882231ef1ebc7051b95318cdce052b1b544e6880ae7c",
+   "sourceSha256": "78f6075750419558cbc1882231ef1ebc7051b95318cdce052b1b544e6880ae7c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/066570.json",
+   "from": "dart_financials/066570.json",
+   "sha256": "069ff9e7f9e32b3c2725540bcc7548b1ecb0584507653fab9b7393a89560cd66",
+   "sourceSha256": "069ff9e7f9e32b3c2725540bcc7548b1ecb0584507653fab9b7393a89560cd66",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/066970.json",
+   "from": "dart_financials/066970.json",
+   "sha256": "7947aaff7be32d643d261177468264c12145abe964a1f77aaba447155608eafc",
+   "sourceSha256": "7947aaff7be32d643d261177468264c12145abe964a1f77aaba447155608eafc",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/067160.json",
+   "from": "dart_financials/067160.json",
+   "sha256": "9f183f3c4772f0777f57d8974d934fc3389daa89954cee632d7e616882e489c7",
+   "sourceSha256": "9f183f3c4772f0777f57d8974d934fc3389daa89954cee632d7e616882e489c7",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/067310.json",
+   "from": "dart_financials/067310.json",
+   "sha256": "ebdd8371f02915b24c5be96d72538e7963e72db7e0b63d8c23c4fecafbb0a6f3",
+   "sourceSha256": "ebdd8371f02915b24c5be96d72538e7963e72db7e0b63d8c23c4fecafbb0a6f3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/068270.json",
+   "from": "dart_financials/068270.json",
+   "sha256": "ada3ea830880441760989634ab825fa0688f065ab76b522254b593099b46cb8e",
+   "sourceSha256": "ada3ea830880441760989634ab825fa0688f065ab76b522254b593099b46cb8e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/068760.json",
+   "from": "dart_financials/068760.json",
+   "sha256": "b74b80898f875b80f3cdaa0368b024e0e22cfaee1fd6975efccf6cf296afc581",
+   "sourceSha256": "b74b80898f875b80f3cdaa0368b024e0e22cfaee1fd6975efccf6cf296afc581",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/069260.json",
+   "from": "dart_financials/069260.json",
+   "sha256": "a26e4c0f19efe04481399e040adfa0d9fb908f73492ab211d18e7f69c6a155df",
+   "sourceSha256": "a26e4c0f19efe04481399e040adfa0d9fb908f73492ab211d18e7f69c6a155df",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/069620.json",
+   "from": "dart_financials/069620.json",
+   "sha256": "798ade9405a8692d97f359df6de6bdb71e70bfe6c0fcc1dd2c9e77ca44ac357d",
+   "sourceSha256": "798ade9405a8692d97f359df6de6bdb71e70bfe6c0fcc1dd2c9e77ca44ac357d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/069960.json",
+   "from": "dart_financials/069960.json",
+   "sha256": "2725ea56630f414a5bfddcbae183626ab5eab4014e95c25d19bef921cb0017da",
+   "sourceSha256": "2725ea56630f414a5bfddcbae183626ab5eab4014e95c25d19bef921cb0017da",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/071050.json",
+   "from": "dart_financials/071050.json",
+   "sha256": "d71a0e5d05e37e22ab38e8a8c0772ed17757ecaddf324491f489a067ed8a893e",
+   "sourceSha256": "d71a0e5d05e37e22ab38e8a8c0772ed17757ecaddf324491f489a067ed8a893e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/071320.json",
+   "from": "dart_financials/071320.json",
+   "sha256": "3ce3f661f29849c8391dbd236af1a38018093c3176ec5b83cee8b8c3cbc57774",
+   "sourceSha256": "3ce3f661f29849c8391dbd236af1a38018093c3176ec5b83cee8b8c3cbc57774",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/071840.json",
+   "from": "dart_financials/071840.json",
+   "sha256": "c8dd04df7df898c855bf8fd61a8fd3d828b03342062e255a34475c5a3651a280",
+   "sourceSha256": "c8dd04df7df898c855bf8fd61a8fd3d828b03342062e255a34475c5a3651a280",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/071970.json",
+   "from": "dart_financials/071970.json",
+   "sha256": "422d2b34415c6d34d22a95cccec48f89fa290f587c3ec562182b88bb785a61f1",
+   "sourceSha256": "422d2b34415c6d34d22a95cccec48f89fa290f587c3ec562182b88bb785a61f1",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/072710.json",
+   "from": "dart_financials/072710.json",
+   "sha256": "e1ba35400c42ee0f69ffbe5f927b7749f36bd0211ccbdb78f480cd46e8333f0f",
+   "sourceSha256": "e1ba35400c42ee0f69ffbe5f927b7749f36bd0211ccbdb78f480cd46e8333f0f",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/073240.json",
+   "from": "dart_financials/073240.json",
+   "sha256": "9f04610d963d6847006972c0c73a0d0a180a646c452262182f80aa3e229b42f6",
+   "sourceSha256": "9f04610d963d6847006972c0c73a0d0a180a646c452262182f80aa3e229b42f6",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/074600.json",
+   "from": "dart_financials/074600.json",
+   "sha256": "9d0568ab38214dff723a4810265c06e77b630269df663a98c38548d5a1ea1054",
+   "sourceSha256": "9d0568ab38214dff723a4810265c06e77b630269df663a98c38548d5a1ea1054",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/075580.json",
+   "from": "dart_financials/075580.json",
+   "sha256": "786e97d8f8a76550e710833822366165b05666d83bee0fc816ce97381dfd12f4",
+   "sourceSha256": "786e97d8f8a76550e710833822366165b05666d83bee0fc816ce97381dfd12f4",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/077970.json",
+   "from": "dart_financials/077970.json",
+   "sha256": "4844a134fbc7ec5db99ac81a1ffb41d6a08ffc8e9536c71e0c7ab68cb132f4f3",
+   "sourceSha256": "4844a134fbc7ec5db99ac81a1ffb41d6a08ffc8e9536c71e0c7ab68cb132f4f3",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/078600.json",
+   "from": "dart_financials/078600.json",
+   "sha256": "2c572e75f6564564c86c64aee790d351d6a5f34fd2b98bb2d2a2a29409a4d3ae",
+   "sourceSha256": "2c572e75f6564564c86c64aee790d351d6a5f34fd2b98bb2d2a2a29409a4d3ae",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/078930.json",
+   "from": "dart_financials/078930.json",
+   "sha256": "4c9608b3157e095dd611f3c95e2a43fe151598aacc7d830acc1b82f756804127",
+   "sourceSha256": "4c9608b3157e095dd611f3c95e2a43fe151598aacc7d830acc1b82f756804127",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/079160.json",
+   "from": "dart_financials/079160.json",
+   "sha256": "a0b29f03e3167cdbb6f29b6d3de82f85cf64f3d7338b2550489227fa907e5025",
+   "sourceSha256": "a0b29f03e3167cdbb6f29b6d3de82f85cf64f3d7338b2550489227fa907e5025",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/079550.json",
+   "from": "dart_financials/079550.json",
+   "sha256": "3fc27c20e8b86ae90b46fb09c62b727d4e23904d535b51ab37a400bc9e03ce02",
+   "sourceSha256": "3fc27c20e8b86ae90b46fb09c62b727d4e23904d535b51ab37a400bc9e03ce02",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/079900.json",
+   "from": "dart_financials/079900.json",
+   "sha256": "eefec8355e15d514b52acf541126b1c6bff0c5553c730432fe5401cd1d2e1833",
+   "sourceSha256": "eefec8355e15d514b52acf541126b1c6bff0c5553c730432fe5401cd1d2e1833",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/080220.json",
+   "from": "dart_financials/080220.json",
+   "sha256": "26cf585f00dcf0d78df9228358ed1d81b5486556afd34d2017a2414c54ce7a6a",
+   "sourceSha256": "26cf585f00dcf0d78df9228358ed1d81b5486556afd34d2017a2414c54ce7a6a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/081660.json",
+   "from": "dart_financials/081660.json",
+   "sha256": "717bfc51b64967853ba32a8ab1932b3181bc1f2ebedbb818029daf7bcdd9f8ed",
+   "sourceSha256": "717bfc51b64967853ba32a8ab1932b3181bc1f2ebedbb818029daf7bcdd9f8ed",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/082640.json",
+   "from": "dart_financials/082640.json",
+   "sha256": "8686a9aea544cb8dabc005bf8e477682704b55ddb63778a2db378eccf9129f9b",
+   "sourceSha256": "8686a9aea544cb8dabc005bf8e477682704b55ddb63778a2db378eccf9129f9b",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/082740.json",
+   "from": "dart_financials/082740.json",
+   "sha256": "79bff88304f7b357847e9e03abdddad7d4d005447651038a1bf5d262e954b0f9",
+   "sourceSha256": "79bff88304f7b357847e9e03abdddad7d4d005447651038a1bf5d262e954b0f9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/082920.json",
+   "from": "dart_financials/082920.json",
+   "sha256": "5d26b2817382408089dd415a086a1bad363c2348c5dbf1dc6fde63a0abb2902d",
+   "sourceSha256": "5d26b2817382408089dd415a086a1bad363c2348c5dbf1dc6fde63a0abb2902d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/083450.json",
+   "from": "dart_financials/083450.json",
+   "sha256": "e58a38289ea0106a45528b03173985f95816ef8594e0c6a53d058d3132dc32fa",
+   "sourceSha256": "e58a38289ea0106a45528b03173985f95816ef8594e0c6a53d058d3132dc32fa",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/083650.json",
+   "from": "dart_financials/083650.json",
+   "sha256": "06add9fe2f11be1f01ba30377ecff0145ccf9b1827389928429937e001aa0564",
+   "sourceSha256": "06add9fe2f11be1f01ba30377ecff0145ccf9b1827389928429937e001aa0564",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/084010.json",
+   "from": "dart_financials/084010.json",
+   "sha256": "2dd6f670014176beb6139419398d4e4c5f25f08eb273907653e3d873939b323e",
+   "sourceSha256": "2dd6f670014176beb6139419398d4e4c5f25f08eb273907653e3d873939b323e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/084370.json",
+   "from": "dart_financials/084370.json",
+   "sha256": "89cbbfad6d494671cd16648a7835b76053d9a200e1be5a7c1334c2c5f456d28e",
+   "sourceSha256": "89cbbfad6d494671cd16648a7835b76053d9a200e1be5a7c1334c2c5f456d28e",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/085620.json",
+   "from": "dart_financials/085620.json",
+   "sha256": "dfb8e11620fc5378e2d8b318b9c9c6c6746e02899ebd0bfe1cce8a1f5eed376d",
+   "sourceSha256": "dfb8e11620fc5378e2d8b318b9c9c6c6746e02899ebd0bfe1cce8a1f5eed376d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/085660.json",
+   "from": "dart_financials/085660.json",
+   "sha256": "b081d06da94d3c1b5fde52d77cef59b3d6d673c654c285ca039e6108d511d2c0",
+   "sourceSha256": "b081d06da94d3c1b5fde52d77cef59b3d6d673c654c285ca039e6108d511d2c0",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/086280.json",
+   "from": "dart_financials/086280.json",
+   "sha256": "503cf41a67c0dc3c08cf6707996fad8deae2a66023ccdae38c4841a94a6b48d9",
+   "sourceSha256": "503cf41a67c0dc3c08cf6707996fad8deae2a66023ccdae38c4841a94a6b48d9",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/086450.json",
+   "from": "dart_financials/086450.json",
+   "sha256": "3505f9481aff15ca1b0cfaea1f91a4b2e11900c218c2b8acfc6d9c69850a60ae",
+   "sourceSha256": "3505f9481aff15ca1b0cfaea1f91a4b2e11900c218c2b8acfc6d9c69850a60ae",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/086520.json",
+   "from": "dart_financials/086520.json",
+   "sha256": "21799e4ef45a853b3270f6954a9f37ec21c4bf3b77243f16695f30bb1bdddd9c",
+   "sourceSha256": "21799e4ef45a853b3270f6954a9f37ec21c4bf3b77243f16695f30bb1bdddd9c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/086790.json",
+   "from": "dart_financials/086790.json",
+   "sha256": "e4cf5544c519660c5c06bc610c29c26e2c292743ad88b734cb24cd5b72f1233d",
+   "sourceSha256": "e4cf5544c519660c5c06bc610c29c26e2c292743ad88b734cb24cd5b72f1233d",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/086900.json",
+   "from": "dart_financials/086900.json",
+   "sha256": "1387b4117f60b5211e5121273b52b792bb54eb7e4299c89699d36ea3b536967c",
+   "sourceSha256": "1387b4117f60b5211e5121273b52b792bb54eb7e4299c89699d36ea3b536967c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/087010.json",
+   "from": "dart_financials/087010.json",
+   "sha256": "440cae5df4b45717379e4c1847af72c9126b13a607b68025e4592cef72cd4419",
+   "sourceSha256": "440cae5df4b45717379e4c1847af72c9126b13a607b68025e4592cef72cd4419",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/088350.json",
+   "from": "dart_financials/088350.json",
+   "sha256": "0031f6361bbba94f8b6099ecbd6c8373c9e55637226dd603b0c68e3a1eb0f710",
+   "sourceSha256": "0031f6361bbba94f8b6099ecbd6c8373c9e55637226dd603b0c68e3a1eb0f710",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/089030.json",
+   "from": "dart_financials/089030.json",
+   "sha256": "f73b24ad1bf245923542221f2fa9698aa23e92197d47085db81098bec6a0e6cb",
+   "sourceSha256": "f73b24ad1bf245923542221f2fa9698aa23e92197d47085db81098bec6a0e6cb",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/089590.json",
+   "from": "dart_financials/089590.json",
+   "sha256": "036f56bc18f8f61260f19c72276004c5388234b0cba6d68e07f67092ca7580a4",
+   "sourceSha256": "036f56bc18f8f61260f19c72276004c5388234b0cba6d68e07f67092ca7580a4",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/089860.json",
+   "from": "dart_financials/089860.json",
+   "sha256": "2f4a1f6a0206c40f573ad00a50bebffe3cca0bfe5ffcefac90f9ebd33904be4a",
+   "sourceSha256": "2f4a1f6a0206c40f573ad00a50bebffe3cca0bfe5ffcefac90f9ebd33904be4a",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/089890.json",
+   "from": "dart_financials/089890.json",
+   "sha256": "e2367558dd7b66c8982770862433e7797de2cb0fc3ae45da41fdfa9856216b2c",
+   "sourceSha256": "e2367558dd7b66c8982770862433e7797de2cb0fc3ae45da41fdfa9856216b2c",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/089970.json",
+   "from": "dart_financials/089970.json",
+   "sha256": "9ed8fafc88e36d4c4bf974fcb19eddf8c929512096c6612374afa4c0fdadfa64",
+   "sourceSha256": "9ed8fafc88e36d4c4bf974fcb19eddf8c929512096c6612374afa4c0fdadfa64",
+   "identical": true
+  },
+  {
+   "path": "dart_financials/_status.json",
+   "from": "dart_financials/_status.json",
+   "sha256": "eb840c3661638d51e4415f450d21488e413abfa68c2f46339ece9a3b7d30595b",
+   "sourceSha256": "eb840c3661638d51e4415f450d21488e413abfa68c2f46339ece9a3b7d30595b",
+   "identical": true
+  },
+  {
+   "path": "dart_pipeline.py",
+   "from": "dart_pipeline.py",
+   "sha256": "2a5d12582c5a7998e4923a9c21646fcc28bac999c9d0e37e5cfcd7748337a85b",
+   "sourceSha256": "2a5d12582c5a7998e4923a9c21646fcc28bac999c9d0e37e5cfcd7748337a85b",
+   "identical": true
+  },
+  {
+   "path": "dart_time.py",
+   "from": "dart_time.py",
+   "sha256": "776776200053d9b2247882aec502ce7235c5bcd8ec9bff2039a3d812b60ce2d9",
+   "sourceSha256": "776776200053d9b2247882aec502ce7235c5bcd8ec9bff2039a3d812b60ce2d9",
+   "identical": true
+  },
+  {
+   "path": "dart_today.js",
+   "from": "dart_today.js",
+   "sha256": "fb5bd340d403e0998061a72f3d4b71005b44e1e5aafef16e526b35d1b4013897",
+   "sourceSha256": "fb5bd340d403e0998061a72f3d4b71005b44e1e5aafef16e526b35d1b4013897",
+   "identical": true
+  },
+  {
+   "path": "disclosure_research/contract.json",
+   "from": "disclosure_research/contract.json",
+   "sha256": "959a2d7a3863936b80e942ce3bf8c956fbae98e93e8bbd07b632595c4c99c67c",
+   "sourceSha256": "959a2d7a3863936b80e942ce3bf8c956fbae98e93e8bbd07b632595c4c99c67c",
+   "identical": true
+  },
+  {
+   "path": "disclosure_research/disclosure_changes.json",
+   "from": "disclosure_research/disclosure_changes.json",
+   "sha256": "9f85ba812b9dbfafc973c39431465a9a18d5a2711f663d926b536fe03c4eaf9d",
+   "sourceSha256": "9f85ba812b9dbfafc973c39431465a9a18d5a2711f663d926b536fe03c4eaf9d",
+   "identical": true
+  },
+  {
+   "path": "disclosure_research/event_timelines.json",
+   "from": "disclosure_research/event_timelines.json",
+   "sha256": "91eebe029dd28eea27389a941ddbbdc74f123c9898c1243ec91e1a80a6b28b71",
+   "sourceSha256": "91eebe029dd28eea27389a941ddbbdc74f123c9898c1243ec91e1a80a6b28b71",
+   "identical": true
+  },
+  {
+   "path": "disclosure_research/financial_changes.json",
+   "from": "disclosure_research/financial_changes.json",
+   "sha256": "95a89cc77a630ce9092c0b822b3610f033ffaa64014908139e082eef2b222efc",
+   "sourceSha256": "95a89cc77a630ce9092c0b822b3610f033ffaa64014908139e082eef2b222efc",
+   "identical": true
+  },
+  {
+   "path": "due_targets.py",
+   "from": "due_targets.py",
+   "sha256": "6428ff2d27edc9a8368f48d4bb9c5bc3cac37b67573d40f5be2f3da6d63a2c8c",
+   "sourceSha256": "6428ff2d27edc9a8368f48d4bb9c5bc3cac37b67573d40f5be2f3da6d63a2c8c",
+   "identical": true
+  },
+  {
+   "path": "gaeo_coverage/corporate_action_evidence.json",
+   "from": "gaeo_coverage/corporate_action_evidence.json",
+   "sha256": "7bff6ef3a68b6a9b073bed17907e0676f5c0b69e3fcdf9fa7c0a1b2c75a0d7df",
+   "sourceSha256": "7bff6ef3a68b6a9b073bed17907e0676f5c0b69e3fcdf9fa7c0a1b2c75a0d7df",
+   "identical": true
+  },
+  {
+   "path": "krx_calendar.py",
+   "from": "krx_calendar.py",
+   "sha256": "b12275c1237c18793dc16a82ae512c5edcf9717e17692f1440ee69ed673cb47a",
+   "sourceSha256": "b12275c1237c18793dc16a82ae512c5edcf9717e17692f1440ee69ed673cb47a",
+   "identical": true
+  },
+  {
+   "path": "research_archive/dart/api_budget.json",
+   "from": "research_archive/dart/api_budget.json",
+   "sha256": "56a83e6b7615e2791a09b146a002283a63718578f93be8ad292731ca955ece9a",
+   "sourceSha256": "56a83e6b7615e2791a09b146a002283a63718578f93be8ad292731ca955ece9a",
+   "identical": true
+  },
+  {
+   "path": "research_archive/dart/collection_status.json",
+   "from": "research_archive/dart/collection_status.json",
+   "sha256": "03155221b217bbdcd85d67d77df8280cae85c25d2ea029372eb9cf6f1151a6c8",
+   "sourceSha256": "03155221b217bbdcd85d67d77df8280cae85c25d2ea029372eb9cf6f1151a6c8",
+   "identical": true
+  },
+  {
+   "path": "research_archive/dart/corp_map.json",
+   "from": "research_archive/dart/corp_map.json",
+   "sha256": "3e04d870b3c4b287e1b7859ec4c4048546e4c3736e59586b38a5f8a19e648b1d",
+   "sourceSha256": "3e04d870b3c4b287e1b7859ec4c4048546e4c3736e59586b38a5f8a19e648b1d",
+   "identical": true
+  },
+  {
+   "path": "research_archive/dart/seen_rcept.json",
+   "from": "research_archive/dart/seen_rcept.json",
+   "sha256": "da71118e1646aac3d7c7c6376ae178aa9ec21ae5f46c44625c1b8589a5c6aff7",
+   "sourceSha256": "da71118e1646aac3d7c7c6376ae178aa9ec21ae5f46c44625c1b8589a5c6aff7",
+   "identical": true
+  },
+  {
+   "path": "research_crypto.py",
+   "from": "research_crypto.py",
+   "sha256": "b78a29707a4644f4d99698bc90c09bb53c0dd0699d55c7af6a82dfc7c46dc705",
+   "sourceSha256": "b78a29707a4644f4d99698bc90c09bb53c0dd0699d55c7af6a82dfc7c46dc705",
+   "identical": true
+  },
+  {
+   "path": "research_store.py",
+   "from": "research_store.py",
+   "sha256": "722d47588183212cca9db16c1a803b38643518a457da8fcc0fbe4f16885c4b35",
+   "sourceSha256": "722d47588183212cca9db16c1a803b38643518a457da8fcc0fbe4f16885c4b35",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/OFL.txt",
+   "from": "assets/fonts/wanted-sans/OFL.txt",
+   "sha256": "db345ad0216d0b73ba5dd3a540507281da6695f234e0a4e70cf2e1a8f30d4331",
+   "sourceSha256": "db345ad0216d0b73ba5dd3a540507281da6695f234e0a4e70cf2e1a8f30d4331",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/WantedSansVariable.css",
+   "from": "assets/fonts/wanted-sans/WantedSansVariable.css",
+   "sha256": "8745ef63cbc2e2bf3798aa58114e4e43a67608718f44134416daed959a6ba4cf",
+   "sourceSha256": "8745ef63cbc2e2bf3798aa58114e4e43a67608718f44134416daed959a6ba4cf",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.0.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.0.woff2",
+   "sha256": "30cd0f2fb8b076baa281761f95c650e3dd543638e7f8e7b0a95bdcdba6eecbe8",
+   "sourceSha256": "30cd0f2fb8b076baa281761f95c650e3dd543638e7f8e7b0a95bdcdba6eecbe8",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.1.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.1.woff2",
+   "sha256": "2673730caeb4dedfb1265421dec80f8b3d3503a014c657c0afab27e30f21adb3",
+   "sourceSha256": "2673730caeb4dedfb1265421dec80f8b3d3503a014c657c0afab27e30f21adb3",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.10.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.10.woff2",
+   "sha256": "dc7d3856c5a4adc28160ea2fa040d97ddb7422b52d74b4327f1a6b6e98f112f9",
+   "sourceSha256": "dc7d3856c5a4adc28160ea2fa040d97ddb7422b52d74b4327f1a6b6e98f112f9",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.11.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.11.woff2",
+   "sha256": "bb2c33c696c0f2bf7c6e879f5ec5a7d9d684955d531a03bd569bc2ca9ffc98c5",
+   "sourceSha256": "bb2c33c696c0f2bf7c6e879f5ec5a7d9d684955d531a03bd569bc2ca9ffc98c5",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.12.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.12.woff2",
+   "sha256": "14122c23525ffc3a78ec65f9ac0abf0adab0a567a8eb38ff7f43708535aa859f",
+   "sourceSha256": "14122c23525ffc3a78ec65f9ac0abf0adab0a567a8eb38ff7f43708535aa859f",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.13.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.13.woff2",
+   "sha256": "8497912e9bc27dfe4e858c3ec167c12074fe21afd921fab3f285436fea1bc192",
+   "sourceSha256": "8497912e9bc27dfe4e858c3ec167c12074fe21afd921fab3f285436fea1bc192",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.14.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.14.woff2",
+   "sha256": "34b9a8fbc5d1e0e6f03f6b4e9651e66e952f6c4516d5e0b54ae8fa605a770eeb",
+   "sourceSha256": "34b9a8fbc5d1e0e6f03f6b4e9651e66e952f6c4516d5e0b54ae8fa605a770eeb",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.15.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.15.woff2",
+   "sha256": "e61e866b3866de809b65298b609165239bceb5c2e722ea0adf672a424e07320b",
+   "sourceSha256": "e61e866b3866de809b65298b609165239bceb5c2e722ea0adf672a424e07320b",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.16.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.16.woff2",
+   "sha256": "6a070884744fb74e234bd39fe1434aefe7fb848b7c054af5e52b6277a74af6d1",
+   "sourceSha256": "6a070884744fb74e234bd39fe1434aefe7fb848b7c054af5e52b6277a74af6d1",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.17.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.17.woff2",
+   "sha256": "b2023436fd52bca5de5f311fb3e1d44caace700375e62e2aceb0540308729703",
+   "sourceSha256": "b2023436fd52bca5de5f311fb3e1d44caace700375e62e2aceb0540308729703",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.18.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.18.woff2",
+   "sha256": "41fdf1557b1f459a71138edad9e1ef9596cfd2b303cac4fd4aa8906fe12bab68",
+   "sourceSha256": "41fdf1557b1f459a71138edad9e1ef9596cfd2b303cac4fd4aa8906fe12bab68",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.19.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.19.woff2",
+   "sha256": "9e7288e7532831088188e31bb05a03682fc1a4be57617bc6dca84ff8dc025768",
+   "sourceSha256": "9e7288e7532831088188e31bb05a03682fc1a4be57617bc6dca84ff8dc025768",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.2.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.2.woff2",
+   "sha256": "4fdb63527886350a70c14f26dfce7652eb704e25c3a2df0c3eddb7e69b794f63",
+   "sourceSha256": "4fdb63527886350a70c14f26dfce7652eb704e25c3a2df0c3eddb7e69b794f63",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.20.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.20.woff2",
+   "sha256": "b5921ba664a5b005f6c634f1ba375c38de336d5226215cd1fa8168af81b5d95e",
+   "sourceSha256": "b5921ba664a5b005f6c634f1ba375c38de336d5226215cd1fa8168af81b5d95e",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.21.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.21.woff2",
+   "sha256": "d6028a71234765f25712e5edd405c4e90ee4bf554e7f7a4e89601d738e1b4e1d",
+   "sourceSha256": "d6028a71234765f25712e5edd405c4e90ee4bf554e7f7a4e89601d738e1b4e1d",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.22.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.22.woff2",
+   "sha256": "10a25a3a3800d93e468ffd557e8c313981579ed4948c1e1e7a08062755de2e84",
+   "sourceSha256": "10a25a3a3800d93e468ffd557e8c313981579ed4948c1e1e7a08062755de2e84",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.23.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.23.woff2",
+   "sha256": "8aac36453482f88c9b98ad493db08fc971427f6e60783968f0d8a6e332d86ce7",
+   "sourceSha256": "8aac36453482f88c9b98ad493db08fc971427f6e60783968f0d8a6e332d86ce7",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.24.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.24.woff2",
+   "sha256": "98ee32185c8e56e81f27f12ec777a71194ac0de85b9aaca8150cf504ce3f3f09",
+   "sourceSha256": "98ee32185c8e56e81f27f12ec777a71194ac0de85b9aaca8150cf504ce3f3f09",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.25.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.25.woff2",
+   "sha256": "059fe7713bbce771b2a85f49d8d0f17d47486c7976391850dbc9284795489e69",
+   "sourceSha256": "059fe7713bbce771b2a85f49d8d0f17d47486c7976391850dbc9284795489e69",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.26.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.26.woff2",
+   "sha256": "ab7fe05d14f1eaa6b2df7494ae8dd7e7e0268fbcd336a7620c6cf79694c80fae",
+   "sourceSha256": "ab7fe05d14f1eaa6b2df7494ae8dd7e7e0268fbcd336a7620c6cf79694c80fae",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.27.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.27.woff2",
+   "sha256": "0c1a916c45adae6d52471f998492d3eb1963cad6bbb4d553e2141c2d44cdf2c6",
+   "sourceSha256": "0c1a916c45adae6d52471f998492d3eb1963cad6bbb4d553e2141c2d44cdf2c6",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.28.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.28.woff2",
+   "sha256": "5c1d060047d96c8ced7b9504fd1ebb9be091b76d72a3e6c1d2921c55cf098c53",
+   "sourceSha256": "5c1d060047d96c8ced7b9504fd1ebb9be091b76d72a3e6c1d2921c55cf098c53",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.29.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.29.woff2",
+   "sha256": "155200ebeaa2c38d738c25124ccca6403236b13e9d60182746fc5be16ed5db98",
+   "sourceSha256": "155200ebeaa2c38d738c25124ccca6403236b13e9d60182746fc5be16ed5db98",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.3.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.3.woff2",
+   "sha256": "33d5f9d9b4a67a832ce63e0ae4c3390f23f8e80bfe191be1c26d1bc54a143609",
+   "sourceSha256": "33d5f9d9b4a67a832ce63e0ae4c3390f23f8e80bfe191be1c26d1bc54a143609",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.30.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.30.woff2",
+   "sha256": "c2ed412db31792ecda5017965020ea6b5806e93c30709adf5dab44ac57c0c739",
+   "sourceSha256": "c2ed412db31792ecda5017965020ea6b5806e93c30709adf5dab44ac57c0c739",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.31.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.31.woff2",
+   "sha256": "4cdbe9043f2c50ae935beaa5031edcd039083095ed9c078ef9888f14ed5a316b",
+   "sourceSha256": "4cdbe9043f2c50ae935beaa5031edcd039083095ed9c078ef9888f14ed5a316b",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.32.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.32.woff2",
+   "sha256": "ef051eb96baabf155130eefc5ca044e0c6f2c62d3914e998f540cc6578bf09ba",
+   "sourceSha256": "ef051eb96baabf155130eefc5ca044e0c6f2c62d3914e998f540cc6578bf09ba",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.33.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.33.woff2",
+   "sha256": "589b8ba8e3fc8a3634c7f3bc6565502bb991a4b97c735d1d59a23079ac55b72c",
+   "sourceSha256": "589b8ba8e3fc8a3634c7f3bc6565502bb991a4b97c735d1d59a23079ac55b72c",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.34.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.34.woff2",
+   "sha256": "cda21b98f548005373dafb35799a7e595cac94d4ce51dad83671d50bf8cc43a2",
+   "sourceSha256": "cda21b98f548005373dafb35799a7e595cac94d4ce51dad83671d50bf8cc43a2",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.35.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.35.woff2",
+   "sha256": "cbd27cc8aa443193c721358642d65d096550569c6f709b871e6d2037cf3ab2a0",
+   "sourceSha256": "cbd27cc8aa443193c721358642d65d096550569c6f709b871e6d2037cf3ab2a0",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.36.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.36.woff2",
+   "sha256": "213e5523012e2e93c8a81eef6923d733187c577d8399c3db7516a3a89caa0338",
+   "sourceSha256": "213e5523012e2e93c8a81eef6923d733187c577d8399c3db7516a3a89caa0338",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.37.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.37.woff2",
+   "sha256": "3ab29a74777d984089b8f148081e1c4c78597579b1d5b04400dfb91b69f13df8",
+   "sourceSha256": "3ab29a74777d984089b8f148081e1c4c78597579b1d5b04400dfb91b69f13df8",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.38.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.38.woff2",
+   "sha256": "4932123b8f3a1051e3b007f4036eda4ce53420cdd1a3fa82fbab3f662c06d9c1",
+   "sourceSha256": "4932123b8f3a1051e3b007f4036eda4ce53420cdd1a3fa82fbab3f662c06d9c1",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.39.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.39.woff2",
+   "sha256": "87ab66b7a0667622c1125a9eee13bede238f662f4af863b72007f8e0b1c387bd",
+   "sourceSha256": "87ab66b7a0667622c1125a9eee13bede238f662f4af863b72007f8e0b1c387bd",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.4.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.4.woff2",
+   "sha256": "44d56cbe57945d48e38dc26e0f2f7fbd904379fc296f508243fad8a5e4f936a2",
+   "sourceSha256": "44d56cbe57945d48e38dc26e0f2f7fbd904379fc296f508243fad8a5e4f936a2",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.40.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.40.woff2",
+   "sha256": "ac90cb63075af13001e9d0864f21ac2d80c466d7ca98c3233941bb2fd12d1437",
+   "sourceSha256": "ac90cb63075af13001e9d0864f21ac2d80c466d7ca98c3233941bb2fd12d1437",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.41.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.41.woff2",
+   "sha256": "a5293e745c4dbb66ff56a655768730e1f5d683273b8f49ee02693d2c0f8d20e4",
+   "sourceSha256": "a5293e745c4dbb66ff56a655768730e1f5d683273b8f49ee02693d2c0f8d20e4",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.42.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.42.woff2",
+   "sha256": "90933a3e05c2aabad720507386a3b356b8571af1c5f3ea0aa19366d0482426c3",
+   "sourceSha256": "90933a3e05c2aabad720507386a3b356b8571af1c5f3ea0aa19366d0482426c3",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.43.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.43.woff2",
+   "sha256": "5f4741c660c9211398fdfdaa90e1fc588866e8abbe5778b9f3aa836d5cc5ba59",
+   "sourceSha256": "5f4741c660c9211398fdfdaa90e1fc588866e8abbe5778b9f3aa836d5cc5ba59",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.44.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.44.woff2",
+   "sha256": "e948f6ef4825eef12c8b65dd071e0ca767480a2f50aa04f26ec945a7b1c379af",
+   "sourceSha256": "e948f6ef4825eef12c8b65dd071e0ca767480a2f50aa04f26ec945a7b1c379af",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.45.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.45.woff2",
+   "sha256": "27d088b8af55d70bc0843eb1fdfc81029c1d6a97f7df7b384081c0e6377e98fc",
+   "sourceSha256": "27d088b8af55d70bc0843eb1fdfc81029c1d6a97f7df7b384081c0e6377e98fc",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.46.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.46.woff2",
+   "sha256": "8afa4ab144fda0704efd00ffaad3e862731f25117cfbc4fd1382d51509ca0403",
+   "sourceSha256": "8afa4ab144fda0704efd00ffaad3e862731f25117cfbc4fd1382d51509ca0403",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.47.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.47.woff2",
+   "sha256": "4b0aad49edf3a0843b9064d9b9c5c52ce7c0985906985550370b72dd76ad9818",
+   "sourceSha256": "4b0aad49edf3a0843b9064d9b9c5c52ce7c0985906985550370b72dd76ad9818",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.48.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.48.woff2",
+   "sha256": "51858087fdb96e08bf5e7dabff511aa8d2c00834da3bd50cfaa2d19e718b1bd4",
+   "sourceSha256": "51858087fdb96e08bf5e7dabff511aa8d2c00834da3bd50cfaa2d19e718b1bd4",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.49.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.49.woff2",
+   "sha256": "b1b4a41702561e5d14ce7e696dfaeab0b358c3db1c0ae28191ed569a11be549c",
+   "sourceSha256": "b1b4a41702561e5d14ce7e696dfaeab0b358c3db1c0ae28191ed569a11be549c",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.5.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.5.woff2",
+   "sha256": "01ef1896f340096fafb2a9dd20932a0f3ceab5da3746239972bed838e203e495",
+   "sourceSha256": "01ef1896f340096fafb2a9dd20932a0f3ceab5da3746239972bed838e203e495",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.50.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.50.woff2",
+   "sha256": "68949e9efda9ae3b09c6f9be16081cf8056b7008abb1e63f99aacfd2636a5e64",
+   "sourceSha256": "68949e9efda9ae3b09c6f9be16081cf8056b7008abb1e63f99aacfd2636a5e64",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.51.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.51.woff2",
+   "sha256": "52a48a70ce32907e83b347a5f06c4603852360859d868fddc0022f55b0ceb623",
+   "sourceSha256": "52a48a70ce32907e83b347a5f06c4603852360859d868fddc0022f55b0ceb623",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.52.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.52.woff2",
+   "sha256": "309a7d03a2e2dc27b9cd52b7fedad8507ef788d07dd259084a230787e418349f",
+   "sourceSha256": "309a7d03a2e2dc27b9cd52b7fedad8507ef788d07dd259084a230787e418349f",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.53.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.53.woff2",
+   "sha256": "30937eaa3b38c12f1727972f47707856047bc70713f7291f9eece09e99827562",
+   "sourceSha256": "30937eaa3b38c12f1727972f47707856047bc70713f7291f9eece09e99827562",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.54.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.54.woff2",
+   "sha256": "ac7039d8fea5f0d116c8f7e28548b277c95fdde4d1c26f7538b256554bacad73",
+   "sourceSha256": "ac7039d8fea5f0d116c8f7e28548b277c95fdde4d1c26f7538b256554bacad73",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.55.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.55.woff2",
+   "sha256": "0234c0600e9c8e6710d885ea81627ea91f5ec5ce6a2ca96953c9909264bb7b97",
+   "sourceSha256": "0234c0600e9c8e6710d885ea81627ea91f5ec5ce6a2ca96953c9909264bb7b97",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.56.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.56.woff2",
+   "sha256": "e036109dc2ae524d4c2cdfea8e3805e22b7d71a52839dad2ac008f3ea80c3626",
+   "sourceSha256": "e036109dc2ae524d4c2cdfea8e3805e22b7d71a52839dad2ac008f3ea80c3626",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.57.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.57.woff2",
+   "sha256": "9def57ffdb7b92a40b2e79e20c1a5ff9aca6b307d124393d4a19abfe231a2fa4",
+   "sourceSha256": "9def57ffdb7b92a40b2e79e20c1a5ff9aca6b307d124393d4a19abfe231a2fa4",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.58.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.58.woff2",
+   "sha256": "b408fb7a4e0b5782c2aad70ac35f9483c26e5d29c878b0c1a13a3dc4b7227c1d",
+   "sourceSha256": "b408fb7a4e0b5782c2aad70ac35f9483c26e5d29c878b0c1a13a3dc4b7227c1d",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.59.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.59.woff2",
+   "sha256": "a93d64c00614deb012bcd2943d319f6faa7945ecbc3230e215fbe146ce02015d",
+   "sourceSha256": "a93d64c00614deb012bcd2943d319f6faa7945ecbc3230e215fbe146ce02015d",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.6.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.6.woff2",
+   "sha256": "c82ca7770f16c4e50fc35af3bce62d9045fe3f0b0c44a6716c763907e9a865fa",
+   "sourceSha256": "c82ca7770f16c4e50fc35af3bce62d9045fe3f0b0c44a6716c763907e9a865fa",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.60.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.60.woff2",
+   "sha256": "cf77381c6ffb4febe8fab9e3e8d01ca73822274c3cc30aee2a801aa7297dacb0",
+   "sourceSha256": "cf77381c6ffb4febe8fab9e3e8d01ca73822274c3cc30aee2a801aa7297dacb0",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.61.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.61.woff2",
+   "sha256": "209b9ebb895838acfd04bc599a0d8087403ac3dc2fa162ea81d28a6eabbf75a1",
+   "sourceSha256": "209b9ebb895838acfd04bc599a0d8087403ac3dc2fa162ea81d28a6eabbf75a1",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.62.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.62.woff2",
+   "sha256": "348f460579ed03ac41cca9d44d2a83e582212af934311457b82fd01fd041a71b",
+   "sourceSha256": "348f460579ed03ac41cca9d44d2a83e582212af934311457b82fd01fd041a71b",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.63.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.63.woff2",
+   "sha256": "dfca87401f15e17448115065fb28b5564cf342631528af69c75c2f203c330756",
+   "sourceSha256": "dfca87401f15e17448115065fb28b5564cf342631528af69c75c2f203c330756",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.64.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.64.woff2",
+   "sha256": "3f947c98cb1beb9c01e0128abd6fddec706f8c83d657a3cdee68282e4a50db80",
+   "sourceSha256": "3f947c98cb1beb9c01e0128abd6fddec706f8c83d657a3cdee68282e4a50db80",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.65.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.65.woff2",
+   "sha256": "149d384e1ed0adbf3a8be21cdeb7a79d11b6122e15123324a4dbc98c0bd03a7b",
+   "sourceSha256": "149d384e1ed0adbf3a8be21cdeb7a79d11b6122e15123324a4dbc98c0bd03a7b",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.66.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.66.woff2",
+   "sha256": "09f1fac58d9a7367040f6e3c9a6878c76a20804aa28de136304b48b3512dc85a",
+   "sourceSha256": "09f1fac58d9a7367040f6e3c9a6878c76a20804aa28de136304b48b3512dc85a",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.67.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.67.woff2",
+   "sha256": "8d3335de100e29f1e23780ae8966f7e9557624f10ff8a7f4c77d65dda1944bfd",
+   "sourceSha256": "8d3335de100e29f1e23780ae8966f7e9557624f10ff8a7f4c77d65dda1944bfd",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.68.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.68.woff2",
+   "sha256": "04308cd8d5f06c6d94264763e74761ca811f1096530c7d6b0ec5bece75a7a303",
+   "sourceSha256": "04308cd8d5f06c6d94264763e74761ca811f1096530c7d6b0ec5bece75a7a303",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.69.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.69.woff2",
+   "sha256": "82ae3fcf0f84ad94a61fc86e04f614d14975cec7aa2c06383c50df404e70d9d6",
+   "sourceSha256": "82ae3fcf0f84ad94a61fc86e04f614d14975cec7aa2c06383c50df404e70d9d6",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.7.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.7.woff2",
+   "sha256": "3d01d1943979ba868c478fee7a8d13269b9e7d0ed3f011124fe7aa7ad8c83d96",
+   "sourceSha256": "3d01d1943979ba868c478fee7a8d13269b9e7d0ed3f011124fe7aa7ad8c83d96",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.70.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.70.woff2",
+   "sha256": "4f77ec357ecb2e08e4d4bdabb54e01b739bc9733511eebd286515880b45e7626",
+   "sourceSha256": "4f77ec357ecb2e08e4d4bdabb54e01b739bc9733511eebd286515880b45e7626",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.71.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.71.woff2",
+   "sha256": "a88d3acea25b08a8cda5a2374921ef3949773c7a6ad6b2814556768c18f2adbd",
+   "sourceSha256": "a88d3acea25b08a8cda5a2374921ef3949773c7a6ad6b2814556768c18f2adbd",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.72.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.72.woff2",
+   "sha256": "ef58a4f7292ad6ddadc6accd9798cac481ce2815ca3dfb1792b206f6c234edc3",
+   "sourceSha256": "ef58a4f7292ad6ddadc6accd9798cac481ce2815ca3dfb1792b206f6c234edc3",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.73.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.73.woff2",
+   "sha256": "170548008c0a38576f5127bd23333e2748ae70c702c4670d55607155d0aeaa45",
+   "sourceSha256": "170548008c0a38576f5127bd23333e2748ae70c702c4670d55607155d0aeaa45",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.74.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.74.woff2",
+   "sha256": "25f923af36fc1e547cdae1c8dcb9edf27de0cde5a929c052435d7296ce70b8a9",
+   "sourceSha256": "25f923af36fc1e547cdae1c8dcb9edf27de0cde5a929c052435d7296ce70b8a9",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.75.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.75.woff2",
+   "sha256": "3aef7599811e73fb9eac1848bc0950cc13eda753bb85546eb9416d4702296f75",
+   "sourceSha256": "3aef7599811e73fb9eac1848bc0950cc13eda753bb85546eb9416d4702296f75",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.76.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.76.woff2",
+   "sha256": "e16f4592d0789e008c276d7baeb22487411418b66c6c08fa6819694b9434e777",
+   "sourceSha256": "e16f4592d0789e008c276d7baeb22487411418b66c6c08fa6819694b9434e777",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.77.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.77.woff2",
+   "sha256": "7fe67316a78ce7f2927a1caacc883516af9129543f82433ee884a727d76bd5e7",
+   "sourceSha256": "7fe67316a78ce7f2927a1caacc883516af9129543f82433ee884a727d76bd5e7",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.78.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.78.woff2",
+   "sha256": "4908799439050ea626796713cbf9d48c86e47233fbdff4d90c1ebd0065042962",
+   "sourceSha256": "4908799439050ea626796713cbf9d48c86e47233fbdff4d90c1ebd0065042962",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.79.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.79.woff2",
+   "sha256": "bef04098d0677189c3cd79365317e0fc2735c19795bbffbc13eb035dab4bc092",
+   "sourceSha256": "bef04098d0677189c3cd79365317e0fc2735c19795bbffbc13eb035dab4bc092",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.8.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.8.woff2",
+   "sha256": "4616ddf3f54e4a149c7b0c4822991cda931763bee121b0de3eb51d17487cb617",
+   "sourceSha256": "4616ddf3f54e4a149c7b0c4822991cda931763bee121b0de3eb51d17487cb617",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.80.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.80.woff2",
+   "sha256": "a1e6a6efbf88ad9e4bba966da52f1df500a8896339c558a17c072a7502bfc236",
+   "sourceSha256": "a1e6a6efbf88ad9e4bba966da52f1df500a8896339c558a17c072a7502bfc236",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.81.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.81.woff2",
+   "sha256": "0efbc50507067f37e23abd67a1fd4e12f96c72f2d4b6d7bfcf82d48adb0aedef",
+   "sourceSha256": "0efbc50507067f37e23abd67a1fd4e12f96c72f2d4b6d7bfcf82d48adb0aedef",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.82.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.82.woff2",
+   "sha256": "49a6f8720dc608c190dccc069b170c21f8cfdf56ef10cd9e55fe33ffe67ac1fb",
+   "sourceSha256": "49a6f8720dc608c190dccc069b170c21f8cfdf56ef10cd9e55fe33ffe67ac1fb",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.83.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.83.woff2",
+   "sha256": "c11f49251d9bc49b8071822f29c40c9e91fa4ed6045c307704671ab2dc3b894d",
+   "sourceSha256": "c11f49251d9bc49b8071822f29c40c9e91fa4ed6045c307704671ab2dc3b894d",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.84.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.84.woff2",
+   "sha256": "9e47e2105c9f2cc7ce6a763d018b87f9afbf3fa5b6442f3de7f5cb9eb00c6a49",
+   "sourceSha256": "9e47e2105c9f2cc7ce6a763d018b87f9afbf3fa5b6442f3de7f5cb9eb00c6a49",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.85.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.85.woff2",
+   "sha256": "1ecf7789280e402ca1c1a697a4fcacf6b76165c2fab60dd45c43164d5cbf1bce",
+   "sourceSha256": "1ecf7789280e402ca1c1a697a4fcacf6b76165c2fab60dd45c43164d5cbf1bce",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.86.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.86.woff2",
+   "sha256": "4b602f2a527aeb8dcfe8a7d6553e8657c398fd1715238818c89ff1d023052538",
+   "sourceSha256": "4b602f2a527aeb8dcfe8a7d6553e8657c398fd1715238818c89ff1d023052538",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.87.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.87.woff2",
+   "sha256": "ab823a9776d3e15695775fe70a6b08470c54e657b24b1830dc91dede961936ab",
+   "sourceSha256": "ab823a9776d3e15695775fe70a6b08470c54e657b24b1830dc91dede961936ab",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.88.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.88.woff2",
+   "sha256": "12b965319b7b41cf8fb44b120cd40c98350f9d0681728033f0caec32e70f0e3a",
+   "sourceSha256": "12b965319b7b41cf8fb44b120cd40c98350f9d0681728033f0caec32e70f0e3a",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.89.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.89.woff2",
+   "sha256": "a8d11889bbb9a4b1356558f043841064e637b69467db507f3ed7d9b6a3f26c0e",
+   "sourceSha256": "a8d11889bbb9a4b1356558f043841064e637b69467db507f3ed7d9b6a3f26c0e",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.9.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.9.woff2",
+   "sha256": "83a1abb8e924ff3fe5ee7f2e2c1d639267c014a20ae5311dbb42b77f7e0fac5c",
+   "sourceSha256": "83a1abb8e924ff3fe5ee7f2e2c1d639267c014a20ae5311dbb42b77f7e0fac5c",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.90.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.90.woff2",
+   "sha256": "ee81f3b861509a2c94210685e637f348383871340a392728c1f6dabb6bf4974e",
+   "sourceSha256": "ee81f3b861509a2c94210685e637f348383871340a392728c1f6dabb6bf4974e",
+   "identical": true
+  },
+  {
+   "path": "site/assets/fonts/wanted-sans/woff2/WantedSansVariable.split.91.woff2",
+   "from": "assets/fonts/wanted-sans/woff2/WantedSansVariable.split.91.woff2",
+   "sha256": "13c72d73ab988189139ae81bd567649e14c8815ca9206709ff81ce9844a813d9",
+   "sourceSha256": "13c72d73ab988189139ae81bd567649e14c8815ca9206709ff81ce9844a813d9",
+   "identical": true
+  },
+  {
+   "path": "site/img/app-icon-192.png",
+   "from": "app-icon-192.png",
+   "sha256": "f12e994d97f7dd6e601c9a5a10f64ef0cbd85248337227a02019de9ec40aac3e",
+   "sourceSha256": "f12e994d97f7dd6e601c9a5a10f64ef0cbd85248337227a02019de9ec40aac3e",
+   "identical": true
+  },
+  {
+   "path": "site/img/app-icon-512.png",
+   "from": "app-icon-512.png",
+   "sha256": "d4bd45c95c0905b7956dc4bcc2911468891dc00e66557d0c646a1f05f609ab2a",
+   "sourceSha256": "d4bd45c95c0905b7956dc4bcc2911468891dc00e66557d0c646a1f05f609ab2a",
+   "identical": true
+  },
+  {
+   "path": "site/img/apple-touch-icon.png",
+   "from": "apple-touch-icon.png",
+   "sha256": "4f69382bd42723000c9adb3bc8b078ead147fefbf04ddd80a1ffe16e33dbc326",
+   "sourceSha256": "4f69382bd42723000c9adb3bc8b078ead147fefbf04ddd80a1ffe16e33dbc326",
+   "identical": true
+  },
+  {
+   "path": "site/img/favicon-16.png",
+   "from": "favicon-16.png",
+   "sha256": "cf1cbdcbba3feb26e2b856269d6f54862e3438c4279023908c7290866ef67cc8",
+   "sourceSha256": "cf1cbdcbba3feb26e2b856269d6f54862e3438c4279023908c7290866ef67cc8",
+   "identical": true
+  },
+  {
+   "path": "site/img/favicon-32.png",
+   "from": "favicon-32.png",
+   "sha256": "821a438d65d9bfb947bce4fe6132d42a2c4328018f94ab140ef60d1d2011ced7",
+   "sourceSha256": "821a438d65d9bfb947bce4fe6132d42a2c4328018f94ab140ef60d1d2011ced7",
+   "identical": true
+  },
+  {
+   "path": "site/img/favicon.ico",
+   "from": "favicon.ico",
+   "sha256": "31c0cac9f754b05758411b756e03335814e38e0d0c9922bb7de6b2735fe4431c",
+   "sourceSha256": "31c0cac9f754b05758411b756e03335814e38e0d0c9922bb7de6b2735fe4431c",
+   "identical": true
+  },
+  {
+   "path": "site/img/og-image.png",
+   "from": "og-image.png",
+   "sha256": "0d995b09dfe54f5eb45c0a854cb928664947041d6fb29f3fd9be84b73736b88c",
+   "sourceSha256": "0d995b09dfe54f5eb45c0a854cb928664947041d6fb29f3fd9be84b73736b88c",
+   "identical": true
+  },
+  {
+   "path": "test_corporate_action_classify.py",
+   "from": "test_corporate_action_classify.py",
+   "sha256": "80f56bba85a4cc9c712ca37317e8cdd242efd7d77a3f63ccabad54f65cf45ff9",
+   "sourceSha256": "80f56bba85a4cc9c712ca37317e8cdd242efd7d77a3f63ccabad54f65cf45ff9",
+   "identical": true
+  },
+  {
+   "path": "test_corporate_action_evidence.py",
+   "from": "test_corporate_action_evidence.py",
+   "sha256": "c6a6c992195b570a9b13eecaed2d1fed3e9986196f4527a1e6eb03430b5e21c7",
+   "sourceSha256": "11cf0daad769254f42382b24e67c8fbcf3801e04a8752417ef2459de5a8c196c",
+   "identical": false
+  },
+  {
+   "path": "test_dart_budget_ledger.py",
+   "from": "test_dart_budget_ledger.py",
+   "sha256": "1987827aa0093793af35def1d64c694f73634d91b7d1d03711a12b464df3bd34",
+   "sourceSha256": "60260d871a0764b62dcf1aca59b3dfe16ba45d13108b77660ce7b5deabb0ce34",
+   "identical": false
+  },
+  {
+   "path": "test_dart_financials_collect.py",
+   "from": "test_dart_financials_collect.py",
+   "sha256": "9a2d0c198a0c53b4cd300d36a461e100da37875f3da9a683cf9f63ee833b1774",
+   "sourceSha256": "334fb50c6321ae8a22d7d02e69a691b4634420a38a943d2cc69fdff985e6df62",
+   "identical": false
+  },
+  {
+   "path": "test_dart_live_hardening.py",
+   "from": "test_dart_live_hardening.py",
+   "sha256": "4f6b7fbf04fbcc047c6149286418a19d2306b88f0d21607547a43f97dcb67152",
+   "sourceSha256": "817049402b2908324a9599e14b2eea4d38ac6d8f60983115c6445d5cdf95baeb",
+   "identical": false
+  },
+  {
+   "path": "test_dart_pipeline.py",
+   "from": "test_dart_pipeline.py",
+   "sha256": "e84f4c98d5d4c67c750d11157ae175b62b88552a60e97d3c87361824d87a5cb5",
+   "sourceSha256": "ff833628b8e2cab9e50b3427cfc01fc32e6b408e7254bb83e61e77e17242d4a1",
+   "identical": false
+  },
+  {
+   "path": "test_disclosure_research.py",
+   "from": "test_disclosure_research.py",
+   "sha256": "d23e39252d20f7baee8eba0dac5bfbd8a3793aafe2adf08a54435cbcc86301e2",
+   "sourceSha256": "4bbfd93e38024dd38356ab2e31d95c8663d23ba5ce77c81fed1ace70ab20108f",
+   "identical": false
+  },
+  {
+   "path": "test_secret_hygiene.py",
+   "from": "test_secret_hygiene.py",
+   "sha256": "7fb7c66d432bc0a77082902c8e9af85125620d6dac1572a044f72d71b05cd7a6",
+   "sourceSha256": "7fb7c66d432bc0a77082902c8e9af85125620d6dac1572a044f72d71b05cd7a6",
+   "identical": true
+  }
+ ],
+ "derived": [
+  {
+   "path": "content/stock_study.js",
+   "from": "stock_study.js",
+   "how": "tools/migration/sanitize_study.py (문장 단위 제거 · docs/migration/stock_study_classification.json)",
+   "sha256": "1e100ac595da4677ee05a56e8172698f6d560b4a6b94c957612ce980b80317d2",
+   "sourceSha256": "107606827686ebeeec0ede24f55120c9806c1ea02393a0ccf2ebb0291a1c7f74"
+  },
+  {
+   "path": "content/past_analysis.json",
+   "from": "analysis_archive.js",
+   "how": "세척 재작성 34→32 (docs/migration/past_analysis_classification.json · validate_past_analysis.py)",
+   "sha256": "2ad2d52dad894ce65170bb34055327e14effc58180ffea55f1502dcaea3097f3",
+   "sourceSha256": "887be97731ef0211597f0dfc05d88c91574c9d2db250d580d98fa38abf4c7434"
+  },
+  {
+   "path": "tickers.js",
+   "from": "tickers.js",
+   "how": "code·name 만 남김(sector 제거)",
+   "sha256": "108a648e151e1fb53437e58b54a808e573c79e135e2d74688ee5c28ea6f10fbb",
+   "sourceSha256": "5eeea83ec8028f5bdf4911d072abf90ffcbd69ac20586fa2fbd8065d178d7d49"
+  },
+  {
+   "path": "config/evidence_universe.json",
+   "from": "gaeo_coverage/corporate_action_evidence.json",
+   "how": "evidence 키(종목코드)만 — krx_list.json 대체",
+   "sha256": "448302124f36e5533019c065032af01624b18f1eaa875373da57eb2e1e85063e",
+   "sourceSha256": null
+  },
+  {
+   "path": "site/assets/calc-widgets.js",
+   "from": "app.js L8492-8893",
+   "how": "계산 위젯만 추출 · 이용통계 2줄·이모지 삭제",
+   "sha256": "40de7e591937a130a4de05d6219ed951e738b72a2eec22575cbcb76ce55075ae",
+   "sourceSha256": "b0fa2cc233e6d03a5acffa6c8ef606c70f31485bb6522fa15c8ce6648fc0cc19"
+  }
+ ]
+}
