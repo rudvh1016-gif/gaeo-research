@@ -3,7 +3,7 @@
 
   --producer-hosts  수집기 코드가 부르는 호스트가 OpenDART 뿐인지
   --tree            저장소 파일: 은퇴 자료 파일 이름 · 비밀값 모양 · 계좌/주문/Toss 흔적 · 네이버/KIND 수집 흔적
-  --history         git 이력 전체에 은퇴 자료 파일 이름이 한 번도 없는지(새 저장소는 옛 이력을 가져오지 않는다)
+  --history         HEAD 에서 닿는 git 이력 전체에 은퇴 자료 파일 이름이 한 번도 없는지(새 저장소는 옛 이력을 가져오지 않는다)
   --site DIR        조립된 사이트(_site)가 허용목록 밖 파일을 싣지 않는지 · 글자 크기 상한 · 추적/광고/서비스워커 0
   --past            과거 정밀분석 세척본 문장 검사(tools/migration/validate_past_analysis.py)
   --all             --producer-hosts --tree --history --past (+ _site 가 있으면 --site _site)
@@ -99,10 +99,16 @@ def check_tree():
 
 def check_history():
     try:
-        out = subprocess.run(['git', 'log', '--all', '--name-only', '--pretty=format:'], cwd=ROOT,
+        out = subprocess.run(['git', 'log', 'HEAD', '--name-only', '--pretty=format:'], cwd=ROOT,
                              capture_output=True, text=True, check=True).stdout
     except Exception as ex:
         return [f'git 이력을 읽지 못함: {ex}']
+    try:
+        shallow = subprocess.run(['git', 'rev-parse', '--is-shallow-repository'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    except Exception:
+        shallow = 'unknown'
+    if shallow == 'true':
+        return ['얕은 clone 이라 이력 전체를 볼 수 없다 — fetch-depth: 0 으로 받는다']
     return sorted({f'이력에 은퇴 자료 파일: {p}' for p in out.split('\n') if p and RETIRED.search(p)})
 
 
