@@ -129,3 +129,15 @@ DART 원문 암호화 아카이브(research_archive/dart/live — 새 저장소�
 - LICENSE: 코드·운영자 글과 제3자 자료(OpenDART·기사)를 구분 — 제3자 자료를 재라이선스하지 않는다고 명시. 없는 파일(옛 SOURCE_COMPLIANCE_MATRIX) 참조 제거.
 - THIRD_PARTY_NOTICES · disclaimer: OpenDART 이용허락범위와 출처표시 추가.
 - `public_checks.py`: Windows 에서 자기 자신을 검사 대상으로 잘못 잡던 경로 비교 수정(동작 변화는 Windows 로컬뿐).
+
+### C. 전환 진행(2026-09-25 실측 · 앞 단계가 실패하면 멈춘다)
+| # | 단계 | 결과 |
+|---|---|---|
+| 1 | gaeo-research push | 완료 — main `892d52a` (첫 커밋 `c807e3a` 부모 없음 · 옛 이력 0) |
+| 2 | CI | 통과(ci run 36142192799) |
+| 3 | 임시 Pages | 완료 — Source: GitHub Actions(API 로 설정) · https://rudvh1016-gif.github.io/gaeo-research/ HTTP 200 |
+| 4 | 실제 화면 | 확인 — 홈 내부 링크 26개 깨짐 0 · 서체 로드 · 외부 스크립트 0 · 과거 분석 쪽 경고문·편집일 표시 · 주요 쪽 7개 200 |
+| 5 | Secrets 확인 | **멈춤 — `OPEN_DART_API_KEY` · `RESEARCH_ARCHIVE_KEY` 가 없다.** 키 값 입력은 소유자만 한다(작업자는 비밀값을 다루지 않는다) |
+| 6~14 | 옛 생산자 중지 · 상태 이관 · 새 생산자 · 자동수집 · gaeoteam.com · 모바일/PC · Private 주소 · Private 수신 · 옛 저장소 private | 5 전이라 실행하지 않음. 옛 저장소가 유일한 DART 생산자로 계속 돈다(동시 소비 0) |
+
+5 뒤 순서(바뀐 점 1개): 6단계 옛 생산자 정지는 코드 PR 이 아니라 `gh workflow disable corporate-action-evidence.yml -R rudvh1016-gif/gaeo-analyst-team` 로 한다(되돌리기 쉽고 옛 저장소 준법 게이트 원장·테스트를 바꾸지 않는다). 이어서 `bash tools/migration/sync_dart_state.sh <옛 clone>` → Variables `DART_PRODUCER_ACTIVE=true` → workflow_dispatch 40종목·300요청 스모크 → 옛 저장소 Pages cname 제거 · 새 저장소 cname `gaeoteam.com`(옛 쪽은 legacy/main + CNAME 파일 · https_enforced true) → 390px/PC 확인 → Private `GAEO_PUBLIC_DATA_BASE`(PR #153 환경변수) 교체 → Private 수신 확인 → 옛 저장소 private.
