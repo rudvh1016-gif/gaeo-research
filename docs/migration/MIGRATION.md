@@ -32,11 +32,11 @@
 ### B. 종목 공부 35건
 | 분류 | 건수 |
 |---|---|
-| SAFE_AS_IS | 2 |
-| SANITIZE_AND_RESTORE | 33 |
+| SAFE_AS_IS | 1 |
+| SANITIZE_AND_RESTORE | 34 |
 | PRIVATE_ONLY | 0 |
 
-방식: 컨센서스·목표주가·투자의견·순매수/순매도·지분율·PER/PBR·증권사 연구원 인용·옛 사이트 시세 파일(data.js) 인용·원화 주가 문장만
+방식(2026-09-25 보강 반영 — §7): 컨센서스·추정치·목표주가·투자의견·순매수/순매도·지분율·PER/PBR·증권사 연구원 인용·옛 사이트 시세 파일(data.js) 인용·원화 주가 문장만
 문장 단위로 뺐다(`tools/migration/sanitize_study.py`, 글마다 뺀 문장 수: `stock_study_classification.json`). 글을 새로 쓰지 않았다.
 옛 사이트 시세 파일을 가리키는 출처 링크도 뺐다. 기사 출처 링크는 링크로만 남긴다.
 
@@ -110,3 +110,22 @@ DART 원문 암호화 아카이브(research_archive/dart/live — 새 저장소�
 - 2~11단계: 1단계 전이라 진행하지 않았다. 옛 저장소 DART 예약 수집은 그대로 돈다(유일한 생산자) — 새 저장소 쪽은 `DART_PRODUCER_ACTIVE` 가 없으면 예약 수집을 하지 않으므로 동시 소비가 생기지 않는다.
 - 필요한 설정 이름(값은 적지 않는다): Secrets `OPEN_DART_API_KEY` · `RESEARCH_ARCHIVE_KEY`(옛 저장소와 같은 값) · Variables `DART_PRODUCER_ACTIVE`(5단계 뒤 `true`) · Pages Source `GitHub Actions` · Custom domain `gaeoteam.com`.
 - 이 세션 로컬 검사: `tools/public_checks.py --all` 중 `[history]` 만 실패(이 작업 폴더가 옛 저장소 얕은 clone 을 빌려 써서) · `test_dart_live_hardening` 은 로컬 암호 라이브러리 부재 — 둘 다 새 저장소 CI(fetch-depth 0 · cryptography 설치)에서 확인한다.
+
+## 7. 2026-09-25 PUBLIC LEGAL GATE (법률·약관 최종 판정 뒤 · 원본: `docs/legal/LEGAL_FINAL_20260925.md`)
+
+### A. 게이트 결과
+| 검사 | 결과 |
+|---|---|
+| NAVER raw · KIND raw · Toss raw | 0 (`public_checks.py --tree --site` PASS) |
+| 계좌정보 · 개인 보유종목 · Secret · 실제 주문 | 0 (같은 검사) |
+| 권리불명확 기사/리포트 전문 | 0 — 기사 표본 8건 원문 대조 일치 구간 573개 중 1개 · 리포트 PDF 직링크 제거 |
+| 공개 허용이 확인되지 않은 raw database | 0 — 남은 DART 중간 JSON 은 공공데이터포털 이용허락범위 "제한 없음"/공공누리 제1유형 확인 |
+| 추적기/광고 | 0 (사이트 전 파일: 분석 도구·광고·쿠키 생성·브라우저 저장소·sendBeacon·서비스워커 0) |
+| 옛 git 이력 | 0 (`--history` PASS — 부모 없는 첫 커밋) |
+
+### B. 이번에 고친 것
+- 종목 공부 세척 보강: 옛 세척기가 "PER은"(한글 조사)·"시장에서는 …예상"·"비중확대 의견"·"100만원대 주가"·링크 제목 속 목표가를 놓쳤다 → 규칙 보강 후 원본(sha256 1076068…)에서 다시 생성. 결과 SAFE_AS_IS 1 · SANITIZE_AND_RESTORE 34 · PRIVATE_ONLY 0. 사업 뜻의 "비중 확대"·숫자 없는 "시장 예상을 웃돌았다" 는 지우지 않는다(과잉삭제 방지).
+- 공유 이미지(og-image): 옛 서비스 문구("500종목 매일 자동분석 · AI 애널리스트 5인") → 현재 성격(공시 리서치 · 무료 · 광고 없음 · 추천 없음)으로 다시 그림.
+- LICENSE: 코드·운영자 글과 제3자 자료(OpenDART·기사)를 구분 — 제3자 자료를 재라이선스하지 않는다고 명시. 없는 파일(옛 SOURCE_COMPLIANCE_MATRIX) 참조 제거.
+- THIRD_PARTY_NOTICES · disclaimer: OpenDART 이용허락범위와 출처표시 추가.
+- `public_checks.py`: Windows 에서 자기 자신을 검사 대상으로 잘못 잡던 경로 비교 수정(동작 변화는 Windows 로컬뿐).

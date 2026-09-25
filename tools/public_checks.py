@@ -14,7 +14,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SELF = os.path.relpath(os.path.abspath(__file__), ROOT)
+SELF = os.path.relpath(os.path.abspath(__file__), ROOT).replace(os.sep, "/")
 
 # 옛 저장소에서 네이버·KIND·모의투자 원장·개인 자료였던 파일 이름. 새 저장소에는 어떤 경로로도 들어오면 안 된다.
 RETIRED = re.compile(r'(^|/)(data\.js|auto_analysis\.js|indicators[^/]*\.(js|json)|history\.js|price_history\.js|index_history\.js|'

@@ -11,10 +11,21 @@ content/stock_study.js 로 쓴다. 문장 단위로만 뺀다 — 글을 새로 
 import json, re, sys
 
 RISK = re.compile(r"컨센서스|목표\s*주?가|상승\s*여력|투자\s*의견|순매수|순매도|보유\s*비중|지분율|보유율|"
-                  r"PER\b|PBR\b|PER\s|PBR\s|주가수익비율|주가순자산비율|[가-힣A-Z]+증권\s*[가-힣]*\s*연구원|연구원은|리포트에서|"
-                  r"data\.js|데이터닷|(종가|주가|장중|최고가|최저가|고점|저점)[^.]{0,40}\d{1,3}(,\d{3})+\s*원")
+                  r"(?<![A-Za-z])P[EB]R(?![A-Za-z])|주가수익비율|주가순자산비율|[가-힣A-Z]+증권\s*[가-힣]*\s*연구원|연구원은|리포트에서|"
+                  r"비중\s*(확대|축소)\s*(\([^)]*\)\s*)?의견|매수\s*의견|중립\s*의견|(?i:outperform|overweight|underweight)|"
+                  r"data\.js|데이터닷|(종가|주가|장중|최고가|최저가|고점|저점)[^.]{0,40}(\d{1,3}(,\d{3})+\s*원|\d+\s*만\s*원)")
+# 2026-09-25 보강: "시장/월가/증권가는 …(숫자)… 예상" 처럼 컨센서스라는 낱말 없이 적은 실적 추정치.
+# "시장 예상을 웃돌았다" 처럼 추정치 숫자가 없는 문장은 남긴다.
+CONSENSUS = re.compile(r"(시장|월가|증권가|애널리스트)[^.\n]{0,60}(예상치|전망치|추정치|추정\s*기준|예상하|전망하|예상했|"
+                       r"전망이\s*나오|으로\s*예상|로\s*전망)|(예상치|전망치|추정치)\s*[(（]?\s*(매출|EPS|주당|영업)")
 # 옛 사이트 시세 파일(네이버 유래)·네이버 금융 페이지를 가리키는 출처 링크는 옮기지 않는다.
-BAD_SOURCE = re.compile(r"data\.js|gaeo-analyst-team|finance\.naver|stock\.naver|m\.stock\.naver", re.I)
+# 2026-09-25 보강: 증권사 리포트 원문 링크와 목표가·투자의견을 제목에 담은 링크도 옮기지 않는다.
+BAD_SOURCE = re.compile(r"data\.js|gaeo-analyst-team|finance\.naver|stock\.naver|m\.stock\.naver|"
+                        r"리포트|목표\s*주?가|투자\s*의견|컨센서스|fileView|\.pdf(\?|$)", re.I)
+
+
+def risky(text):
+    return bool(RISK.search(text) or (CONSENSUS.search(text) and re.search(r"\d", text)))
 SENT = re.compile(r"(?<=[.!?요다])\s+(?=\S)")
 
 
@@ -32,13 +43,20 @@ def clean_text(text):
         if not stripped:
             out_lines.append(line); continue
         bullet = re.match(r"^(\s*[-·*]\s+|\s*\d+\.\s+|\s*\|)", line)
+        if stripped.startswith("#") and risky(stripped):
+            # 소제목의 " — " 뒤 수치(예: "PER 12.3배, PBR 0.87배")만 떼고, 그래도 걸리면 소제목을 뺀다.
+            head = re.split(r"\s+[—-]\s+", line)[0]
+            removed.append(stripped)
+            if not risky(head):
+                out_lines.append(head)
+            continue
         if bullet or stripped.startswith("#"):
-            if RISK.search(stripped) and not stripped.startswith("#"):
+            if risky(stripped) and not stripped.startswith("#"):
                 removed.append(stripped); continue
             out_lines.append(line); continue
         parts = SENT.split(line)
-        keep = [p for p in parts if not RISK.search(p)]
-        removed += [p.strip() for p in parts if RISK.search(p)]
+        keep = [p for p in parts if not risky(p)]
+        removed += [p.strip() for p in parts if risky(p)]
         if keep:
             out_lines.append(" ".join(keep))
     text = "\n".join(out_lines)
