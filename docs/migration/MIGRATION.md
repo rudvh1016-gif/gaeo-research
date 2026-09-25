@@ -141,3 +141,17 @@ DART 원문 암호화 아카이브(research_archive/dart/live — 새 저장소�
 | 6~14 | 옛 생산자 중지 · 상태 이관 · 새 생산자 · 자동수집 · gaeoteam.com · 모바일/PC · Private 주소 · Private 수신 · 옛 저장소 private | 5 전이라 실행하지 않음. 옛 저장소가 유일한 DART 생산자로 계속 돈다(동시 소비 0) |
 
 5 뒤 순서(바뀐 점 1개): 6단계 옛 생산자 정지는 코드 PR 이 아니라 `gh workflow disable corporate-action-evidence.yml -R rudvh1016-gif/gaeo-analyst-team` 로 한다(되돌리기 쉽고 옛 저장소 준법 게이트 원장·테스트를 바꾸지 않는다). 이어서 `bash tools/migration/sync_dart_state.sh <옛 clone>` → Variables `DART_PRODUCER_ACTIVE=true` → workflow_dispatch 40종목·300요청 스모크 → 옛 저장소 Pages cname 제거 · 새 저장소 cname `gaeoteam.com`(옛 쪽은 legacy/main + CNAME 파일 · https_enforced true) → 390px/PC 확인 → Private `GAEO_PUBLIC_DATA_BASE_URL`(gaeo-private PR #153 환경변수 · Vercel 과 Oracle intelligence 두 곳) 교체 → Private 수신 확인 → 옛 저장소 private.
+
+### D. 전환 진행 2 (2026-09-25 23:15~23:50 KST)
+| # | 단계 | 결과 |
+|---|---|---|
+| 5 | Secrets | 완료 — `RESEARCH_ARCHIVE_KEY` 는 새로 생성(새 저장소에 옛 암호문 0개 · 이관 대상 아님 · Private 미사용 → 옛 키 호환 불필요, 값 출력 0) · `OPEN_DART_API_KEY` 는 소유자가 기존 키를 입력(재발급 안 함 — 약관 제19조⑤ 1인 1키) |
+| 6 | 옛 생산자 중지 | 완료 — gaeo-analyst-team `corporate-action-evidence.yml` `disabled_manually`(코드 변경 없음) |
+| 7 | DART 상태 이관 | 변경 0 — 옛 저장소 마지막 수집이 2026-09-24 15:32 KST(추석 휴장 9/24~26 예약 건너뛰기)라 새 저장소 값과 같았다 |
+| 8 | 새 생산자 | 완료 — Variables `DART_PRODUCER_ACTIVE=true` |
+| 9 | 자동수집 확인 | 완료 — workflow_dispatch 40종목·300요청: 1차는 누출 검사 `--history` 가 얕은 체크아웃 때문에 실패했는데도 커밋 단계가 돌았다(내용은 전체 검사 PASS 로 재확인) → 누출 검사 실패 시 커밋 금지로 수정(68a81cf) → 2차 수집·검사·커밋 모두 성공. 기업행사 증거 40/40 · 오늘의 공시 신규 0(휴장) |
+| 10 | gaeoteam.com | 완료 — 옛 저장소 CNAME 제거(58a93a6) · Pages cname 해제 → 새 저장소 cname `gaeoteam.com` · 인증서 approved · HTTPS 강제. DNS(185.199.108~111.153) 변경 없음 |
+| 11 | 모바일/PC | 완료 — 390px·1440px, 10쪽 가로 넘침 0 · 링크에 `/gaeo-research/` 경로 0 · www→apex · http→https |
+| 12 | Private 주소 | 완료 — gaeo-private PR #157(c5bd820) 기본 주소를 gaeo-research 로(환경변수 불필요) · Oracle 배포 success · Vercel Production success |
+| 13 | Private 수신 | Oracle intelligence 확인 — 배포 검증이 받은 공시 연구 `generatedAt 2026-09-25T14:29:07Z` = 새 저장소 값(옛 저장소는 09-24 06:32). ✗ Oracle `gaeo-mcp` 는 아직 옛 raw 주소를 읽는다(gaeo-gateway PR #9 준비 · 수동 배포 서비스) |
+| 14 | 옛 저장소 private | **보류** — 지금 바꾸면 `gaeo-mcp get_disclosures` 가 404. PR #9 를 Oracle 에 배포한 뒤 전환 |
