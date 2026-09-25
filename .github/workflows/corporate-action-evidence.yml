@@ -105,12 +105,16 @@ jobs:
           python3 build_disclosure_research.py || echo "disclosure_research 생성 실패 — 이전 파일 유지"
 
       - name: 공개 누출 검사 (커밋 전)
-        if: env.SKIP_COLLECT != '1'
-        run: python3 tools/public_checks.py --all
+        id: leak
+        # 수집이 일부 실패해도 커밋 전에는 반드시 검사한다. 이 체크아웃은 얕아서(fetch-depth 1)
+        # 이력 검사(--history)는 CI·pages 가 맡는다 — 여기서 돌리면 누출이 없어도 항상 실패한다(2026-09-25 실측).
+        if: ${{ always() && env.SKIP_COLLECT != '1' }}
+        run: python3 tools/public_checks.py --producer-hosts --tree --past
 
       - name: 산출물 커밋
         # 실패·부분 수집도 예산은 썼다. 사용량 기록은 남기되 부분 갱신을 성공처럼 보이게 하지 않는다.
-        if: ${{ always() && steps.collect.outcome != 'skipped' && (github.event_name != 'workflow_dispatch' || inputs.commit) }}
+        # 누출 검사를 통과하지 못하면 어떤 경우에도 커밋하지 않는다.
+        if: ${{ always() && steps.collect.outcome != 'skipped' && steps.leak.outcome == 'success' && (github.event_name != 'workflow_dispatch' || inputs.commit) }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
