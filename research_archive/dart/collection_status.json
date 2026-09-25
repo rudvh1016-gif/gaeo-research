@@ -2,26 +2,26 @@
  "budget": {
   "byKind": {
    "detail": 0,
-   "financial": 0,
-   "list": 85,
-   "mapping": 1,
+   "financial": 126,
+   "list": 145,
+   "mapping": 2,
    "other": 0
   },
   "day": "2026-09-25",
   "deferrable_allowed": true,
   "deferrable_cutoff": 6500,
-  "deferrable_headroom": 6414,
+  "deferrable_headroom": 6227,
   "deferrable_reserve": 1500,
   "hard_limit": 10000,
   "normal_target_per_day": 500,
   "note": "10,000건은 안전 상한이지 목표가 아니다. 평상시 수백 회 수준을 지향한다.",
   "observation_notice": 4000,
-  "remaining": 9914,
-  "requests_today": 86,
-  "runs_today": 1,
+  "remaining": 9727,
+  "requests_today": 273,
+  "runs_today": 4,
   "soft_budget": 8000,
   "status": "BUDGET_OK",
-  "usage_pct_of_hard_limit": 0.86
+  "usage_pct_of_hard_limit": 2.73
  },
  "coverageNote": "NO_OFFICIAL_EVENT_DETECTED는 '뉴스 없음'이 아니다. 일반 언론뉴스 Coverage가 없어서 공식 공시만 본 결과다.",
  "coverageReasons": [],
@@ -44,7 +44,7 @@
  "eventsAcknowledged": 0,
  "eventsFound": 0,
  "eventsStored": 0,
- "finishedAt": "2026-09-25T14:19:41.556745+00:00",
+ "finishedAt": "2026-09-25T14:29:07.555546+00:00",
  "hasApiKey": true,
  "kstToday": "2026-09-25",
  "maintenance": [],
@@ -61,8 +61,8 @@
   "end": "2026-09-25",
   "start": "2026-09-24"
  },
- "ranAt": "2026-09-25T14:19:40.991628+00:00",
+ "ranAt": "2026-09-25T14:29:06.809620+00:00",
  "seenTotal": 3053,
- "startedAt": "2026-09-25T14:19:40.994916+00:00",
+ "startedAt": "2026-09-25T14:29:06.812876+00:00",
  "status": "OK"
 }

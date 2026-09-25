@@ -1,7 +1,7 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-09-25 23:22",
+ "generatedAt": "2026-09-25 23:29",
  "priceLabel": "공시 접수일 2026-09-17~2026-09-23 기준 · 시세 자료 공급 종료(2026-09-24)",
  "count": 354,
  "coverageState": "NO_EVENT",
