@@ -155,3 +155,14 @@ DART 원문 암호화 아카이브(research_archive/dart/live — 새 저장소�
 | 12 | Private 주소 | 완료 — gaeo-private PR #157(c5bd820) 기본 주소를 gaeo-research 로(환경변수 불필요) · Oracle 배포 success · Vercel Production success |
 | 13 | Private 수신 | Oracle intelligence 확인 — 배포 검증이 받은 공시 연구 `generatedAt 2026-09-25T14:29:07Z` = 새 저장소 값(옛 저장소는 09-24 06:32). ✗ Oracle `gaeo-mcp` 는 아직 옛 raw 주소를 읽는다(gaeo-gateway PR #9 준비 · 수동 배포 서비스) |
 | 14 | 옛 저장소 private | **보류** — 지금 바꾸면 `gaeo-mcp get_disclosures` 가 404. PR #9 를 Oracle 에 배포한 뒤 전환 |
+
+### E. 마감 (2026-09-26 KST)
+| 항목 | 결과 |
+|---|---|
+| DART 사용량 원장 | 수정 — PR #1(73006e9). 누출 검사가 실패하면 공개 산출물은 커밋하지 않고 `research_archive/dart/api_budget.json` 한 파일만 커밋한다(`dart_budget.py --commit-ledger-only`). 원장이 HEAD 와 같으면(API 호출 전 실패) 커밋 0 · 원장 외 파일·숫자/날짜 밖 내용·같은 날 감소는 거부. 시험 A·B·C 포함 200 OK(CI) |
+| 14 옛 저장소 private | 완료 — gaeo-analyst-team `private`. 옛 Pages 도 함께 내려갔다(GitHub 가 전환 때 해제). 익명 접근: 저장소·raw(data.js·dart_today.js)·github.io 모두 404 |
+| gaeoteam.com | 200 · www/github.io → gaeoteam.com · 인증서 approved · HTTPS 강제 |
+| gaeo-mcp (개인 쪽) | gaeo-gateway `feat/readonly-mcp-20260905` 에 병합: #9(a4381bc, 공시 출처 → gaeo-research) · #10(944a68d, Toss 시세·계좌 도구 5개를 외부 AI 에 닫고 공시만 남김). **운영 미반영** — gaeo-mcp 는 자동 배포 경로가 없다(러너 sudo 진입점은 브리지·intelligence 전용). 그 사이 운영 서비스의 공시 도구는 옛 주소 404 로 `unavailable`(일시 중단) |
+| 새 DART 수집기 | 정상 — 병합 뒤 실제 실행(run 36155313782): 수집·누출 검사 성공 → 기존 산출물 커밋(7111c42) · "원장만 보존" 단계는 건너뜀. 원장 day 2026-09-26 list 44 · financial 123 |
+| 개인 쪽 영향 | gaeo-private(공개 자료 = gaeo-research, #157) · 게이트웨이 브리지 · Candidate V2 · PAPER 는 옛 저장소 주소를 쓰지 않는다(코드 검색). nova 는 저장소 **이름**만 참조(인증 연결) |
+| 남은 것 1건 | Oracle `gaeo-mcp` 수동 배포(ops/mcp/DEPLOYMENT.md 2026-09-25 절). 배포 전까지 운영 MCP 의 Toss 시세·계좌 도구는 옛 코드 그대로 열려 있고, 공시 도구는 일시 중단 |
