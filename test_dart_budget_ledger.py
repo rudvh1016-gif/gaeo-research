@@ -570,5 +570,102 @@ class DriverIsWiredWhereRunnersMerge(unittest.TestCase):
             shutil.rmtree(tmp, ignore_errors=True)
 
 
+class LedgerSurvivesLeakCheckFailure(unittest.TestCase):
+    """누출 검사가 실패한 회차: 공개 산출물은 커밋하지 않지만 실제 사용량(원장)은 남는다 (2026-09-25).
+
+    재현한 결함: 워크플로의 커밋 단계가 누출 검사 성공을 요구하게 바뀐 뒤(68a81cf), DART 를 실제로 부른 회차에서
+    누출 검사가 실패하면 원장까지 버려졌다 → 다음 회차가 실제 사용량을 적게 알고 시작한다.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp(prefix='gaeo-ledger-only-')
+        self.r = _Runners(self.tmp, _yesterday_ledger())
+        self.repo = self.r.clone('evidence')
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def _head_files(self):
+        return [p for p in _git(self.repo, 'show', '--name-only', '--format=', 'HEAD').stdout.splitlines() if p]
+
+    def _head(self):
+        return _git(self.repo, 'rev-parse', 'HEAD').stdout.strip()
+
+    def _spend_and_dirty(self, n=300):
+        b = dart_budget.DailyBudget(os.path.join(self.repo, _Runners.LEDGER))
+        b.spend('list', n)
+        b.save()
+        _Runners._write(self.repo, _Runners.EVIDENCE, '{"leaked":"crtfc_key=' + 'a' * 40 + '"}')
+        _Runners._write(self.repo, 'dart_financials/000000.json', '{"new":true}')
+
+    def test_A_leak_fail_keeps_usage_but_not_outputs(self):
+        self._spend_and_dirty(300)
+        self.assertEqual(dart_budget.main(['--commit-ledger-only', self.repo]), dart_budget.LEDGER_ONLY_COMMITTED)
+        self.assertEqual(self._head_files(), [_Runners.LEDGER])
+        head_evidence = _git(self.repo, 'show', 'HEAD:' + _Runners.EVIDENCE).stdout
+        self.assertEqual(head_evidence, '{"seed":true}', '누출 검사를 못 넘은 산출물이 커밋됐다')
+        self.assertEqual(self.r.push(self.repo), 0)
+        self.assertEqual(self.r.origin_ledger()['counts']['list'], 300, '실제 사용량이 원격 원장에 남지 않았다')
+
+    def test_no_api_call_means_no_ledger_commit(self):
+        _Runners._write(self.repo, _Runners.EVIDENCE, '{"partial":true}')
+        before = self._head()
+        self.assertEqual(dart_budget.main(['--commit-ledger-only', self.repo]), dart_budget.LEDGER_ONLY_UNCHANGED)
+        self.assertEqual(self._head(), before, 'API 를 부르지 않았는데 원장 커밋이 생겼다')
+
+    def test_C_prestaged_outputs_are_not_carried_into_the_ledger_commit(self):
+        self._spend_and_dirty(120)
+        _git(self.repo, 'add', '-A')                                  # 누가 미리 전부 올려 둔 상태
+        self.assertEqual(dart_budget.main(['--commit-ledger-only', self.repo]), dart_budget.LEDGER_ONLY_COMMITTED)
+        self.assertEqual(self._head_files(), [_Runners.LEDGER])
+
+    def test_C_ledger_with_anything_but_numbers_and_dates_is_refused(self):
+        path = os.path.join(self.repo, _Runners.LEDGER)
+        good = {'schemaVersion': 'dart_budget_v1', 'day': '2000-01-02',
+                'counts': {'list': 5, 'mapping': 0, 'detail': 0, 'financial': 0, 'other': 0},
+                'runs': 1, 'updatedAt': '2000-01-02T00:00:00+00:00'}
+        before = self._head()
+        for bad in (dict(good, note='crtfc_key=' + 'b' * 40),               # 원장 밖 키
+                    dict(good, updatedAt='공시 원문 본문'),                    # 날짜 자리에 글
+                    dict(good, counts=dict(good['counts'], list='5'))):       # 숫자 자리에 글
+            _Runners._write(self.repo, _Runners.LEDGER, json.dumps(bad, ensure_ascii=False))
+            self.assertEqual(dart_budget.main(['--commit-ledger-only', self.repo]), dart_budget.LEDGER_ONLY_REFUSED, bad)
+            self.assertEqual(self._head(), before)
+        _Runners._write(self.repo, _Runners.LEDGER, json.dumps(good))
+        self.assertEqual(dart_budget.main(['--commit-ledger-only', self.repo]), dart_budget.LEDGER_ONLY_COMMITTED)
+        self.assertEqual(self._head_files(), [_Runners.LEDGER])
+
+    def test_same_day_usage_is_never_lowered(self):
+        low = dict(_yesterday_ledger(), counts=dict(_yesterday_ledger()['counts'], list=10))
+        _Runners._write(self.repo, _Runners.LEDGER, json.dumps(low))
+        before = self._head()
+        self.assertEqual(dart_budget.main(['--commit-ledger-only', self.repo]), dart_budget.LEDGER_ONLY_REFUSED)
+        self.assertEqual(self._head(), before)
+
+
+class WorkflowCommitsOutputsOnlyAfterLeakCheck(unittest.TestCase):
+    """B: 누출 검사 성공 → 기존 산출물 커밋 그대로 · 실패 → 원장만 보존 단계. 두 단계는 서로 배타적이다."""
+
+    def setUp(self):
+        with open(os.path.join(HERE, '.github', 'workflows', 'corporate-action-evidence.yml'), encoding='utf-8') as fh:
+            text = fh.read()
+        self.outputs = text[text.index('- name: 산출물 커밋'):text.index('- name: 사용량 원장만 보존')]
+        self.ledger_only = text[text.index('- name: 사용량 원장만 보존'):]
+
+    def test_B_outputs_commit_requires_leak_success_and_keeps_its_file_list(self):
+        self.assertIn("steps.leak.outcome == 'success'", self.outputs)
+        for path in ('research_archive/dart/api_budget.json', 'dart_financials', 'dart_today.js', 'disclosure_research',
+                     'gaeo_coverage/corporate_action_evidence.json'):
+            self.assertIn(path, self.outputs)
+
+    def test_ledger_only_step_runs_only_on_leak_failure_and_adds_nothing_else(self):
+        self.assertIn("steps.leak.outcome == 'failure'", self.ledger_only)
+        self.assertIn('python3 dart_budget.py --commit-ledger-only', self.ledger_only)
+        self.assertNotIn('git add', self.ledger_only)
+        install = self.ledger_only.index('python3 dart_budget.py --install-git-merge-driver')
+        self.assertLess(install, self.ledger_only.index('git pull --rebase origin main'))
+        self.assertLess(self.ledger_only.index('git clean -fdq'), self.ledger_only.index('git push origin main'))
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
