@@ -1,8 +1,8 @@
 {
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
- "generatedAt": "2026-09-25T14:29:07Z",
- "asOf": "2026-09-25",
+ "generatedAt": "2026-09-25T15:56:58Z",
+ "asOf": "2026-09-26",
  "producer": "build_disclosure_research.py (gaeo-analyst-team · corporate-action-evidence.yml · LLM 0 · 네트워크 0)",
  "provider": {
   "id": "opendart",
@@ -12,29 +12,29 @@
   {
    "file": "disclosure_research/disclosure_changes.json",
    "kind": "disclosure_changes",
-   "sha256": "a3e4953d1ead6a5d8a70b6d7cee496a9c2598b83b27e12bd6bf3ff4b75dab9ac",
+   "sha256": "8a987221d204549ad70c79668109d1fdead1e3a3cdedfc93674feb1b69999c97",
    "bytes": 1517061,
-   "generatedAt": "2026-09-25T14:29:07Z",
+   "generatedAt": "2026-09-25T15:56:58Z",
    "companies": 508,
-   "recordId": "disclosure-research-public-v1:disclosure_changes:a3e4953d1ead6a5d"
+   "recordId": "disclosure-research-public-v1:disclosure_changes:8a987221d204549a"
   },
   {
    "file": "disclosure_research/financial_changes.json",
    "kind": "financial_changes",
-   "sha256": "98860cbdf5f5dc8f95242d72938a37469ed652e565625ea61786d36d6670a0de",
-   "bytes": 3679194,
-   "generatedAt": "2026-09-25T14:29:07Z",
-   "companies": 398,
-   "recordId": "disclosure-research-public-v1:financial_changes:98860cbdf5f5dc8f"
+   "sha256": "81da0fa021fb3fb361b18c8264fabbd6014cbed472f9b1fcf69bdcbf808a0ac0",
+   "bytes": 4043293,
+   "generatedAt": "2026-09-25T15:56:58Z",
+   "companies": 438,
+   "recordId": "disclosure-research-public-v1:financial_changes:81da0fa021fb3fb3"
   },
   {
    "file": "disclosure_research/event_timelines.json",
    "kind": "event_timelines",
-   "sha256": "891488cf05ac9060369e9df892fd1fd09617b78089d32987b7acfbc3ae8d89fd",
+   "sha256": "40e31262bcbe901e94c24e82a63a93cc33290c209abb509421ddcef61e29611c",
    "bytes": 853943,
-   "generatedAt": "2026-09-25T14:29:07Z",
+   "generatedAt": "2026-09-25T15:56:58Z",
    "companies": 272,
-   "recordId": "disclosure-research-public-v1:event_timelines:891488cf05ac9060"
+   "recordId": "disclosure-research-public-v1:event_timelines:40e31262bcbe901e"
   }
  ],
  "publicFieldPolicy": "공시 사실만 — 시세·점수·판단·수급·컨센서스·개인 자료는 키 자체가 없다(test_disclosure_research.PublicFieldPolicy 가 고정)",

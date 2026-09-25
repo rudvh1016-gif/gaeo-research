@@ -1,6 +1,18 @@
 {
- "financialCallsToday": 126,
- "reason": "오늘 이미 재무를 받았다. 연간 재무는 하루 한 번이면 충분하다.",
- "startedAt": "2026-09-25T14:29:07.627246+00:00",
- "status": "SKIPPED_ALREADY_TODAY"
+ "apiCalls": 123,
+ "averageCoverage": 0.9671,
+ "budgetStopped": false,
+ "companiesConsidered": 40,
+ "errors": [],
+ "finishedAt": "2026-09-25T15:56:58.480330+00:00",
+ "note": "연간 재무는 1년에 한 번만 바뀌므로 이미 받은 (회사, 연도)는 다시 받지 않는다. 유니버스 한 바퀴를 여러 날에 나눠 돈다.",
+ "startedAt": "2026-09-25T15:41:33.374093+00:00",
+ "status": "OK",
+ "targetYears": [
+  2025,
+  2024,
+  2023
+ ],
+ "yearsNoData": 1,
+ "yearsStored": 119
 }
