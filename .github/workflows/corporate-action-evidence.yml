@@ -136,3 +136,28 @@ jobs:
             done
             test "$saved" = 1
           fi
+
+      - name: 사용량 원장만 보존 (누출 검사 실패 시)
+        # DART 를 실제로 부른 뒤 누출 검사가 실패하면 공개 산출물은 커밋하지 않는다. 하지만 호출 횟수 원장까지 버리면
+        # 다음 회차가 실제 사용량을 적게 알고 시작한다 → 원장(api_budget.json) 한 파일만 커밋한다.
+        # 원장 외 파일이 올라가거나 원장 내용이 계약(숫자·날짜만)과 다르면 dart_budget 이 거부한다(종료코드 1).
+        # 원장이 HEAD 와 같으면(API 를 부르기 전에 실패) 아무것도 만들지 않는다(종료코드 2).
+        if: ${{ always() && steps.collect.outcome != 'skipped' && steps.leak.outcome == 'failure' && (github.event_name != 'workflow_dispatch' || inputs.commit) }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 dart_budget.py --install-git-merge-driver
+          rc=0
+          python3 dart_budget.py --commit-ledger-only || rc=$?
+          # 검사를 통과하지 못한 산출물은 이 러너에서도 버린다(rebase 전에 작업 트리를 비운다).
+          git reset -q --hard HEAD
+          git clean -fdq
+          if [ "$rc" = 2 ]; then echo "원장 변화 없음 — 저장 생략"; exit 0; fi
+          test "$rc" = 0
+          saved=0
+          for i in 1 2 3 4; do
+            if git push origin main; then saved=1; break; fi
+            sleep $((2 ** i))
+            git pull --rebase origin main || exit 1
+          done
+          test "$saved" = 1

@@ -394,6 +394,82 @@ def ensure_git_merge_driver(repo=".", python=None):
     return True
 
 
+# ── 원장만 커밋: 누출 검사가 실패한 회차에도 실제 사용량은 남긴다 (2026-09-25) ─────────────────────────
+LEDGER_ONLY_COMMITTED = 0
+LEDGER_ONLY_UNCHANGED = 2
+LEDGER_ONLY_REFUSED = 1
+LEDGER_ONLY_MESSAGE = "DART 사용량 원장만 보존 (공개 누출 검사 실패 — 공개 산출물은 커밋하지 않음)"
+_LEDGER_KEYS = {"schemaVersion", "day", "counts", "runs", "updatedAt"}
+_DAY_RE = r"\d{4}-\d{2}-\d{2}"
+_STAMP_RE = r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,6})?(\+00:00|Z)"
+
+
+def _ledger_problem(doc, head_doc):
+    """원장만 커밋할 때 원장 내용 검사. 문제가 없으면 None.
+
+    숫자·날짜만 허용해 원장 파일에 비밀값·공시 원문·개인자료가 끼어들 자리를 없앤다. 같은 날 HEAD 보다 줄어든
+    사용량은 거부한다 — 사용량을 가짜로 줄여 저장하지 않는다.
+    """
+    import re
+    if not isinstance(doc, dict) or set(doc) != _LEDGER_KEYS:
+        return "원장 키가 계약과 다르다"
+    if doc["schemaVersion"] != SCHEMA_VERSION:
+        return "schemaVersion 이 다르다"
+    if not isinstance(doc["day"], str) or not re.fullmatch(_DAY_RE, doc["day"]):
+        return "day 형식이 아니다"
+    if not isinstance(doc["updatedAt"], str) or not re.fullmatch(_STAMP_RE, doc["updatedAt"]):
+        return "updatedAt 형식이 아니다"
+    counts = doc["counts"]
+    if not isinstance(counts, dict) or not set(counts) <= set(KINDS):
+        return "counts 키가 계약과 다르다"
+    numbers = list(counts.values()) + [doc["runs"]]
+    if any(type(v) is not int or v < 0 for v in numbers):
+        return "사용량은 0 이상 정수여야 한다"
+    head = _normalize(head_doc)
+    if head is not None and head["day"] == doc["day"]:
+        if any(int(counts.get(k, 0)) < head["counts"][k] for k in KINDS) or doc["runs"] < head["runs"]:
+            return "같은 날 사용량이 HEAD 보다 줄었다"
+    return None
+
+
+def commit_ledger_only(repo="."):
+    """호출 횟수 원장 **한 파일만** 커밋한다. 공개 누출 검사가 실패한 회차의 워크플로가 부른다.
+
+    DART 를 실제로 부른 뒤 누출 검사가 실패하면 공개 산출물은 커밋하지 않는다. 그때 원장까지 버리면 다음 회차가
+    실제 사용량을 적게 알고 시작한다(예산 보호가 발동하지 못한다). 그래서 원장만 남긴다.
+      · 원장이 HEAD 와 같으면(= API 를 부르기 전에 실패) 아무것도 만들지 않는다 → LEDGER_ONLY_UNCHANGED
+      · 스테이징을 비우고 원장만 올린 뒤, 올라간 파일이 정확히 원장 하나인지 확인한다. 아니면 거부.
+      · 원장 내용은 `_ledger_problem` 계약을 통과해야 한다. 아니면 거부.
+    push 는 하지 않는다(워크플로가 병합 드라이버와 함께 한다).
+    """
+    def git(*args, check=True):
+        return subprocess.run(["git", *args], cwd=repo, capture_output=True, text=True, timeout=60, check=check)
+
+    if git("diff", "--quiet", "HEAD", "--", LEDGER_REPO_PATH, check=False).returncode == 0:
+        print("[dart_budget] 원장 변화 없음 — 원장 커밋 생략")
+        return LEDGER_ONLY_UNCHANGED
+    doc = _read_ledger(os.path.join(repo, LEDGER_REPO_PATH))
+    shown = git("show", f"HEAD:{LEDGER_REPO_PATH}", check=False)
+    try:
+        head_doc = json.loads(shown.stdout) if shown.returncode == 0 else None
+    except json.JSONDecodeError:
+        head_doc = None
+    problem = _ledger_problem(doc, head_doc)
+    if problem:
+        print(f"[dart_budget] 원장만 커밋 거부: {problem}", file=sys.stderr)
+        return LEDGER_ONLY_REFUSED
+    git("reset", "-q")
+    git("add", "--", LEDGER_REPO_PATH)
+    staged = [p for p in git("diff", "--cached", "--name-only").stdout.splitlines() if p]
+    if staged != [LEDGER_REPO_PATH]:
+        git("reset", "-q")
+        print(f"[dart_budget] 원장만 커밋 거부: 원장 외 파일이 올라감 {staged}", file=sys.stderr)
+        return LEDGER_ONLY_REFUSED
+    git("commit", "-q", "-m", LEDGER_ONLY_MESSAGE)
+    print(f"[dart_budget] 원장만 커밋: {LEDGER_REPO_PATH}")
+    return LEDGER_ONLY_COMMITTED
+
+
 def project(list_requests_per_run, runs_per_day, mapping_per_day=0,
             financial_per_day=0, detail_per_day=0):
     """하루 예상 호출 수를 계산한다. 추측이 아니라 실측값을 넣어 쓴다."""
@@ -416,6 +492,7 @@ def main(argv=None):
       python3 dart_budget.py --install-git-merge-driver [repo]   # clone 에 드라이버 등록(멱등)
       python3 dart_budget.py --git-merge %O %A %B                # git 이 부르는 드라이버(직접 쓰지 않는다)
       python3 dart_budget.py --report [원장경로]                  # 원장 요약(읽기만)
+      python3 dart_budget.py --commit-ledger-only [repo]         # 원장 한 파일만 커밋(0 커밋 · 2 변화 없음 · 1 거부)
     """
     args = list(sys.argv[1:] if argv is None else argv)
     if not args or args[0] in ("-h", "--help"):
@@ -431,6 +508,8 @@ def main(argv=None):
         ok = ensure_git_merge_driver(repo)
         print(f"merge.{MERGE_DRIVER_NAME}.driver = {merge_driver_command()}" if ok else "등록 실패")
         return 0 if ok else 1
+    if args[0] == "--commit-ledger-only":
+        return commit_ledger_only(args[1] if len(args) > 1 else ".")
     if args[0] == "--report":
         path = args[1] if len(args) > 1 else LEDGER_REPO_PATH
         print(json.dumps(DailyBudget(path).report(), ensure_ascii=False, indent=1))
