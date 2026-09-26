@@ -19,7 +19,7 @@ jobs:
           python-version: "3.11"
       - run: python3 -m pip install --quiet cryptography
       - name: 수집기 시험 (오프라인)
-        run: python3 -m unittest test_disclosure_research test_dart_budget_ledger test_corporate_action_evidence test_dart_pipeline test_dart_financials_collect test_dart_live_hardening test_corporate_action_classify test_secret_hygiene
+        run: python3 -m unittest test_disclosure_research test_dart_budget_ledger test_corporate_action_evidence test_dart_pipeline test_dart_financials_collect test_dart_live_hardening test_corporate_action_classify test_secret_hygiene test_site_build
       - name: 사이트 조립
         run: python3 tools/build_site.py
       - name: 공개 누출·이력·세척본·디자인 상한 검사

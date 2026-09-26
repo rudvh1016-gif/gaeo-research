@@ -35,7 +35,7 @@ TEXT_EXT = ('.py', '.js', '.json', '.html', '.css', '.md', '.yml', '.yaml', '.tx
 # 사이트에 실어도 되는 것(허용목록). 이 밖의 파일이 _site 에 있으면 실패.
 SITE_ALLOW = re.compile(r'^(index\.html|404\.html|about\.html|disclaimer\.html|privacy\.html|contact\.html|disclosure-research\.html|'
                         r'study\.html|learn\.html|calculators\.html|sitemap\.xml|robots\.txt|\.nojekyll|CNAME|dart_today\.js|'
-                        r'assets/(site\.css|site\.js|articles\.js|calc-widgets\.js|disclosure-research\.js)|'
+                        r'assets/(site\.css|site\.js|articles\.js|calc-widgets\.js|disclosure-research\.js|research-summary\.json)|'
                         r'assets/fonts/wanted-sans/(OFL\.txt|WantedSansVariable\.css|woff2/WantedSansVariable\.split\.\d+\.woff2)|'
                         r'img/[a-z0-9-]+\.(png|ico)|'
                         r'content/(stock_study|stock_lessons|estate_lessons|calculators)\.js|content/past_analysis\.json|'

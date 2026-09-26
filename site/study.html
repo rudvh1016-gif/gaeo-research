@@ -30,6 +30,8 @@
 <script>
 GaeoArticles.render({ el: "articles", data: typeof STOCK_STUDY !== "undefined" ? STOCK_STUDY : null, base: "/study.html", title: "종목 공부", pastNote: true,
   cats: [{ key: "kr", label: "국내 기업" }, { key: "global", label: "해외 기업" }],
+  start: { note: "종목 공부 노트는 회사가 무슨 일을 하는지 → 어떻게 돈을 버는지 → 무엇을 더 확인할지 순서로 읽어요. 모두 작성 당시 기준이에요. 공시가 처음이라면 이 두 글을 먼저 읽어 보세요.",
+    links: [["/learn.html?t=stock&id=68", "DART 공시 보는 법: 10분 기업 점검 순서"], ["/learn.html?t=stock&id=67", "재무제표 보는 법: 손익·재무상태·현금흐름 연결하기"]] },
   widget: function (it) { return /^\d{6}$/.test(it.code || "") ? "<p class=\"small\"><a href=\"/disclosure-research.html?code=" + it.code + "\">이 회사의 최근 공시 보기 →</a></p>" : ""; } });
 </script>
 </body>

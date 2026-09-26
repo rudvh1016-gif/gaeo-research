@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GAEO 기업 리서치 노트</title>
-<meta name="description" content="공시로 회사의 변화를 읽고, 기업과 투자를 쉽게 공부하는 개인 리서치 노트. OpenDART 공시·재무 변화, 과거 분석 기록, 종목 공부, 투자 공부, 계산기.">
+<title>GAEO 기업 리서치 — 공시로 읽는 기업 공부</title>
+<meta name="description" content="공시를 처음 보는 사람도 회사의 변화를 쉽게 이해하도록, 금융감독원 OpenDART 공시·재무 변화·사건 흐름을 쉬운 말로 풀어 봅니다. 매수·매도 추천 없음.">
 <link rel="canonical" href="https://gaeoteam.com/">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F4F6F9">
 <link rel="icon" href="/img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="GAEO 기업 리서치 노트">
-<meta property="og:description" content="공시로 회사의 변화를 읽고, 기업과 투자를 쉽게 공부합니다.">
+<meta property="og:title" content="GAEO 기업 리서치 — 공시로 읽는 기업 공부">
+<meta property="og:description" content="공시를 처음 보는 사람도 회사의 변화를 쉽게 이해하도록 풀어 봅니다.">
 <meta property="og:url" content="https://gaeoteam.com/">
 <meta property="og:image" content="https://gaeoteam.com/img/og-image.png">
 <link rel="stylesheet" href="/assets/fonts/wanted-sans/WantedSansVariable.css">
@@ -21,60 +21,50 @@
 <body data-page="home">
 <header id="site-head"></header>
 <main id="main" class="wrap">
-  <h1>공시로 읽는 기업 리서치 노트</h1>
-  <p class="lede">회사가 금융감독원에 낸 공시로 무엇이 달라졌는지 쉽게 풀어 봅니다. 주가 예측이나 매수·매도 추천은 하지 않습니다.</p>
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">공시를 처음 보는 사람도<br>3분 안에 회사의 변화를 <span class="keep">이해할 수 있게</span></h1>
+    <p class="lede">회사가 금융감독원에 낸 공시를 쉬운 말로 풀어 봅니다. 주가 예측이나 매수·매도 추천은 하지 않습니다.</p>
+    <form class="hero-search" role="search" action="/disclosure-research.html" method="get">
+      <label class="hero-label" for="home-q">회사를 검색해 보세요</label>
+      <div class="search-row">
+        <input id="home-q" name="code" list="home-companies" placeholder="회사 이름 또는 종목코드" autocomplete="off" enterkeyhint="search">
+        <button class="btn btn-primary" type="submit">찾기</button>
+      </div>
+      <datalist id="home-companies"><!--HOME:COMPANIES--></datalist>
+      <p class="examples">예: <!--HOME:EXAMPLES--></p>
+    </form>
+    <!--HOME:STATUS-->
+  </section>
 
-  <div class="grid two">
-    <a class="card" href="/disclosure-research.html"><p class="card-title">기업 리서치</p><p class="card-sub">오늘의 공시 · 공시 변화 · 재무 변화 · 사건 흐름. 회사 이름으로 찾아보세요.</p></a>
-    <a class="card" href="/past-analysis/"><p class="card-title">과거 정밀분석</p><p class="card-sub">예전에 남긴 분석 기록. 당시 무엇을 봤고, 무엇이면 틀릴 수 있었는지.</p></a>
-    <a class="card" href="/study.html"><p class="card-title">종목 공부</p><p class="card-sub">회사가 무슨 일을 하고 어떻게 돈을 버는지 쉬운 말로.</p></a>
-    <a class="card" href="/learn.html"><p class="card-title">투자 공부</p><p class="card-sub">주식·세금·부동산 기초를 처음부터.</p></a>
-    <a class="card" href="/calculators.html"><p class="card-title">계산기</p><p class="card-sub">수수료·세금 포함 손익분기, 공모주 배정, 복리, 대출 상환 등.</p></a>
-  </div>
+  <section class="section" aria-labelledby="today-title">
+    <div class="section-head"><h2 id="today-title">오늘의 변화</h2><a href="/disclosure-research.html">전체 공시 보기</a></div>
+    <!--HOME:TODAY-->
+  </section>
 
-  <h2>오늘의 공시</h2>
-  <form class="search" role="search" action="/disclosure-research.html" method="get">
-    <input name="code" placeholder="회사 이름 또는 종목코드 6자리" aria-label="회사 검색" autocomplete="off">
-    <button type="submit">찾기</button>
-  </form>
-  <p class="meta" id="dart-asof">불러오는 중…</p>
-  <ul class="list" id="dart-list"></ul>
-  <p><a href="/disclosure-research.html">기업 리서치에서 더 보기 →</a></p>
+  <section class="section" aria-labelledby="start-title">
+    <div class="section-head"><h2 id="start-title">처음 오셨나요?</h2></div>
+    <p class="section-sub">이 순서로 보면 공시가 무슨 뜻인지 자연스럽게 이어집니다.</p>
+    <ol class="steps">
+      <li class="card step"><h3>회사가 무슨 일을 하나요?</h3><p>회사가 무엇을 만들고 어떻게 돈을 버는지 쉬운 말로 정리한 노트부터 읽어 보세요.</p><a class="btn btn-outline" href="/study.html">종목 공부 보기</a></li>
+      <li class="card step"><h3>공시가 무슨 뜻인지 모르겠어요</h3><p>DART 공시 보는 법, 재무제표 읽는 법 같은 기초 개념을 먼저 익혀요.</p><a class="btn btn-outline" href="/learn.html">투자 공부 보기</a></li>
+      <li class="card step"><h3>실제 회사에는 무슨 변화가 있었나요?</h3><p>회사를 검색하면 최근 공시·재무 변화·사건 흐름을 한눈에 보여 드려요.</p><a class="btn btn-outline" href="/disclosure-research.html">기업 리서치 보기</a></li>
+    </ol>
+  </section>
 
-  <h2>최근 종목 공부</h2>
-  <ul class="list" id="study-list"></ul>
-  <h2>최근 투자 공부</h2>
-  <ul class="list" id="learn-list"></ul>
+  <section class="section" aria-labelledby="study-title">
+    <div class="section-head"><h2 id="study-title">최근 공부 노트</h2><a href="/learn.html">전체 공부 보기</a></div>
+    <!--HOME:STUDY-->
+  </section>
+
+  <section class="section" aria-labelledby="more-title">
+    <div class="section-head"><h2 id="more-title">더 둘러보기</h2></div>
+    <div class="grid two">
+      <a class="card link-card" href="/past-analysis/"><span class="lc-title">과거 정밀분석</span><span class="lc-sub">예전에 남긴 분석 기록 — 당시 무엇을 봤고, 무엇이면 틀릴 수 있었는지.</span></a>
+      <a class="card link-card" href="/calculators.html"><span class="lc-title">계산기</span><span class="lc-sub">수수료·세금 포함 손익분기, 공모주 배정, 복리, 대출 상환 등.</span></a>
+    </div>
+  </section>
 </main>
 <footer id="site-foot"></footer>
 <script src="/assets/site.js"></script>
-<script src="/dart_today.js"></script>
-<script src="/content/stock_study.js"></script>
-<script src="/content/stock_lessons.js"></script>
-<script>
-(function () {
-  var G = window.Gaeo;
-  var list = document.getElementById('dart-list'), asof = document.getElementById('dart-asof');
-  if (typeof DART_TODAY === 'undefined' || !DART_TODAY || !Array.isArray(DART_TODAY.items)) {
-    asof.textContent = '공시 자료를 불러오지 못했습니다. 없는 자료를 비어 있음으로 채우지 않습니다.';
-  } else {
-    asof.textContent = '공시 접수 ' + (DART_TODAY.items.length ? G.ymd(DART_TODAY.items[DART_TODAY.items.length - 1].receiptDate) + ' ~ ' + G.ymd(DART_TODAY.items[0].receiptDate) : '') + ' · 모은 시각 ' + DART_TODAY.generatedAt + ' · 하루 두 번 갱신';
-    list.innerHTML = DART_TODAY.items.slice(0, 10).map(function (it) {
-      var u = G.dartUrl(it.rceptNo);
-      return '<li><a href="/disclosure-research.html?code=' + G.esc(it.code) + '"><b>' + G.esc(it.name) + '</b></a> ' +
-        (it.isCorrection ? '<span class="tag">정정</span>' : '') + G.esc(it.title) +
-        ' <span class="meta">' + G.esc(G.ymd(it.receiptDate)) + (u ? ' · <a href="' + u + '" target="_blank" rel="noopener">DART에서 직접 보기</a>' : '') + '</span></li>';
-    }).join('');
-  }
-  function recent(arr, href, el) {
-    if (!Array.isArray(arr)) { el.innerHTML = '<li class="meta">불러오지 못했습니다.</li>'; return; }
-    el.innerHTML = arr.slice(0, 5).map(function (x) {
-      return '<li><a href="' + href + x.id + '"><b>' + G.esc(x.name) + '</b></a> <span class="meta">' + G.esc(x.date) + '</span><br><span class="small">' + G.esc(String(x.summary || '').slice(0, 90)) + '…</span></li>';
-    }).join('');
-  }
-  recent(typeof STOCK_STUDY !== 'undefined' ? STOCK_STUDY : null, '/study.html?id=', document.getElementById('study-list'));
-  recent(typeof STOCK_LESSONS !== 'undefined' ? STOCK_LESSONS : null, '/learn.html?t=stock&id=', document.getElementById('learn-list'));
-})();
-</script>
 </body>
 </html>

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>기업 리서치 · GAEO</title>
-<meta name="description" content="OpenDART 공시로 회사의 변화를 쉽게 읽습니다 — 오늘의 공시, 공시 변화, 재무 변화, 사건 흐름. 시세·점수·매수매도 판단 없음.">
+<meta name="description" content="OpenDART 공시로 회사의 변화를 쉽게 읽습니다 — 회사 한눈에 보기, 최근 공시, 공시 변화, 재무 변화, 사건 흐름. 시세·점수·매수매도 판단 없음.">
 <link rel="canonical" href="https://gaeoteam.com/disclosure-research.html">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F4F6F9">
 <link rel="icon" href="/img/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -19,30 +19,41 @@
 <body data-page="research">
 <header id="site-head"></header>
 <main id="main" class="wrap">
-  <h1>기업 리서치</h1>
-  <p class="lede">회사가 금융감독원 전자공시(DART)에 낸 공시만으로 무엇이 달라졌는지 봅니다. 주가·점수·매수매도 판단은 싣지 않습니다. 자료 공급: 하루 두 번(OpenDART).</p>
-  <p class="meta" id="asOf">자료 불러오는 중…</p>
-
-  <div class="search" role="search">
-    <input id="q" list="companies" placeholder="회사 이름 또는 종목코드 6자리" aria-label="회사 검색" autocomplete="off">
-    <datalist id="companies"></datalist>
-    <button type="button" id="go">보기</button>
-    <button type="button" id="clear">전체</button>
+  <div class="page-head">
+    <h1>기업 리서치</h1>
+    <p class="lede">회사가 금융감독원 전자공시(DART)에 낸 공시만으로 무엇이 달라졌는지 봅니다. 주가·점수·매수매도 판단은 싣지 않습니다.</p>
   </div>
+
+  <form class="search-panel" role="search" id="search-form" action="/disclosure-research.html" method="get">
+    <label for="q">회사 이름 또는 종목코드</label>
+    <div class="search-row">
+      <input id="q" name="code" list="companies" placeholder="예: 삼성전자 · 005930" autocomplete="off" enterkeyhint="search">
+      <button type="submit" class="btn btn-primary" id="go">보기</button>
+      <button type="button" class="btn" id="clear">전체 보기</button>
+    </div>
+    <datalist id="companies"></datalist>
+    <p class="meta" id="asOf" aria-live="polite">자료 기준을 불러오고 있어요</p>
+  </form>
+
+  <section id="overview" class="hidden" aria-labelledby="ov-title" tabindex="-1"></section>
 
   <div class="tabs" role="tablist" aria-label="기업 리서치 화면">
-    <button role="tab" aria-selected="true" data-tab="today" id="tab-today">오늘의 공시</button>
-    <button role="tab" aria-selected="false" data-tab="changes" id="tab-changes">공시 변화</button>
-    <button role="tab" aria-selected="false" data-tab="financial" id="tab-financial">재무 변화</button>
-    <button role="tab" aria-selected="false" data-tab="timeline" id="tab-timeline">사건 흐름</button>
+    <button type="button" role="tab" aria-selected="true" aria-controls="view-today" data-tab="today" id="tab-today">오늘의 공시</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-changes" data-tab="changes" id="tab-changes" tabindex="-1">공시 변화</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-financial" data-tab="financial" id="tab-financial" tabindex="-1">재무 변화</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-timeline" data-tab="timeline" id="tab-timeline" tabindex="-1">사건 흐름</button>
   </div>
 
-  <section id="view-today" role="tabpanel" aria-labelledby="tab-today"><p class="meta">불러오는 중…</p></section>
-  <section id="view-changes" role="tabpanel" aria-labelledby="tab-changes" class="hidden"></section>
-  <section id="view-financial" role="tabpanel" aria-labelledby="tab-financial" class="hidden"></section>
-  <section id="view-timeline" role="tabpanel" aria-labelledby="tab-timeline" class="hidden"></section>
+  <section id="view-today" role="tabpanel" aria-labelledby="tab-today" tabindex="-1">
+    <noscript><div class="state"><p class="state-title">자바스크립트를 켜야 이 화면이 보여요</p><p>오늘의 변화는 <a href="/">홈</a>에서도 볼 수 있어요. 원문은 <a href="https://dart.fss.or.kr/">DART</a>에서 확인할 수 있어요.</p></div></noscript>
+  </section>
+  <section id="view-changes" role="tabpanel" aria-labelledby="tab-changes" class="hidden" tabindex="-1"></section>
+  <section id="view-financial" role="tabpanel" aria-labelledby="tab-financial" class="hidden" tabindex="-1"></section>
+  <section id="view-timeline" role="tabpanel" aria-labelledby="tab-timeline" class="hidden" tabindex="-1"></section>
 
-  <p class="small">원본 자료 파일: <a href="/disclosure_research/contract.json">contract.json</a> · <a href="/disclosure_research/disclosure_changes.json">공시 변화</a> · <a href="/disclosure_research/financial_changes.json">재무 변화</a> · <a href="/disclosure_research/event_timelines.json">사건 흐름</a></p>
+  <section id="related" class="section hidden" aria-labelledby="rel-title"></section>
+
+  <p class="small">원본 자료 파일(OpenDART에서 만든 공개 산출물): <a href="/disclosure_research/contract.json">contract.json</a> · <a href="/disclosure_research/disclosure_changes.json">공시 변화</a> · <a href="/disclosure_research/financial_changes.json">재무 변화</a> · <a href="/disclosure_research/event_timelines.json">사건 흐름</a> · 읽는 법과 한계: <a href="/disclaimer.html">자료 출처·면책</a></p>
 </main>
 <footer id="site-foot"></footer>
 <script src="/assets/site.js"></script>
