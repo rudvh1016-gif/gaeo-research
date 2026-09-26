@@ -84,7 +84,7 @@
     });
   }
 
-  /* 회사 한눈에 보기 — 요약 파일과 오늘의 공시만 쓴다 */
+  /* 회사 한눈에 보기 — 요약 파일과 최근 공시 목록만 쓴다 */
   function sumCard(key, title, tab, chipHtml, lines) {
     return '<article class="card summary-card"><h3><span class="sc-key" aria-hidden="true">' + key + '</span>' + esc(title) + ' ' + chipHtml + '</h3>' +
       lines.map(function (p) { return '<p>' + p + '</p>'; }).join('') +
@@ -140,10 +140,10 @@
     });
   }
 
-  /* 오늘의 공시 · 최근 공시 */
+  /* 최근 공시 — 최근 접수분 목록(여러 날일 수 있어 「오늘」이라고 부르지 않는다) */
   function renderToday(code) {
     var el = $('view-today');
-    if (!dartOk) { fail(el, new Error('오늘의 공시 파일 없음')); return; }
+    if (!dartOk) { fail(el, new Error('최근 공시 목록 파일 없음')); return; }
     var items = DART_TODAY.items.filter(function (it) { return !code || it.code === code; });
     var head = '<p class="meta">공시 접수 ' + esc(todayPeriod()) + ' · 모은 시각 ' + esc(DART_TODAY.generatedAt) + ' · 하루 두 번 갱신</p>';
     if (code && !items.length) {
@@ -192,7 +192,10 @@
     if (!happened.length) happened = ['최근 기간과 그 전 기간 사이에 공시 종류·건수 변화가 없었어요(공시가 없다는 뜻은 아니에요).'];
     var filings = (c.filings || []).map(function (f) {
       var label = cats[f.category] ? cats[f.category].label : f.category;
-      return (f.isCorrection ? G.chip('neutral', '정정 · ' + (f.correctionKind || '정정')) : '') + (label ? G.chip('info', label) : '') +
+      /* 주 분류 + 보조 분류(두 성격인 공시) · 제목만으로 주 분류를 못 정하면 그렇다고 적는다 */
+      var tags = (f.categoryTags || []).map(function (k) { return G.chip('neutral', cats[k] ? cats[k].label : k); }).join('') +
+        (f.categoryAmbiguous ? G.chip('unknown', '어느 쪽인지 원문 확인') : '');
+      return (f.isCorrection ? G.chip('neutral', '정정 · ' + (f.correctionKind || '정정')) : '') + (label ? G.chip('info', label) : '') + tags +
         esc(f.title) + ' <span class="meta">' + esc(f.receivedOn) + '</span> · ' + link(f.url, 'DART 원문');
     });
     el.innerHTML = head + '<div class="card">' + panelHead(code, '모은 공시 ' + esc(c.filingCount) + '건 · 가장 최근 ' + esc(c.latestReceivedOn) + ' · 최근 기간 ' + esc(c.recentCount) + '건 · 그 전 기간 ' + (c.priorCount == null ? '견주지 않음' : esc(c.priorCount) + '건')) +
@@ -339,7 +342,6 @@
 
   function show() {
     TABS.forEach(function (t) { $('view-' + t).classList.toggle('hidden', t !== current.tab); });
-    $('tab-today').textContent = current.code ? '최근 공시' : '오늘의 공시';
     var code = /^\d{6}$/.test(current.code) && tracked(current.code) ? current.code : '';
     renderOverview(current.code);
     renderRelated(code);
