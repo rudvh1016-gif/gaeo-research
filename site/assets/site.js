@@ -34,22 +34,37 @@
     flushP(); flushL();
     return html;
   }
+  /* 머리말·꼬리말은 빌드(tools/build_site.py)가 미리 그린다 — 자바스크립트가 꺼져도 보인다. 비어 있을 때만 여기서 그린다. */
   function header(active) {
     var el = document.getElementById('site-head');
-    if (!el) return;
+    if (!el || el.children.length) return;
     el.className = 'site-head';
-    el.innerHTML = '<a class="skip" href="#main">본문 바로가기</a><div class="wrap"><div class="row"><a class="brand" href="/">GAEO<small>기업 리서치 노트</small></a></div>' +
+    el.innerHTML = '<a class="skip" href="#main">본문 바로가기</a><div class="wrap head-row"><a class="brand" href="/">GAEO<small>기업 리서치</small></a>' +
       '<nav class="nav" aria-label="주 메뉴">' + NAV.map(function (n) {
         return '<a href="' + n[0] + '"' + (n[2] === active ? ' aria-current="page"' : '') + '>' + n[1] + '</a>';
       }).join('') + '</nav></div>';
   }
   function footer() {
     var el = document.getElementById('site-foot');
-    if (!el) return;
+    if (!el || el.children.length) return;
     el.className = 'site-foot';
     el.innerHTML = '<div class="wrap"><p>GAEO는 공시·기업 공부를 돕는 개인 리서치 노트입니다. 투자 권유가 아니며, 판단과 책임은 읽는 분에게 있습니다. 매수·매도 추천, 1:1 종목 상담, 유료 리딩을 하지 않습니다.</p>' +
       '<p>공시 자료 출처: 금융감독원 전자공시시스템(DART) · OpenDART</p>' +
-      '<p><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a><a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a></p></div>';
+      '<p class="foot-links"><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a><a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a></p></div>';
+  }
+  /* 화면 상태 — 불러오는 중 · 아직 못 받음 · 해당 없음 · 오류를 서로 다른 말로 보여 준다(없는 자료를 0 으로 채우지 않는다). */
+  var CHIP = { fact: '확인됨', unknown: '아직 못 받음', na: '해당 없음', error: '오류', info: '안내' };
+  function chip(kind, label) { return '<span class="chip ' + kind + '">' + esc(label || CHIP[kind] || '') + '</span>'; }
+  function loading(text) {
+    return '<div class="loading" role="status" aria-live="polite"><span class="sk" aria-hidden="true"></span><span class="sk w70" aria-hidden="true"></span><span class="sk w40" aria-hidden="true"></span><p>' + esc(text || '자료를 불러오고 있어요') + '</p></div>';
+  }
+  function state(kind, title, body) {
+    return '<div class="state state-' + kind + '" role="' + (kind === 'error' ? 'alert' : 'note') + '"><p class="state-title">' + esc(title) + '</p>' + (body ? '<p>' + body + '</p>' : '') + '</div>';
+  }
+  function sourceBar(what, generatedAt, url, urlLabel) {
+    return '<p class="source-bar"><span>출처: 금융감독원 OpenDART' + (what ? ' · ' + esc(what) : '') + '</span>' +
+      (generatedAt ? '<span>자료 생성 ' + esc(kst(generatedAt)) + '</span>' : '') +
+      (url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(urlLabel || '원문 확인') + ' ↗</a>' : '') + '</p>';
   }
   function param(name) {
     var m = new RegExp('[?&]' + name + '=([^&#]*)').exec(location.search);
@@ -69,7 +84,8 @@
     var k = new Date(d.getTime() + 9 * 3600 * 1000).toISOString();
     return k.slice(0, 10) + ' ' + k.slice(11, 16);
   }
-  window.Gaeo = { kst: kst, esc: esc, md: md, inline: inline, header: header, footer: footer, param: param, dartUrl: dartUrl, ymd: ymd };
+  window.Gaeo = { kst: kst, esc: esc, md: md, inline: inline, header: header, footer: footer, param: param, dartUrl: dartUrl, ymd: ymd,
+    chip: chip, loading: loading, state: state, sourceBar: sourceBar };
   document.addEventListener('DOMContentLoaded', function () {
     header(document.body.getAttribute('data-page') || '');
     footer();

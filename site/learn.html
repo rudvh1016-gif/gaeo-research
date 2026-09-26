@@ -35,16 +35,18 @@
     stock: { data: typeof STOCK_LESSONS !== "undefined" ? STOCK_LESSONS : null, cats: [
       { key: "beginner", label: "주식 첫걸음" }, { key: "chart", label: "차트 기초" }, { key: "capitalism", label: "자본주의" }, { key: "crisis", label: "경제위기의 역사" },
       { key: "tax", label: "세금·절세" }, { key: "isa", label: "ISA" }, { key: "product", label: "투자상품" }, { key: "macro", label: "시장을 움직이는 손" },
-      { key: "industry", label: "산업 공부" }, { key: "etf", label: "ETF·연금" }, { key: "youth", label: "청년 돈생활" }] },
+      { key: "industry", label: "산업 공부" }, { key: "etf", label: "ETF·연금" }, { key: "youth", label: "청년 돈생활" }],
+      start: { note: "주식이 처음이라면 이 순서로 읽어 보세요. 공시와 재무제표를 읽는 기초부터 시작해요.", ids: [68, 67, 73, 76, 65] } },
     estate: { data: typeof ESTATE_LESSONS !== "undefined" ? ESTATE_LESSONS : null, cats: [
       { key: "buy", label: "내 집 마련" }, { key: "rent", label: "전월세" }, { key: "loan", label: "대출" }, { key: "auction", label: "경매·공매" },
-      { key: "strategy", label: "투자 접근법" }, { key: "tax", label: "부동산 세금" }] }
+      { key: "strategy", label: "투자 접근법" }, { key: "tax", label: "부동산 세금" }],
+      start: { note: "집을 처음 알아본다면 이 순서로 읽어 보세요. 사고, 빌리고, 계약하는 기초예요.", ids: [2, 18, 7, 8] } }
   };
   var t = Gaeo.param("t") === "estate" ? "estate" : "stock";
   function go(kind) {
     document.getElementById("t-stock").setAttribute("aria-selected", kind === "stock");
     document.getElementById("t-estate").setAttribute("aria-selected", kind === "estate");
-    GaeoArticles.render({ el: "articles", data: SETS[kind].data, cats: SETS[kind].cats, base: "/learn.html?t=" + kind, title: kind === "stock" ? "주식 공부" : "부동산 공부" });
+    GaeoArticles.render({ el: "articles", data: SETS[kind].data, cats: SETS[kind].cats, base: "/learn.html?t=" + kind, title: kind === "stock" ? "주식 공부" : "부동산 공부", start: SETS[kind].start });
   }
   document.getElementById("t-stock").onclick = function () { history.replaceState(null, "", "/learn.html?t=stock"); go("stock"); };
   document.getElementById("t-estate").onclick = function () { history.replaceState(null, "", "/learn.html?t=estate"); go("estate"); };
