@@ -3,8 +3,9 @@
 """공개 사이트 조립 계약 (2026-09-26 초보자 화면 개편) — 네트워크 0 · 저장소 안 자료만.
 
 ① 홈의 숫자는 contract.json 의 실제 값뿐이다(지어낸 숫자 0).
-② 오늘의 변화 카드의 "왜 확인할까요?" 는 공시 분류표의 일반적인 읽는 법만 쓴다. 제목이 두 분류에 걸리면
-   한 가지 읽는 법을 붙이지 않는다(예: 증권발행'실적'보고서가 실적 공시 설명을 받던 오해 방지).
+② 「최근 접수된 공시」 카드: 회사당 1장 · 중요도 순위라고 하지 않는다 · 같은 날 여러 건이면 건수와 「모두 보기」 링크.
+   "왜 확인할까요?" 는 주 분류의 일반적인 읽는 법만 쓰고(두 번째 성격은 보조 태그), 제목이 "A또는B" 처럼
+   스스로 애매하면 한 가지 읽는 법을 붙이지 않는다. 분류는 공시 연구 생산자와 같은 disclosure_classify 모듈이다.
 ③ 기업 한눈에 보기 요약은 결측을 0 으로 만들지 않고(NOT_COLLECTED 그대로), 판단·시세 키가 없다.
 ④ 공부 글 연결표의 글 번호는 실제 글이다. 모든 쪽에 메뉴가 미리 그려져 있다(자바스크립트 없이도 보임).
 """
@@ -57,36 +58,71 @@ class BuiltSite(unittest.TestCase):
                                       f"{files['financial_changes']['companies']:,}곳", f"{files['event_timelines']['companies']:,}곳"])
         self.assertNotIn('<!--HOME:', self.home)
 
-    def test_오늘의_변화_카드(self):
-        cards = re.findall(r'<article class="card change-card">.*?</article>', self.home, re.S)
+    def test_최근_접수된_공시_카드(self):
+        section = re.search(r'<section class="section" aria-labelledby="today-title">.*?</section>', self.home, re.S).group(0)
+        self.assertIn('<h2 id="today-title">최근 접수된 공시</h2>', section)
+        self.assertIn('중요도 순위가 아닙니다', section)
+        self.assertNotIn('오늘', section)   # 여러 날 자료를 「오늘」이라고 부르지 않는다
+        cards = re.findall(r'<article class="card change-card">.*?</article>', section, re.S)
         self.assertTrue(1 <= len(cards) <= 6, len(cards))
+        codes = [re.search(r'code=(\d{6})', c).group(1) for c in cards]
+        self.assertEqual(len(codes), len(set(codes)), '회사당 카드 1장')
         for card in cards:
             self.assertIn('href="/disclosure-research.html?code=', card)
             self.assertIn('무슨 내용인가요?', card)
             self.assertIn('왜 확인할까요?', card)
+            self.assertNotIn('대표 공시', card)
         # 금지 어휘는 자동으로 만든 카드 내용에서 본다(홈의 안내문 "매수·매도 추천 없음" 같은 부정문은 대상이 아니다).
         for phrase in FORBIDDEN_TEXT:
             self.assertNotIn(phrase, ''.join(cards), phrase)
 
-    def test_두_분류에_걸린_제목은_한_가지_읽는_법을_받지_않는다(self):
+    def _today(self, items):
         with open(os.path.join(HERE, 'config', 'disclosure_research_vocab.json'), encoding='utf-8') as fh:
             cats = json.load(fh)['categories']
-        title = '증권발행실적보고서'
-        self.assertEqual(build_site.categories_of(title, cats), ['earnings', 'securities_filing'])
-        dart = {'items': [{'code': '000001', 'name': '합성', 'title': title, 'receiptDate': '20260925',
-                           'rceptNo': '20260925000001', 'isCorrection': False}], 'generatedAt': '2026-09-25 00:00'}
-        contract = dict(self.contract, companyNames={'000001': '합성'})
+        dart = {'items': items, 'generatedAt': '2026-09-25 00:00'}
+        contract = dict(self.contract, companyNames={it['code']: it['name'] for it in items})
         today = build_site.home_sections(contract, dart, {'categories': cats}, [], [])['TODAY']
-        self.assertNotIn(cats['earnings']['howToRead']['why'].split('.')[0], today)
-        self.assertIn('한 가지 읽는 법을 고르지 않았어요', today)
+        cards = re.findall(r'<article class="card change-card">.*?</article>', today, re.S)
+        return {re.search(r'code=(\d{6})', c).group(1): c for c in cards}, cats
 
-    def test_분류_규칙은_공시_연구_생산자와_같다(self):
+    def test_같은_날_여러_공시는_건수와_모두_보기_링크(self):
+        base = {'code': '000001', 'name': '합성', 'receiptDate': '20260925', 'isCorrection': False}
+        cards, _ = self._today([
+            dict(base, title='단일판매ㆍ공급계약체결', rceptNo='20260925000001', detectedAt='2026-09-25T02:00:00+00:00'),
+            dict(base, title='주식등의대량보유상황보고서', rceptNo='20260925000002', detectedAt='2026-09-25T01:00:00+00:00'),
+            dict(base, title='기업설명회(IR)개최', rceptNo='20260925000003', detectedAt='2026-09-25T00:00:00+00:00'),
+            dict(base, title='분기보고서', receiptDate='20260924', rceptNo='20260924000001', detectedAt='2026-09-24T00:00:00+00:00')])
+        self.assertEqual(list(cards), ['000001'])                       # 회사당 카드 1장
+        card = cards['000001']
+        self.assertIn('같은 날 공시 3건', card)                          # 다른 날(24일) 공시는 세지 않는다
+        self.assertIn('href="/disclosure-research.html?code=000001&amp;tab=today">같은 날 공시 3건 모두 보기', card)
+        self.assertIn('단일판매ㆍ공급계약체결', card)                     # 같은 날 가운데 GAEO 가 가장 나중에 모은 것
+        one, _ = self._today([dict(base, title='분기보고서', rceptNo='20260925000009')])
+        self.assertNotIn('같은 날 공시', one['000001'])
+
+    def test_두_성격은_주_분류와_보조_태그_애매하면_한_가지_읽는_법_없음(self):
+        base = {'name': '합성', 'receiptDate': '20260925', 'isCorrection': False}
+        cards, cats = self._today([
+            dict(base, code='000001', title='특수관계인으로부터자산양수', rceptNo='20260925000001'),
+            dict(base, code='000002', title='증권발행실적보고서', rceptNo='20260925000002'),
+            dict(base, code='000003', title='유상증자또는주식관련사채등의발행결과(자율공시)', rceptNo='20260925000003')])
+        self.assertIn(f'<span class="cc-cat">{cats["merger_split"]["label"]}</span>', cards['000001'])
+        self.assertIn(f'<span class="chip neutral">{cats["group"]["label"]}</span>', cards['000001'])
+        self.assertIn(f'<span class="cc-cat">{cats["securities_filing"]["label"]}</span>', cards['000002'])
+        self.assertIn(cats['securities_filing']['howToRead']['why'].split('.')[0], cards['000002'])
+        self.assertNotIn(cats['earnings']['howToRead']['why'].split('.')[0], cards['000002'])
+        self.assertIn('한 가지 읽는 법을 고르지 않았어요', cards['000003'])
+        self.assertNotIn(cats['capital_increase']['howToRead']['why'].split('.')[0], cards['000003'])
+
+    def test_분류는_공시_연구_생산자와_같은_모듈이다(self):
         import build_disclosure_research as producer
+        import disclosure_classify
+        self.assertIs(build_site.disclosure_classify, disclosure_classify)
         with open(os.path.join(HERE, 'config', 'disclosure_research_vocab.json'), encoding='utf-8') as fh:
             cats = json.load(fh)['categories']
         dart = build_site.read_js_object('dart_today.js', 'DART_TODAY')
         for it in dart['items']:
-            self.assertEqual(build_site.category_of(it['title'], cats), producer.category_of(it['title'], cats), it['title'])
+            self.assertEqual(disclosure_classify.category_of(it['title'], cats), producer.category_of(it['title'], cats), it['title'])
 
     def test_요약은_결측을_0으로_만들지_않고_판단_키가_없다(self):
         with open(os.path.join(HERE, 'disclosure_research', 'financial_changes.json'), encoding='utf-8') as fh:

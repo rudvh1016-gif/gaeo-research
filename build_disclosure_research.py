@@ -30,6 +30,7 @@ import re
 import sys
 
 import dart_pipeline as P
+import disclosure_classify
 from collect_dart_financials import STORE_DIR as FIN_DIR, target_years
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -82,11 +83,18 @@ def _bare(title):
 
 
 def category_of(title, categories):
-    bare = _bare(title)
-    for key, spec in categories.items():
-        if any(term.replace(" ", "") in bare for term in spec.get("terms") or []):
-            return key
-    return "other"
+    """주 분류. 여러 분류 단어에 걸리면 disclosure_classify 규칙(구체적 표현 · 사건 > 서식 · 괄호 밖·뒤쪽)으로 고른다."""
+    return disclosure_classify.category_of(title, categories)
+
+
+def categorized(row, categories):
+    """공시 한 건에 주 분류(category)와, 두 성격 이상이면 보조 분류(categoryTags), 제목만으로 주 분류를 못 정하면
+    categoryAmbiguous=true 를 붙인다(없는 키는 해당 없음 — 기존 소비자는 category 만 읽어도 된다)."""
+    cls = disclosure_classify.classify(row["title"], categories)
+    extra = {"categoryTags": cls["tags"]} if cls["tags"] else {}
+    if cls["tie"]:
+        extra["categoryAmbiguous"] = True
+    return dict(row, category=cls["category"], **extra)
 
 
 def filing(rcept_no, title, received_on, source):
@@ -237,7 +245,7 @@ def build_disclosure_changes(universe, merged, list_meta, evidence_meta, vocab, 
         if not rows:
             continue
         changes, recent_count, prior_count = company_changes(rows, categories, win)
-        shown = [dict(r, category=category_of(r["title"], categories)) for r in rows[:FILINGS_PER_COMPANY]]
+        shown = [categorized(r, categories) for r in rows[:FILINGS_PER_COMPANY]]
         total += len(rows)
         companies[code] = {
             "name": universe[code]["name"] or None,

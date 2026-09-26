@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "disclosure_changes",
- "generatedAt": "2026-09-25T15:56:58Z",
+ "generatedAt": "2026-09-26T10:14:16Z",
  "asOf": "2026-09-26",
  "source": {
   "provider": "opendart",
@@ -127,7 +127,10 @@
    "label": "감자·액면",
    "terms": [
     "감자",
-    "액면"
+    "액면",
+    "액면분할",
+    "액면병합",
+    "주식의 병합, 분할"
    ],
    "howToRead": {
     "why": "감자는 자본금을 줄이는 결정이다. 무상감자(결손 보전)와 유상감자(주주에게 돌려줌)는 전혀 다른 사건이다. 액면 변경은 주식 수만 바뀐다.",
@@ -230,6 +233,7 @@
   },
   "periodic_report": {
    "label": "정기보고서",
+   "role": "form",
    "terms": [
     "사업보고서",
     "반기보고서",
@@ -243,6 +247,7 @@
   },
   "shareholder_meeting": {
    "label": "주주총회·기준일",
+   "role": "form",
    "terms": [
     "주주총회",
     "주주명부"
@@ -280,6 +285,7 @@
   },
   "securities_filing": {
    "label": "증권신고·발행",
+   "role": "form",
    "terms": [
     "증권신고서",
     "투자설명서",
@@ -296,6 +302,7 @@
   },
   "rumor": {
    "label": "풍문·조회공시",
+   "role": "form",
    "terms": [
     "풍문",
     "조회공시",
@@ -309,6 +316,7 @@
   },
   "ir": {
    "label": "IR·설명회",
+   "role": "form",
    "terms": [
     "기업설명회",
     "IR"
@@ -321,6 +329,7 @@
   },
   "group": {
    "label": "기업집단 공시",
+   "role": "form",
    "terms": [
     "대규모기업집단",
     "특수관계인",
@@ -407,7 +416,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251103000273",
@@ -419,7 +431,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -856,7 +871,10 @@
      "sources": [
       "list"
      ],
-     "category": "guarantee"
+     "category": "guarantee",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260831000717",
@@ -1550,7 +1568,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251126000696",
@@ -2056,7 +2078,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260710000008",
@@ -2347,7 +2373,10 @@
      "sources": [
       "list"
      ],
-     "category": "guarantee"
+     "category": "guarantee",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260909800203",
@@ -2492,7 +2521,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -2544,7 +2577,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260918000179",
@@ -2556,7 +2592,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260918000177",
@@ -2747,7 +2786,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260720800225",
@@ -2783,7 +2825,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260602000191",
@@ -2795,7 +2840,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260526800490",
@@ -2819,7 +2867,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260514800857",
@@ -2843,7 +2894,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260514000430",
@@ -3018,7 +3072,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -3206,17 +3264,10 @@
    "changes": [
     {
      "type": "MORE",
-     "category": "earnings",
-     "recent": 8,
-     "prior": 3,
-     "text": "실적 공시 공시 8건 — 이전 22일 3건보다 늘었다"
-    },
-    {
-     "type": "MORE",
      "category": "securities_filing",
-     "recent": 18,
-     "prior": 12,
-     "text": "증권신고·발행 공시 18건 — 이전 22일 12건보다 늘었다"
+     "recent": 26,
+     "prior": 15,
+     "text": "증권신고·발행 공시 26건 — 이전 22일 15건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -3244,7 +3295,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000356",
@@ -3256,7 +3307,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000292",
@@ -3292,7 +3343,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000112",
@@ -3328,7 +3379,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000245",
@@ -3388,7 +3439,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000174",
@@ -3424,7 +3475,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000250",
@@ -3484,7 +3535,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260908000147",
@@ -3544,7 +3595,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260904000210",
@@ -3556,7 +3607,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260903000154",
@@ -3640,7 +3691,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260831001308",
@@ -3664,7 +3715,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260825000304",
@@ -4053,24 +4104,10 @@
    "changes": [
     {
      "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "NEW_CATEGORY",
      "category": "securities_filing",
-     "recent": 5,
+     "recent": 6,
      "prior": 0,
-     "text": "최근 22일에 증권신고·발행 공시 5건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 증권신고·발행 공시 6건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -4080,11 +4117,11 @@
      "text": "최근 22일에 IR·설명회 공시 1건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "group",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 1건 (이전 22일과 같음)"
     },
     {
      "type": "CORRECTIONS",
@@ -4105,7 +4142,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000007",
@@ -4177,7 +4214,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260908800194",
@@ -4239,7 +4276,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260901000243",
@@ -4272,17 +4312,10 @@
     },
     {
      "type": "MORE",
-     "category": "earnings",
-     "recent": 15,
-     "prior": 9,
-     "text": "실적 공시 공시 15건 — 이전 22일 9건보다 늘었다"
-    },
-    {
-     "type": "MORE",
      "category": "securities_filing",
-     "recent": 35,
-     "prior": 22,
-     "text": "증권신고·발행 공시 35건 — 이전 22일 22건보다 늘었다"
+     "recent": 50,
+     "prior": 31,
+     "text": "증권신고·발행 공시 50건 — 이전 22일 31건보다 늘었다"
     },
     {
      "type": "SAME",
@@ -4303,7 +4336,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000425",
@@ -4315,7 +4348,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000273",
@@ -4351,7 +4384,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000246",
@@ -4363,7 +4396,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000211",
@@ -4471,7 +4504,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000055",
@@ -4483,7 +4516,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000342",
@@ -4507,7 +4540,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000207",
@@ -4519,7 +4552,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000169",
@@ -4531,7 +4564,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000199",
@@ -4663,7 +4696,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000278",
@@ -4675,7 +4708,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000260",
@@ -4687,7 +4720,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000165",
@@ -4723,7 +4756,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260909000382",
@@ -4784,18 +4817,11 @@
    "priorCount": 8,
    "changes": [
     {
-     "type": "SAME",
-     "category": "earnings",
-     "recent": 3,
-     "prior": 3,
-     "text": "실적 공시 공시 3건 (이전 22일과 같음)"
-    },
-    {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 4,
-     "prior": 5,
-     "text": "증권신고·발행 공시 4건 — 이전 22일 5건보다 줄었다"
+     "recent": 7,
+     "prior": 8,
+     "text": "증권신고·발행 공시 7건 — 이전 22일 8건보다 줄었다"
     }
    ],
    "filings": [
@@ -4857,7 +4883,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000359",
@@ -4869,7 +4895,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000348",
@@ -4881,7 +4907,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260904000351",
@@ -4905,7 +4931,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260904000297",
@@ -4941,7 +4967,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260828001337",
@@ -4953,7 +4979,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260827000778",
@@ -5423,18 +5449,11 @@
      "text": "최근 22일에 임원·주요주주 거래 공시 2건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "MORE",
-     "category": "earnings",
-     "recent": 10,
-     "prior": 5,
-     "text": "실적 공시 공시 10건 — 이전 22일 5건보다 늘었다"
-    },
-    {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 7,
-     "prior": 16,
-     "text": "증권신고·발행 공시 7건 — 이전 22일 16건보다 줄었다"
+     "recent": 17,
+     "prior": 21,
+     "text": "증권신고·발행 공시 17건 — 이전 22일 21건보다 줄었다"
     },
     {
      "type": "CORRECTIONS",
@@ -5455,7 +5474,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000441",
@@ -5467,7 +5486,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000429",
@@ -5479,7 +5498,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000345",
@@ -5515,7 +5534,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000123",
@@ -5527,7 +5546,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000117",
@@ -5539,7 +5558,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260916000216",
@@ -5611,7 +5630,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000227",
@@ -5623,7 +5642,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000221",
@@ -5635,7 +5654,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000215",
@@ -5647,7 +5666,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260908000294",
@@ -5683,7 +5702,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260904000241",
@@ -5743,7 +5762,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260902000165",
@@ -5779,7 +5798,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260827000768",
@@ -5863,7 +5882,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260824000075",
@@ -5875,7 +5894,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260821000398",
@@ -6006,17 +6025,10 @@
    "changes": [
     {
      "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "NEW_CATEGORY",
      "category": "securities_filing",
-     "recent": 4,
+     "recent": 5,
      "prior": 0,
-     "text": "최근 22일에 증권신고·발행 공시 4건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 증권신고·발행 공시 5건 — 그 이전 22일에는 0건"
     },
     {
      "type": "FEWER",
@@ -6044,7 +6056,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000003",
@@ -6386,7 +6398,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260406801026",
@@ -6398,7 +6414,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260406800965",
@@ -6410,7 +6430,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260306801670",
@@ -6434,7 +6458,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251125800319",
@@ -6563,7 +6590,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -6702,13 +6732,6 @@
      "text": "최대주주·대량보유 공시 1건 (이전 22일과 같음)"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "FEWER",
      "category": "ir",
      "recent": 0,
@@ -6716,11 +6739,11 @@
      "text": "최근 22일에 IR·설명회 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "group",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 1건 (이전 22일과 같음)"
     },
     {
      "type": "FEWER",
@@ -6741,7 +6764,10 @@
      "sources": [
       "list"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260917000129",
@@ -6753,7 +6779,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260908000207",
@@ -6887,7 +6913,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -7468,7 +7498,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -7721,7 +7755,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -8066,17 +8104,10 @@
     },
     {
      "type": "MORE",
-     "category": "earnings",
-     "recent": 5,
-     "prior": 4,
-     "text": "실적 공시 공시 5건 — 이전 22일 4건보다 늘었다"
-    },
-    {
-     "type": "MORE",
      "category": "securities_filing",
-     "recent": 14,
-     "prior": 10,
-     "text": "증권신고·발행 공시 14건 — 이전 22일 10건보다 늘었다"
+     "recent": 19,
+     "prior": 14,
+     "text": "증권신고·발행 공시 19건 — 이전 22일 14건보다 늘었다"
     }
    ],
    "filings": [
@@ -8114,7 +8145,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000179",
@@ -8174,7 +8205,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000152",
@@ -8186,7 +8217,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260916000374",
@@ -8282,7 +8313,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000024",
@@ -8294,7 +8325,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260908000225",
@@ -8354,7 +8385,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260904000014",
@@ -8366,7 +8397,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260902000187",
@@ -8426,7 +8457,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260826000472",
@@ -8462,7 +8493,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260821000456",
@@ -8523,18 +8554,11 @@
    "priorCount": 1,
    "changes": [
     {
-     "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "MORE",
      "category": "securities_filing",
-     "recent": 2,
+     "recent": 3,
      "prior": 1,
-     "text": "증권신고·발행 공시 2건 — 이전 22일 1건보다 늘었다"
+     "text": "증권신고·발행 공시 3건 — 이전 22일 1건보다 늘었다"
     }
    ],
    "filings": [
@@ -8548,7 +8572,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260916000011",
@@ -8596,7 +8620,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260714800004",
@@ -8620,7 +8647,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260706100006",
@@ -8632,7 +8662,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260626800036",
@@ -8668,7 +8701,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260514000972",
@@ -8724,13 +8760,6 @@
      "text": "최근 22일에 임원·주요주주 거래 공시 1건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "MORE",
-     "category": "earnings",
-     "recent": 20,
-     "prior": 12,
-     "text": "실적 공시 공시 20건 — 이전 22일 12건보다 늘었다"
-    },
-    {
      "type": "FEWER",
      "category": "shareholder_meeting",
      "recent": 0,
@@ -8738,11 +8767,11 @@
      "text": "최근 22일에 주주총회·기준일 공시 0건 — 그 이전 22일에는 2건"
     },
     {
-     "type": "FEWER",
+     "type": "MORE",
      "category": "securities_filing",
-     "recent": 40,
-     "prior": 47,
-     "text": "증권신고·발행 공시 40건 — 이전 22일 47건보다 줄었다"
+     "recent": 60,
+     "prior": 59,
+     "text": "증권신고·발행 공시 60건 — 이전 22일 59건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -8770,7 +8799,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000591",
@@ -8782,7 +8811,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000542",
@@ -8794,7 +8823,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000535",
@@ -8806,7 +8835,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000530",
@@ -8818,7 +8847,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000524",
@@ -8926,7 +8955,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000405",
@@ -8986,7 +9015,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000191",
@@ -9022,7 +9051,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000305",
@@ -9034,7 +9063,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000302",
@@ -9046,7 +9075,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000301",
@@ -9058,7 +9087,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000280",
@@ -9190,7 +9219,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000029",
@@ -9202,7 +9231,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000023",
@@ -9214,7 +9243,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000020",
@@ -9226,7 +9255,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000017",
@@ -9238,7 +9267,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     }
    ],
    "filingsTruncated": 84
@@ -9272,18 +9301,11 @@
      "text": "최근 22일에 임원·주요주주 거래 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "MORE",
-     "category": "earnings",
-     "recent": 9,
-     "prior": 6,
-     "text": "실적 공시 공시 9건 — 이전 22일 6건보다 늘었다"
-    },
-    {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 21,
-     "prior": 33,
-     "text": "증권신고·발행 공시 21건 — 이전 22일 33건보다 줄었다"
+     "recent": 30,
+     "prior": 39,
+     "text": "증권신고·발행 공시 30건 — 이전 22일 39건보다 줄었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -9311,7 +9333,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000604",
@@ -9347,7 +9369,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000319",
@@ -9359,7 +9381,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000316",
@@ -9371,7 +9393,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000312",
@@ -9383,7 +9405,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000345",
@@ -9503,7 +9525,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914800439",
@@ -9527,7 +9549,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000339",
@@ -9539,7 +9561,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000337",
@@ -9587,7 +9609,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260910000286",
@@ -9879,7 +9901,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     },
     {
      "rceptNo": "20260212801271",
@@ -9975,7 +10000,11 @@
       "list",
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260901800417",
@@ -10023,7 +10052,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -10631,13 +10664,6 @@
      "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "FEWER",
      "category": "ir",
      "recent": 0,
@@ -10645,11 +10671,11 @@
      "text": "최근 22일에 IR·설명회 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "group",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 1건 (이전 22일과 같음)"
     }
    ],
    "filings": [
@@ -10663,7 +10689,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260909800404",
@@ -10731,18 +10757,11 @@
      "text": "최근 22일에 자기주식 취득·처분 공시 0건 — 그 이전 22일에는 2건"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "group",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 1건 (이전 22일과 같음)"
     }
    ],
    "filings": [
@@ -10756,7 +10775,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260903000058",
@@ -11112,7 +11131,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260721800091",
@@ -11124,7 +11147,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260715800189",
@@ -11136,7 +11163,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260709800141",
@@ -11232,7 +11263,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260413002142",
@@ -11244,7 +11279,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260413002128",
@@ -11256,7 +11294,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260410003738",
@@ -11701,7 +11742,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -12371,7 +12416,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260522800430",
@@ -12707,7 +12755,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -12821,17 +12873,10 @@
     },
     {
      "type": "FEWER",
-     "category": "investment",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 22일에 투자·출자 공시 0건 — 그 이전 22일에는 1건"
-    },
-    {
-     "type": "FEWER",
      "category": "group",
      "recent": 0,
-     "prior": 4,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 4건"
+     "prior": 5,
+     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 5건"
     },
     {
      "type": "FEWER",
@@ -12876,7 +12921,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260901000225",
@@ -13256,17 +13301,10 @@
    "changes": [
     {
      "type": "MORE",
-     "category": "earnings",
-     "recent": 22,
-     "prior": 7,
-     "text": "실적 공시 공시 22건 — 이전 22일 7건보다 늘었다"
-    },
-    {
-     "type": "MORE",
      "category": "securities_filing",
-     "recent": 44,
-     "prior": 34,
-     "text": "증권신고·발행 공시 44건 — 이전 22일 34건보다 늘었다"
+     "recent": 66,
+     "prior": 41,
+     "text": "증권신고·발행 공시 66건 — 이전 22일 41건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -13294,7 +13332,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000369",
@@ -13306,7 +13344,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000312",
@@ -13318,7 +13356,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000157",
@@ -13378,7 +13416,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000070",
@@ -13414,7 +13452,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000098",
@@ -13426,7 +13464,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000261",
@@ -13558,7 +13596,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000076",
@@ -13570,7 +13608,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000071",
@@ -13582,7 +13620,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000066",
@@ -13594,7 +13632,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000058",
@@ -13606,7 +13644,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260916000224",
@@ -13642,7 +13680,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000360",
@@ -13714,7 +13752,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000420",
@@ -13726,7 +13764,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000417",
@@ -13738,7 +13776,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000407",
@@ -13750,7 +13788,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000402",
@@ -13881,7 +13919,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     },
     {
      "rceptNo": "20260311004192",
@@ -14043,18 +14084,11 @@
    "priorCount": 2,
    "changes": [
     {
-     "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "MORE",
      "category": "securities_filing",
-     "recent": 4,
+     "recent": 5,
      "prior": 2,
-     "text": "증권신고·발행 공시 4건 — 이전 22일 2건보다 늘었다"
+     "text": "증권신고·발행 공시 5건 — 이전 22일 2건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -14082,7 +14116,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000013",
@@ -14465,7 +14499,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251217800528",
@@ -14769,7 +14807,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260909800178",
@@ -14892,18 +14933,18 @@
    "priorCount": 2,
    "changes": [
     {
-     "type": "NEW_CATEGORY",
-     "category": "major_shareholder",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 최대주주·대량보유 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "FEWER",
      "category": "insider",
      "recent": 0,
      "prior": 2,
      "text": "최근 22일에 임원·주요주주 거래 공시 0건 — 그 이전 22일에는 2건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "guarantee",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 22일에 채무보증·담보 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "CORRECTIONS",
@@ -14924,7 +14965,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260826000581",
@@ -14962,17 +15006,10 @@
    "changes": [
     {
      "type": "MORE",
-     "category": "earnings",
-     "recent": 19,
-     "prior": 8,
-     "text": "실적 공시 공시 19건 — 이전 22일 8건보다 늘었다"
-    },
-    {
-     "type": "MORE",
      "category": "securities_filing",
-     "recent": 42,
-     "prior": 40,
-     "text": "증권신고·발행 공시 42건 — 이전 22일 40건보다 늘었다"
+     "recent": 61,
+     "prior": 48,
+     "text": "증권신고·발행 공시 61건 — 이전 22일 48건보다 늘었다"
     },
     {
      "type": "SAME",
@@ -15026,7 +15063,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000405",
@@ -15038,7 +15075,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000380",
@@ -15050,7 +15087,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000210",
@@ -15110,7 +15147,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000185",
@@ -15146,7 +15183,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000081",
@@ -15158,7 +15195,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000234",
@@ -15170,7 +15207,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000157",
@@ -15182,7 +15219,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917800493",
@@ -15206,7 +15243,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000215",
@@ -15218,7 +15255,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000198",
@@ -15386,7 +15423,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000169",
@@ -15422,7 +15459,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000026",
@@ -15434,7 +15471,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000002",
@@ -15446,7 +15483,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000331",
@@ -15731,7 +15768,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260120800427",
@@ -15743,7 +15783,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     },
     {
      "rceptNo": "20251229000487",
@@ -15755,7 +15798,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251229000355",
@@ -15779,7 +15825,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251219000257",
@@ -15803,7 +15852,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251209000085",
@@ -16445,7 +16497,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260827000833",
@@ -16469,7 +16525,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251028000370",
@@ -16774,7 +16834,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20250926800434",
@@ -16912,7 +16976,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260730800502",
@@ -16924,7 +16991,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260729800156",
@@ -16936,7 +17007,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260724800097",
@@ -16948,7 +17023,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260721000930",
@@ -16960,7 +17039,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260720800203",
@@ -17080,7 +17162,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260408001378",
@@ -17279,7 +17364,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260827000474",
@@ -17567,7 +17655,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251226800396",
@@ -17579,7 +17671,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251224000757",
@@ -17762,7 +17858,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260223900427",
@@ -18015,7 +18115,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "rumor"
+     ]
     },
     {
      "rceptNo": "20260812801158",
@@ -18027,7 +18130,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "rumor"
+     ]
     },
     {
      "rceptNo": "20260106000499",
@@ -18306,7 +18412,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260901800126",
@@ -18889,7 +18998,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260521800506",
@@ -18901,7 +19014,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260518800398",
@@ -18913,7 +19030,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260512800268",
@@ -18973,7 +19094,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260226005077",
@@ -20156,13 +20280,6 @@
    "priorCount": 22,
    "changes": [
     {
-     "type": "MORE",
-     "category": "earnings",
-     "recent": 10,
-     "prior": 4,
-     "text": "실적 공시 공시 10건 — 이전 22일 4건보다 늘었다"
-    },
-    {
      "type": "SAME",
      "category": "investment",
      "recent": 1,
@@ -20172,9 +20289,9 @@
     {
      "type": "MORE",
      "category": "securities_filing",
-     "recent": 21,
-     "prior": 16,
-     "text": "증권신고·발행 공시 21건 — 이전 22일 16건보다 늘었다"
+     "recent": 31,
+     "prior": 20,
+     "text": "증권신고·발행 공시 31건 — 이전 22일 20건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -20195,7 +20312,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000430",
@@ -20303,7 +20420,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000356",
@@ -20315,7 +20432,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000311",
@@ -20327,7 +20444,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260918000307",
@@ -20411,7 +20531,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000141",
@@ -20423,7 +20543,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000137",
@@ -20435,7 +20555,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000278",
@@ -20447,7 +20567,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000207",
@@ -20543,7 +20663,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260909000385",
@@ -20555,7 +20675,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260909000380",
@@ -20567,7 +20687,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260904000274",
@@ -20651,7 +20771,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260901000153",
@@ -20663,7 +20783,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     }
    ],
    "filingsTruncated": 14
@@ -20843,18 +20963,11 @@
      "text": "임원·주요주주 거래 공시 8건 — 이전 22일 7건보다 늘었다"
     },
     {
-     "type": "SAME",
-     "category": "earnings",
-     "recent": 13,
-     "prior": 13,
-     "text": "실적 공시 공시 13건 (이전 22일과 같음)"
-    },
-    {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 25,
-     "prior": 46,
-     "text": "증권신고·발행 공시 25건 — 이전 22일 46건보다 줄었다"
+     "recent": 38,
+     "prior": 59,
+     "text": "증권신고·발행 공시 38건 — 이전 22일 59건보다 줄었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -20915,7 +21028,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000474",
@@ -20927,7 +21040,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000467",
@@ -20939,7 +21052,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000331",
@@ -21107,7 +21220,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000344",
@@ -21119,7 +21232,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000323",
@@ -21131,7 +21244,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000036",
@@ -21287,7 +21400,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000104",
@@ -21299,7 +21412,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000462",
@@ -21311,7 +21424,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000441",
@@ -21323,7 +21436,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000334",
@@ -21335,7 +21448,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000211",
@@ -21743,7 +21856,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251216800781",
@@ -21869,7 +21986,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     },
     {
      "rceptNo": "20260907800338",
@@ -22177,7 +22297,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -22441,7 +22565,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251229800384",
@@ -22453,7 +22581,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251223800163",
@@ -22465,7 +22597,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251217800131",
@@ -22489,7 +22625,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20251217000048",
@@ -22549,7 +22688,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20250923000327",
@@ -22604,7 +22746,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -23041,7 +23187,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -23068,18 +23218,11 @@
      "text": "임원·주요주주 거래 공시 1건 — 이전 22일 3건보다 줄었다"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "SAME",
+     "type": "MORE",
      "category": "securities_filing",
-     "recent": 1,
+     "recent": 2,
      "prior": 1,
-     "text": "증권신고·발행 공시 1건 (이전 22일과 같음)"
+     "text": "증권신고·발행 공시 2건 — 이전 22일 1건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -23100,7 +23243,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260910000029",
@@ -24144,7 +24287,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251231000386",
@@ -24168,7 +24314,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20250929000315",
@@ -24267,17 +24416,10 @@
    "changes": [
     {
      "type": "MORE",
-     "category": "earnings",
-     "recent": 2,
-     "prior": 1,
-     "text": "실적 공시 공시 2건 — 이전 22일 1건보다 늘었다"
-    },
-    {
-     "type": "MORE",
      "category": "securities_filing",
-     "recent": 4,
-     "prior": 2,
-     "text": "증권신고·발행 공시 4건 — 이전 22일 2건보다 늘었다"
+     "recent": 6,
+     "prior": 3,
+     "text": "증권신고·발행 공시 6건 — 이전 22일 3건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -24298,7 +24440,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000310",
@@ -24334,7 +24476,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000411",
@@ -24382,7 +24524,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260826000359",
@@ -24629,8 +24771,8 @@
      "type": "FEWER",
      "category": "major_shareholder",
      "recent": 0,
-     "prior": 2,
-     "text": "최근 22일에 최대주주·대량보유 공시 0건 — 그 이전 22일에는 2건"
+     "prior": 1,
+     "text": "최근 22일에 최대주주·대량보유 공시 0건 — 그 이전 22일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -24638,6 +24780,13 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 22일에 정기보고서 공시 1건 — 그 이전 22일에는 0건"
+    },
+    {
+     "type": "FEWER",
+     "category": "guarantee",
+     "recent": 0,
+     "prior": 1,
+     "text": "최근 22일에 채무보증·담보 공시 0건 — 그 이전 22일에는 1건"
     },
     {
      "type": "FEWER",
@@ -24708,7 +24857,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260828900360",
@@ -24758,18 +24910,11 @@
    "priorCount": 110,
    "changes": [
     {
-     "type": "MORE",
-     "category": "earnings",
-     "recent": 37,
-     "prior": 18,
-     "text": "실적 공시 공시 37건 — 이전 22일 18건보다 늘었다"
-    },
-    {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 68,
-     "prior": 90,
-     "text": "증권신고·발행 공시 68건 — 이전 22일 90건보다 줄었다"
+     "recent": 105,
+     "prior": 108,
+     "text": "증권신고·발행 공시 105건 — 이전 22일 108건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -24790,7 +24935,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000456",
@@ -24802,7 +24947,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000450",
@@ -24814,7 +24959,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000448",
@@ -24826,7 +24971,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260923000139",
@@ -25006,7 +25151,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260922000182",
@@ -25042,7 +25187,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000273",
@@ -25054,7 +25199,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000267",
@@ -25066,7 +25211,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000071",
@@ -25102,7 +25247,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000247",
@@ -25114,7 +25259,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000244",
@@ -25126,7 +25271,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000241",
@@ -25138,7 +25283,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000236",
@@ -25150,7 +25295,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000233",
@@ -25162,7 +25307,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000229",
@@ -25174,7 +25319,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000224",
@@ -25186,7 +25331,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000223",
@@ -25198,7 +25343,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000069",
@@ -26012,7 +26157,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260921000351",
@@ -26162,7 +26310,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "rumor"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -27633,9 +27784,9 @@
     {
      "type": "NEW_CATEGORY",
      "category": "investment",
-     "recent": 2,
+     "recent": 1,
      "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 2건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "FEWER",
@@ -27643,6 +27794,13 @@
      "recent": 0,
      "prior": 1,
      "text": "최근 22일에 IR·설명회 공시 0건 — 그 이전 22일에는 1건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "group",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 22일에 기업집단 공시 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "FEWER",
@@ -27663,7 +27821,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260917000319",
@@ -27675,7 +27833,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260831900500",
@@ -28011,7 +28172,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260116800774",
@@ -28023,7 +28188,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260109800420",
@@ -28035,7 +28204,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -28479,24 +28652,17 @@
    "changes": [
     {
      "type": "NEW_CATEGORY",
-     "category": "major_shareholder",
+     "category": "guarantee",
      "recent": 1,
      "prior": 0,
-     "text": "최근 22일에 최대주주·대량보유 공시 1건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 채무보증·담보 공시 1건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "group",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 1건 (이전 22일과 같음)"
     },
     {
      "type": "CORRECTIONS",
@@ -28517,7 +28683,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260917000075",
@@ -28529,7 +28698,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260828000810",
@@ -28704,13 +28873,6 @@
      "text": "최근 22일에 최대주주·대량보유 공시 1건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "MORE",
-     "category": "earnings",
-     "recent": 16,
-     "prior": 11,
-     "text": "실적 공시 공시 16건 — 이전 22일 11건보다 늘었다"
-    },
-    {
      "type": "FEWER",
      "category": "investment",
      "recent": 0,
@@ -28720,9 +28882,9 @@
     {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 28,
-     "prior": 48,
-     "text": "증권신고·발행 공시 28건 — 이전 22일 48건보다 줄었다"
+     "recent": 44,
+     "prior": 59,
+     "text": "증권신고·발행 공시 44건 — 이전 22일 59건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -28810,7 +28972,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260921000126",
@@ -28822,7 +28984,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000296",
@@ -28846,7 +29008,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000173",
@@ -28870,7 +29032,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000092",
@@ -28894,7 +29056,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260918000048",
@@ -28906,7 +29068,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000143",
@@ -29062,7 +29224,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000269",
@@ -29074,7 +29236,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000030",
@@ -29086,7 +29248,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000259",
@@ -29098,7 +29260,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000213",
@@ -29110,7 +29272,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000185",
@@ -29134,7 +29296,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000140",
@@ -29158,7 +29320,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260910000159",
@@ -30527,7 +30689,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -30933,9 +31099,16 @@
     {
      "type": "NEW_CATEGORY",
      "category": "capital_increase",
-     "recent": 2,
+     "recent": 1,
      "prior": 0,
-     "text": "최근 22일에 유상·무상증자 공시 2건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 유상·무상증자 공시 1건 — 그 이전 22일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "trading_status",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 22일에 거래정지·상장 관련 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -30969,7 +31142,10 @@
       "list",
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260914900089",
@@ -31166,18 +31342,11 @@
      "text": "최근 22일에 최대주주·대량보유 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 2,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 2건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "MORE",
      "category": "securities_filing",
-     "recent": 3,
+     "recent": 5,
      "prior": 2,
-     "text": "증권신고·발행 공시 3건 — 이전 22일 2건보다 늘었다"
+     "text": "증권신고·발행 공시 5건 — 이전 22일 2건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -31217,7 +31386,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260917000214",
@@ -31253,7 +31422,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260914000003",
@@ -31602,7 +31771,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -31712,7 +31884,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260204000380",
@@ -31736,7 +31911,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251031000228",
@@ -31773,11 +31951,11 @@
    "priorCount": 4,
    "changes": [
     {
-     "type": "MORE",
+     "type": "SAME",
      "category": "major_shareholder",
-     "recent": 3,
+     "recent": 1,
      "prior": 1,
-     "text": "최대주주·대량보유 공시 3건 — 이전 22일 1건보다 늘었다"
+     "text": "최대주주·대량보유 공시 1건 (이전 22일과 같음)"
     },
     {
      "type": "SAME",
@@ -31787,11 +31965,11 @@
      "text": "임원·주요주주 거래 공시 1건 (이전 22일과 같음)"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "guarantee",
-     "recent": 0,
+     "recent": 2,
      "prior": 2,
-     "text": "최근 22일에 채무보증·담보 공시 0건 — 그 이전 22일에는 2건"
+     "text": "채무보증·담보 공시 2건 (이전 22일과 같음)"
     },
     {
      "type": "CORRECTIONS",
@@ -31824,7 +32002,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260915900306",
@@ -31836,7 +32017,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260911000223",
@@ -33237,7 +33421,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -33862,7 +34050,10 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "investment",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260901000212",
@@ -33912,17 +34103,17 @@
    "changes": [
     {
      "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 2,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 2건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "NEW_CATEGORY",
      "category": "guarantee",
      "recent": 2,
      "prior": 0,
      "text": "최근 22일에 채무보증·담보 공시 2건 — 그 이전 22일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "group",
+     "recent": 2,
+     "prior": 0,
+     "text": "최근 22일에 기업집단 공시 공시 2건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -33998,7 +34189,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260916000435",
@@ -34010,7 +34201,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260324801517",
@@ -34087,13 +34278,6 @@
      "text": "최근 22일에 정기보고서 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 2,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 2건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "FEWER",
      "category": "ir",
      "recent": 0,
@@ -34101,11 +34285,11 @@
      "text": "최근 22일에 IR·설명회 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "FEWER",
+     "type": "MORE",
      "category": "group",
-     "recent": 0,
+     "recent": 2,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 2건 — 이전 22일 1건보다 늘었다"
     }
    ],
    "filings": [
@@ -34119,7 +34303,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260918000163",
@@ -34131,7 +34315,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260904000208",
@@ -34582,7 +34766,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20251126000177",
@@ -34826,7 +35013,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     },
     {
      "rceptNo": "20251222800283",
@@ -35550,10 +35740,10 @@
     },
     {
      "type": "NEW_CATEGORY",
-     "category": "earnings",
+     "category": "securities_filing",
      "recent": 1,
      "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 증권신고·발행 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "SAME",
@@ -35598,7 +35788,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260826800245",
@@ -36040,7 +36230,10 @@
      "sources": [
       "list"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "group"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -36201,7 +36394,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -36239,7 +36435,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     },
     {
      "rceptNo": "20260908000168",
@@ -36287,7 +36486,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     },
     {
      "rceptNo": "20260116900563",
@@ -36299,7 +36501,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -36894,7 +37099,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -36970,7 +37179,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260528901044",
@@ -37163,7 +37376,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -37253,7 +37470,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251105800612",
@@ -37265,7 +37486,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -37600,7 +37825,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260826800053",
@@ -37638,7 +37866,10 @@
       "list",
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260825000424",
@@ -37746,7 +37977,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20250925800503",
@@ -37923,7 +38158,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20250929000335",
@@ -38207,7 +38446,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -38465,18 +38707,11 @@
      "text": "최근 22일에 최대주주·대량보유 공시 0건 — 그 이전 22일에는 1건"
     },
     {
-     "type": "SAME",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 1,
-     "text": "실적 공시 공시 1건 (이전 22일과 같음)"
-    },
-    {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 2,
-     "prior": 4,
-     "text": "증권신고·발행 공시 2건 — 이전 22일 4건보다 줄었다"
+     "recent": 3,
+     "prior": 5,
+     "text": "증권신고·발행 공시 3건 — 이전 22일 5건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -38528,7 +38763,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260911000434",
@@ -38576,7 +38811,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260831000056",
@@ -38831,7 +39066,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20251105900193",
@@ -39431,7 +39670,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251204000351",
@@ -39443,7 +39685,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251125000628",
@@ -39455,7 +39700,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251125000490",
@@ -39622,7 +39870,10 @@
      "sources": [
       "list"
      ],
-     "category": "dividend"
+     "category": "dividend",
+     "categoryTags": [
+      "shareholder_meeting"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -39998,7 +40249,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260721000350",
@@ -40046,7 +40300,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260130900750",
@@ -40130,7 +40387,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20251021000342",
@@ -40871,7 +41131,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260716000543",
@@ -41385,18 +41648,11 @@
      "text": "최근 22일에 최대주주·대량보유 공시 1건 — 그 이전 22일에는 0건"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "group",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 22일에 기업집단 공시 공시 0건 — 그 이전 22일에는 1건"
+     "text": "기업집단 공시 공시 1건 (이전 22일과 같음)"
     }
    ],
    "filings": [
@@ -41410,7 +41666,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260911000321",
@@ -41729,9 +41985,9 @@
     {
      "type": "NEW_CATEGORY",
      "category": "major_shareholder",
-     "recent": 2,
+     "recent": 1,
      "prior": 0,
-     "text": "최근 22일에 최대주주·대량보유 공시 2건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 최대주주·대량보유 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -41739,6 +41995,13 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "guarantee",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 22일에 채무보증·담보 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -41778,7 +42041,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260914900381",
@@ -41956,17 +42222,10 @@
    "changes": [
     {
      "type": "NEW_CATEGORY",
-     "category": "earnings",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 실적 공시 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
-     "type": "NEW_CATEGORY",
      "category": "securities_filing",
-     "recent": 2,
+     "recent": 3,
      "prior": 0,
-     "text": "최근 22일에 증권신고·발행 공시 2건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 증권신고·발행 공시 3건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -41987,7 +42246,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260915000409",
@@ -42057,9 +42316,16 @@
     {
      "type": "NEW_CATEGORY",
      "category": "major_shareholder",
-     "recent": 4,
+     "recent": 2,
      "prior": 0,
-     "text": "최근 22일에 최대주주·대량보유 공시 4건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 최대주주·대량보유 공시 2건 — 그 이전 22일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "guarantee",
+     "recent": 2,
+     "prior": 0,
+     "text": "최근 22일에 채무보증·담보 공시 2건 — 그 이전 22일에는 0건"
     },
     {
      "type": "FEWER",
@@ -42099,7 +42365,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260921000252",
@@ -42123,7 +42392,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260901000219",
@@ -42171,7 +42443,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260422000563",
@@ -42505,10 +42780,10 @@
    "changes": [
     {
      "type": "FEWER",
-     "category": "capital_reduction",
+     "category": "trading_status",
      "recent": 0,
      "prior": 1,
-     "text": "최근 22일에 감자·액면 공시 0건 — 그 이전 22일에는 1건"
+     "text": "최근 22일에 거래정지·상장 관련 공시 0건 — 그 이전 22일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -42585,7 +42860,10 @@
       "list",
       "evidence"
      ],
-     "category": "capital_reduction"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_reduction"
+     ]
     },
     {
      "rceptNo": "20260724900555",
@@ -42597,7 +42875,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_reduction"
+     ]
     },
     {
      "rceptNo": "20260716900397",
@@ -42657,7 +42938,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260512000722",
@@ -42712,7 +42996,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -43101,7 +43389,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260716000528",
@@ -43391,7 +43682,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -44428,7 +44722,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -45046,7 +45344,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260630000676",
@@ -45284,7 +45585,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260731000571",
@@ -45296,7 +45600,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260326000792",
@@ -45320,7 +45627,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260325001070",
@@ -45356,7 +45666,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -46008,7 +46322,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -47147,7 +47464,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260731000522",
@@ -47670,7 +47990,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     }
    ],
    "filingsTruncated": 0
@@ -48091,7 +48415,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -48483,7 +48810,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260514001192",
@@ -49106,7 +49436,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260420900318",
@@ -49190,7 +49524,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260130000569",
@@ -49443,7 +49780,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "securities_filing"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -49825,7 +50165,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260723000062",
@@ -49865,10 +50208,10 @@
     },
     {
      "type": "NEW_CATEGORY",
-     "category": "investment",
+     "category": "group",
      "recent": 1,
      "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 기업집단 공시 공시 1건 — 그 이전 22일에는 0건"
     }
    ],
    "filings": [
@@ -49882,7 +50225,10 @@
      "sources": [
       "list"
      ],
-     "category": "merger_split"
+     "category": "merger_split",
+     "categoryTags": [
+      "group"
+     ]
     },
     {
      "rceptNo": "20260922000477",
@@ -49894,7 +50240,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260820000314",
@@ -50131,7 +50477,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     },
     {
      "rceptNo": "20260219900483",
@@ -50143,7 +50492,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     },
     {
      "rceptNo": "20260130900792",
@@ -50239,7 +50591,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     },
     {
      "rceptNo": "20250929900337",
@@ -50251,7 +50606,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "trading_status"
+     "category": "trading_status",
+     "categoryTags": [
+      "contract"
+     ]
     }
    ],
    "filingsTruncated": 0
@@ -50337,7 +50695,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20251029900245",
@@ -50349,7 +50710,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20251029000121",
@@ -50435,7 +50799,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260729900147",
@@ -50447,7 +50815,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260723900103",
@@ -50531,7 +50903,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260424000588",
@@ -50556,11 +50931,11 @@
    "priorCount": 6,
    "changes": [
     {
-     "type": "MORE",
+     "type": "SAME",
      "category": "major_shareholder",
-     "recent": 3,
+     "recent": 2,
      "prior": 2,
-     "text": "최대주주·대량보유 공시 3건 — 이전 22일 2건보다 늘었다"
+     "text": "최대주주·대량보유 공시 2건 (이전 22일과 같음)"
     },
     {
      "type": "MORE",
@@ -50572,9 +50947,9 @@
     {
      "type": "NEW_CATEGORY",
      "category": "guarantee",
-     "recent": 1,
+     "recent": 2,
      "prior": 0,
-     "text": "최근 22일에 채무보증·담보 공시 1건 — 그 이전 22일에는 0건"
+     "text": "최근 22일에 채무보증·담보 공시 2건 — 그 이전 22일에는 0건"
     },
     {
      "type": "FEWER",
@@ -50626,7 +51001,10 @@
      "sources": [
       "list"
      ],
-     "category": "major_shareholder"
+     "category": "guarantee",
+     "categoryTags": [
+      "major_shareholder"
+     ]
     },
     {
      "rceptNo": "20260914000249",
@@ -50949,7 +51327,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260708900174",
@@ -50961,7 +51343,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260702900273",
@@ -51033,7 +51419,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260410002733",
@@ -51301,7 +51690,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260430001400",
@@ -51356,18 +51748,18 @@
      "text": "판매·공급계약 공시 1건 — 이전 22일 3건보다 줄었다"
     },
     {
-     "type": "NEW_CATEGORY",
-     "category": "investment",
-     "recent": 1,
-     "prior": 0,
-     "text": "최근 22일에 투자·출자 공시 1건 — 그 이전 22일에는 0건"
-    },
-    {
      "type": "FEWER",
      "category": "ir",
      "recent": 0,
      "prior": 1,
      "text": "최근 22일에 IR·설명회 공시 0건 — 그 이전 22일에는 1건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "group",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 22일에 기업집단 공시 공시 1건 — 그 이전 22일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -51395,7 +51787,7 @@
      "sources": [
       "list"
      ],
-     "category": "investment"
+     "category": "group"
     },
     {
      "rceptNo": "20260917800646",
@@ -52118,7 +52510,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "securities_filing"
+     ]
     },
     {
      "rceptNo": "20260723000111",
@@ -52460,7 +52855,11 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260518800396",
@@ -53327,7 +53726,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20251022000060",
@@ -53444,7 +53846,10 @@
      "sources": [
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "trading_status",
+     "categoryTags": [
+      "capital_increase"
+     ]
     },
     {
      "rceptNo": "20260310001956",
@@ -53541,17 +53946,10 @@
     },
     {
      "type": "FEWER",
-     "category": "earnings",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 22일에 실적 공시 공시 0건 — 그 이전 22일에는 1건"
-    },
-    {
-     "type": "FEWER",
      "category": "securities_filing",
      "recent": 0,
-     "prior": 1,
-     "text": "최근 22일에 증권신고·발행 공시 0건 — 그 이전 22일에는 1건"
+     "prior": 2,
+     "text": "최근 22일에 증권신고·발행 공시 0건 — 그 이전 22일에는 2건"
     }
    ],
    "filings": [
@@ -53685,7 +54083,7 @@
      "sources": [
       "list"
      ],
-     "category": "earnings"
+     "category": "securities_filing"
     },
     {
      "rceptNo": "20260821900199",
@@ -53698,7 +54096,11 @@
       "list",
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260818900361",
@@ -53711,7 +54113,11 @@
       "list",
       "evidence"
      ],
-     "category": "capital_increase"
+     "category": "capital_increase",
+     "categoryTags": [
+      "equity_linked_bond"
+     ],
+     "categoryAmbiguous": true
     },
     {
      "rceptNo": "20260811900613",

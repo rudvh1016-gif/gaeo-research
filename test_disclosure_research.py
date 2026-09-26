@@ -233,5 +233,54 @@ class PublicPage(unittest.TestCase):
         self.assertIn('href="/disclosure-research.html"', index)
 
 
+
+class TitleClassification(unittest.TestCase):
+    """공시 제목 분류(disclosure_classify) — 설정 순서의 우연이 아니라 규칙으로 고른다 (2026-09-26).
+
+    수리 전: 첫 일치 분류 → 증권발행실적보고서가 '실적' 때문에 실적 공시로, 거래정지(풍문)가 설정 순서로 정해졌다.
+    """
+    CASES = {
+        # 제목: (주 분류, 보조 분류, 애매함)
+        '증권발행실적보고서': ('securities_filing', [], False),                        # '실적' 은 '증권발행실적' 안에 든다
+        '특수관계인에대한출자': ('investment', ['group'], False),                       # 두 성격 — 기업집단은 보조
+        '특수관계인으로부터자산양수': ('merger_split', ['group'], False),                # 두 성격 — 자산 양수가 주
+        '동일인등출자계열회사와의상품ㆍ용역거래': ('group', [], False),                   # '출자' 는 '동일인등출자' 안에 든다
+        '최대주주변경을수반하는주식담보제공계약체결': ('guarantee', ['major_shareholder'], False),  # 뒤쪽 행위가 주
+        '주권매매거래정지 (풍문 또는 보도 관련)': ('trading_status', ['rumor'], False),   # 괄호 속 이유는 보조
+        '증권신고서(합병)': ('merger_split', ['securities_filing'], False),             # 사건이 서식보다 먼저
+        '주권매매거래정지해제 (액면분할 주권 변경상장)': ('trading_status', ['capital_reduction'], False),  # '분할' 은 '액면분할' 안
+        '유상증자또는주식관련사채등의발행결과(자율공시)': ('capital_increase', ['equity_linked_bond'], True),  # 제목이 "또는" — 애매
+        '[기재정정]단일판매ㆍ공급계약체결': ('contract', [], False),                     # 하나만 걸리면 그대로
+    }
+
+    def setUp(self):
+        import disclosure_classify
+        self.classify = disclosure_classify.classify
+        self.cats = B.load_vocab()['categories']
+
+    def test_고정한_제목들(self):
+        for title, (primary, tags, tie) in self.CASES.items():
+            got = self.classify(title, self.cats)
+            self.assertEqual((got['category'], got['tags'], got['tie']), (primary, tags, tie), title)
+
+    def test_생산자는_같은_규칙을_쓴다(self):
+        for title, (primary, _, _) in self.CASES.items():
+            self.assertEqual(B.category_of(title, self.cats), primary, title)
+        row = B.categorized({'title': '특수관계인으로부터자산양수', 'rceptNo': '1'}, self.cats)
+        self.assertEqual((row['category'], row['categoryTags']), ('merger_split', ['group']))
+        self.assertNotIn('categoryAmbiguous', row)
+        self.assertTrue(B.categorized({'title': '유상증자또는주식관련사채등의발행결과(자율공시)'}, self.cats)['categoryAmbiguous'])
+        self.assertNotIn('categoryTags', B.categorized({'title': '증권발행실적보고서'}, self.cats))
+
+    def test_실제_공시_목록에서_고른_분류가_규칙과_같다(self):
+        with open(os.path.join(HERE, 'disclosure_research', 'disclosure_changes.json'), encoding='utf-8') as fh:
+            doc = json.load(fh)
+        for c in doc['companies'].values():
+            for f in c['filings']:
+                got = self.classify(f['title'], doc['categories'])
+                self.assertEqual(f['category'], got['category'], f['title'])
+                self.assertEqual(f.get('categoryTags', []), got['tags'], f['title'])
+                self.assertEqual(f.get('categoryAmbiguous', False), got['tie'], f['title'])
+
 if __name__ == '__main__':
     unittest.main()

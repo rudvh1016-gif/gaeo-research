@@ -6,7 +6,7 @@ GitHub Pages 에 올라가는 것은 이 스크립트가 만든 _site/ **뿐**�
 
   site/                     손으로 쓴 화면(html·css·js·이미지·서체)
   content/*.js · *.json     공부 글·계산기·과거 분석 세척본
-  dart_today.js             오늘의 공시(수집기 산출물)
+  dart_today.js             최근 접수 공시 목록(수집기 산출물)
   disclosure_research/*.json 공시 연구 산출물(수집기 산출물)
 
 과거 정밀분석 쪽(content/past_analysis.json)은 여기서 정적 html 로 만든다. 옛 주소
@@ -23,6 +23,8 @@ import shutil
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+import disclosure_classify  # noqa: E402  공시 제목 분류 — 공시 연구 생산자와 같은 모듈
 BASE = 'https://gaeoteam.com'
 DATA_FILES = ['dart_today.js', 'disclosure_research/contract.json', 'disclosure_research/disclosure_changes.json',
               'disclosure_research/financial_changes.json', 'disclosure_research/event_timelines.json']
@@ -244,19 +246,6 @@ def content_meta(rel):
     return items
 
 
-def categories_of(title, categories):
-    """정정 표식·공백을 뺀 제목에 분류 단어가 든 분류들(설정 순서). 첫 것이 build_disclosure_research.category_of 와 같다."""
-    bare = re.sub(r'\s+', '', re.sub(r'\[[^\]]*\]', '', str(title or '')))
-    return [key for key, spec in categories.items()
-            if any(term.replace(' ', '') in bare for term in spec.get('terms') or [])]
-
-
-def category_of(title, categories):
-    """build_disclosure_research.category_of 와 같은 규칙: 분류 단어가 든 첫 분류, 없으면 other."""
-    found = categories_of(title, categories)
-    return found[0] if found else 'other'
-
-
 def first_sentence(text):
     """첫 문장과 나머지. 긴 설명은 첫 문장만 먼저 보이고 나머지는 「자세히 보기」로 접는다."""
     text = str(text or '').strip()
@@ -301,33 +290,45 @@ def home_sections(contract, dart, vocab, study, lessons):
         f'<p class="meta strip-note">자료 생성 {e(kst(contract["generatedAt"]))} (한국시간) · 출처 금융감독원 OpenDART</p>')
 
     cats = vocab['categories']
+    items = [it for it in (dart.get('items') or []) if re.fullmatch(r'\d{6}', str(it.get('code') or ''))]
+    same_day = {}
+    for it in items:
+        same_day[(it['code'], it.get('receiptDate'))] = same_day.get((it['code'], it.get('receiptDate')), 0) + 1
+    # 회사별 가장 최근 접수일의 공시(같은 날이면 GAEO 가 나중에 모은 것) 1건 — 중요도 순위가 아니다.
+    items.sort(key=lambda x: (str(x.get('receiptDate') or ''), str(x.get('detectedAt') or '')), reverse=True)
     cards, seen = [], set()
-    for it in dart.get('items') or []:
-        if it.get('code') in seen or not re.fullmatch(r'\d{6}', str(it.get('code') or '')):
+    for it in items:
+        if it['code'] in seen:
             continue
         seen.add(it['code'])
-        found = categories_of(it.get('title'), cats)
-        spec = cats.get(found[0]) if len(found) == 1 else {}
-        # 제목이 두 분류 이상에 걸리면(예: 증권발행'실적'보고서) 한 가지 읽는 법을 골라 붙이지 않는다 — 틀린 설명보다 원문 안내가 낫다.
-        why = ((spec or {}).get('howToRead') or {}).get('why') or (
-            '제목에 여러 종류의 낱말이 섞여 있어 한 가지 읽는 법을 고르지 않았어요. 원문에서 무엇을 결정·보고한 공시인지 먼저 확인해 보세요.'
-            if len(found) > 1 else '공시 제목만으로는 내용을 다 알 수 없어요. 원문에서 결정 내용과 일정을 확인해 보세요.')
+        cls = disclosure_classify.classify(it.get('title'), cats)
+        spec = {} if cls['tie'] else (cats.get(cls['category']) or {})
+        why = (spec.get('howToRead') or {}).get('why') or (
+            '제목만으로는 어느 종류인지 정할 수 없어 한 가지 읽는 법을 고르지 않았어요. 원문에서 무엇을 결정·보고한 공시인지 먼저 확인해 보세요.'
+            if cls['tie'] else '공시 제목만으로는 내용을 다 알 수 없어요. 원문에서 결정 내용과 일정을 확인해 보세요.')
         lead, rest = first_sentence(why)
         more = f'<details class="more"><summary>자세히 보기</summary><p>{e(rest)}</p></details>' if rest else ''
         code, name, date = e(it['code']), e(it.get('name') or it['code']), e(ymd(it.get('receiptDate')))
         kind = '<span class="chip neutral">정정 공시</span>' if it.get('isCorrection') else '<span class="chip info">새 공시</span>'
-        label = e(' · '.join(cats[k]['label'] for k in found) if len(found) > 1 else ((spec or {}).get('label') or '기타'))
+        label = e((cats.get(cls['category']) or {}).get('label') or '기타')
+        tags = ''.join(f'<span class="chip neutral">{e(cats[k]["label"])}</span>' for k in cls['tags'] if k in cats)
+        n = same_day[(it['code'], it.get('receiptDate'))]
+        many = f'<span class="chip neutral">같은 날 공시 {n}건</span>' if n > 1 else ''
         url = dart_url(it.get('rceptNo'))
+        what = (f'{name}이(가) {date}에 이 공시를 냈어요.'
+                + (f' 같은 날 낸 공시가 {n}건이라 여기에는 그중 1건만 보여 드려요.' if n > 1 else '')
+                + ' 금액·일정 같은 자세한 내용은 원문에 있어요.')
         cards.append(
             '<article class="card change-card">'
             f'<p class="cc-top"><a class="cc-company" href="/disclosure-research.html?code={code}">{name}</a><span class="meta">{code}</span></p>'
-            f'<p class="cc-meta">{kind}<time datetime="{date}">{date}</time><span class="cc-cat">{label}</span></p>'
+            f'<p class="cc-meta">{kind}{many}<time datetime="{date}">{date}</time><span class="cc-cat">{label}</span>{tags}</p>'
             f'<h3 class="cc-title">{e(it.get("title") or "")}</h3>'
             '<dl class="cc-qa">'
-            f'<dt>무슨 내용인가요?</dt><dd>{name}이(가) {date}에 이 공시를 냈어요. 금액·일정 같은 자세한 내용은 원문에 있어요.</dd>'
+            f'<dt>무슨 내용인가요?</dt><dd>{what}</dd>'
             f'<dt>왜 확인할까요?</dt><dd>{e(lead)}{more}</dd></dl>'
             '<p class="cc-actions">'
-            f'<a class="btn btn-outline" href="/disclosure-research.html?code={code}">회사 변화 보기</a>'
+            + (f'<a class="btn btn-outline" href="/disclosure-research.html?code={code}&amp;tab=today">같은 날 공시 {n}건 모두 보기</a>' if n > 1
+               else f'<a class="btn btn-outline" href="/disclosure-research.html?code={code}">회사 변화 보기</a>')
             + (f'<a class="btn btn-quiet" href="{e(url)}" target="_blank" rel="noopener">DART 원문<span aria-hidden="true"> ↗</span></a>' if url else '')
             + '</p></article>')
         if len(cards) == 6:
@@ -336,8 +337,8 @@ def home_sections(contract, dart, vocab, study, lessons):
         '<div class="state state-unknown"><p class="state-title">최근 공시 목록을 아직 받지 못했어요</p>'
         '<p>없는 자료를 빈 목록으로 채우지 않습니다. 기업 리서치에서 회사별 자료를 확인해 보세요.</p></div>')
     period = [ymd(x.get('receiptDate')) for x in (dart.get('items') or [])]
-    today_note = (f'<p class="section-sub">공시 접수 {e(min(period))} ~ {e(max(period))} 가운데 회사별로 가장 새 공시를 골랐어요. '
-                  f'공시 사실과 일반적인 읽는 법만 적습니다 · 모은 시각 {e(dart.get("generatedAt") or "")}</p>') if period else ''
+    today_note = (f'<p class="section-sub">최근 수집한 공시 중 회사별 가장 최근 자료를 보여드립니다. 중요도 순위가 아닙니다. '
+                  f'공시 접수 {e(min(period))} ~ {e(max(period))} · 모은 시각 {e(dart.get("generatedAt") or "")}</p>') if period else ''
 
     def recent(items, href, label):
         items = sorted(items, key=lambda x: (x.get('date') or '', x['id']), reverse=True)[:3]
