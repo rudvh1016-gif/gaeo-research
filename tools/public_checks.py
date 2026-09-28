@@ -46,7 +46,10 @@ SITE_ALLOW = re.compile(r'^(index\.html|404\.html|about\.html|disclaimer\.html|p
                         r'past-analysis/index\.html|research/deep-analysis/index\.html|research/deep-analysis/\d{6}/\d{4}-\d{2}-\d{2}-\d{4}/index\.html|'
                         # 2026-09-28: 옛 사이트가 색인시킨 공부 글 주소(/snap/…)를 새 글로 되살린다 — snap/stock·snap/news 는 은퇴 그대로(404)
                         r'snap/index\.html|snap/(study|lesson|estate|calc)/\d+\.html|guide/index\.html|guide/[a-z0-9-]+/index\.html|'
-                        r'company/\d{6}/index\.html|rss\.xml|llms\.txt|d96e570cc9c1cbbad053bee2b14a7e5d\.txt|assets/disclosure-guide\.json)$')
+                        r'company/\d{6}/index\.html|weekly/index\.html|weekly/\d{4}-\d{2}-\d{2}/index\.html|'
+                        r'rss\.xml|llms\.txt|d96e570cc9c1cbbad053bee2b14a7e5d\.txt|assets/disclosure-guide\.json)$')
+# 사이트 밖에서 불러오는 스크립트는 방문 통계(GoatCounter) 한 줄뿐이어야 한다(2026-09-28 소유자 결정).
+EXTERNAL_SCRIPT = re.compile(r'<script[^>]*\ssrc="(?:https?:)?//(?!gc\.zgo\.at/count\.js")[^"]*"')
 SITE_FORBIDDEN = re.compile(r'googletagmanager|google-analytics|gtag\(|adsbygoogle|googlesyndication|adfit|kvdb\.io|'
                             r'serviceWorker|navigator\.sendBeacon|localStorage\.setItem')
 
@@ -119,7 +122,7 @@ def check_history():
 
 
 def check_site(site):
-    bad = []
+    bad, stats_on = [], False
     if not os.path.isdir(site):
         return [f'사이트 폴더 없음: {site}']
     for base, _, files in os.walk(site):
@@ -136,10 +139,26 @@ def check_site(site):
                     m = rx.search(text)
                     if m:
                         bad.append(f'{label}: {rel}: {m.group(0)[:40]}')
+                if rel.endswith('.html'):
+                    m = EXTERNAL_SCRIPT.search(text)
+                    if m:
+                        bad.append(f'허용되지 않은 외부 스크립트: {rel}: {m.group(0)[:60]}')
+                    if 'goatcounter' in text:
+                        stats_on = True
                 if rel.endswith(('.css', '.html')):
                     for size in re.findall(r'font-size\s*:\s*(\d+(?:\.\d+)?)px', text):
                         if float(size) > 30:
                             bad.append(f'글자 크기 상한(30px) 초과: {rel}: {size}px')
+    privacy = os.path.join(site, 'privacy.html')
+    if os.path.exists(privacy):
+        with open(privacy, encoding='utf-8') as fh:
+            ptext = fh.read()
+        if '<!--PRIVACY:STATS-->' in ptext:
+            bad.append('개인정보처리방침의 방문 통계 문단이 채워지지 않았다')
+        if stats_on and 'GoatCounter' not in ptext:
+            bad.append('방문 통계를 붙였는데 개인정보처리방침에 GoatCounter 문단이 없다')
+        if not stats_on and 'GoatCounter' in ptext:
+            bad.append('방문 통계가 꺼져 있는데 개인정보처리방침은 GoatCounter 를 쓴다고 적었다')
     return bad
 
 

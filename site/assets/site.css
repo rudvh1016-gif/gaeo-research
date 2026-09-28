@@ -319,6 +319,11 @@ th { font-weight: 700; color: var(--ink); background: var(--na-soft); }
 .filing-list li:first-child { border-top: 0; }
 .f-date { display: inline-block; min-width: 6.2em; font-size: var(--fs-small); color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .f-plain { font-size: var(--fs-small); font-weight: 600; }
+.rank-list { padding-left: 22px; }
+.rank-list li { margin: 8px 0; }
+.rank-list li::marker { color: var(--primary); font-weight: 800; }
+.week-nav { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 22px 0 6px; font-size: var(--fs-small); font-weight: 600; }
+.section-more { margin: 12px 0 0; }
 main.read article { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 22px; }
 .sources { font-size: var(--fs-small); color: var(--ink-2); }
 .sources li { margin: 2px 0; }

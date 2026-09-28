@@ -1,4 +1,5 @@
-/* GAEO 기업 리서치 — 공통 머리말·꼬리말·도우미. 외부 추적·광고·서비스워커 없음. 네트워크: 같은 사이트 파일뿐.
+/* GAEO 기업 리서치 — 공통 머리말·꼬리말·도우미. 광고·서비스워커 없음. 네트워크: 같은 사이트 파일뿐
+   (방문 통계는 소유자가 켰을 때만 빌드가 GoatCounter 한 줄을 붙인다 — 쿠키 0 · IP 미저장).
    공유 버튼은 브라우저 기본 공유창(navigator.share)·클립보드만 쓴다 — 어디로도 따로 보내지 않는다. */
 (function () {
   'use strict';
@@ -38,7 +39,7 @@
     el.className = 'site-foot';
     el.innerHTML = '<div class="wrap"><p>GAEO는 공시·기업 공부를 돕는 개인 리서치 노트입니다. 투자 권유가 아니며, 판단과 책임은 읽는 분에게 있습니다. 매수·매도 추천, 1:1 종목 상담, 유료 리딩을 하지 않습니다.</p>' +
       '<p>공시 자료 출처: 금융감독원 전자공시시스템(DART) · OpenDART</p>' +
-      '<p class="foot-links"><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a><a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a><a href="/snap/index.html">글 전체 목록</a><a href="/rss.xml">RSS</a></p></div>';
+      '<p class="foot-links"><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a><a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a><a href="/weekly/">주간 공시 정리</a><a href="/snap/index.html">글 전체 목록</a><a href="/rss.xml">RSS</a></p></div>';
   }
   /* 화면 상태 — 불러오는 중 · 아직 못 받음 · 해당 없음 · 오류를 서로 다른 말로 보여 준다(없는 자료를 0 으로 채우지 않는다). */
   var CHIP = { fact: '확인됨', unknown: '아직 못 받음', na: '해당 없음', error: '오류', info: '안내' };

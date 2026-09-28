@@ -18,6 +18,7 @@ import shutil
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, 'tools'))
@@ -200,6 +201,62 @@ class BuiltSite(unittest.TestCase):
             body = page.replace('매수·매도 추천', '')   # 「매수·매도 추천 아님」 같은 부정 안내문은 대상이 아니다
             for phrase in FORBIDDEN_TEXT:
                 self.assertNotIn(phrase, body, (code, phrase))
+
+    def test_주간_공시_정리(self):
+        guides = {g['key'] for g in build_site.load_guides()['guides']}
+        for _, _, keys in build_site.WEEKLY_GROUPS:
+            self.assertEqual(set(keys) - guides, set())                      # 묶음의 사전 항목은 실제 항목이다
+        rows = build_site.weekly_rows(self.contract['companyNames'])
+        weeks = {}
+        for r in rows:
+            mon = build_site.monday_of(r['date'])
+            if mon >= build_site.WEEKLY_FIRST:
+                weeks[mon] = weeks.get(mon, 0) + 1
+        self.assertTrue(weeks)
+        with open(os.path.join(self.out, 'sitemap.xml'), encoding='utf-8') as fh:
+            sitemap = fh.read()
+        for mon, n in weeks.items():
+            with open(os.path.join(self.out, 'weekly', mon, 'index.html'), encoding='utf-8') as fh:
+                page = fh.read()
+            self.assertIn(f'<p>공시 {n:,}건 · 회사 ', page)                  # 건수는 수집 목록 그대로
+            sunday = (datetime.strptime(mon, '%Y-%m-%d') + timedelta(days=6)).strftime('%Y-%m-%d')
+            if sunday < datetime.now(timezone(timedelta(hours=9))).strftime('%Y-%m-%d'):
+                self.assertNotIn('아직 진행 중', page, mon)                 # 끝난 주를 진행 중이라 하지 않는다
+            self.assertIn(f'/weekly/{mon}/</loc>', sitemap)
+            body = page.replace('매수·매도 추천', '').replace('매수·매도를 권하지', '')
+            for phrase in FORBIDDEN_TEXT:
+                self.assertNotIn(phrase, body, (mon, phrase))
+        self.assertTrue(os.path.exists(os.path.join(self.out, 'weekly', 'index.html')))
+        with open(os.path.join(self.out, 'rss.xml'), encoding='utf-8') as fh:
+            self.assertIn('주간 공시 정리', fh.read())
+
+    def test_방문_통계는_코드가_있을_때만_붙고_처리방침도_같이_바뀐다(self):
+        tmp = tempfile.mkdtemp(prefix='gaeo-stats-')
+        try:
+            page = '<html><head><title>t</title></head><body><!--PRIVACY:STATS--></body></html>'
+            for sub, code in (('on', 'gaeo-example'), ('off', '')):
+                d = os.path.join(tmp, sub)
+                os.makedirs(d)
+                with open(os.path.join(d, 'privacy.html'), 'w', encoding='utf-8') as fh:
+                    fh.write(page)
+                build_site.apply_analytics(d, code)
+                with open(os.path.join(d, 'privacy.html'), encoding='utf-8') as fh:
+                    got = fh.read()
+                self.assertNotIn('<!--PRIVACY:STATS-->', got)
+                self.assertEqual('https://gc.zgo.at/count.js' in got, bool(code))
+                self.assertEqual('GoatCounter' in got, bool(code))
+            old = os.environ.get('GOATCOUNTER_CODE')
+            os.environ['GOATCOUNTER_CODE'] = 'bad code!'
+            try:
+                with self.assertRaises(SystemExit):
+                    build_site.analytics_code()
+            finally:
+                if old is None:
+                    os.environ.pop('GOATCOUNTER_CODE', None)
+                else:
+                    os.environ['GOATCOUNTER_CODE'] = old
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
 
     def test_모든_쪽에_메뉴와_꼬리말이_미리_그려져_있다(self):
         for d, _, files in os.walk(self.out):
