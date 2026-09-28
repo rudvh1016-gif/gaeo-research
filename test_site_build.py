@@ -4,10 +4,12 @@
 
 ① 홈의 숫자는 contract.json 의 실제 값뿐이다(지어낸 숫자 0).
 ② 「최근 접수된 공시」 카드: 회사당 1장 · 중요도 순위라고 하지 않는다 · 같은 날 여러 건이면 건수와 「모두 보기」 링크.
-   "왜 확인할까요?" 는 주 분류의 일반적인 읽는 법만 쓰고(두 번째 성격은 보조 태그), 제목이 "A또는B" 처럼
-   스스로 애매하면 한 가지 읽는 법을 붙이지 않는다. 분류는 공시 연구 생산자와 같은 disclosure_classify 모듈이다.
+   설명은 공시 사전(content/disclosure_guide.json · 가장 긴 제목 낱말)이 붙이고, 사전에 없으면 주 분류의 일반적인 읽는 법만 쓴다.
+   제목이 "A또는B" 처럼 스스로 애매하면 한 가지 읽는 법을 고르지 않는다. 분류는 공시 연구 생산자와 같은 disclosure_classify 모듈이다.
 ③ 기업 한눈에 보기 요약은 결측을 0 으로 만들지 않고(NOT_COLLECTED 그대로), 판단·시세 키가 없다.
 ④ 공부 글 연결표의 글 번호는 실제 글이다. 모든 쪽에 메뉴가 미리 그려져 있다(자바스크립트 없이도 보임).
+⑤ (2026-09-28) 글 본문은 1~2문장 문단으로 끊고 **굵게**는 그대로 둔다. 옛 사이트가 색인시킨 공부 글 주소(/snap/…)가
+   살아 있고 sitemap·rss·robots(다음 확인 줄)·IndexNow 키가 있다. 공시 사전·회사 쪽이 만들어지고 얇은 회사 쪽은 색인하지 않는다.
 """
 import json
 import os
@@ -65,10 +67,10 @@ class BuiltSite(unittest.TestCase):
         self.assertNotIn('오늘', section)   # 여러 날 자료를 「오늘」이라고 부르지 않는다
         cards = re.findall(r'<article class="card change-card">.*?</article>', section, re.S)
         self.assertTrue(1 <= len(cards) <= 6, len(cards))
-        codes = [re.search(r'code=(\d{6})', c).group(1) for c in cards]
+        codes = [re.search(r'/company/(\d{6})/', c).group(1) for c in cards]
         self.assertEqual(len(codes), len(set(codes)), '회사당 카드 1장')
         for card in cards:
-            self.assertIn('href="/disclosure-research.html?code=', card)
+            self.assertIn('href="/company/', card)
             self.assertIn('무슨 내용인가요?', card)
             self.assertIn('왜 확인할까요?', card)
             self.assertNotIn('대표 공시', card)
@@ -83,7 +85,7 @@ class BuiltSite(unittest.TestCase):
         contract = dict(self.contract, companyNames={it['code']: it['name'] for it in items})
         today = build_site.home_sections(contract, dart, {'categories': cats}, [], [])['TODAY']
         cards = re.findall(r'<article class="card change-card">.*?</article>', today, re.S)
-        return {re.search(r'code=(\d{6})', c).group(1): c for c in cards}, cats
+        return {re.search(r'/company/(\d{6})/', c).group(1): c for c in cards}, cats
 
     def test_같은_날_여러_공시는_건수와_모두_보기_링크(self):
         base = {'code': '000001', 'name': '합성', 'receiptDate': '20260925', 'isCorrection': False}
@@ -109,9 +111,9 @@ class BuiltSite(unittest.TestCase):
         self.assertIn(f'<span class="cc-cat">{cats["merger_split"]["label"]}</span>', cards['000001'])
         self.assertIn(f'<span class="chip neutral">{cats["group"]["label"]}</span>', cards['000001'])
         self.assertIn(f'<span class="cc-cat">{cats["securities_filing"]["label"]}</span>', cards['000002'])
-        self.assertIn(cats['securities_filing']['howToRead']['why'].split('.')[0], cards['000002'])
-        self.assertNotIn(cats['earnings']['howToRead']['why'].split('.')[0], cards['000002'])
-        self.assertIn('한 가지 읽는 법을 고르지 않았어요', cards['000003'])
+        self.assertIn('href="/guide/issuance-results/">쉬운 이름 · 새로 판 증권이 얼마나 팔렸는지 알리는 결과 보고', cards['000002'])   # 사전(증권발행실적보고서)
+        self.assertNotIn(cats['earnings']['howToRead']['why'].split('.')[0], cards['000002'])       # '실적' 낱말에 끌려가지 않는다
+        self.assertIn('둘 중 어느 쪽인지 알 수 없어서', cards['000003'])                              # 애매한 제목은 애매하다고 말한다
         self.assertNotIn(cats['capital_increase']['howToRead']['why'].split('.')[0], cards['000003'])
 
     def test_분류는_공시_연구_생산자와_같은_모듈이다(self):
@@ -142,6 +144,62 @@ class BuiltSite(unittest.TestCase):
             for i in ids:
                 self.assertIn(i, lessons, i)
         self.assertTrue(all(len(v) == len(build_site.LESSONS_BY_CATEGORY[k]) for k, v in self.summary['lessons'].items()))
+
+    def test_문단은_1_2문장씩_끊고_굵게는_그대로(self):
+        html_ = build_site.md_html('## 소제목\n**핵심이에요.** 첫 문장이에요. 둘째는 1.5조 원이에요. 셋째는 Inc. 이야기예요.\n'
+                                   '- **굵은 항목**: 설명이에요. 덧붙임이에요. 또 덧붙임이에요.\n3. 셋째 줄이에요')
+        self.assertIn('<h2>소제목</h2>', html_)
+        self.assertIn('<p><b>핵심이에요.</b></p>', html_)                       # 통째로 굵은 문장은 한 줄로 따로
+        self.assertIn('<p>첫 문장이에요. 둘째는 1.5조 원이에요.</p>', html_)      # 두 문장씩 · 숫자의 점에서 안 끊음
+        self.assertIn('<p>셋째는 Inc. 이야기예요.</p>', html_)                   # 영문 약어에서 안 끊음
+        self.assertIn('<li><b>굵은 항목</b>: 설명이에요. 덧붙임이에요.<p>또 덧붙임이에요.</p></li>', html_)
+        self.assertIn('<ol start="3"><li>셋째 줄이에요</li></ol>', html_)
+        self.assertEqual(build_site.split_sentences('그는 "좋아요." 라고 했어요. 다음이에요.'), ['그는 "좋아요." 라고 했어요.', '다음이에요.'])
+
+    def test_옛_색인_주소와_검색엔진_파일(self):
+        content = build_site.load_content()
+        with open(os.path.join(self.out, 'sitemap.xml'), encoding='utf-8') as fh:
+            sitemap = fh.read()
+        for kind, (var, *_rest) in build_site.SECTIONS.items():
+            for it in content[var]:
+                rel = f'snap/{kind}/{it["id"]}.html'
+                with open(os.path.join(self.out, rel), encoding='utf-8') as fh:
+                    page = fh.read()
+                self.assertIn(f'<link rel="canonical" href="https://gaeoteam.com/{rel}">', page)
+                self.assertIn(f'<loc>https://gaeoteam.com/{rel}</loc>', sitemap)
+        self.assertFalse(os.path.exists(os.path.join(self.out, 'snap', 'stock')))   # 옛 시세 스냅샷은 되살리지 않는다
+        self.assertFalse(os.path.exists(os.path.join(self.out, 'snap', 'news')))
+        with open(os.path.join(self.out, 'robots.txt'), encoding='utf-8') as fh:
+            robots = fh.read()
+        self.assertIn(build_site.DAUM_VERIFY, robots)
+        self.assertIn('Sitemap: https://gaeoteam.com/sitemap.xml', robots)
+        import xml.etree.ElementTree as ET
+        items = ET.parse(os.path.join(self.out, 'rss.xml')).getroot().findall('./channel/item')
+        self.assertTrue(10 <= len(items) <= 60, len(items))
+        with open(os.path.join(self.out, build_site.INDEXNOW_KEY + '.txt'), encoding='utf-8') as fh:
+            self.assertEqual(fh.read(), build_site.INDEXNOW_KEY)
+
+    def test_공시_사전과_회사_쪽(self):
+        guides = build_site.load_guides()['guides']
+        lessons = {x['id'] for x in build_site.content_meta('content/stock_lessons.js')}
+        blob = json.dumps(guides, ensure_ascii=False)
+        for phrase in FORBIDDEN_TEXT:
+            self.assertNotIn(phrase, blob, phrase)
+        self.assertEqual(len({g['key'] for g in guides}), len(guides))
+        for g in guides:
+            self.assertTrue(g['name'] and g['plain'] and g['what'] and g['why'] and g['check'], g['key'])
+            self.assertTrue(g.get('lesson') is None or g['lesson'] in lessons, g['key'])
+            self.assertTrue(os.path.exists(os.path.join(self.out, 'guide', g['key'], 'index.html')), g['key'])
+        with open(os.path.join(self.out, 'sitemap.xml'), encoding='utf-8') as fh:
+            sitemap = fh.read()
+        for code in self.contract['companyNames']:
+            with open(os.path.join(self.out, 'company', code, 'index.html'), encoding='utf-8') as fh:
+                page = fh.read()
+            thin = 'noindex' in page
+            self.assertEqual(f'/company/{code}/</loc>' in sitemap, not thin, code)
+            body = page.replace('매수·매도 추천', '')   # 「매수·매도 추천 아님」 같은 부정 안내문은 대상이 아니다
+            for phrase in FORBIDDEN_TEXT:
+                self.assertNotIn(phrase, body, (code, phrase))
 
     def test_모든_쪽에_메뉴와_꼬리말이_미리_그려져_있다(self):
         for d, _, files in os.walk(self.out):

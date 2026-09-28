@@ -7,12 +7,12 @@
   'use strict';
   var G = window.Gaeo;
   var esc = G.esc;
-  var DIR = '/disclosure_research/', SUMMARY = '/assets/research-summary.json';
+  var DIR = '/disclosure_research/', SUMMARY = '/assets/research-summary.json', GUIDE = '/assets/disclosure-guide.json';
   var SCHEMA = 'gaeo_disclosure_research_v1', CONTRACT = 'disclosure-research-public-v1';
   var TABS = ['today', 'changes', 'financial', 'timeline'];
   var KIND = { changes: 'disclosure_changes', financial: 'financial_changes', timeline: 'event_timelines' };
   var KEY_ACCOUNTS = ['revenue', 'operatingIncome', 'netIncome', 'operatingCashFlow'];
-  var cache = {}, contract = null, summary = null, summaryFailed = false, current = { tab: 'today', code: '' };
+  var cache = {}, contract = null, summary = null, summaryFailed = false, guide = null, current = { tab: 'today', code: '' };
   var $ = function (id) { return document.getElementById(id); };
   var dartOk = typeof DART_TODAY !== 'undefined' && DART_TODAY && Array.isArray(DART_TODAY.items);
 
@@ -44,6 +44,25 @@
         if (!d || d.schemaVersion !== SCHEMA || d.contractVersion !== CONTRACT || (kind !== 'contract' && d.kind !== kind)) throw new Error('자료 형식이 약속과 다름');
         cache[kind] = d; return d;
       });
+  }
+  function loadGuide() {
+    return fetch(GUIDE, { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) { if (d && d.schema === 'gaeo-disclosure-guide-v1') guide = d; })
+      .catch(function () { guide = null; });
+  }
+  /* 공시 제목 → 공시 사전 항목(가장 긴 낱말이 이긴다 · 빌드의 Guide.find 와 같은 규칙) */
+  function plainOf(title) {
+    if (!guide) return '';
+    var bare = String(title || '').replace(/\[[^\]]*\]/g, '').replace(/\s+/g, '');
+    for (var i = 0; i < guide.patterns.length; i++) {
+      var p = guide.patterns[i];
+      if (bare.indexOf(p[0]) >= 0) {
+        var g = guide.guides[p[1]];
+        return g ? ' <a class="f-plain" href="/guide/' + esc(p[1]) + '/">쉬운 이름 · ' + esc(g.plain) + '</a>' : '';
+      }
+    }
+    return '';
   }
   function loadSummary() {
     return fetch(SUMMARY, { cache: 'no-cache' })
@@ -132,7 +151,8 @@
         : sumCard('D', '사건 흐름', 'timeline', G.chip('na', '흐름 없음'), ['이어지는 공시 흐름을 찾지 못했어요.', '사건이 없었다는 뜻은 아니에요.']));
     }
     el.innerHTML = '<div class="card"><div class="overview-head"><h2 id="ov-title">' + esc(name) + '</h2>' + G.chip('neutral', code) + '</div>' +
-      '<p class="overview-meta"><span>자료 기준일 ' + esc((summary && summary.asOf) || (contract && contract.asOf) || '') + '</span>' + link(dartSearch(name), 'DART에서 이 회사 공시 검색') + '</p>' +
+      '<p class="overview-meta"><span>자료 기준일 ' + esc((summary && summary.asOf) || (contract && contract.asOf) || '') + '</span>' + link(dartSearch(name), 'DART에서 이 회사 공시 검색') +
+      '<a href="/company/' + esc(code) + '/">한 장 요약(공유하기 좋은 주소)</a></p>' +
       '<p class="meta">DART 검색 화면이 회사 이름이 입력된 채로 열려요. 검색을 누르면 원문 목록이 나와요.</p></div>' +
       '<div class="grid two">' + cards.join('') + '</div>';
     Array.prototype.forEach.call(el.querySelectorAll('[data-open-tab]'), function (b) {
@@ -153,7 +173,7 @@
     el.innerHTML = head + '<ul class="list list-card">' + items.slice(0, 120).map(function (it) {
       return '<li><a href="?code=' + esc(it.code) + '" data-code="' + esc(it.code) + '"><b>' + esc(it.name) + '</b></a> ' +
         (it.isCorrection ? G.chip('neutral', '정정') : '') + esc(it.title) +
-        '<br><span class="meta">' + esc(G.ymd(it.receiptDate)) + ' · ' + link(G.dartUrl(it.rceptNo), 'DART 원문') + '</span></li>';
+        '<br><span class="meta">' + esc(G.ymd(it.receiptDate)) + ' · ' + link(G.dartUrl(it.rceptNo), 'DART 원문') + '</span>' + plainOf(it.title) + '</li>';
     }).join('') + '</ul>' + (items.length > 120 ? '<p class="meta">이 밖에 ' + (items.length - 120) + '건은 회사를 골라 보세요.</p>' : '') +
       G.sourceBar('공시 목록(list.json) · 접수일 기준', '', 'https://dart.fss.or.kr/', 'DART 열기');
     openCompany(el);
@@ -196,7 +216,7 @@
       var tags = (f.categoryTags || []).map(function (k) { return G.chip('neutral', cats[k] ? cats[k].label : k); }).join('') +
         (f.categoryAmbiguous ? G.chip('unknown', '어느 쪽인지 원문 확인') : '');
       return (f.isCorrection ? G.chip('neutral', '정정 · ' + (f.correctionKind || '정정')) : '') + (label ? G.chip('info', label) : '') + tags +
-        esc(f.title) + ' <span class="meta">' + esc(f.receivedOn) + '</span> · ' + link(f.url, 'DART 원문');
+        esc(f.title) + ' <span class="meta">' + esc(f.receivedOn) + '</span> · ' + link(f.url, 'DART 원문') + plainOf(f.title);
     });
     el.innerHTML = head + '<div class="card">' + panelHead(code, '모은 공시 ' + esc(c.filingCount) + '건 · 가장 최근 ' + esc(c.latestReceivedOn) + ' · 최근 기간 ' + esc(c.recentCount) + '건 · 그 전 기간 ' + (c.priorCount == null ? '견주지 않음' : esc(c.priorCount) + '건')) +
       ladder([['무슨 일이 있었어?', ul(happened), 'fact'], ['왜 볼 필요가 있어?', ul(why), 'why'],
@@ -335,7 +355,7 @@
     (summary.basicLessons || []).forEach(function (l) { if (!seen[l[0]] && picks.length < 3) { seen[l[0]] = 1; picks.push({ id: l[0], name: l[1], why: '공시 읽는 법 기초' }); } });
     el.innerHTML = '<div class="section-head"><h2 id="rel-title">이 공시가 어렵다면</h2></div>' +
       '<p class="section-sub">이 회사 공시에 나온 종류와 이어지는 기초 공부예요.</p><div class="grid three">' + picks.map(function (p) {
-        return '<a class="card link-card" href="/learn.html?t=stock&id=' + esc(p.id) + '">' + G.chip('info', p.why) + '<span class="lc-title">' + esc(p.name) + '</span></a>';
+        return '<a class="card link-card" href="/snap/lesson/' + esc(p.id) + '.html">' + G.chip('info', p.why) + '<span class="lc-title">' + esc(p.name) + '</span></a>';
       }).join('') + '</div>';
     el.classList.remove('hidden');
   }
@@ -393,6 +413,7 @@
   if (initial) $('q').value = initial;
   $('view-today').innerHTML = G.loading();
   var summaryReady = loadSummary();
+  var guideReady = loadGuide();
   load('contract').then(function (c) {
     contract = c;
     $('asOf').textContent = '자료 기준일 ' + c.asOf + ' · 자료 생성 ' + G.kst(c.generatedAt) + ' (한국시간) · 추적 회사 ' + Object.keys(c.companyNames || {}).length + '곳 · 하루 2회 갱신';
@@ -401,7 +422,7 @@
     current.code = resolveCode(initial);
     var wanted = G.param('tab');
     current.tab = TABS.indexOf(wanted) >= 0 ? wanted : (current.code ? 'changes' : 'today');
-    selectTab(current.tab, false);
+    guideReady.then(function () { selectTab(current.tab, false); });
     summaryReady.then(function () { if (current.code) { renderOverview(current.code); renderRelated(/^\d{6}$/.test(current.code) && tracked(current.code) ? current.code : ''); } });
   }).catch(function (e) {
     $('asOf').textContent = '자료 기준 파일을 받지 못했어요(' + (e && e.message) + ') — 자료 없이 화면을 채우지 않아요.';

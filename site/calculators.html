@@ -26,12 +26,11 @@
 <footer id="site-foot"></footer>
 <script src="/assets/site.js"></script>
 <script src="/content/calculators.js"></script>
-<script src="/assets/calc-widgets.js"></script>
 <script src="/assets/articles.js"></script>
 <script>
-GaeoArticles.render({ el: "articles", data: typeof CALCULATORS !== "undefined" ? CALCULATORS : null, base: "/calculators.html", title: "계산기",
+GaeoArticles.render({ el: "articles", data: typeof CALCULATORS !== "undefined" ? CALCULATORS : null, base: "/calculators.html", staticBase: "/snap/calc/", title: "계산기",
   cats: [{ key: "stock", label: "주식" }, { key: "tax", label: "세금" }, { key: "finance", label: "재테크" }, { key: "etf", label: "ETF·연금" }, { key: "youth", label: "청년" }],
-  widget: function (it) { return GaeoCalc.html(it); }, afterDetail: function (it) { GaeoCalc.wire(it); } });
+  });
 </script>
 </body>
 </html>

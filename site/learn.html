@@ -33,7 +33,7 @@
 (function () {
   var SETS = {
     stock: { data: typeof STOCK_LESSONS !== "undefined" ? STOCK_LESSONS : null, cats: [
-      { key: "beginner", label: "주식 첫걸음" }, { key: "chart", label: "차트 기초" }, { key: "capitalism", label: "자본주의" }, { key: "crisis", label: "경제위기의 역사" },
+      { key: "beginner", label: "주식 첫걸음" }, { key: "chart", label: "차트 기초" }, { key: "crisis", label: "경제위기의 역사" },
       { key: "tax", label: "세금·절세" }, { key: "isa", label: "ISA" }, { key: "product", label: "투자상품" }, { key: "macro", label: "시장을 움직이는 손" },
       { key: "industry", label: "산업 공부" }, { key: "etf", label: "ETF·연금" }, { key: "youth", label: "청년 돈생활" }],
       start: { note: "주식이 처음이라면 이 순서로 읽어 보세요. 공시와 재무제표를 읽는 기초부터 시작해요.", ids: [68, 67, 73, 76, 65] } },
@@ -46,7 +46,7 @@
   function go(kind) {
     document.getElementById("t-stock").setAttribute("aria-selected", kind === "stock");
     document.getElementById("t-estate").setAttribute("aria-selected", kind === "estate");
-    GaeoArticles.render({ el: "articles", data: SETS[kind].data, cats: SETS[kind].cats, base: "/learn.html?t=" + kind, title: kind === "stock" ? "주식 공부" : "부동산 공부", start: SETS[kind].start });
+    GaeoArticles.render({ el: "articles", data: SETS[kind].data, cats: SETS[kind].cats, base: "/learn.html?t=" + kind, staticBase: kind === "stock" ? "/snap/lesson/" : "/snap/estate/", title: kind === "stock" ? "주식 공부" : "부동산 공부", start: SETS[kind].start });
   }
   document.getElementById("t-stock").onclick = function () { history.replaceState(null, "", "/learn.html?t=stock"); go("stock"); };
   document.getElementById("t-estate").onclick = function () { history.replaceState(null, "", "/learn.html?t=estate"); go("estate"); };
