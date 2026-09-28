@@ -6,8 +6,11 @@
   --history         HEAD 에서 닿는 git 이력 전체에 은퇴 자료 파일 이름이 한 번도 없는지(새 저장소는 옛 이력을 가져오지 않는다)
   --site DIR        조립된 사이트(_site)가 허용목록 밖 파일을 싣지 않는지 · 글자 크기 상한 · 추적/광고/서비스워커 0
   --past            과거 정밀분석 세척본 문장 검사(tools/migration/validate_past_analysis.py)
-  --all             --producer-hosts --tree --history --past (+ _site 가 있으면 --site _site)
+  --content         공부 글(content/*.js) 문장 검사 — 옛 수집 시세·지표, 없어진 옛 기능 안내, 투자의견, 증권사·시장 실적 추정치,
+                    원화 주가, 방송·다큐 요약 글(2026-09-28 재점검에서 찾은 세척 누락이 다시 들어오지 않게)
+  --all             --producer-hosts --tree --history --past --content (+ _site 가 있으면 --site _site)
 """
+import json
 import os
 import re
 import subprocess
@@ -40,7 +43,10 @@ SITE_ALLOW = re.compile(r'^(index\.html|404\.html|about\.html|disclaimer\.html|p
                         r'img/[a-z0-9-]+\.(png|ico)|'
                         r'content/(stock_study|stock_lessons|estate_lessons|calculators)\.js|content/past_analysis\.json|'
                         r'disclosure_research/(contract|disclosure_changes|financial_changes|event_timelines)\.json|'
-                        r'past-analysis/index\.html|research/deep-analysis/index\.html|research/deep-analysis/\d{6}/\d{4}-\d{2}-\d{2}-\d{4}/index\.html)$')
+                        r'past-analysis/index\.html|research/deep-analysis/index\.html|research/deep-analysis/\d{6}/\d{4}-\d{2}-\d{2}-\d{4}/index\.html|'
+                        # 2026-09-28: 옛 사이트가 색인시킨 공부 글 주소(/snap/…)를 새 글로 되살린다 — snap/stock·snap/news 는 은퇴 그대로(404)
+                        r'snap/index\.html|snap/(study|lesson|estate|calc)/\d+\.html|guide/index\.html|guide/[a-z0-9-]+/index\.html|'
+                        r'company/\d{6}/index\.html|rss\.xml|llms\.txt|d96e570cc9c1cbbad053bee2b14a7e5d\.txt|assets/disclosure-guide\.json)$')
 SITE_FORBIDDEN = re.compile(r'googletagmanager|google-analytics|gtag\(|adsbygoogle|googlesyndication|adfit|kvdb\.io|'
                             r'serviceWorker|navigator\.sendBeacon|localStorage\.setItem')
 
@@ -137,6 +143,43 @@ def check_site(site):
     return bad
 
 
+# 공부 글 문장 규칙(2026-09-28 재점검 · docs/legal/LEGAL_RECHECK_20260928.md). 글 전체에 거는 것과 종목 공부에만 거는 것을 나눈다.
+_SUBJ = r'(증권사|증권가|월가|애널리스트|컨센서스|[가-힣A-Z]{1,8}증권(이|은|는)\s|시장(은|에서는|에선)\s)'
+_MONEY = r'\d[\d,.]*\s*(조|억|만|천)?\s*(원|달러|%)'
+_PRICE = r'(\d[\d,]*\s*만(\s*\d[\d,]*)?\s*원|\d{1,3}(,\d{3})+\s*원)'
+CONTENT_RULES = [
+    ('옛 사이트 수집 시세·지표', 'all', re.compile(r'\d{1,2}(:\d{2}|시)\s*(기준\s*)?수집|수집\s*(시점|기준)|\(div\)|개오\s*팀이\s*추적|\d{3}\s*종목의?\s*실측')),
+    ('옛 사이트 수집 시세·지표', 'study', re.compile(r'데이터\s*(상|기준)')),
+    ('없어진 옛 사이트 기능 안내', 'all', re.compile(r'RISK\s*카드|TARO|DIANA|\((NOVA|FLOW)\)|시세\s*카드|이\s*사이트에서\s*시세|우리\s*사이트\s*(시장분석|종목\s*분석|어디서)')),
+    ('투자의견 문장', 'study', re.compile(r'(매수|매도|중립|강세|약세)\s*(\([A-Za-z]+\))?\s*」?\s*의견|투자\s*의견')),
+    ('증권사·시장 실적 추정치', 'study', re.compile(_SUBJ + r'[^\n]{0,40}?' + _MONEY + r'[^\n]{0,80}?(예상|전망|추정|내다보)')),
+    ('원화 주가(옛 수집 시세)', 'study', re.compile(r'(주가|종가|52주|신고가|신저가|고점|저점|최고가|최저가)[^.\n]{0,25}?' + _PRICE
+                                                  + r'|' + _PRICE + r'[^.\n]{0,12}?주가')),
+    ('주가배수(PER·EV/EBITDA·PSR 등)', 'study', re.compile(r'EV/EBITDA|PSR|주가매출비율|주가수익비율|주가순자산비율|(?<![A-Za-z])P[EB]R(?![A-Za-z])|\d+(\.\d+)?\s*(~\s*\d+(\.\d+)?)?\s*배(대|\s*수준|\s*부근)')),
+    ('방송·다큐 요약 글(제3자 저작물)', 'all', re.compile(r'(EBS|KBS|MBC|SBS|다큐)[^\n]{0,24}(완전\s*정리|요약|정리했어요)')),
+]
+
+
+def check_content():
+    try:
+        out = subprocess.run(['node', os.path.join(ROOT, 'tools', 'content_dump.js')], capture_output=True, check=True).stdout
+    except Exception as ex:
+        return [f'공부 글을 읽지 못함(node 필요): {ex}']
+    data = json.loads(out.decode('utf-8'))
+    bad = []
+    for var, items in data.items():
+        for it in items:
+            text = '\n'.join(str(it.get(k) or '') for k in ('name', 'tag', 'summary', 'body'))
+            for sent in re.split(r'(?<=[.!?])\s+|\n', text):
+                for label, scope, rx in CONTENT_RULES:
+                    if scope == 'study' and var != 'STOCK_STUDY':
+                        continue
+                    m = rx.search(sent)
+                    if m:
+                        bad.append(f'{label}: {var}#{it.get("id")}: …{sent[max(0, m.start() - 20):m.end() + 20]}…')
+    return bad
+
+
 def check_past():
     r = subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'migration', 'validate_past_analysis.py'),
                         os.path.join(ROOT, 'content', 'past_analysis.json')], capture_output=True, text=True)
@@ -153,6 +196,8 @@ def main(argv):
         checks.append(('history', check_history()))
     if '--past' in argv or '--all' in argv:
         checks.append(('past', check_past()))
+    if '--content' in argv or '--all' in argv:
+        checks.append(('content', check_content()))
     if '--site' in argv:
         checks.append(('site', check_site(os.path.abspath(argv[argv.index('--site') + 1]))))
     elif '--all' in argv and os.path.isdir(os.path.join(ROOT, '_site')):

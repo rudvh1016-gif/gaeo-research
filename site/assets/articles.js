@@ -1,4 +1,4 @@
-/* 글 모음 화면(종목 공부 · 투자 공부 · 계산기) — 목록(분류·검색·쪽) + ?id= 글 보기. 네트워크 0(데이터는 같은 사이트 js). */
+/* 글 모음 화면(종목 공부 · 투자 공부 · 계산기) — 목록(분류·검색·쪽). 글 한 편은 정적 쪽(/snap/…)으로 잇는다. 네트워크 0(데이터는 같은 사이트 js). */
 (function () {
   'use strict';
   var G = window.Gaeo, esc = G.esc;
@@ -7,32 +7,20 @@
     var root = document.getElementById(opt.el);
     var data = Array.isArray(opt.data) ? opt.data : null;
     if (!data) { root.innerHTML = G.state('error', '글 목록 파일을 받지 못했어요', '잠시 뒤 다시 열어 보세요. 없는 글을 빈 목록으로 채우지 않아요.'); return; }
+    /* 글 한 편은 빌드가 만든 정적 쪽(/snap/<묶음>/<번호>.html)에서 읽는다 — 검색엔진이 읽는 주소와 같다.
+       옛 주소(?id=)로 들어오면 그 쪽으로 옮긴다. */
     var id = Number(G.param('id'));
     if (id) {
-      var it = data.filter(function (x) { return x.id === id; })[0];
-      if (!it) { root.innerHTML = '<p class="note">이 글을 찾지 못했습니다. <a href="' + opt.base + '">목록으로</a></p>'; return; }
-      document.title = it.name + ' · ' + opt.title + ' · GAEO';
-      var cat = (opt.cats || []).filter(function (c) { return c.key === it.cat; })[0];
-      var sources = (it.sources || []).filter(function (s) { return s && /^https:\/\//.test(s.url || ''); });
-      root.innerHTML = '<p class="small"><a href="' + opt.base + '">← ' + esc(opt.title) + ' 목록</a></p>' +
-        '<article class="article"><h1>' + esc(it.name) + '</h1>' +
-        '<p class="meta">' + esc(it.date) + (cat ? ' · ' + esc(cat.label) : '') + (it.tag ? ' · ' + esc(it.tag) : '') + '</p>' +
-        (opt.pastNote ? '<p class="note past"><b>작성 당시 기준의 공부 기록</b>입니다. 지금의 매수·매도 추천이 아니며, 숫자와 사실은 작성일 이후 바뀌었을 수 있습니다.' +
-          (it.sanitized ? ' 옮기면서 출처 권리가 불분명한 수치 문장(컨센서스·목표주가·수급·주가배수 등)은 뺐습니다.' : '') + '</p>' : '') +
-        (it.summary ? '<p><b>' + esc(it.summary) + '</b></p>' : '') +
-        (opt.widget ? opt.widget(it) : '') +
-        G.md(it.body) +
-        (sources.length ? '<h4>참고한 자료</h4><ul class="sources">' + sources.map(function (s) { return '<li><a href="' + esc(s.url) + '" target="_blank" rel="noopener nofollow">' + esc(s.name) + '</a></li>'; }).join('') + '</ul>' : '') +
-        '</article>';
-      if (opt.afterDetail) opt.afterDetail(it);
-      window.scrollTo(0, 0);
+      var found = data.filter(function (x) { return x.id === id; })[0];
+      if (found) { root.innerHTML = G.loading('글을 여는 중이에요'); location.replace(opt.staticBase + id + '.html'); return; }
+      root.innerHTML = '<p class="note">이 글을 찾지 못했습니다. <a href="' + opt.base + '">목록으로</a></p>';
       return;
     }
     var state = { cat: G.param('cat'), q: '', page: 1 };
     var byId = {};
     data.forEach(function (x) { byId[x.id] = x; });
     function catLabel(key) { var c = (opt.cats || []).filter(function (x) { return x.key === key; })[0]; return c ? c.label : ''; }
-    function href(x) { return opt.base + (opt.base.indexOf('?') >= 0 ? '&' : '?') + 'id=' + x.id; }
+    function href(x) { return opt.staticBase + x.id + '.html'; }
     /* 한 문장 요약 — 요약의 첫 문장만(길면 줄임). 본문은 바꾸지 않는다. */
     function oneLine(s) {
       s = String(s || ''); var m = /^(.+?[.!?])(\s|$)/.exec(s), t = m ? m[1] : s;
@@ -42,7 +30,7 @@
       var label = catLabel(x.cat);
       return '<article class="card art-card"><p class="ac-meta">' + (label ? G.chip('neutral', label) : '') + '<time datetime="' + esc(x.date) + '">' + esc(x.date) + '</time></p>' +
         '<a class="ac-title" href="' + href(x) + '">' + esc(x.name) + '</a><p class="ac-sub">' + esc(oneLine(x.summary)) + '</p>' +
-        (/^\d{6}$/.test(x.code || '') ? '<a class="ac-link" href="/disclosure-research.html?code=' + esc(x.code) + '">이 회사의 공시·재무 변화 보기 →</a>' : '') + '</article>';
+        (/^\d{6}$/.test(x.code || '') ? '<a class="ac-link" href="/company/' + esc(x.code) + '/">이 회사의 공시·재무 변화 보기 →</a>' : '') + '</article>';
     }
     /* 처음이라면 여기부터 — 페이지마다 사람이 고른 글 번호(opt.start.ids)나 링크(opt.start.links)만 보여 준다. */
     function startHere() {

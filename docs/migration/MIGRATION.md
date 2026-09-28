@@ -166,3 +166,8 @@ DART 원문 암호화 아카이브(research_archive/dart/live — 새 저장소�
 | 새 DART 수집기 | 정상 — 병합 뒤 실제 실행(run 36155313782): 수집·누출 검사 성공 → 기존 산출물 커밋(7111c42) · "원장만 보존" 단계는 건너뜀. 원장 day 2026-09-26 list 44 · financial 123 |
 | 개인 쪽 영향 | gaeo-private(공개 자료 = gaeo-research, #157) · 게이트웨이 브리지 · Candidate V2 · PAPER 는 옛 저장소 주소를 쓰지 않는다(코드 검색). nova 는 저장소 **이름**만 참조(인증 연결) |
 | 남은 것 1건 | Oracle `gaeo-mcp` 수동 배포(ops/mcp/DEPLOYMENT.md 2026-09-25 절). 배포 전까지 운영 MCP 의 Toss 시세·계좌 도구는 옛 코드 그대로 열려 있고, 공시 도구는 일시 중단 |
+
+## 8. 2026-09-28 뒤처리(재점검 · 검색 유입)
+- 종목 공부·투자 공부의 세척 누락 79곳 정리(§2-B 의 원칙은 그대로 — 옛 세척 정규식이 놓친 모양을 사람이 확인해 뺐다). 기록: `docs/legal/LEGAL_RECHECK_20260928.md` · `docs/legal/recheck_20260928_removed.json`. 재발은 `tools/public_checks.py --content` 가 막는다.
+- 투자 공부 101건 → 96건(주식 82 → 77 · 부동산 19 그대로): EBS 다큐 요약 5편 공개 중단.
+- 옛 색인 주소 `/snap/{study,lesson,estate,calc}/` 는 새 빌드가 세척된 글로 되살린다. `snap/stock`·`snap/news` 와 저장소 안 `snap/` 폴더는 은퇴 그대로다(`RETIRED` 규칙 불변).

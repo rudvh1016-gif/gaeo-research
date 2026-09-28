@@ -1,9 +1,11 @@
-/* GAEO 기업 리서치 — 공통 머리말·꼬리말·도우미. 외부 추적·광고·서비스워커 없음. 네트워크: 같은 사이트 파일뿐. */
+/* GAEO 기업 리서치 — 공통 머리말·꼬리말·도우미. 외부 추적·광고·서비스워커 없음. 네트워크: 같은 사이트 파일뿐.
+   공유 버튼은 브라우저 기본 공유창(navigator.share)·클립보드만 쓴다 — 어디로도 따로 보내지 않는다. */
 (function () {
   'use strict';
   var NAV = [
     ['/', '홈', 'home'],
     ['/disclosure-research.html', '기업 리서치', 'research'],
+    ['/guide/', '공시 사전', 'guide'],
     ['/past-analysis/', '과거 정밀분석', 'past'],
     ['/study.html', '종목 공부', 'study'],
     ['/learn.html', '투자 공부', 'learn'],
@@ -14,25 +16,11 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  /* **굵게** · [링크](https://) 만 살린다(나머지는 글자 그대로). */
   function inline(s) {
     return esc(s)
       .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
-  }
-  /* 아주 작은 마크다운: ## 소제목 · - 목록 · 문단 · **굵게** · [링크](https://) */
-  function md(text) {
-    var lines = String(text || '').split('\n'), html = '', para = [], list = null;
-    function flushP() { if (para.length) { html += '<p>' + para.map(inline).join('<br>') + '</p>'; para = []; } }
-    function flushL() { if (list) { html += '<ul>' + list.map(function (x) { return '<li>' + inline(x) + '</li>'; }).join('') + '</ul>'; list = null; } }
-    lines.forEach(function (ln) {
-      var t = ln.trim();
-      if (!t) { flushP(); flushL(); return; }
-      if (t.indexOf('## ') === 0 || t.indexOf('### ') === 0) { flushP(); flushL(); html += '<h4>' + inline(t.replace(/^#+\s*/, '')) + '</h4>'; return; }
-      if (/^[-·*]\s+/.test(t)) { flushP(); if (!list) list = []; list.push(t.replace(/^[-·*]\s+/, '')); return; }
-      flushL(); para.push(t);
-    });
-    flushP(); flushL();
-    return html;
   }
   /* 머리말·꼬리말은 빌드(tools/build_site.py)가 미리 그린다 — 자바스크립트가 꺼져도 보인다. 비어 있을 때만 여기서 그린다. */
   function header(active) {
@@ -50,7 +38,7 @@
     el.className = 'site-foot';
     el.innerHTML = '<div class="wrap"><p>GAEO는 공시·기업 공부를 돕는 개인 리서치 노트입니다. 투자 권유가 아니며, 판단과 책임은 읽는 분에게 있습니다. 매수·매도 추천, 1:1 종목 상담, 유료 리딩을 하지 않습니다.</p>' +
       '<p>공시 자료 출처: 금융감독원 전자공시시스템(DART) · OpenDART</p>' +
-      '<p class="foot-links"><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a><a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a></p></div>';
+      '<p class="foot-links"><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a><a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a><a href="/snap/index.html">글 전체 목록</a><a href="/rss.xml">RSS</a></p></div>';
   }
   /* 화면 상태 — 불러오는 중 · 아직 못 받음 · 해당 없음 · 오류를 서로 다른 말로 보여 준다(없는 자료를 0 으로 채우지 않는다). */
   var CHIP = { fact: '확인됨', unknown: '아직 못 받음', na: '해당 없음', error: '오류', info: '안내' };
@@ -84,10 +72,63 @@
     var k = new Date(d.getTime() + 9 * 3600 * 1000).toISOString();
     return k.slice(0, 10) + ' ' + k.slice(11, 16);
   }
-  window.Gaeo = { kst: kst, esc: esc, md: md, inline: inline, header: header, footer: footer, param: param, dartUrl: dartUrl, ymd: ymd,
+  /* 공유하기 · 링크 복사 — 이 쪽 주소만 쓴다. */
+  function wireShare() {
+    var say = function (btn, text) {
+      var box = btn.parentNode.querySelector('[data-share-msg]');
+      if (box) box.textContent = text;
+    };
+    var copy = function (btn) {
+      var url = location.href.split('#')[0];
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { say(btn, '링크를 복사했어요'); }, function () { say(btn, url); });
+      } else { say(btn, url); }
+    };
+    Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (b) { b.addEventListener('click', function () { copy(b); }); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-share]'), function (b) {
+      b.addEventListener('click', function () {
+        if (navigator.share) {
+          navigator.share({ title: document.title, url: location.href.split('#')[0] }).catch(function () { /* 사용자가 닫음 */ });
+        } else { copy(b); }
+      });
+    });
+  }
+  /* 계산기 한 편 쪽(/snap/calc/…)의 계산 위젯 */
+  function wireCalc() {
+    var el = document.getElementById('calc-widget');
+    if (!el || !window.GaeoCalc) return;
+    try {
+      var it = JSON.parse(el.getAttribute('data-calc'));
+      el.innerHTML = window.GaeoCalc.html(it);
+      window.GaeoCalc.wire(it);
+    } catch (err) { el.innerHTML = state('error', '계산기를 그리지 못했어요', '새로 고침해 보세요.'); }
+  }
+  /* 목록 거르기(공시 사전) — 입력한 낱말이 들어간 항목만 보인다. */
+  function wireFilter() {
+    Array.prototype.forEach.call(document.querySelectorAll('input[data-filter]'), function (input) {
+      var root = document.getElementById(input.getAttribute('data-filter'));
+      var count = document.getElementById('guide-count');
+      if (!root) return;
+      var run = function () {
+        var q = input.value.replace(/\s+/g, '').toLowerCase(), shown = 0;
+        Array.prototype.forEach.call(root.querySelectorAll('li[data-text]'), function (li) {
+          var hit = !q || li.getAttribute('data-text').replace(/\s+/g, '').toLowerCase().indexOf(q) >= 0;
+          li.hidden = !hit;
+          if (hit) shown++;
+        });
+        Array.prototype.forEach.call(root.querySelectorAll('[data-group]'), function (g) { g.hidden = !g.querySelector('li[data-text]:not([hidden])'); });
+        if (count) count.textContent = q ? (shown ? shown + '개를 찾았어요' : '찾는 공시가 없어요. 제목의 다른 낱말로 찾아보세요.') : '';
+      };
+      input.addEventListener('input', run);
+    });
+  }
+  window.Gaeo = { kst: kst, esc: esc, inline: inline, header: header, footer: footer, param: param, dartUrl: dartUrl, ymd: ymd,
     chip: chip, loading: loading, state: state, sourceBar: sourceBar };
   document.addEventListener('DOMContentLoaded', function () {
     header(document.body.getAttribute('data-page') || '');
     footer();
+    wireShare();
+    wireCalc();
+    wireFilter();
   });
 })();

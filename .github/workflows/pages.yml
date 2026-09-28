@@ -26,6 +26,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4   # 공부 글(content/*.js)을 브라우저와 같게 실행해 읽는다(tools/content_dump.js)
+        with:
+          node-version: "20"
       - id: pages
         uses: actions/configure-pages@v5
       - name: 사이트 조립 (커스텀 도메인 전에는 임시 주소 하위경로에 맞춘다)
@@ -34,6 +37,16 @@ jobs:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - name: 배포 전 공개 검사 (실패하면 배포하지 않는다)
         run: python3 tools/public_checks.py --all
+      - name: IndexNow 대상 계산 (지금 배포된 sitemap 과 견줘 바뀐 주소만)
+        continue-on-error: true
+        run: python3 tools/indexnow.py plan --new _site/sitemap.xml --live https://gaeoteam.com/sitemap.xml --out indexnow_urls.txt
+      - uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: indexnow-urls
+          path: indexnow_urls.txt
+          if-no-files-found: ignore
+          retention-days: 3
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
@@ -46,3 +59,21 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+  # 배포가 끝난 뒤 바뀐 주소만 IndexNow(빙·네이버 등)에 알린다. 실패해도 배포는 그대로다.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: indexnow-urls
+      - name: IndexNow 알림
+        continue-on-error: true
+        run: |
+          if [ -f indexnow_urls.txt ]; then python3 tools/indexnow.py submit --urls indexnow_urls.txt; else echo "보낼 목록 없음"; fi
