@@ -527,6 +527,116 @@ class DartArchiveIntegration(unittest.TestCase):
         self.assertLess(res["compressionRatio"], 1.0)
 
 
+class CatchUpAfterOutage(unittest.TestCase):
+    """2026-09-29 — 공시 목록 수집이 며칠 멈춘 뒤(9/26~9/29) 다시 돌 때 그 사이 접수일을 빠뜨리지 않는다.
+
+    예전: 회차마다 [어제, 오늘]만 봐서 멈춘 기간의 공시를 영영 못 본 채 '확인 완료'가 됐다.
+    이제: 끝까지 확인한 마지막 회차의 조회 끝날부터 오늘까지 하루씩 본다. 하루라도 못 보면 확인 완료가 아니다.
+    """
+
+    class DayClient(FakeClient):
+        def __init__(self, fail_days=()):
+            super().__init__({})
+            self.fail_days = set(fail_days)
+
+        def list_filings(self, **kw):
+            if kw.get("bgn_de") in self.fail_days:
+                self.calls.append(kw)
+                return {"status": C.EVENT_DATA_ERROR, "data": None, "error": "HTTP 500"}
+            return super().list_filings(**kw)
+
+    def setUp(self):
+        import collect_dart as CD
+        self.CD = CD
+        self.tmp = tempfile.mkdtemp(prefix="gaeo-catchup-")
+        self.addCleanup(shutil.rmtree, self.tmp, True)
+        self.status = os.path.join(self.tmp, "collection_status.json")
+        corp_map = {"mapped": {"005930": {"corp_code": "00126380", "ticker": "005930", "name": "삼성전자"}},
+                    "universeSize": len(UNIVERSE)}
+        from unittest import mock
+        import io
+
+        class Store:
+            def maintain(self):
+                return {}
+        self.patches = [mock.patch.object(P, "DART_ROOT", self.tmp),
+                        mock.patch.object(CD, "DART_ROOT", self.tmp),
+                        mock.patch.object(CD, "STATUS_PATH", self.status),
+                        mock.patch.object(CD, "BUDGET_PATH", os.path.join(self.tmp, "budget.json")),
+                        mock.patch.object(P, "load_corp_map", return_value=corp_map),
+                        mock.patch.object(P, "load_universe", return_value=UNIVERSE),
+                        mock.patch.object(CD, "_dart_store", return_value=Store()),
+                        mock.patch.object(T, "today_kst", return_value="2026-09-29"),
+                        mock.patch("sys.argv", ["collect_dart.py"]),
+                        mock.patch("sys.stdout", new=io.StringIO())]
+        for p in self.patches:
+            p.start()
+        self.addCleanup(lambda: [p.stop() for p in reversed(self.patches)])
+
+    def run_main(self, client):
+        from unittest import mock
+        with mock.patch.object(self.CD.dart_client, "DartClient", return_value=client):
+            self.assertEqual(self.CD.main(), 0)
+        with open(self.status, encoding="utf-8") as f:
+            return json.load(f)
+
+    def test_따라잡을_날짜는_마지막_확인_끝날부터_오늘까지다(self):
+        days, gap = self.CD.catchup_days("2026-09-29", None)
+        self.assertEqual((days, gap), (["2026-09-28", "2026-09-29"], None))          # 예전과 같은 [어제, 오늘]
+        days, gap = self.CD.catchup_days("2026-09-29", "2026-09-26")
+        self.assertEqual((days, gap), (["2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29"], None))
+        days, gap = self.CD.catchup_days("2026-09-29", "2026-09-29")
+        self.assertEqual(days, ["2026-09-28", "2026-09-29"])                           # 어제는 항상 다시 본다
+        days, gap = self.CD.catchup_days("2026-09-29", "2026-09-01")
+        self.assertEqual(days[0], "2026-09-15")
+        self.assertEqual(len(days), self.CD.MAX_CATCHUP_DAYS + 1)
+        self.assertEqual(gap, {"from": "2026-09-01", "to": "2026-09-14"})
+
+    def test_멈춘_뒤_첫_회차는_빠진_날을_하루씩_다시_보고_확인_완료를_옮긴다(self):
+        # 2026-09-29 이전 모양의 상태 파일(lastComplete 칸 없음) — 9/25 15:41Z 에 [9/25, 9/26] 을 끝까지 봤다.
+        with open(self.status, "w", encoding="utf-8") as f:
+            json.dump({"status": "OK", "eventState": P.NO_OFFICIAL_EVENT_DETECTED,
+                       "finishedAt": "2026-09-25T15:41:33.305198+00:00",
+                       "queryWindow": {"start": "2026-09-25", "end": "2026-09-26"}}, f)
+        client = self.DayClient()
+        status = self.run_main(client)
+        self.assertEqual([(c["bgn_de"], c["end_de"]) for c in client.calls],
+                         [(d, d) for d in ("20260926", "20260927", "20260928", "20260929")])
+        self.assertEqual(status["queryWindow"], {"start": "2026-09-26", "end": "2026-09-29", "days": 4})
+        self.assertEqual(status["eventState"], P.NO_OFFICIAL_EVENT_DETECTED)
+        self.assertEqual(status["lastComplete"], {"finishedAt": status["finishedAt"],
+                                                  "windowStart": "2026-09-26", "windowEnd": "2026-09-29"})
+
+    def test_하루라도_못_보면_확인_완료가_아니고_앞의_기록을_그대로_넘긴다(self):
+        kept = {"finishedAt": "2026-09-25T15:41:33.305198+00:00", "windowStart": "2026-09-25", "windowEnd": "2026-09-26"}
+        with open(self.status, "w", encoding="utf-8") as f:
+            json.dump({"status": "OK", "eventState": P.NO_OFFICIAL_EVENT_DETECTED, "lastComplete": kept}, f)
+        client = self.DayClient(fail_days={"20260927"})
+        status = self.run_main(client)
+        self.assertEqual(status["eventState"], P.EVENT_DATA_ERROR)     # 실패를 '공시 없음'으로 바꾸지 않는다
+        self.assertEqual(status["lastComplete"], kept)
+        self.assertEqual([e.get("day") for e in status["errors"]], ["2026-09-27"])
+        self.assertEqual(len(client.calls), 4, "다른 날은 계속 본다 — 다음 회차가 다시 이어받는다")
+
+    def test_따라잡기_상한을_넘는_공백은_확인_완료로_적지_않는다(self):
+        kept = {"finishedAt": "2026-09-01T00:00:00+00:00", "windowStart": "2026-08-31", "windowEnd": "2026-09-01"}
+        with open(self.status, "w", encoding="utf-8") as f:
+            json.dump({"status": "OK", "eventState": P.NO_OFFICIAL_EVENT_DETECTED, "lastComplete": kept}, f)
+        status = self.run_main(self.DayClient())
+        self.assertEqual(status["eventState"], P.EVENT_COVERAGE_INCOMPLETE)
+        self.assertIn(P.CATCHUP_WINDOW_EXCEEDED, status["coverageReasons"])
+        self.assertEqual(status["catchUpGap"], {"from": "2026-09-01", "to": "2026-09-14"})
+        self.assertEqual(status["lastComplete"], kept)
+
+    def test_확인한_기록이_없는_옛_실패_상태는_확인_완료로_치지_않는다(self):
+        self.assertIsNone(P.last_complete({"status": "EVENT_DATA_ERROR", "eventState": P.EVENT_DATA_ERROR,
+                                           "finishedAt": "2026-09-29T00:00:00+00:00",
+                                           "queryWindow": {"start": "2026-09-28", "end": "2026-09-29"}}))
+        self.assertIsNone(P.last_complete({"lastComplete": None, "status": "OK",
+                                           "eventState": P.NO_OFFICIAL_EVENT_DETECTED}))
+        self.assertIsNone(P.last_complete({"lastComplete": {"finishedAt": "not-a-time", "windowEnd": "2026-09-29"}}))
+
+
 # ── 1. v1.x 동결 유지 ────────────────────────────────────────────────────────
 if __name__ == "__main__":
     unittest.main(verbosity=1)

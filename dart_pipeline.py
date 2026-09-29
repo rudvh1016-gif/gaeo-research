@@ -50,6 +50,34 @@ PAGE_LIMIT_REACHED = "PAGE_LIMIT_REACHED"
 BUDGET_LIMIT_REACHED = "BUDGET_LIMIT_REACHED"
 API_ERROR = "API_ERROR"
 NO_API_KEY = "NO_API_KEY"
+# 멈춘 기간이 따라잡기 상한(collect_dart.MAX_CATCHUP_DAYS)보다 길어 그 사이를 다 다시 보지 못했다(2026-09-29)
+CATCHUP_WINDOW_EXCEEDED = "CATCHUP_WINDOW_EXCEEDED"
+
+#: '끝까지 확인했다'고 말할 수 있는 상태는 이 둘뿐이다(2026-09-29). 나머지는 확인 안 됨이다.
+COMPLETE_STATES = (EVENT_DETECTED, NO_OFFICIAL_EVENT_DETECTED)
+
+
+def last_complete(status):
+    """collection_status.json → 공시 목록을 **끝까지 확인한** 마지막 회차 {finishedAt, windowStart, windowEnd} 또는 None.
+
+    collect_dart.py 가 회차마다 lastComplete 로 이어 적는다(실패한 회차는 앞의 값을 그대로 넘긴다).
+    2026-09-29 이전 상태 파일에는 그 칸이 없으므로, 그 회차 자체가 끝까지 확인됐을 때만 그 회차를 쓴다.
+    확인 시각을 지어내지 않는다 — 모르면 None.
+    """
+    if not isinstance(status, dict):
+        return None
+    if "lastComplete" in status:
+        kept = status.get("lastComplete")
+        if (isinstance(kept, dict) and dart_time.parse_instant(kept.get("finishedAt"))
+                and isinstance(kept.get("windowEnd"), str)):
+            return {"finishedAt": kept["finishedAt"], "windowStart": kept.get("windowStart"),
+                    "windowEnd": kept["windowEnd"]}
+        return None
+    window = status.get("queryWindow") or {}
+    if (status.get("status") == dart_client.OK and status.get("eventState") in COMPLETE_STATES
+            and dart_time.parse_instant(status.get("finishedAt")) and isinstance(window.get("end"), str)):
+        return {"finishedAt": status["finishedAt"], "windowStart": window.get("start"), "windowEnd": window["end"]}
+    return None
 
 UNKNOWN_MAPPING = "UNKNOWN_MAPPING"
 NOT_AVAILABLE = "NOT_AVAILABLE"

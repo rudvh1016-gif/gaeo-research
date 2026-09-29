@@ -85,24 +85,31 @@ jobs:
       - name: 오프라인 불변식 시험 (실패가 0건으로 바뀌지 않는지)
         run: python3 -m unittest test_corporate_action_evidence
 
+      # 2026-09-29: 예약 회차가 2,600종목 전부(--require-complete)를 한 번에 받으려다 60분 시간초과로 세 번 연속 취소됐고
+      # (9/28 00:35Z · 16:43Z · 9/29 01:49Z, 회차마다 약 1,975건 · 결과 0), 그 뒤의 공시 수집·공시 연구 생성이 매번 건너뛰어졌다.
+      # 요청 한 건 약 1.7초 × 2,600건 이상이라 60분 안에 끝날 수 없다. 이제 예약 회차는 30분 안에서 커서부터 이어 받고
+      # (진행분·원장은 중간 저장), 단계 시간 상한 40분이 넘으면 이 단계만 끊는다 — 뒤의 필수 단계는 계속 돈다.
       - name: 실제 수집 — 기업행사 증거
         id: collect
         if: env.SKIP_COLLECT != '1'
+        timeout-minutes: 40
         env:
-          FULL_REFRESH: ${{ github.event_name == 'schedule' && '--require-complete' || '' }}
-        run: python3 collect_corporate_action_evidence.py --tickers "$TARGET_COUNT" --requests "$REQUEST_LIMIT" $FULL_REFRESH
+          TIME_LIMIT: ${{ github.event_name == 'schedule' && '--max-minutes 30' || '' }}
+        run: python3 collect_corporate_action_evidence.py --tickers "$TARGET_COUNT" --requests "$REQUEST_LIMIT" $TIME_LIMIT
 
+      # 앞 단계(기업행사 증거)와 독립이다 — 그 단계가 실패하거나 시간 상한에 걸려도 건너뛰지 않는다(작업 전체 취소 때만 멈춘다).
       - name: 오늘의 공시 수집 · 연간 재무 수집 (OpenDART · 네트워크)
-        if: env.SKIP_COLLECT != '1'
+        if: ${{ !cancelled() && env.SKIP_COLLECT != '1' }}
         run: |
           python3 collect_dart.py || echo "DART 공시 수집 실패 — 나머지는 계속 진행"
           python3 collect_dart_financials.py --once-per-day || echo "재무 수집 실패 — 나머지는 계속 진행"
 
+      # 공시 연구는 공시 목록을 **끝까지 확인한 시각**을 generatedAt 으로 쓴다(없으면 만들지 않는다) — 오래된 입력을 새 자료처럼 찍지 않는다.
       - name: 오늘의 공시 · 공시 연구 산출물 생성 (네트워크 0 · LLM 0)
-        if: env.SKIP_COLLECT != '1'
+        if: ${{ !cancelled() && env.SKIP_COLLECT != '1' }}
         run: |
           python3 build_dart_today.py || echo "dart_today.js 생성 실패 — 이전 파일 유지"
-          python3 build_disclosure_research.py || echo "disclosure_research 생성 실패 — 이전 파일 유지"
+          python3 build_disclosure_research.py || echo "::warning::disclosure_research 만들지 않음(공시 목록 끝까지 확인 기록 없음 등) — 이전 파일 유지"
 
       - name: 공개 누출 검사 (커밋 전)
         id: leak
