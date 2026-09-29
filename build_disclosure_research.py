@@ -38,6 +38,13 @@ OUT_DIR = os.path.join(HERE, "disclosure_research")
 VOCAB_PATH = os.path.join(HERE, "config", "disclosure_research_vocab.json")
 SEEN_PATH = os.path.join(P.DART_ROOT, "seen_rcept.json")
 EVIDENCE_PATH = os.path.join(HERE, "gaeo_coverage", "corporate_action_evidence.json")
+#: collect_dart.py 가 남기는 공시 목록 수집 상태. 산출물의 generatedAt 은 여기 적힌 **여기까지 접수된 공시를 다 본 시각**
+#: (lastComplete.coveredUntil = min(확인을 마친 시각, 조회 끝날 다음 날 0시 KST))이다.
+STATUS_PATH = os.path.join(P.DART_ROOT, "collection_status.json")
+
+
+class NoCompleteListCheck(ValueError):
+    """공시 목록을 끝까지 확인한 기록이 없다 — 확인 시각을 지어낼 수 없으니 만들지 않는다."""
 
 SCHEMA_VERSION = "gaeo_disclosure_research_v1"
 CONTRACT_VERSION = "disclosure-research-public-v1"
@@ -456,10 +463,44 @@ def _dump(obj):
     return (json.dumps(obj, ensure_ascii=False, indent=1, allow_nan=False) + "\n").encode("utf-8")
 
 
-def contract(universe, files, vocab, as_of, generated_at):
+def list_check(status_path=STATUS_PATH):
+    """collection_status.json → {checkedAt, coveredUntil, window, latestRun, catchUp} 또는 None(끝까지 확인한 기록 없음)."""
+    try:
+        status = _read_json(status_path)
+    except (OSError, ValueError):
+        return None
+    last = P.last_complete(status)
+    if last is None:
+        return None
+    return {"checkedAt": last["finishedAt"], "coveredUntil": last.get("coveredUntil"),
+            "window": {"from": last.get("windowStart"), "to": last["windowEnd"]},
+            # 따라잡기 진행(CATCHUP_IN_PROGRESS)은 장애가 아니다 — 끝까지 본 날까지만 generatedAt 이 앞으로 간다.
+            "catchUp": status.get("catchUp") if isinstance(status.get("catchUp"), dict) else None,
+            "latestRun": {"ranAt": status.get("ranAt"), "state": status.get("eventState"),
+                          "complete": status.get("status") == P.dart_client.OK and status.get("eventState") in P.COMPLETE_STATES}}
+
+
+def evidence_snapshot(path=EVIDENCE_PATH):
+    """기업행사 증거 파일의 회차 정보(보조 원천 — 종목별로 조회 시각이 다르다). 없으면 None."""
+    try:
+        doc = _read_json(path)
+    except (OSError, ValueError):
+        return None
+    return {k: doc.get(k) for k in ("generatedAt", "universeMapped", "succeeded", "runComplete", "stoppedBy", "cycle")}
+
+
+def _utc_z(value):
+    moment = dt.datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    if moment.tzinfo is None:
+        raise ValueError("timezone 없는 시각")
+    return moment.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def contract(universe, files, vocab, as_of, generated_at, built_at=None, inputs=None):
     return {
         "schemaVersion": SCHEMA_VERSION, "contractVersion": CONTRACT_VERSION,
-        "generatedAt": generated_at, "asOf": as_of,
+        # generatedAt = 여기까지 접수된 공시를 다 본 시각(2026-09-29). 다시 빌드해도 새로 확인하지 않았으면 바뀌지 않는다.
+        "generatedAt": generated_at, "asOf": as_of, "builtAt": built_at, "inputs": inputs,
         "producer": "build_disclosure_research.py (gaeo-analyst-team · corporate-action-evidence.yml · LLM 0 · 네트워크 0)",
         "provider": {"id": "opendart", "gates": "config/source_compliance.json providers.opendart.gates (derivedPublication/commercialUse 조건부 · 조건은 같은 파일 verdictChangeNote)"},
         "files": files,
@@ -469,12 +510,23 @@ def contract(universe, files, vocab, as_of, generated_at):
     }
 
 
-def build_all(universe=None, vocab=None, as_of=None, now=None, fin_dir=FIN_DIR, seen_path=SEEN_PATH, evidence_path=EVIDENCE_PATH):
+def build_all(universe=None, vocab=None, as_of=None, now=None, fin_dir=FIN_DIR, seen_path=SEEN_PATH, evidence_path=EVIDENCE_PATH,
+              status_path=STATUS_PATH, check=None):
+    """check(= list_check()) 가 없으면 NoCompleteListCheck.
+
+    2026-09-29: 예전에는 generatedAt·asOf 를 **빌드 시각**으로 찍어서, 공시 목록 수집이 멈춘 채 다시 빌드만 해도
+    오래된 입력이 새 자료처럼 보였다(9/26 10:14Z 계약 ← 실제 확인 9/25 15:41Z). 이제 generatedAt 은 끝까지 확인한
+    시각, asOf 는 그 조회의 끝날이다. 빌드 시각은 builtAt 에 따로 적는다.
+    """
+    check = check if check is not None else list_check(status_path)
+    if check is None:
+        raise NoCompleteListCheck("공시 목록을 끝까지 확인한 기록이 없습니다")
     universe = universe if universe is not None else P.load_universe()
     vocab = vocab or load_vocab()
     now = now or dt.datetime.now(dt.timezone.utc)
-    generated_at = now.strftime("%Y-%m-%dT%H:%M:%SZ")
-    as_of = as_of or (now + dt.timedelta(hours=9)).date().isoformat()
+    generated_at = _utc_z(check.get("coveredUntil") or check["checkedAt"])
+    as_of = as_of or check["window"]["to"]
+    inputs = {"list": check, "evidence": evidence_snapshot(evidence_path)}
     list_rows, list_meta = load_list_filings(universe, seen_path)
     ev_rows, ev_meta = load_evidence_filings(universe, evidence_path)
     merged = merge_filings(list_rows, ev_rows)
@@ -492,7 +544,8 @@ def build_all(universe=None, vocab=None, as_of=None, now=None, fin_dir=FIN_DIR, 
         files.append({"file": f"disclosure_research/{kind}.json", "kind": kind, "sha256": sha, "bytes": len(blob),
                       "generatedAt": generated_at, "companies": len(docs[kind]["companies"]),
                       "recordId": f"{CONTRACT_VERSION}:{kind}:{sha[:16]}"})
-    docs["contract"] = contract(universe, files, vocab, as_of, generated_at)
+    docs["contract"] = contract(universe, files, vocab, as_of, generated_at,
+                                built_at=now.strftime("%Y-%m-%dT%H:%M:%SZ"), inputs=inputs)
     blobs["contract"] = _dump(docs["contract"])
     return docs, blobs
 
@@ -508,12 +561,19 @@ def write_all(blobs, out_dir=OUT_DIR):
 
 
 def main():
-    docs, blobs = build_all()
-    write_all(blobs)
+    try:
+        docs, blobs = build_all(status_path=STATUS_PATH)
+    except NoCompleteListCheck as ex:
+        # 이전 파일을 그대로 둔다 — 그 파일의 generatedAt 이 실제 마지막 확인 시각이다.
+        print(f"[disclosure_research] 만들지 않음 — {ex}. 이전 산출물 유지")
+        return 3
+    write_all(blobs, OUT_DIR)
     c = docs["contract"]
     for f in c["files"]:
         print(f"[disclosure_research] {f['kind']}: {f['companies']}사 · {f['bytes']:,}B · {f['recordId']}")
-    print(f"[disclosure_research] asOf {c['asOf']} · generatedAt {c['generatedAt']} · 추적 {len(c['companyNames'])}사")
+    latest = c["inputs"]["list"]["latestRun"]
+    print(f"[disclosure_research] asOf {c['asOf']} · generatedAt(끝까지 확인) {c['generatedAt']} · builtAt {c['builtAt']}"
+          f" · 이번 목록 수집 {latest.get('state')} · 추적 {len(c['companyNames'])}사")
     return 0
 
 

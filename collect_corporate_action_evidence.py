@@ -28,7 +28,9 @@ import datetime
 import hashlib
 import json
 import os
+import signal
 import sys
+import time
 
 import corporate_action_classify as classify
 import disclosure_scope as comparison
@@ -47,8 +49,51 @@ IDENTITY_BASIS = 'corp_code_map'
 BACKFILL_DAYS = 365
 #: 증거 유효시간(시간). 지나면 Private 이 EVIDENCE_EXPIRED 로 닫는다.
 EVIDENCE_TTL_HOURS = 20
-#: 이만큼 종목을 볼 때마다 일일 원장을 중간 저장한다(요청 약 230건 · 4~5분어치). 죽은 run 의 사용량이 통째로 사라지지 않게.
-CHECKPOINT_EVERY = 200
+#: 이만큼 종목을 볼 때마다 일일 원장을 중간 저장한다. 죽은 run 의 사용량이 통째로 사라지지 않게.
+#: 2026-09-29: 200 → 10. 60분 시간초과로 강제 종료된 회차는 마지막 저장 뒤 약 4분어치(9/29 01:49Z run) 사용량이 빠졌다.
+LEDGER_CHECKPOINT_EVERY = 10
+#: 이만큼 종목을 볼 때마다 증거·커서를 중간 저장한다(2026-09-29 신설, 요청 약 110건 · 3분어치).
+#: 예전에는 끝에서만 써서 60분 시간초과로 끊긴 예약 회차(9/28 00:35Z · 16:43Z · 9/29 01:49Z)가 매번 약 1,975건을
+#: 쓰고도 결과 0 이었고, 커서가 그대로라 다음 회차가 같은 자리부터 다시 받았다.
+CHECKPOINT_EVERY = 100
+#: 경과 시간 시계 — 시험이 바꿔 끼운다.
+_clock = time.monotonic
+
+#: 종목별 확인 상태(2026-09-29) — 이번 전체 순회 기준. '미확인'은 '문제 없음'이 아니다.
+CHECKED_FOUND, CHECKED_NONE, CHECK_FAILED, PENDING = 'CHECKED_FOUND', 'CHECKED_NONE', 'CHECK_FAILED', 'PENDING'
+TICKER_STATE_LABEL = {CHECKED_FOUND: '확인 완료 · 관련 공시 있음', CHECKED_NONE: '확인 완료 · 해당 사항 없음',
+                      CHECK_FAILED: '확인 실패 · 다음 순회에서 다시', PENDING: '확인 대기 · 전체 순회 진행 중'}
+
+
+def ticker_state(record, cycle_started):
+    """이번 전체 순회에서 이 종목을 어떻게 봤나. 순회 시작 전 기록은 '확인 대기'다(예전 확인을 이번 확인으로 치지 않는다)."""
+    record = record if isinstance(record, dict) else {}
+    queried = str(record.get('queriedAt') or '')
+    if not cycle_started or not queried or queried < cycle_started:
+        return PENDING
+    if not record.get('ok'):
+        return CHECK_FAILED
+    return CHECKED_FOUND if record.get('findings') else CHECKED_NONE
+
+
+def cycle_status(order, evidence, previous_cycle, now_iso):
+    """전체 순회(2,600종목 한 바퀴) 진행 상태 — 한 바퀴가 여러 회차에 걸리는 것을 정직하게 적는다.
+
+    startedAt 은 순회 시작 회차의 시각, verified 는 이번 순회에서 확인을 마친 종목 수(부분 순회를 전체 확인처럼 쓰지 않는다).
+    대상 전부를 이번 순회에서 시도했으면 lastCompletedAt 을 적고 다음 회차에 새 순회를 시작한다.
+    """
+    previous_cycle = previous_cycle if isinstance(previous_cycle, dict) else {}
+    started = previous_cycle.get('startedAt') or now_iso
+    states = [ticker_state(evidence.get(t), started) for t in order]
+    attempted = sum(1 for s in states if s != PENDING)
+    verified = sum(1 for s in states if s in (CHECKED_FOUND, CHECKED_NONE))
+    complete = bool(order) and attempted == len(order)
+    return {'universe': len(order), 'startedAt': None if complete else started,
+            'completedStartedAt': started if complete else None,
+            'attempted': attempted, 'verified': verified,
+            'progressPct': round(100 * verified / len(order)) if order else 0,
+            'lastCompletedAt': now_iso if complete else previous_cycle.get('lastCompletedAt'),
+            'resumesNextRun': not complete}
 #: 기준가격·주식수·상장상태에 영향을 주는 공시 제목 낱말. 현금배당은 주식 수를 바꾸지 않아 뺀다.
 RELEVANT_TERMS = ('합병', '분할', '감자', '액면', '무상증자', '유상증자', '권리락',
                   '주식교환', '주식이전', '공개매수', '주식배당', '상장폐지', '거래정지')
@@ -194,6 +239,9 @@ def main(argv=None):
     parser.add_argument('--tickers-file', default=None,
                         help='채점 대상 중심 모드: 이 파일의 종목(한 줄 하나)만 본다. 커서를 건드리지 않는다. '
                              '파일이 비어 있으면 0종목을 처리한 것으로 적는다(전체 순회로 되돌아가지 않는다).')
+    parser.add_argument('--max-minutes', type=float, default=None,
+                        help='이번 회차 시간 상한(분). 넘으면 다음 종목을 시작하지 않고 진행분·커서를 저장한 뒤 멈춘다 '
+                             '(다음 회차가 커서부터 잇는다). 한 단계가 작업 시간을 다 써서 뒤의 필수 단계를 막지 않게 한다.')
     args = parser.parse_args(argv)
 
     daily = dart_budget.DailyBudget(BUDGET_FILE)
@@ -206,12 +254,28 @@ def main(argv=None):
                           'deferrableCutoff': dart_budget.deferrable_cutoff(),
                           'deferrableReserve': dart_budget.DEFERRABLE_RESERVE}))
         return 2
+    # 작업 취소(SIGTERM)도 정상 종료처럼 finally 를 거치게 한다 — 받은 증거·커서와 실제 사용량을 남긴다.
+    previous_handler = signal.signal(signal.SIGTERM, _stop_on_signal)
     try:
         return _collect(args, daily)
     finally:
+        signal.signal(signal.SIGTERM, previous_handler)
         # Mapping, failed requests and every page count toward the same existing
         # account budget used by the disclosure/financial collectors.
         daily.save()
+
+
+def _stop_on_signal(signum, frame):
+    raise SystemExit(128 + signum)
+
+
+def _write(payload):
+    """증거 파일을 통째로 바꿔 쓴다(쓰다 끊겨도 반쪽 파일이 남지 않게)."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    tmp = OUT_FILE + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as handle:
+        json.dump(payload, handle, ensure_ascii=False, indent=1, sort_keys=True)
+    os.replace(tmp, OUT_FILE)
 
 
 def _collect(args, daily):
@@ -260,43 +324,60 @@ def _collect(args, daily):
     evidence = dict(previous.get('evidence') or {})
     done = []
     attempted = []
-    reserve_reached = False
-    for ticker in todo:
-        attempted.append(ticker)
-        record = collect_one(client, ticker, mapped[ticker]['corp_code'], bgn_de, end_de, budget)
-        evidence[ticker] = record
-        if record['ok']:
-            done.append(ticker)
-        # 중간 저장 — run 이 도중에 죽어도(60분 시간초과 취소 등, 2026-09-22 run 35732956954) 쓴 만큼은 원장에 남는다.
-        # save() 는 증가분만 더하고 회차는 프로세스당 한 번만 세므로 몇 번을 저장해도 두 번 더해지지 않는다.
-        if len(attempted) % CHECKPOINT_EVERY == 0:
-            daily.save()
-        # 대기 가능한 작업이다 — 몫(재무가 끊기기 전 여유)에 닿으면 **여기서 멈춘다.** 예전에는 daily.allow('list')
-        # (필수 경로 기준)만 봐서 몫에 닿은 뒤에도 남은 종목 전부를 돌며 기존의 멀쩡한 증거를 DART_BUDGET_EXCEEDED
-        # 실패 기록으로 덮어썼다(2026-09-23 발견). 남은 종목은 손대지 않고 notProcessed 로 센다.
-        if not daily.allow_for_deferrable('list'):
-            reserve_reached = True
-            break
-        if budget['left'] <= 0:
-            break
-
-    os.makedirs(OUT_DIR, exist_ok=True)
+    stopped = None
     # 파일 모드에서는 커서를 옮기지 않는다 — 전체 순회의 진행 위치는 그 모드의 것이다.
     rotation = target['mode'] == due_targets.MODE_ROTATION
-    payload = {'contractVersion': CONTRACT_VERSION, 'generatedAt': now.isoformat(),
-               'window': {'from': bgn_de, 'to': end_de,
-                          'days': (korean_now.date() - (now - datetime.timedelta(days=args.days)).date()).days},
-               'cursor': (done[-1] if done else cursor) if rotation else cursor,
-               'universeMapped': len(mapped), 'attempted': len(todo), 'succeeded': len(done),
-               'requestsUsed': args.requests - budget['left'],
-               'targetMode': target['mode'],
-               'targetRequested': target['requested'],
-               'notInUniverse': len(target['notInUniverse']),
-               'efficiency': client.efficiency_report(), 'evidence': evidence}
-    with open(OUT_FILE, 'w', encoding='utf-8') as handle:
-        json.dump(payload, handle, ensure_ascii=False, indent=1, sort_keys=True)
-    summary = {k: payload[k] for k in ('attempted', 'succeeded', 'requestsUsed', 'universeMapped',
-                                       'targetMode', 'targetRequested', 'notInUniverse')}
+    deadline = _clock() + args.max_minutes * 60 if args.max_minutes else None
+
+    def payload():
+        return {'contractVersion': CONTRACT_VERSION, 'generatedAt': now.isoformat(),
+                'window': {'from': bgn_de, 'to': end_de,
+                           'days': (korean_now.date() - (now - datetime.timedelta(days=args.days)).date()).days},
+                'cursor': (done[-1] if done else cursor) if rotation else cursor,
+                'universeMapped': len(mapped), 'attempted': len(todo), 'succeeded': len(done),
+                'requestsUsed': args.requests - budget['left'],
+                'targetMode': target['mode'],
+                'targetRequested': target['requested'],
+                'notInUniverse': len(target['notInUniverse']),
+                # 이번 회차가 대상 전부를 받았는가 · 아니면 왜 멈췄나(2026-09-29). 부분 수집을 전체 갱신처럼 보이게 하지 않는다.
+                'runComplete': bool(todo) and len(done) == len(todo), 'stoppedBy': stopped,
+                # 전체 순회 진행(여러 회차에 걸친 한 바퀴). 파일 모드는 순회를 건드리지 않는다.
+                'cycle': cycle_status(order, evidence, previous.get('cycle'), now.isoformat()) if rotation else previous.get('cycle'),
+                'efficiency': client.efficiency_report(), 'evidence': evidence}
+
+    try:
+        for ticker in todo:
+            # 시간 상한 — 다음 종목을 시작하지 않는다(받던 종목은 끝까지 받는다). 남은 종목은 다음 회차가 커서부터 잇는다.
+            if deadline is not None and _clock() >= deadline:
+                stopped = 'deadline_reached'
+                break
+            attempted.append(ticker)
+            record = collect_one(client, ticker, mapped[ticker]['corp_code'], bgn_de, end_de, budget)
+            evidence[ticker] = record
+            if record['ok']:
+                done.append(ticker)
+            # 중간 저장 — run 이 도중에 죽어도(60분 시간초과 취소 등, 2026-09-22 run 35732956954) 쓴 만큼은 원장에 남는다.
+            # save() 는 증가분만 더하고 회차는 프로세스당 한 번만 세므로 몇 번을 저장해도 두 번 더해지지 않는다.
+            if len(attempted) % LEDGER_CHECKPOINT_EVERY == 0:
+                daily.save()
+            # 증거·커서도 중간 저장한다 — 끊긴 회차의 결과가 통째로 사라지고 다음 회차가 같은 자리부터 다시 받지 않게.
+            if len(attempted) % CHECKPOINT_EVERY == 0:
+                _write(payload())
+            # 대기 가능한 작업이다 — 몫(재무가 끊기기 전 여유)에 닿으면 **여기서 멈춘다.** 예전에는 daily.allow('list')
+            # (필수 경로 기준)만 봐서 몫에 닿은 뒤에도 남은 종목 전부를 돌며 기존의 멀쩡한 증거를 DART_BUDGET_EXCEEDED
+            # 실패 기록으로 덮어썼다(2026-09-23 발견). 남은 종목은 손대지 않고 notProcessed 로 센다.
+            left_over = len(attempted) < len(todo)
+            if not daily.allow_for_deferrable('list'):
+                stopped = 'daily_reserve_reached' if left_over else None
+                break
+            if budget['left'] <= 0:
+                stopped = 'request_limit_reached' if left_over else None
+                break
+    finally:
+        # 정상 종료·시간 상한·취소(SIGTERM) 어느 경우든 받은 만큼과 커서를 남긴다.
+        _write(payload())
+    summary = {k: payload()[k] for k in ('attempted', 'succeeded', 'requestsUsed', 'universeMapped',
+                                         'targetMode', 'targetRequested', 'notInUniverse', 'stoppedBy')}
     summary['withDocuments'] = sum(1 for t in done if evidence[t]['findings'])
     summary['withOpenEvent'] = sum(1 for t in done if evidence[t]['unresolvedHistorical'])
     summary['subsidiaryOnly'] = sum(1 for t in done if evidence[t]['findings']
@@ -306,7 +387,8 @@ def _collect(args, daily):
     # 실제로 시도한 것만 분모로 쓰고, 못 댄 것은 notProcessed 로 따로 남긴다.
     summary['failed'] = len(attempted) - len(done)
     summary['notProcessed'] = len(todo) - len(attempted)
-    summary['notProcessedReason'] = ((('daily_reserve_reached' if reserve_reached else 'budget_exhausted_before_attempt'))
+    summary['notProcessedReason'] = ((stopped if stopped in ('daily_reserve_reached', 'deadline_reached')
+                                      else 'budget_exhausted_before_attempt')
                                      if len(todo) > len(attempted) else None)
     print(json.dumps(summary, ensure_ascii=False))
     if args.require_complete and (not order or len(done) != len(order) or len(done) != len(todo)):

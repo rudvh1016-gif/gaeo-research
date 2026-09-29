@@ -62,7 +62,20 @@ def _fixture(root):
         }}, f)
     with open(os.path.join(fin, '000660.json'), 'w', encoding='utf-8') as f:
         json.dump({'ticker': '000660', 'years': {'2025': {'status': 'NO_DATA', 'checkedAt': 'x'}}}, f)
+    _status(root, finished='2026-09-23T13:50:00+00:00', window=('2026-09-22', '2026-09-23'))
     return root
+
+
+def _status(root, finished=None, window=None, state='NO_OFFICIAL_EVENT_DETECTED', status='OK', last=Ellipsis):
+    """collect_dart.py 가 남기는 collection_status.json 모양. last 를 주면 lastComplete 칸을 그대로 쓴다."""
+    doc = {'ranAt': finished, 'status': status, 'eventState': state, 'finishedAt': finished,
+           'queryWindow': {'start': window[0], 'end': window[1]} if window else None}
+    if last is not Ellipsis:
+        doc['lastComplete'] = last
+    os.makedirs(os.path.join(root, 'dart'), exist_ok=True)
+    with open(os.path.join(root, 'dart', 'collection_status.json'), 'w', encoding='utf-8') as f:
+        json.dump(doc, f)
+    return os.path.join(root, 'dart', 'collection_status.json')
 
 
 class Builder(unittest.TestCase):
@@ -75,7 +88,8 @@ class Builder(unittest.TestCase):
             universe=UNIVERSE, vocab=B.load_vocab(), as_of='2026-09-23',
             now=dt.datetime(2026, 9, 23, 14, 0, tzinfo=dt.timezone.utc),
             fin_dir=os.path.join(self.tmp, 'fin'), seen_path=os.path.join(self.tmp, 'dart', 'seen_rcept.json'),
-            evidence_path=os.path.join(self.tmp, 'evidence.json'))
+            evidence_path=os.path.join(self.tmp, 'evidence.json'),
+            status_path=os.path.join(self.tmp, 'dart', 'collection_status.json'))
 
     def test_계약_파일의_sha_와_recordId_가_실제_파일과_맞는다(self):
         c = self.docs['contract']
@@ -162,6 +176,113 @@ class Builder(unittest.TestCase):
                 self.assertNotIn(phrase, text, (kind, phrase))
             keys = set(re.findall(r'"([A-Za-z][A-Za-z0-9_]*)"\s*:', text))
             self.assertEqual(keys & FORBIDDEN_KEYS, set(), kind)
+
+
+class HonestFreshness(unittest.TestCase):
+    """2026-09-29 — 오래된 입력을 새 자료처럼 찍지 않는다.
+
+    9/26 10:14Z 계약은 실제로는 9/25 15:41Z 에 끝난 공시 목록 확인을 다시 빌드만 한 것이었다. 소비자(GAEO Private)는
+    generatedAt 으로 48시간 신선도를 재므로, 빌드 시각을 찍으면 수집이 멈춰도 '신선'으로 통과한다.
+    """
+    import datetime as dt
+    CHECKED = '2026-09-25T15:41:33.305198+00:00'
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp, True)
+        _fixture(self.tmp)
+
+    def build(self, now, status_path=None):
+        return B.build_all(universe=UNIVERSE, vocab=B.load_vocab(), now=now,
+                           fin_dir=os.path.join(self.tmp, 'fin'), seen_path=os.path.join(self.tmp, 'dart', 'seen_rcept.json'),
+                           evidence_path=os.path.join(self.tmp, 'evidence.json'),
+                           status_path=status_path or os.path.join(self.tmp, 'dart', 'collection_status.json'))
+
+    def test_generatedAt_은_빌드_시각이_아니라_끝까지_확인한_시각이다(self):
+        _status(self.tmp, finished=self.CHECKED, window=('2026-09-25', '2026-09-26'))
+        now = self.dt.datetime(2026, 9, 29, 2, 0, tzinfo=self.dt.timezone.utc)
+        docs, blobs = self.build(now)
+        c = docs['contract']
+        self.assertEqual(c['generatedAt'], '2026-09-25T15:41:33Z')
+        self.assertEqual(c['asOf'], '2026-09-26')                     # 확인한 조회의 끝날 — 빌드한 날이 아니다
+        self.assertEqual(c['builtAt'], '2026-09-29T02:00:00Z')
+        self.assertEqual(c['inputs']['list']['window'], {'from': '2026-09-25', 'to': '2026-09-26'})
+        for f in c['files']:
+            self.assertEqual(f['generatedAt'], c['generatedAt'])
+            self.assertEqual(docs[f['kind']]['generatedAt'], c['generatedAt'])
+        # 소비자의 48시간 신선도 잣대로 재면 오래된 자료다 — 다시 빌드했다고 통과하지 않는다.
+        age = now - self.dt.datetime.fromisoformat(c['generatedAt'].replace('Z', '+00:00'))
+        self.assertGreater(age, self.dt.timedelta(hours=48))
+
+    def test_새로_확인하지_않고_다시_빌드하면_시각도_내용도_그대로다(self):
+        _status(self.tmp, finished=self.CHECKED, window=('2026-09-25', '2026-09-26'))
+        a_docs, a_blobs = self.build(self.dt.datetime(2026, 9, 27, 0, 0, tzinfo=self.dt.timezone.utc))
+        b_docs, b_blobs = self.build(self.dt.datetime(2026, 9, 29, 9, 0, tzinfo=self.dt.timezone.utc))
+        self.assertEqual(a_docs['contract']['generatedAt'], b_docs['contract']['generatedAt'])
+        for kind in B.KINDS:
+            self.assertEqual(a_blobs[kind], b_blobs[kind], kind)
+        self.assertNotEqual(a_docs['contract']['builtAt'], b_docs['contract']['builtAt'])
+
+    def test_끝까지_확인한_기록이_없으면_만들지_않고_이전_파일을_둔다(self):
+        path = _status(self.tmp, finished='2026-09-29T00:00:00+00:00', window=('2026-09-28', '2026-09-29'),
+                       state='EVENT_DATA_ERROR', status='EVENT_DATA_ERROR')
+        with self.assertRaises(B.NoCompleteListCheck):
+            self.build(self.dt.datetime(2026, 9, 29, 1, 0, tzinfo=self.dt.timezone.utc), path)
+        out = os.path.join(self.tmp, 'out')
+        os.makedirs(out)
+        with open(os.path.join(out, 'contract.json'), 'w', encoding='utf-8') as f:
+            f.write('{"generatedAt": "old"}')
+        from unittest import mock
+        import io
+        with mock.patch.object(B, 'STATUS_PATH', path), mock.patch.object(B, 'OUT_DIR', out), \
+             mock.patch('sys.stdout', new=io.StringIO()):
+            self.assertEqual(B.main(), 3)
+        with open(os.path.join(out, 'contract.json'), encoding='utf-8') as f:
+            self.assertEqual(f.read(), '{"generatedAt": "old"}')
+
+    def test_이번_회차가_부분_수집이면_시각이_나아가지_않고_그_사실이_보인다(self):
+        last = {'finishedAt': self.CHECKED, 'windowStart': '2026-09-25', 'windowEnd': '2026-09-26'}
+        _status(self.tmp, finished='2026-09-29T00:05:00+00:00', window=('2026-09-26', '2026-09-29'),
+                state='EVENT_COVERAGE_INCOMPLETE', last=last)
+        docs, _ = self.build(self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc))
+        c = docs['contract']
+        self.assertEqual(c['generatedAt'], '2026-09-25T15:41:33Z')
+        self.assertEqual(c['inputs']['list']['latestRun'],
+                         {'ranAt': '2026-09-29T00:05:00+00:00', 'state': 'EVENT_COVERAGE_INCOMPLETE', 'complete': False})
+
+    def test_끝까지_조회했고_새_공시가_없었으면_그것도_확인이다(self):
+        last = {'finishedAt': '2026-09-29T00:05:00+00:00', 'windowStart': '2026-09-26', 'windowEnd': '2026-09-29'}
+        _status(self.tmp, finished='2026-09-29T00:05:00+00:00', window=('2026-09-26', '2026-09-29'), last=last)
+        docs, _ = self.build(self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc))
+        c = docs['contract']
+        self.assertEqual((c['generatedAt'], c['asOf']), ('2026-09-29T00:05:00Z', '2026-09-29'))
+        self.assertEqual(c['inputs']['list']['latestRun']['state'], 'NO_OFFICIAL_EVENT_DETECTED')
+        self.assertTrue(c['inputs']['list']['latestRun']['complete'])
+
+
+class CatchUpFreshness(unittest.TestCase):
+    """2026-09-29 — 따라잡는 중(오래된 날부터 14일씩)에는 오늘 확인했어도 공시 연구가 신선해 보이면 안 된다."""
+    import datetime as dt
+
+    def test_따라잡는_중에는_generatedAt_이_끝까지_본_날_다음_날_0시다(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, True)
+        _fixture(tmp)
+        last = {"finishedAt": "2026-09-29T00:05:00+00:00", "windowStart": "2026-09-01", "windowEnd": "2026-09-14",
+                "coveredUntil": "2026-09-14T15:00:00+00:00"}
+        path = _status(tmp, finished="2026-09-29T00:05:00+00:00", window=("2026-09-01", "2026-09-14"), last=last)
+        with open(path, encoding="utf-8") as f:
+            doc = json.load(f)
+        doc["catchUp"] = {"state": "CATCHUP_IN_PROGRESS", "behindDays": 15, "today": "2026-09-29"}
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(doc, f)
+        docs, _ = B.build_all(universe=UNIVERSE, vocab=B.load_vocab(), now=self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc),
+                              fin_dir=os.path.join(tmp, 'fin'), seen_path=os.path.join(tmp, 'dart', 'seen_rcept.json'),
+                              evidence_path=os.path.join(tmp, 'evidence.json'), status_path=path)
+        c = docs['contract']
+        self.assertEqual((c['generatedAt'], c['asOf']), ('2026-09-14T15:00:00Z', '2026-09-14'))
+        self.assertEqual(c['inputs']['list']['catchUp']['state'], 'CATCHUP_IN_PROGRESS')   # 장애가 아니라 복구 진행
+        self.assertEqual(c['inputs']['list']['checkedAt'], '2026-09-29T00:05:00+00:00')    # 확인한 시각은 따로 남는다
 
 
 class RealOutputs(unittest.TestCase):

@@ -510,5 +510,199 @@ class ReserveReachedMidRunKeepsUntouchedEvidence(unittest.TestCase):
         self.assertEqual(summary['notProcessedReason'], 'daily_reserve_reached')
 
 
+class TimeBoundedResumableRun(unittest.TestCase):
+    """2026-09-29 — 예약 회차 세 번(9/28 00:35Z · 16:43Z · 9/29 01:49Z)이 2,600종목을 한 번에 받으려다 60분 시간초과로
+    취소됐다. 증거·커서는 끝에서만 써서 회차마다 약 1,975건을 쓰고도 결과 0 이었고, 다음 회차가 같은 자리부터 다시 받았다.
+    이제: 시간 상한에서 스스로 멈추고, 중간 저장하고, 취소돼도 받은 만큼과 실제 사용량을 남기고, 다음 회차가 커서부터 잇는다.
+    """
+    TICKERS = ['000010', '000020', '000030', '000040', '000050']
+
+    def setUp(self):
+        import tempfile, os, json
+        import dart_budget
+        self.root = tempfile.mkdtemp()
+        self.addCleanup(__import__('shutil').rmtree, self.root, True)
+        self.budget_path = os.path.join(self.root, 'budget.json')
+        dart_budget.DailyBudget(self.budget_path).save()
+        os.makedirs(os.path.join(self.root, 'config'))
+        with open(os.path.join(self.root, collector.UNIVERSE_FILE), 'w') as handle:
+            json.dump({'codes': list(self.TICKERS)}, handle)
+
+    def client(self, fail_on_call=None):
+        """부른 회사(corp_code)를 순서대로 적는 가짜. fail_on_call 번째 요청에서 작업 취소(SIGTERM → SystemExit)를 흉내 낸다."""
+        client = FakeClient([{'status': dart_client.OK, 'noData': True, 'data': {'status': '013'}}])
+        client.queried = []
+        original = client.list_issuer_filings
+
+        def list_issuer_filings(corp_code, bgn_de, end_de, page_no=1, **kw):
+            if fail_on_call is not None and client.calls + 1 == fail_on_call:
+                client.calls += 1
+                raise SystemExit(143)
+            client.queried.append(corp_code)
+            return original(corp_code, bgn_de, end_de, page_no=page_no, **kw)
+        client.list_issuer_filings = list_issuer_filings
+        client.corp_code_zip = lambda: {'status': dart_client.OK, 'data': b''}
+        client.efficiency_report = lambda: {}
+        return client
+
+    def run_main(self, client, args, clock=None, checkpoint=None):
+        import os, io, json, datetime
+        from unittest import mock
+        mapped = {t: {'corp_code': f'C{t}'} for t in self.TICKERS}
+        when = datetime.datetime(2026, 9, 29, 1, 49, tzinfo=datetime.timezone.utc)
+        writes = []
+        real_write = collector._write
+
+        def spy(payload):
+            writes.append((payload['succeeded'], payload['cursor'], payload['stoppedBy']))
+            real_write(payload)
+        old = os.getcwd()
+        os.chdir(self.root)
+        try:
+            patches = [mock.patch.object(collector, 'BUDGET_FILE', self.budget_path),
+                       mock.patch.object(collector.dart_client, 'DartClient', return_value=client),
+                       mock.patch.object(collector.dart_pipeline, 'parse_corp_code_zip', lambda data: []),
+                       mock.patch.object(collector.dart_pipeline, 'build_corp_map', lambda rows, uni: {'mapped': mapped}),
+                       mock.patch.object(collector, '_today', return_value=when),
+                       mock.patch.object(collector, '_write', spy),
+                       mock.patch('sys.stdout', new=io.StringIO())]
+            if clock is not None:
+                patches.append(mock.patch.object(collector, '_clock', clock))
+            if checkpoint is not None:
+                patches.append(mock.patch.object(collector, 'CHECKPOINT_EVERY', checkpoint))
+            for p in patches:
+                p.start()
+            try:
+                try:
+                    code = collector.main(args)
+                except SystemExit as ex:
+                    code = ('exit', ex.code)
+            finally:
+                for p in reversed(patches):
+                    p.stop()
+            with open(collector.OUT_FILE, encoding='utf-8') as handle:
+                saved = json.load(handle)
+            with open(self.budget_path, encoding='utf-8') as handle:
+                spent = json.load(handle)['counts']
+        finally:
+            os.chdir(old)
+        return code, saved, spent, writes
+
+    def test_시간_상한에서_다음_종목을_시작하지_않고_진행분과_커서를_남긴다(self):
+        client = self.client()
+        # 요청 한 건 = 1분인 가짜 시계. 상한 2.5분 → 세 종목(0·1·2분에 시작)까지, 네 번째(3분)는 시작하지 않는다.
+        code, saved, spent, writes = self.run_main(client, ['--tickers', '4000', '--requests', '5200', '--max-minutes', '2.5'],
+                                                   clock=lambda: client.calls * 60.0)
+        self.assertEqual(code, 0, '시간 상한 멈춤은 오류가 아니다 — 다음 회차가 잇는다')
+        self.assertEqual(client.queried, ['C000010', 'C000020', 'C000030'])
+        self.assertEqual((saved['succeeded'], saved['cursor'], saved['stoppedBy'], saved['runComplete']),
+                         (3, '000030', 'deadline_reached', False))
+        self.assertTrue(all(saved['evidence'][t]['ok'] for t in self.TICKERS[:3]))
+        self.assertNotIn('000040', saved['evidence'], '시작하지 않은 종목을 실패로 적지 않는다')
+        self.assertEqual((spent['mapping'], spent['list']), (1, 3))
+
+    def test_다음_회차는_남긴_커서_다음부터_잇는다(self):
+        first = self.client()
+        self.run_main(first, ['--tickers', '4000', '--requests', '5200', '--max-minutes', '2.5'],
+                      clock=lambda: first.calls * 60.0)
+        second = self.client()
+        code, saved, spent, _ = self.run_main(second, ['--tickers', '2', '--requests', '5200'])
+        self.assertEqual(code, 0)
+        self.assertEqual(second.queried, ['C000040', 'C000050'], '이미 받은 종목을 처음부터 다시 받지 않는다')
+        self.assertEqual(saved['cursor'], '000050')
+        self.assertEqual(len([t for t in self.TICKERS if saved['evidence'].get(t, {}).get('ok')]), 5)
+        self.assertEqual(spent['list'], 5, '두 회차 사용량이 모두 원장에 남는다')
+
+    def test_취소돼도_받은_증거와_커서_실제_사용량이_남는다(self):
+        client = self.client(fail_on_call=4)
+        code, saved, spent, writes = self.run_main(client, ['--tickers', '4000', '--requests', '5200'])
+        self.assertEqual(code, ('exit', 143))
+        self.assertEqual((saved['succeeded'], saved['cursor'], saved['runComplete']), (3, '000030', False))
+        self.assertNotIn('000040', saved['evidence'], '받다 끊긴 종목을 성공이나 0건으로 적지 않는다')
+        self.assertEqual(spent['list'], 4, '끊긴 요청도 이미 쓴 요청이다 — 원장에서 빠지지 않는다')
+
+    def test_중간_저장은_정해진_종목_수마다_일어난다(self):
+        client = self.client()
+        code, saved, spent, writes = self.run_main(client, ['--tickers', '4000', '--requests', '5200'], checkpoint=2)
+        self.assertEqual(code, 0)
+        self.assertEqual(writes, [(2, '000020', None), (4, '000040', None), (5, '000050', None)])
+        self.assertTrue(saved['runComplete'])
+
+    def test_작업_취소_신호는_정상_종료_경로를_탄다(self):
+        import signal
+        with self.assertRaises(SystemExit) as caught:
+            collector._stop_on_signal(signal.SIGTERM, None)
+        self.assertEqual(caught.exception.code, 128 + signal.SIGTERM)
+
+
+class CycleProgress(TimeBoundedResumableRun):
+    """2026-09-29 — 한 바퀴(전체 종목)가 여러 회차에 걸리는 것을 정직하게 적는다. '미확인'은 '문제 없음'이 아니다."""
+
+    def test_한_바퀴의_진행률과_끝난_시각을_회차마다_이어_적는다(self):
+        first = self.client()
+        code, saved, _, _ = self.run_main(first, ['--tickers', '4000', '--requests', '5200', '--max-minutes', '2.5'],
+                                          clock=lambda: first.calls * 60.0)
+        c = saved['cycle']
+        self.assertEqual((c['universe'], c['attempted'], c['verified'], c['progressPct']), (5, 3, 3, 60))
+        self.assertTrue(c['resumesNextRun'])
+        self.assertIsNone(c['lastCompletedAt'], '아직 한 바퀴를 끝낸 적이 없다')
+        started = c['startedAt']
+        second = self.client()
+        code, saved, _, _ = self.run_main(second, ['--tickers', '4000', '--requests', '5200'])
+        c = saved['cycle']
+        self.assertEqual((c['attempted'], c['verified'], c['progressPct'], c['resumesNextRun']), (5, 5, 100, False))
+        self.assertEqual(c['completedStartedAt'], started, '같은 순회를 이어서 끝냈다')
+        self.assertIsNotNone(c['lastCompletedAt'])
+        self.assertIsNone(c['startedAt'], '다음 회차에 새 순회를 시작한다')
+
+    def test_종목별_상태는_이번_순회_기준으로_가른다(self):
+        started = '2026-09-29T00:00:00+00:00'
+        old = {'ok': True, 'findings': [], 'queriedAt': '2026-09-25T00:00:00+00:00'}
+        self.assertEqual(collector.ticker_state(old, started), collector.PENDING, '예전 확인을 이번 순회 확인으로 치지 않는다')
+        self.assertEqual(collector.ticker_state(dict(old, queriedAt='2026-09-29T01:00:00+00:00'), started), collector.CHECKED_NONE)
+        self.assertEqual(collector.ticker_state(dict(old, queriedAt='2026-09-29T01:00:00+00:00', findings=[{'id': '1'}]), started),
+                         collector.CHECKED_FOUND)
+        self.assertEqual(collector.ticker_state({'ok': False, 'queriedAt': '2026-09-29T01:00:00+00:00'}, started), collector.CHECK_FAILED)
+        self.assertEqual(collector.ticker_state(None, started), collector.PENDING)
+        self.assertEqual(collector.TICKER_STATE_LABEL[collector.PENDING], '확인 대기 · 전체 순회 진행 중')
+
+
+class WorkflowContract(unittest.TestCase):
+    """예약 회차의 단계 계약(2026-09-29). YAML 해석기 없이 글자로 본다(시험은 표준 라이브러리만)."""
+
+    def setUp(self):
+        import os, re
+        here = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(here, '.github', 'workflows', 'corporate-action-evidence.yml'), encoding='utf-8') as handle:
+            self.text = handle.read()
+        self.steps = {}
+        for block in re.split(r'\n      - ', self.text):
+            name = re.match(r'name: (.+)', block)
+            if name:
+                self.steps[name.group(1).strip()] = block
+
+    def step(self, prefix):
+        return next(v for k, v in self.steps.items() if k.startswith(prefix))
+
+    def test_기업행사_단계는_시간_상한이_있고_작업_상한보다_짧다(self):
+        import re
+        job = int(re.search(r'\n    timeout-minutes: (\d+)', self.text).group(1))
+        block = self.step('실제 수집 — 기업행사 증거')
+        stage = int(re.search(r'timeout-minutes: (\d+)', block).group(1))
+        limit = float(re.search(r"--max-minutes (\d+(?:\.\d+)?)", block).group(1))
+        self.assertLess(limit, stage)
+        self.assertLessEqual(stage + 15, job, '뒤의 공시 수집·공시 연구 생성에 시간이 남아야 한다')
+        self.assertNotIn('--require-complete', block, '2,600종목 전부를 한 회차에 요구하면 매번 시간초과다')
+
+    def test_뒤의_공시_수집과_공시_연구_생성은_앞_단계_실패로_건너뛰지_않는다(self):
+        for prefix in ('오늘의 공시 수집', '오늘의 공시 · 공시 연구 산출물 생성'):
+            block = self.step(prefix)
+            self.assertIn("if: ${{ !cancelled() && env.SKIP_COLLECT != '1' }}", block, prefix)
+
+    def test_예약은_하루_두_번_그대로다(self):
+        import re
+        self.assertEqual(re.findall(r'- cron: "([^"]+)"', self.text), ['10 22 * * 0-4', '10 8 * * 1-5'])
+
+
 if __name__ == '__main__':
     unittest.main()
