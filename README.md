@@ -7,6 +7,7 @@
 |---|---|---|
 | 기업 리서치 | 오늘의 공시 · 공시 변화 · 재무 변화 · 사건 흐름 · 회사별 요약(`/company/<코드>/`) | OpenDART(하루 2회 자동) |
 | 공시 사전 | 공시 종류별 쉬운 이름 · 무슨 내용 · 왜 확인 · 원문에서 볼 곳(`/guide/`) | content/disclosure_guide.json(운영자 작성) |
+| 주간 공시 정리 | 한 주 공시를 종류별로 묶고 쉬운 설명(`/weekly/<월요일>/`, 매주 자동) | research_archive/dart/seen_rcept.json(OpenDART 목록) |
 | 과거 정밀분석 | 2026년 7~8월 분석 기록 32건(세척본) | content/past_analysis.json |
 | 종목 공부 · 투자 공부 · 계산기 | 작성 당시 기준 공부 글(`/snap/<묶음>/<번호>.html`) · 브라우저 계산기 | content/*.js |
 
@@ -17,6 +18,7 @@
 - 빌드에는 Node.js 가 필요하다(`tools/content_dump.js` 가 content/*.js 를 브라우저와 같게 실행해 읽는다).
 - 자동 수집: `.github/workflows/corporate-action-evidence.yml` (예약 실행은 저장소 변수 `DART_PRODUCER_ACTIVE=true` 일 때만)
 - 배포: `.github/workflows/pages.yml` — 조립 → 공개 검사 → 배포 → 바뀐 주소만 IndexNow 알림(`tools/indexnow.py`)
+- 방문 통계: 저장소 변수 `GOATCOUNTER_CODE` 가 있을 때만 GoatCounter(쿠키 0)를 붙이고 개인정보처리방침 문단을 함께 바꾼다. 없으면 통계 없음.
 
 ## 검사
 ```

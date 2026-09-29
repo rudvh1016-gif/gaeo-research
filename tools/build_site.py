@@ -13,6 +13,7 @@ GitHub Pages 에 올라가는 것은 이 스크립트가 만든 _site/ **뿐**�
   /snap/{study,lesson,estate,calc}/<id>.html  공부 글 한 편씩 — 옛 사이트가 색인시킨 주소를 그대로 되살린다
   /guide/ · /guide/<key>/                     공시 사전(content/disclosure_guide.json)
   /company/<종목코드>/                         회사별 공시·재무 요약(OpenDART 산출물만)
+  /weekly/ · /weekly/<월요일>/                 주간 공시 정리(수집기 공시 목록 seen_rcept.json · 매주 자동)
   /research/deep-analysis/…  · /past-analysis/ 과거 정밀분석(옛 주소 유지)
   sitemap.xml · rss.xml · robots.txt · llms.txt
 
@@ -57,7 +58,7 @@ FOOTER = ('<footer id="site-foot" class="site-foot"><div class="wrap">'
           '<p>공시 자료 출처: 금융감독원 전자공시시스템(DART) · OpenDART</p>'
           '<p class="foot-links"><a href="/about.html">사이트 소개</a><a href="/disclaimer.html">자료 출처·면책</a>'
           '<a href="/privacy.html">개인정보처리방침</a><a href="/contact.html">문의</a>'
-          '<a href="/snap/index.html">글 전체 목록</a><a href="/rss.xml">RSS</a></p></div></footer>')
+          '<a href="/weekly/">주간 공시 정리</a><a href="/snap/index.html">글 전체 목록</a><a href="/rss.xml">RSS</a></p></div></footer>')
 
 # 공시 종류 → 관련 공부 글(투자 공부 · 주식 · id). 사람이 고른 작은 표다 — 자동 추측으로 글을 잇지 않는다.
 # 표에 없는 종류는 BASIC_LESSONS(DART 공시 보는 법)만 잇는다.
@@ -87,7 +88,7 @@ HOME_EXAMPLES = ('삼성전자', '대한항공')
 SECTIONS = {
     'study': ('STOCK_STUDY', '종목 공부', '/study.html', 'study', {'kr': '국내 기업', 'global': '해외 기업'}),
     'lesson': ('STOCK_LESSONS', '투자 공부', '/learn.html', 'learn',
-               {'beginner': '주식 첫걸음', 'chart': '차트 기초', 'crisis': '경제위기의 역사', 'tax': '세금·절세', 'isa': 'ISA',
+               {'beginner': '주식 첫걸음', 'chart': '차트 기초', 'capitalism': '경제 기초', 'crisis': '경제위기의 역사', 'tax': '세금·절세', 'isa': 'ISA',
                 'product': '투자상품', 'macro': '시장을 움직이는 손', 'industry': '산업 공부', 'etf': 'ETF·연금', 'youth': '청년 돈생활'}),
     'estate': ('ESTATE_LESSONS', '부동산 공부', '/learn.html?t=estate', 'learn',
                {'buy': '내 집 마련', 'rent': '전월세', 'loan': '대출', 'auction': '경매·공매', 'strategy': '투자 접근법', 'tax': '부동산 세금'}),
@@ -201,9 +202,16 @@ def chunks(text, max_sent=2, max_len=90):
     return out
 
 
+def _link(m):
+    text, url = m.group(1), m.group(2)
+    if url.startswith(BASE + '/'):   # 우리 사이트 글끼리는 같은 창·일반 링크(내부 연결)
+        return f'<a href="{url[len(BASE):]}">{text}</a>'
+    return f'<a href="{url}" target="_blank" rel="noopener nofollow">{text}</a>'
+
+
 def inline(s):
     s = e(str(s or ''))
-    s = LINK.sub(r'<a href="\2" target="_blank" rel="noopener nofollow">\1</a>', s)
+    s = LINK.sub(_link, s)
     return re.sub(r'\*\*([^*]+?)\*\*', r'<b>\1</b>', s)
 
 
@@ -427,7 +435,7 @@ def write(out, rel, text):
 
 LOCAL = ('assets/', 'img/', 'content/', 'disclosure_research/', 'dart_today.js', 'disclosure-research.html', 'past-analysis/',
          'research/', 'study.html', 'learn.html', 'calculators.html', 'about.html', 'disclaimer.html', 'privacy.html', 'contact.html',
-         'snap/', 'guide/', 'company/', 'rss.xml')
+         'snap/', 'guide/', 'company/', 'weekly/', 'rss.xml')
 
 
 def rebase(out, base):
@@ -862,8 +870,221 @@ def company_page(code, name, ctx):
     return path, body + TAIL, thin, latest
 
 
+# ── 주간 공시 정리(/weekly/<월요일>/) ─────────────────────────────────────────────
+# 목록 수집(research_archive/dart/seen_rcept.json)이 2026-08-18 에 시작해 그 주는 빈 날이 있다 — 온전히 모은 첫 주부터 만든다.
+WEEKLY_FIRST = '2026-08-24'
+# 사전 항목을 주주 입장에서 알아보기 쉬운 묶음으로 나눈다(중요도 순서가 아니다).
+WEEKLY_GROUPS = [
+    ('주식 수가 바뀌는 공시',
+     '새 주식이 생기거나(증자·전환) 줄거나(감자·소각), 회사가 가진 주식이 시장에 풀리면(자사주 처분) 주식 수나 내 지분 비율이 달라질 수 있어요.',
+     ('rights-offering', 'rights-bonus-issue', 'bonus-issue', 'offering-price', 'offering-result', 'affiliate-rights-participation',
+      'capital-reduction', 'capital-reduction-done', 'stock-split', 'reverse-split', 'convertible-bond', 'conversion-exercise',
+      'conversion-price-reset', 'bond-early-purchase', 'share-cancel', 'buyback-disposal')),
+    ('주주에게 돌려주는 공시',
+     '배당과 자기주식 취득은 회사가 번 돈을 주주에게 돌려주는 대표적인 방법이에요. 결정 공시는 지급·취득이 끝났다는 뜻이 아니에요.',
+     ('cash-dividend', 'stock-dividend', 'ex-dividend', 'buyback', 'buyback-result', 'buyback-trust', 'value-up-plan')),
+    ('회사 모양·주인이 바뀌는 공시',
+     '합병·분할·지분 교환·최대주주 변경은 회사의 모양이나 주인을 바꿀 수 있어요. 결정 뒤 주주총회 같은 절차가 이어져요.',
+     ('merger', 'merger-completion', 'split', 'share-exchange', 'tender-offer', 'asset-transfer', 'major-holder-change', 'share-pledge',
+      'subsidiary-inclusion', 'dissolution')),
+    ('매출·사업과 이어지는 공시',
+     '큰 계약·잠정 실적·시설 투자·다른 회사 지분 거래는 회사 사업의 흐름을 보여 줘요. 계약이나 투자 결정이 곧 성과는 아니에요.',
+     ('supply-contract', 'supply-contract-cancel', 'preliminary-earnings', 'facility-investment', 'equity-acquisition', 'equity-disposal',
+      'affiliate-investment', 'material-event', 'customer-loss', 'business-suspension')),
+    ('거래·상장·분쟁과 관련된 공시',
+     '거래가 멈추거나 상장 유지를 따지는 공시, 소송·제재 공시는 좋다·나쁘다보다 사유와 다음 일정부터 확인해요.',
+     ('trading-halt', 'listing-review', 'embezzlement', 'lawsuit', 'sanction', 'rumor-clarification', 'exchange-inquiry')),
+]
+
+
+def monday_of(day):
+    t = datetime.strptime(str(day)[:10], '%Y-%m-%d')
+    return (t - timedelta(days=t.weekday())).strftime('%Y-%m-%d')
+
+
+def week_label(mon):
+    a = datetime.strptime(mon, '%Y-%m-%d')
+    b = a + timedelta(days=6)
+    return f'{a.month}월 {a.day}일~{b.day}일' if a.month == b.month else f'{a.month}월 {a.day}일~{b.month}월 {b.day}일'
+
+
+def weekly_rows(names):
+    """research_archive/dart/seen_rcept.json(수집기가 본 공시 목록)을 공시 한 줄씩으로. 접수일 = 접수번호 앞 8자리."""
+    with open(os.path.join(ROOT, 'research_archive', 'dart', 'seen_rcept.json'), encoding='utf-8') as f:
+        seen = json.load(f).get('seen') or {}
+    rows = []
+    for rcept, v in seen.items():
+        if not re.fullmatch(r'\d{14}', str(rcept)):
+            continue
+        code, title = str(v.get('ticker') or ''), str(v.get('report_name') or '')
+        rows.append({'code': code, 'name': names.get(code) or code, 'title': title, 'date': f'{rcept[:4]}-{rcept[4:6]}-{rcept[6:8]}',
+                     'rceptNo': rcept, 'url': dart_url(rcept), 'tracked': code in names,
+                     'isCorrection': bool(re.search(r'\[(기재정정|정정|첨부정정|첨부추가)\]', title))})
+    return rows
+
+
+def company_ref(r):
+    name = e(r['name'] or r['code'])
+    return f'<a href="/company/{e(r["code"])}/"><b>{name}</b></a>' if r['tracked'] else f'<b>{name}</b>'
+
+
+def weekly_item(r, g):
+    link = (f'<a href="{e(r["url"])}" target="_blank" rel="noopener">{e(r["title"])}<span aria-hidden="true"> ↗</span></a>'
+            if r['url'] else e(r['title']))
+    chip = '<span class="chip neutral">정정</span>' if r['isCorrection'] else ''
+    plain_ = (f'<br><span class="small">쉬운 이름 · </span><a class="f-plain" href="/guide/{e(g["key"])}/">{e(g["plain"])}</a>'
+              if g['key'] != 'other-general' else '')
+    return f'<li><span class="f-date">{e(r["date"])}</span> {company_ref(r)} {chip}{link}{plain_}</li>'
+
+
+def weekly_page(mon, rows, guide, weeks, as_of, n_tracked, today):
+    label, year = week_label(mon), mon[:4]
+    path = f'/weekly/{mon}/'
+    keyed = [(r, guide.find(r['title']) or guide.by_key['other-general']) for r in rows]
+    counts = {}
+    for _, g in keyed:
+        counts[g['key']] = counts.get(g['key'], 0) + 1
+    top = sorted(((k, n) for k, n in counts.items() if k != 'other-general'), key=lambda kv: (-kv[1], kv[0]))[:8]
+    by_company = {}
+    for r in rows:
+        by_company.setdefault(r['code'], []).append(r)
+    last_day = max(r['date'] for r in rows)
+    sunday = (datetime.strptime(mon, '%Y-%m-%d') + timedelta(days=6)).strftime('%Y-%m-%d')
+    ongoing = mon <= today <= sunday          # 끝난 주인지는 자료 기준일이 아니라 만드는 날(한국 날짜)로 판단한다
+    at = weeks.index(mon)
+    prev_w = weeks[at - 1] if at > 0 else None
+    next_w = weeks[at + 1] if at + 1 < len(weeks) else None
+    names3 = ' · '.join(guide.by_key[k]['name'] for k, _ in top[:3])
+    title = f'{label} 주간 공시 정리'
+    desc = describe(f'{year}년 {label}에 GAEO가 추적하는 회사들이 낸 공시 {len(rows):,}건을 종류별로 묶고 쉬운 설명을 붙였어요. '
+                    f'많이 나온 공시: {names3}. 출처 OpenDART · 매수·매도 추천 아님.')
+    crumbs = [('홈', '/'), ('주간 공시 정리', '/weekly/')]
+    body = head(f'{year}년 {title}', desc, path, page='research',
+                jsonld=[article_ld(f'{year}년 {title}', desc, path, last_day, '주간 공시 정리'), crumbs_ld(crumbs + [(label, path)])])
+    body += crumbs_html(crumbs)
+    body += f'<article class="article weekly"><h1>{e(title)}</h1>'
+    body += f'<p class="meta">{year}년 · GAEO가 추적하는 {n_tracked:,}개 회사 · 공시 접수일 기준 · 출처 금융감독원 OpenDART</p>'
+    if ongoing:
+        body += ('<p class="note">이번 주는 아직 진행 중이에요. 하루 2번 자료가 늘어요'
+                 + (f'(자료 기준일 {e(as_of)})' if as_of else '') + '.</p>')
+    tops3 = ' · '.join(f'{e(guide.by_key[k]["name"])} {n}건' for k, n in top[:3])
+    body += ('<div class="tldr"><p class="tldr-label">한눈에 보기</p>'
+             f'<p>공시 {len(rows):,}건 · 회사 {len(by_company):,}곳</p>'
+             + (f'<p>가장 많이 나온 공시 · {tops3}</p>' if top else '') + '</div>')
+    body += ('<p>GAEO가 이번 주에 모은 공시를 종류별로 묶고, 처음 보는 사람도 읽을 수 있게 쉬운 설명을 붙였어요.</p>'
+             '<p><b>중요도 순서가 아니고, 매수·매도 추천이 아니에요.</b></p>')
+    if top:
+        body += ('<h2>많이 나온 공시 종류</h2><ol class="rank-list">' + ''.join(
+            f'<li><a href="/guide/{e(k)}/"><b>{e(guide.by_key[k]["name"])}</b></a> <span class="meta">{n}건</span><br>'
+            f'<span class="small">쉬운 이름 · {e(guide.by_key[k]["plain"])}</span></li>' for k, n in top) + '</ol>'
+                 '<p class="meta">건수 순서일 뿐이에요. 정기 공시나 금융상품 발행 서류처럼 자주 나오는 종류가 위에 오기 쉬워요.</p>')
+    for gtitle, gexpl, keys in WEEKLY_GROUPS:
+        items = sorted([(r, g) for r, g in keyed if g['key'] in keys], key=lambda x: (x[0]['date'], x[0]['rceptNo']), reverse=True)
+        if not items:
+            continue
+        body += f'<h2>{e(gtitle)} <span class="meta">{len(items)}건</span></h2>' + paras(gexpl)
+        body += '<ul class="filing-list">' + ''.join(weekly_item(r, g) for r, g in items[:12]) + '</ul>'
+        if len(items) > 12:
+            body += f'<p class="meta">이 밖에 {len(items) - 12}건은 회사 쪽이나 기업 리서치에서 볼 수 있어요.</p>'
+    busy = sorted(by_company.items(), key=lambda kv: (-len(kv[1]), kv[0]))[:5]
+    body += ('<h2>공시가 많았던 회사</h2><ul>' + ''.join(f'<li>{company_ref(rs[0])} <span class="meta">{len(rs)}건</span></li>' for _, rs in busy)
+             + '</ul><p class="meta">건수가 많다고 좋거나 나쁜 게 아니에요. 금융상품 발행 서류나 정정 공시가 몰렸을 수도 있어요.</p>')
+    body += ('<h2>처음이라면</h2><p>공시 제목이 어렵다면 <a href="/guide/">공시 사전</a>에서 찾아보세요.</p>'
+             '<p>원문을 읽는 순서는 <a href="/snap/lesson/68.html">DART 공시 보는 법</a>에 정리했어요.</p>')
+    nav = []
+    if prev_w:
+        nav.append(f'<a href="/weekly/{prev_w}/">← 지난주({e(week_label(prev_w))})</a>')
+    nav.append('<a href="/weekly/">전체 주간 정리</a>')
+    if next_w:
+        nav.append(f'<a href="/weekly/{next_w}/">다음 주({e(week_label(next_w))}) →</a>')
+    body += '<p class="week-nav">' + ''.join(nav) + '</p>'
+    body += ('<p class="note">공시 사실을 모아 정리한 공부 자료예요. 특정 회사의 매수·매도를 권하지 않아요. '
+             '정확한 내용은 DART 원문을 기준으로 해 주세요.</p>')
+    body += SHARE + '</article>\n'
+    info = {'mon': mon, 'n': len(rows), 'companies': len(by_company), 'top': [k for k, _ in top[:3]], 'last': last_day}
+    return path, body + TAIL, last_day, info
+
+
+def weekly_index(infos, guide):
+    path = '/weekly/'
+    desc = '한 주 동안 GAEO가 추적하는 회사들이 낸 공시를 종류별로 묶고 쉬운 설명을 붙인 주간 정리 모음. 매수·매도 추천이 아닌 공부 자료예요.'
+    body = head('주간 공시 정리', desc, path, page='research', og_type='website', jsonld=[crumbs_ld([('홈', '/'), ('주간 공시 정리', path)])])
+    body += ('<h1>주간 공시 정리</h1><p class="lede">한 주 동안 나온 공시를 종류별로 묶고 <b>쉬운 설명</b>을 붙였어요. '
+             '새 주 정리는 매주 자동으로 생기고, 이번 주 정리는 하루 2번 늘어요.</p><ul class="list list-card">')
+    for w in reversed(infos):
+        tops = ' · '.join(guide.by_key[k]['name'] for k in w['top'])
+        body += (f'<li><a href="/weekly/{w["mon"]}/"><b>{w["mon"][:4]}년 {e(week_label(w["mon"]))}</b></a> '
+                 f'<span class="meta">공시 {w["n"]:,}건 · 회사 {w["companies"]:,}곳</span>'
+                 + (f'<br><span class="small">많이 나온 공시 · {e(tops)}</span>' if tops else '') + '</li>')
+    body += '</ul><p class="note">공시 사실을 모은 공부 자료예요. 매수·매도 추천이 아니에요.</p>\n'
+    return path, body + TAIL
+
+
+def build_weekly(out, guide, names, as_of):
+    weeks = {}
+    for r in weekly_rows(names):
+        mon = monday_of(r['date'])
+        if mon >= WEEKLY_FIRST:
+            weeks.setdefault(mon, []).append(r)
+    order = sorted(weeks)
+    today = datetime.now(timezone(timedelta(hours=9))).strftime('%Y-%m-%d')
+    infos, entries = [], []
+    for mon in order:
+        path, page, last_day, info = weekly_page(mon, weeks[mon], guide, order, as_of, len(names), today)
+        write(out, path, page)
+        infos.append(info)
+        entries.append((path.lstrip('/'), last_day))
+    if infos:
+        path, page = weekly_index(infos, guide)
+        write(out, path, page)
+        entries.append((path.lstrip('/'), infos[-1]['last']))
+    return infos, entries
+
+
+# ── 방문 통계(소유자 결정 2026-09-28 · 쿠키 0 · IP 미저장) ─────────────────────────
+# 저장소 변수 GOATCOUNTER_CODE 가 있을 때만 붙인다(pages.yml 이 넘긴다). 개인정보처리방침 문단도 같은 값으로 바뀐다.
+GOATCOUNTER_RX = re.compile(r'[a-z0-9][a-z0-9-]{1,48}')
+PRIVACY_OFF = '<p>이 사이트는 광고 코드, 이용 통계(분석 도구), 서비스 워커를 쓰지 않으며 <b>쿠키를 만들지 않습니다.</b></p>'
+PRIVACY_ON = ('<p>광고 코드와 서비스 워커는 쓰지 않고, <b>쿠키를 만들지 않습니다.</b></p>'
+              '<p>어떤 글이 읽히는지 알기 위해 <b>GoatCounter</b>(외부 방문 통계 서비스)를 씁니다. '
+              '<b>쿠키를 쓰지 않고, IP 주소·브라우저 정보 전체·추적용 아이디를 저장하지 않습니다.</b></p>'
+              '<ul><li>남는 것: 방문한 쪽 주소·제목, 들어온 경로(참조 주소), 브라우저·운영체제 종류, 화면 너비, 나라·언어, 방문 시각. '
+              '사람을 알아볼 수 있는 정보(IP 주소·브라우저 정보 전체·쿠키 아이디)는 남지 않습니다.</li>'
+              '<li>같은 사람의 중복 방문을 세려고 IP·브라우저 정보로 만든 임시 연결값을 GoatCounter 메모리에만 최대 8시간 두고, '
+              '저장되는 것은 거기서 만든 무작위 방문 번호뿐입니다(이 번호로 사람을 알아낼 수 없습니다).</li>'
+              '<li>처리하는 곳: GoatCounter(서버 핀란드·독일). 모인 통계는 GAEO 운영자만 봅니다.</li>'
+              '<li>원하지 않으면 브라우저의 추적 차단(광고 차단 확장 등)으로 막을 수 있고, 막아도 사이트는 똑같이 보입니다.</li>'
+              '<li>이 문단은 방문 통계를 켠 날부터 적용됩니다.</li></ul>')
+
+
+def analytics_code():
+    code = os.environ.get('GOATCOUNTER_CODE', '').strip().lower()
+    if code and not GOATCOUNTER_RX.fullmatch(code):
+        raise SystemExit('GOATCOUNTER_CODE 모양이 이상하다(영문 소문자·숫자·- 만)')
+    return code
+
+
+def apply_analytics(out, code):
+    """code 가 있으면 모든 쪽에 GoatCounter 한 줄을 붙이고, 개인정보처리방침 문단을 그에 맞게 채운다."""
+    tag = (f'<script data-goatcounter="https://{code}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>\n'
+           if code else '')
+    for d, _, files in os.walk(out):
+        for f in files:
+            if not f.endswith('.html'):
+                continue
+            path = os.path.join(d, f)
+            with open(path, encoding='utf-8') as fh:
+                text = fh.read()
+            new = text.replace('<!--PRIVACY:STATS-->', PRIVACY_ON if code else PRIVACY_OFF)
+            if tag:
+                new = new.replace('</head>', tag + '</head>', 1)
+            if new != text:
+                with open(path, 'w', encoding='utf-8', newline='\n') as fh:
+                    fh.write(new)
+
+
 # ── 홈 ─────────────────────────────────────────────────────────────────────────
-def home_sections(contract, dart, vocab, study, lessons, guide=None):
+def home_sections(contract, dart, vocab, study, lessons, guide=None, weekly_latest=None):
     """홈 화면 조각. 숫자는 contract.json 의 실제 값만, 설명은 공시 사전(없으면 분류표의 일반적인 읽는 법)만 쓴다."""
     files = {f['kind']: f for f in contract.get('files', [])}
     names = contract.get('companyNames') or {}
@@ -939,7 +1160,9 @@ def home_sections(contract, dart, vocab, study, lessons, guide=None):
     examples = ' · '.join(f'<a class="chip-link" href="/company/{e(by_name[n])}/">{e(n)}</a>'
                           for n in HOME_EXAMPLES if n in by_name)
     options = ''.join(f'<option value="{e(v)}" label="{e(k)}"></option>' for k, v in sorted(names.items()))
-    return {'STATUS': status, 'TODAY': today_note + today, 'STUDY': studies,
+    weekly = (f'<p class="section-more"><a class="btn btn-outline" href="/weekly/{weekly_latest["mon"]}/">'
+              f'주간 공시 정리 · {e(week_label(weekly_latest["mon"]))} 보기</a></p>') if weekly_latest else ''
+    return {'STATUS': status, 'TODAY': today_note + today, 'STUDY': studies, 'WEEKLY': weekly,
             'EXAMPLES': (examples + ' · 종목코드 6자리') if examples else '종목코드 6자리', 'COMPANIES': options}
 
 
@@ -1013,8 +1236,13 @@ def rfc822(day):
     return t.astimezone(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S GMT')
 
 
-def rss_xml(content, dart, company_names, guide, generated_at):
+def rss_xml(content, dart, company_names, guide, generated_at, weekly=()):
     items = []
+    for w in weekly:
+        p = f'/weekly/{w["mon"]}/'
+        tops = ' · '.join(guide.by_key[k]['name'] for k in w['top'])
+        items.append((w['last'], f'{w["mon"][:4]}년 {week_label(w["mon"])} 주간 공시 정리', p, BASE + p, '주간 공시 정리',
+                      f'공시 {w["n"]:,}건 · 회사 {w["companies"]:,}곳을 종류별로 묶고 쉬운 설명을 붙였어요.' + (f' 많이 나온 공시: {tops}.' if tops else '')))
     groups = {}
     for it in dart.get('items') or []:
         if re.fullmatch(r'\d{6}', str(it.get('code') or '')):
@@ -1099,7 +1327,9 @@ def render_generated(out, content):
     names = contract.get('companyNames') or {}
     entries = []
 
-    parts = home_sections(contract, dart, vocab, study, lessons, guide)
+    weekly_infos, weekly_entries = build_weekly(out, guide, names, contract.get('asOf'))
+    entries += weekly_entries
+    parts = home_sections(contract, dart, vocab, study, lessons, guide, weekly_infos[-1] if weekly_infos else None)
     index = os.path.join(out, 'index.html')
     text = open(index, encoding='utf-8').read()
     for key, value in parts.items():
@@ -1163,11 +1393,11 @@ def render_generated(out, content):
             entries.append((path.lstrip('/'), latest or contract.get('asOf')))
 
     with open(os.path.join(out, 'rss.xml'), 'w', encoding='utf-8', newline='\n') as f:
-        f.write(rss_xml(content, dart, names, guide, contract.get('generatedAt')))
+        f.write(rss_xml(content, dart, names, guide, contract.get('generatedAt'), weekly_infos))
     with open(os.path.join(out, 'llms.txt'), 'w', encoding='utf-8', newline='\n') as f:
         f.write(llms_txt(guide, content))
     return {'entries': entries, 'companies': len(summary['companies']), 'indexedCompanies': indexed, 'guides': len(guide.items),
-            'asOf': contract.get('asOf')}
+            'asOf': contract.get('asOf'), 'weeks': len(weekly_infos)}
 
 
 def build(out):
@@ -1202,11 +1432,14 @@ def build(out):
     open(os.path.join(out, '.nojekyll'), 'w').close()
     enrich_heads(out)
     inject_chrome(out)
+    stats = analytics_code()
+    apply_analytics(out, stats)
     base = os.environ.get('BASE_PATH', '').rstrip('/')
     rebased = rebase(out, base)
     files = sum(len(fs) for _, _, fs in os.walk(out))
     print(f'_site 조립 완료 · 파일 {files}개 · 사이트맵 {len(entries)}주소 · 과거 분석 {len(records)}쪽 · 공시 사전 {gen["guides"]}쪽 · '
-          f'회사 {gen["companies"]}곳(색인 {gen["indexedCompanies"]})' + (f' · BASE_PATH {base} ({rebased}파일)' if base else ''))
+          f'회사 {gen["companies"]}곳(색인 {gen["indexedCompanies"]}) · 주간 정리 {gen["weeks"]}주 · 방문 통계 {"켜짐(" + stats + ")" if stats else "꺼짐"}'
+          + (f' · BASE_PATH {base} ({rebased}파일)' if base else ''))
 
 
 if __name__ == '__main__':

@@ -35,6 +35,8 @@ jobs:
         run: python3 tools/build_site.py
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # 방문 통계(GoatCounter · 쿠키 0). 저장소 변수가 비어 있으면 붙이지 않는다.
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
       - name: 배포 전 공개 검사 (실패하면 배포하지 않는다)
         run: python3 tools/public_checks.py --all
       - name: IndexNow 대상 계산 (지금 배포된 sitemap 과 견줘 바뀐 주소만)
