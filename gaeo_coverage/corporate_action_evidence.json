@@ -1,13 +1,23 @@
 {
  "attempted": 40,
  "contractVersion": "corporate-action-evidence-v1",
- "cursor": "009770",
+ "cursor": "011370",
+ "cycle": {
+  "attempted": 40,
+  "completedStartedAt": null,
+  "lastCompletedAt": null,
+  "progressPct": 2,
+  "resumesNextRun": true,
+  "startedAt": "2026-09-29T12:01:17.115183+00:00",
+  "universe": 2600,
+  "verified": 40
+ },
  "efficiency": {
   "api_errors": 0,
-  "bytes_received": 4147332,
+  "bytes_received": 4339881,
   "detail_requests": 0,
   "no_data_responses": 0,
-  "requests_per_run": 44
+  "requests_per_run": 52
  },
  "evidence": {
   "000020": {
@@ -62490,9 +62500,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:38:59.931852+00:00",
+   "expiresAt": "2026-09-30T08:01:17.192832+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -62501,14 +62511,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:38:59.931852+00:00",
+   "queriedAt": "2026-09-29T12:01:17.192832+00:00",
    "responseRef": "sha256:aca5bda917e434bf8cdc11e1646f23ea1876e02e6bbfacf7ec4ed100f7dc5497",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "009780",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 15,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -62665,7 +62675,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:00.515833+00:00",
+   "expiresAt": "2026-09-30T08:01:18.687681+00:00",
    "findings": [
     {
      "id": "20260710000579",
@@ -62708,7 +62718,7 @@
      "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -62717,14 +62727,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:00.515833+00:00",
+   "queriedAt": "2026-09-29T12:01:18.687681+00:00",
    "responseRef": "sha256:e97cec450a73fe119ec1df75ed96fcaf80ba6b21e220b744db1211c62536b71c",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "009810",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 62,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
@@ -63299,7 +63309,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:01.261765+00:00",
+   "expiresAt": "2026-09-30T08:01:20.561369+00:00",
    "findings": [
     {
      "id": "20251124800396",
@@ -63454,7 +63464,7 @@
      "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -63463,14 +63473,14 @@
    "pagesCollected": 4,
    "pagesExpected": 4,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:01.261765+00:00",
+   "queriedAt": "2026-09-29T12:01:20.561369+00:00",
    "responseRef": "sha256:7e8227c09c6a9fe70f0b4221bcfe519f5391667d56fd798514243abc4e19518b",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "009830",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 377,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
@@ -63514,9 +63524,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:04.789731+00:00",
+   "expiresAt": "2026-09-30T08:01:31.008685+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -63525,14 +63535,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:04.789731+00:00",
+   "queriedAt": "2026-09-29T12:01:31.008685+00:00",
    "responseRef": "sha256:ffdf8b5ae2f6838da7fa63834f8bf3d9d9a62af119b4230bdc025869dfef0d25",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "009900",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 20,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -63597,9 +63607,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:05.401404+00:00",
+   "expiresAt": "2026-09-30T08:01:32.521711+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -63608,14 +63618,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:05.401404+00:00",
+   "queriedAt": "2026-09-29T12:01:32.521711+00:00",
    "responseRef": "sha256:4354ed27714865af1f0c550e7dda39105e0040bba14ec174a7c55713a749ae65",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "009970",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 41,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -63667,9 +63677,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:06.142320+00:00",
+   "expiresAt": "2026-09-30T08:01:34.369669+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -63678,14 +63688,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:06.142320+00:00",
+   "queriedAt": "2026-09-29T12:01:34.369669+00:00",
    "responseRef": "sha256:41f63ad804e00a230a79be1c5db064a4f6cc8dd5fdfffcfa002a706d6f1b0b35",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010040",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 28,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -63693,7 +63703,6 @@
   "010060": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250924800326",
     "20250930800137",
     "20251001800366",
     "20251001000357",
@@ -63778,14 +63787,10 @@
     "20260810800314",
     "20260811000330",
     "20260813000901",
-    "20260828000369"
+    "20260828000369",
+    "20260929800197"
    ],
    "comparisonFindings": [
-    {
-     "id": "20250924800326",
-     "receivedOn": "20250924",
-     "title": "주요사항보고서(회사합병결정)(자회사의 주요경영사항)              "
-    },
     {
      "id": "20250930800137",
      "receivedOn": "20250930",
@@ -63798,7 +63803,7 @@
    "error": null,
    "eventCounts": {
     "companyDoneAwaitingExchange": 0,
-    "documents": 2,
+    "documents": 1,
     "events": 1,
     "fullyResolved": 0,
     "needsDocument": 0,
@@ -63808,7 +63813,7 @@
    "events": [
     {
      "companyCompleted": false,
-     "documentCount": 2,
+     "documentCount": 1,
      "effectStates": {
       "CORPORATE_EVENT": "OPEN",
       "LISTING": "NEEDS_EXCHANGE",
@@ -63825,14 +63830,12 @@
      "exchangeConfirmed": false,
      "family": "합병",
      "ids": [
-      "20250924800326",
       "20250930800137"
      ],
      "needsDocument": false,
      "open": false,
      "stages": [
-      "CORRECTION",
-      "DECISION"
+      "CORRECTION"
      ],
      "subject": "SUBSIDIARY",
      "unresolvedEffects": [
@@ -63845,16 +63848,8 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:06.752159+00:00",
+   "expiresAt": "2026-09-30T08:01:35.570998+00:00",
    "findings": [
-    {
-     "id": "20250924800326",
-     "receivedOn": "20250924",
-     "terms": [
-      "합병"
-     ],
-     "title": "주요사항보고서(회사합병결정)(자회사의 주요경영사항)              "
-    },
     {
      "id": "20250930800137",
      "receivedOn": "20250930",
@@ -63864,7 +63859,7 @@
      "title": "[첨부정정]주요사항보고서(회사합병결정)(자회사의 주요경영사항)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -63873,14 +63868,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:06.752159+00:00",
-   "responseRef": "sha256:af06f6ced9546e660ad2da24291a3e6015741b44af9c8a1f67914bea9841fc61",
+   "queriedAt": "2026-09-29T12:01:35.570998+00:00",
+   "responseRef": "sha256:4f4fab00b56b35a87e40e1f6f3ff1edb6394a0e871035e27589387c33b51808e",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010060",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 86,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -63923,9 +63918,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:07.969757+00:00",
+   "expiresAt": "2026-09-30T08:01:38.050471+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -63934,14 +63929,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:07.969757+00:00",
+   "queriedAt": "2026-09-29T12:01:38.050471+00:00",
    "responseRef": "sha256:90dec017ae6d813c8d5725dc8b4d337bfabdc1a29c1a3113362f5b188740e0e4",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010100",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 19,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -63949,26 +63944,6 @@
   "010120": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250923000313",
-    "20250925800480",
-    "20250925000499",
-    "20250926000317",
-    "20250926000335",
-    "20250926000354",
-    "20250926000363",
-    "20250926000373",
-    "20250926000387",
-    "20250926000391",
-    "20250926000398",
-    "20250926000401",
-    "20250926000405",
-    "20250926000408",
-    "20250926000413",
-    "20250926000422",
-    "20250926000426",
-    "20250926000434",
-    "20250926000441",
-    "20250926000455",
     "20251002000447",
     "20251010000177",
     "20251017800268",
@@ -64217,7 +64192,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:08.552619+00:00",
+   "expiresAt": "2026-09-30T08:01:39.217061+00:00",
    "findings": [
     {
      "id": "20260205800493",
@@ -64244,7 +64219,7 @@
      "title": "유무상증자결정(종속회사의주요경영사항)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -64253,15 +64228,15 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:08.552619+00:00",
-   "responseRef": "sha256:feb30fc1002227216e6a97dabfa41c4d71ec861696415eda865a5652d2f49650",
+   "queriedAt": "2026-09-29T12:01:39.217061+00:00",
+   "responseRef": "sha256:133b6dbe6f9da8748ee28a665d3dd5e7aa9abfc11ae9c82414f585df9426f8a4",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010120",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 164,
+   "to": "20260929",
+   "totalCount": 144,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
   },
@@ -64448,7 +64423,8 @@
     "20260909000450",
     "20260917800001",
     "20260917000266",
-    "20260922800521"
+    "20260922800521",
+    "20260929000558"
    ],
    "comparisonFindings": [
     {
@@ -64590,7 +64566,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:10.148089+00:00",
+   "expiresAt": "2026-09-30T08:01:43.461787+00:00",
    "findings": [
     {
      "id": "20251216000401",
@@ -64681,7 +64657,7 @@
      "title": "[기재정정]유상증자결정(종속회사의주요경영사항)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -64690,25 +64666,21 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:10.148089+00:00",
-   "responseRef": "sha256:254d138968ba4ee2ef74c9ebafd2f8942bed70c995ff51f8a542408288b8f9fb",
+   "queriedAt": "2026-09-29T12:01:43.461787+00:00",
+   "responseRef": "sha256:cded0f0b16472014248a40c93db7b4061983a454d2a645ff22d3f6cbdf38ef50",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010130",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 181,
+   "to": "20260929",
+   "totalCount": 182,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
   },
   "010140": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250924800262",
-    "20250924000279",
-    "20250924000310",
-    "20250925800330",
     "20250929000465",
     "20250930000006",
     "20250930800629",
@@ -64865,9 +64837,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:11.937842+00:00",
+   "expiresAt": "2026-09-30T08:01:48.328225+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -64876,25 +64848,21 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:11.937842+00:00",
-   "responseRef": "sha256:5c6291293deb8f23b0072c8efec45fee6e33125c914fa38cbdf329019a1acadd",
+   "queriedAt": "2026-09-29T12:01:48.328225+00:00",
+   "responseRef": "sha256:136ceea1db6a0aa891cdbdf0de685a620f410b1f3a6a071cf562f09963eba789",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010140",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 144,
+   "to": "20260929",
+   "totalCount": 140,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
   "010170": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250924900525",
-    "20250924000450",
-    "20250926900636",
-    "20250926000685",
     "20251112000555",
     "20251205000556",
     "20251205900678",
@@ -65044,7 +65012,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:13.577985+00:00",
+   "expiresAt": "2026-09-30T08:01:52.608376+00:00",
    "findings": [
     {
      "id": "20251205000556",
@@ -65104,7 +65072,7 @@
      "title": "유상증자또는주식관련사채등의청약결과(자율공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65113,15 +65081,15 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:13.577985+00:00",
-   "responseRef": "sha256:9bf25ecaa028d843cedbeede3e366496469fc1cef04a838163a2fe25f913e7ae",
+   "queriedAt": "2026-09-29T12:01:52.608376+00:00",
+   "responseRef": "sha256:f9ca93c286a86cb88ebe7e1334c654fcfcd0159f74b7ffca2fd7500e75994ea0",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010170",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 60,
+   "to": "20260929",
+   "totalCount": 56,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
   },
@@ -65173,9 +65141,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:14.335392+00:00",
+   "expiresAt": "2026-09-30T08:01:54.371393+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65184,14 +65152,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:14.335392+00:00",
+   "queriedAt": "2026-09-29T12:01:54.371393+00:00",
    "responseRef": "sha256:1454784dcb22e3d9ce49ffb9472f342062592a5d6a517c29a5f484bccaa7a81c",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010240",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 29,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -65334,7 +65302,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:14.909651+00:00",
+   "expiresAt": "2026-09-30T08:01:55.501377+00:00",
    "findings": [
     {
      "id": "20260403901407",
@@ -65355,7 +65323,7 @@
      "title": "주권매매거래정지해제              (액면병합 주권 변경상장)"
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65364,14 +65332,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:14.909651+00:00",
+   "queriedAt": "2026-09-29T12:01:55.501377+00:00",
    "responseRef": "sha256:94f69a8e4994a4bf0ca1f9bb09826693f6163911337667cd936e01eaefd10138",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010280",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 27,
    "uninterpreted": 1,
    "unresolvedHistorical": 2
@@ -65480,9 +65448,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:15.642730+00:00",
+   "expiresAt": "2026-09-30T08:01:56.876193+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65491,14 +65459,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:15.642730+00:00",
+   "queriedAt": "2026-09-29T12:01:56.876193+00:00",
    "responseRef": "sha256:b55cf322697c9ee07ed91f15e1f665cc43c5f6921c829135d2de56f2c85912a2",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010400",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 85,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -65557,9 +65525,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:16.952725+00:00",
+   "expiresAt": "2026-09-30T08:01:59.367240+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65568,14 +65536,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:16.952725+00:00",
+   "queriedAt": "2026-09-29T12:01:59.367240+00:00",
    "responseRef": "sha256:8f31e22b143e98ed31649b0d69cf512440451b72efae0bb8b534552d1a3dce98",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010470",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 29,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -65583,11 +65551,6 @@
   "010580": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250924800425",
-    "20250925800430",
-    "20250926000545",
-    "20250926000566",
-    "20250926800552",
     "20251020800482",
     "20251021000436",
     "20251022800286",
@@ -65696,7 +65659,9 @@
     "20260915800391",
     "20260921000090",
     "20260921800174",
-    "20260921000250"
+    "20260921000250",
+    "20260929000267",
+    "20260929800998"
    ],
    "comparisonFindings": [],
    "comparisonScopeVersion": "price-comparison-v1",
@@ -65713,9 +65678,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:17.665094+00:00",
+   "expiresAt": "2026-09-30T08:02:00.826332+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65724,15 +65689,15 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:17.665094+00:00",
-   "responseRef": "sha256:c3beb7d2e2452c80af1be070452f1a3b7d0d5bb93e25e8e757cbbd2134b316cd",
+   "queriedAt": "2026-09-29T12:02:00.826332+00:00",
+   "responseRef": "sha256:bc53a1696495bd8047316a50a9c3ceb3c6a44fe7c4787197f906fbfc683fd26a",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010580",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 114,
+   "to": "20260929",
+   "totalCount": 111,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
@@ -65885,7 +65850,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:19.142307+00:00",
+   "expiresAt": "2026-09-30T08:02:04.316957+00:00",
    "findings": [
     {
      "id": "20251128001499",
@@ -65944,7 +65909,7 @@
      "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -65953,14 +65918,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:19.142307+00:00",
+   "queriedAt": "2026-09-29T12:02:04.316957+00:00",
    "responseRef": "sha256:257cb4c16d6d73ef9d0050d2b6aff32036188b5ac470d7928eeeac15c86a0468",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010640",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 56,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
@@ -65999,9 +65964,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:19.860675+00:00",
+   "expiresAt": "2026-09-30T08:02:06.053720+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66010,14 +65975,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:19.860675+00:00",
+   "queriedAt": "2026-09-29T12:02:06.053720+00:00",
    "responseRef": "sha256:9d6c93e79baf9fa805eb7c78bcfa18a0b4f8b1b304a81446903c8f1f505fa06e",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010660",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 15,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -66056,9 +66021,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:20.470164+00:00",
+   "expiresAt": "2026-09-30T08:02:07.042928+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66067,14 +66032,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:20.470164+00:00",
+   "queriedAt": "2026-09-29T12:02:07.042928+00:00",
    "responseRef": "sha256:d67b6881a6bd6ace2af276c0255b99fe22868c07e680fb736a7aa78c4d12ac09",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010690",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 15,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -66082,7 +66047,6 @@
   "010770": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250926800232",
     "20250930800604",
     "20251010800229",
     "20251028800525",
@@ -66137,9 +66101,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:21.079910+00:00",
+   "expiresAt": "2026-09-30T08:02:08.018021+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66148,23 +66112,21 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:21.079910+00:00",
-   "responseRef": "sha256:a353b80d82b17e446310668e0f1d287452a25f617b6fe7789db2542ea900ed46",
+   "queriedAt": "2026-09-29T12:02:08.018021+00:00",
+   "responseRef": "sha256:92c7d65f663016bde2b2bf94fcf582e07d2c26bbf4287d7bef6877252ca9c4e7",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010770",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 39,
+   "to": "20260929",
+   "totalCount": 38,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
   "010780": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250923000371",
-    "20250926800100",
     "20250930000782",
     "20251002000223",
     "20251014000296",
@@ -66381,7 +66343,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:21.828145+00:00",
+   "expiresAt": "2026-09-30T08:02:09.675134+00:00",
    "findings": [
     {
      "id": "20251002000223",
@@ -66440,7 +66402,7 @@
      "title": "매매거래정지및정지해제(풍문등조회공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66449,22 +66411,21 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:21.828145+00:00",
-   "responseRef": "sha256:b1a0f45c2af7a7aa43fcf745326714d598eda64a286690935648546b8c6df2b7",
+   "queriedAt": "2026-09-29T12:02:09.675134+00:00",
+   "responseRef": "sha256:f5bc9f154377ffcbcfb5e7e0a9424db77eb0a0060ab2b9eca2659c02aa42f0d0",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010780",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 97,
+   "to": "20260929",
+   "totalCount": 95,
    "uninterpreted": 2,
    "unresolvedHistorical": 2
   },
   "010820": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250924800197",
     "20251030000518",
     "20251103000209",
     "20251114001529",
@@ -66494,9 +66455,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:22.753243+00:00",
+   "expiresAt": "2026-09-30T08:02:12.024793+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66505,15 +66466,15 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:22.753243+00:00",
-   "responseRef": "sha256:8a86bc5b778a181bbd5a00566fc325676ed0ba9f6eb2d17da14fc7d071fc7d10",
+   "queriedAt": "2026-09-29T12:02:12.024793+00:00",
+   "responseRef": "sha256:baecfc009c51c5e5ca58d08855fd0ea64c9b79d2f0e652658708426e67e11edb",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010820",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 14,
+   "to": "20260929",
+   "totalCount": 13,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
@@ -66603,9 +66564,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:23.341430+00:00",
+   "expiresAt": "2026-09-30T08:02:13.794478+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66614,14 +66575,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:23.341430+00:00",
+   "queriedAt": "2026-09-29T12:02:13.794478+00:00",
    "responseRef": "sha256:ed3777abc938be1fe9b92d7435ef39a338c28ea28231ae81560e1c7aeb96548a",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010950",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 67,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -66629,8 +66590,6 @@
   "010960": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250926800468",
-    "20250926800850",
     "20251015800601",
     "20251017800166",
     "20251017000117",
@@ -66761,7 +66720,8 @@
     "20260831800681",
     "20260903800347",
     "20260908800586",
-    "20260909800077"
+    "20260909800077",
+    "20260929800894"
    ],
    "comparisonFindings": [],
    "comparisonScopeVersion": "price-comparison-v1",
@@ -66778,9 +66738,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:24.070939+00:00",
+   "expiresAt": "2026-09-30T08:02:15.714286+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -66789,24 +66749,21 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:24.070939+00:00",
-   "responseRef": "sha256:7530577779c6bedb41d09d9af9a94138821ee009beb5c02f8108ec7d75edd8b8",
+   "queriedAt": "2026-09-29T12:02:15.714286+00:00",
+   "responseRef": "sha256:22011be0e51563f60352b2bfc66585b9ab095ae7520cf549e9a2667a6879653a",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "010960",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 133,
+   "to": "20260929",
+   "totalCount": 132,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
   "011000": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250923000148",
-    "20250923800211",
-    "20250926800061",
     "20250930800235",
     "20251027000184",
     "20251027800345",
@@ -66934,19 +66891,10 @@
     "20260904800730",
     "20260918800429",
     "20260918800435",
-    "20260923800336"
+    "20260923800336",
+    "20260928800707"
    ],
    "comparisonFindings": [
-    {
-     "id": "20250923000148",
-     "receivedOn": "20250923",
-     "title": "주요사항보고서(유상증자결정)"
-    },
-    {
-     "id": "20250923800211",
-     "receivedOn": "20250923",
-     "title": "유상증자신주발행가액(안내공시)              "
-    },
     {
      "id": "20251027000184",
      "receivedOn": "20251027",
@@ -67089,7 +67037,7 @@
    "error": null,
    "eventCounts": {
     "companyDoneAwaitingExchange": 0,
-    "documents": 29,
+    "documents": 27,
     "events": 4,
     "fullyResolved": 0,
     "needsDocument": 2,
@@ -67163,7 +67111,7 @@
     },
     {
      "companyCompleted": false,
-     "documentCount": 19,
+     "documentCount": 17,
      "effectStates": {
       "CORPORATE_EVENT": "OPEN",
       "SHARES": "OPEN",
@@ -67175,8 +67123,6 @@
      "exchangeConfirmed": false,
      "family": "유상증자",
      "ids": [
-      "20250923000148",
-      "20250923800211",
       "20251027000184",
       "20251027800345",
       "20251104800466",
@@ -67200,7 +67146,6 @@
      "stages": [
       "CORRECTION",
       "DECISION",
-      "NOTICE",
       "RESULT"
      ],
      "subject": "SELF",
@@ -67243,24 +67188,8 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:25.695177+00:00",
+   "expiresAt": "2026-09-30T08:02:19.754978+00:00",
    "findings": [
-    {
-     "id": "20250923000148",
-     "receivedOn": "20250923",
-     "terms": [
-      "유상증자"
-     ],
-     "title": "주요사항보고서(유상증자결정)"
-    },
-    {
-     "id": "20250923800211",
-     "receivedOn": "20250923",
-     "terms": [
-      "유상증자"
-     ],
-     "title": "유상증자신주발행가액(안내공시)              "
-    },
     {
      "id": "20251027000184",
      "receivedOn": "20251027",
@@ -67478,7 +67407,7 @@
      "title": "[기재정정]주요사항보고서(유상증자결정)"
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -67487,15 +67416,15 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:25.695177+00:00",
-   "responseRef": "sha256:cdfe63ad15798b5fba77451a6c3996314cd9de1d3de4ec9c02e5391d611afa8d",
+   "queriedAt": "2026-09-29T12:02:19.754978+00:00",
+   "responseRef": "sha256:fc8f9ad7465955135dafb1a49c07f3c6833f54095b9be65ec25c32996ad0eabc",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011000",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 131,
+   "to": "20260929",
+   "totalCount": 129,
    "uninterpreted": 2,
    "unresolvedHistorical": 3
   },
@@ -67555,9 +67484,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:27.273086+00:00",
+   "expiresAt": "2026-09-30T08:02:23.721231+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -67566,14 +67495,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:27.273086+00:00",
+   "queriedAt": "2026-09-29T12:02:23.721231+00:00",
    "responseRef": "sha256:6d237f48a83a45c43dd91a3a233a9c67f5e446bad61a33cfc99e9ee71537bd83",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011040",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 37,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -67659,9 +67588,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:27.993052+00:00",
+   "expiresAt": "2026-09-30T08:02:25.089658+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -67670,14 +67599,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:27.993052+00:00",
+   "queriedAt": "2026-09-29T12:02:25.089658+00:00",
    "responseRef": "sha256:a9c62bb869e2d39373d93e0f111907fd90f8fdfe79f10a745bbc3b37ef360968",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011070",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 62,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -67996,7 +67925,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:28.714706+00:00",
+   "expiresAt": "2026-09-30T08:02:26.812248+00:00",
    "findings": [
     {
      "id": "20260227009047",
@@ -68130,7 +68059,7 @@
      "title": "기타시장안내              (시가총액 미달에 따른 상장폐지 우려 관련 안내)"
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -68139,14 +68068,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:28.714706+00:00",
+   "queriedAt": "2026-09-29T12:02:26.812248+00:00",
    "responseRef": "sha256:a6cac5fad2339f7606baf73e0018ca2af9a6d85baed9a067400d54d326c8d346",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011080",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 63,
    "uninterpreted": 1,
    "unresolvedHistorical": 4
@@ -68317,7 +68246,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:29.446321+00:00",
+   "expiresAt": "2026-09-30T08:02:28.577875+00:00",
    "findings": [
     {
      "id": "20260721001251",
@@ -68368,7 +68297,7 @@
      "title": "[기재정정]주요사항보고서(유상증자결정)"
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -68377,14 +68306,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:29.446321+00:00",
+   "queriedAt": "2026-09-29T12:02:28.577875+00:00",
    "responseRef": "sha256:d0dca8c9bac92cf2ec32e21a20e76471aec43aeebfb5f658e205a2204c943971",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011090",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 76,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
@@ -68439,9 +68368,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:30.299339+00:00",
+   "expiresAt": "2026-09-30T08:02:30.429657+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -68450,14 +68379,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:30.299339+00:00",
+   "queriedAt": "2026-09-29T12:02:30.429657+00:00",
    "responseRef": "sha256:d986a74e2753a433ab0750f42cb3f0108d94e03b2919c2365f9e6c57f262c013",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011150",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 31,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -68465,7 +68394,6 @@
   "011170": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250925000604",
     "20250930800002",
     "20251017800345",
     "20251017800361",
@@ -68680,7 +68608,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:30.900043+00:00",
+   "expiresAt": "2026-09-30T08:02:31.985549+00:00",
    "findings": [
     {
      "id": "20260326000976",
@@ -68700,7 +68628,7 @@
      "title": "합병등종료보고서(분할)"
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -68709,22 +68637,21 @@
    "pagesCollected": 2,
    "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:30.900043+00:00",
-   "responseRef": "sha256:ea11c93702e68e65856096ce878c0255e8b4dec81d05f3e6e1fa8563e1ceb7df",
+   "queriedAt": "2026-09-29T12:02:31.985549+00:00",
+   "responseRef": "sha256:89b38b0c9a347bcb546ea623d73caf2534518cd06ca16a6598e884535e46b81a",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011170",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 116,
+   "to": "20260929",
+   "totalCount": 115,
    "uninterpreted": 0,
    "unresolvedHistorical": 2
   },
   "011200": {
    "apiStatus": "000",
    "collectedIds": [
-    "20250923000040",
     "20251016800144",
     "20251017800358",
     "20251113000451",
@@ -68780,9 +68707,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:32.371605+00:00",
+   "expiresAt": "2026-09-30T08:02:35.580702+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -68791,15 +68718,15 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:32.371605+00:00",
-   "responseRef": "sha256:7227e857c6f90fa765998800e5f0d1cc6e850b2ebd7ac1a3f9c7172e38965856",
+   "queriedAt": "2026-09-29T12:02:35.580702+00:00",
+   "responseRef": "sha256:98877926c730b6d493fcf1ab5377723d3068351a88aec2cd9e1ae9bdd0950f2d",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011200",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 40,
+   "to": "20260929",
+   "totalCount": 39,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
@@ -68880,9 +68807,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:33.104126+00:00",
+   "expiresAt": "2026-09-30T08:02:36.988918+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -68891,14 +68818,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:33.104126+00:00",
+   "queriedAt": "2026-09-29T12:02:36.988918+00:00",
    "responseRef": "sha256:752238e257f1fea49acd7ec3012fe63ac8636922b8fc36719926f1ff3412d333",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011210",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 58,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -69025,7 +68952,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:33.826621+00:00",
+   "expiresAt": "2026-09-30T08:02:38.752062+00:00",
    "findings": [
     {
      "id": "20251001000578",
@@ -69052,7 +68979,7 @@
      "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -69061,14 +68988,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:33.826621+00:00",
+   "queriedAt": "2026-09-29T12:02:38.752062+00:00",
    "responseRef": "sha256:a0a6e7fc7fba8298012ee591bd5da428b37df785b01e3c9e0dc260b755c93d3a",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011230",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 28,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
@@ -69124,7 +69051,8 @@
     "20260814003299",
     "20260831001209",
     "20260902800525",
-    "20260902000324"
+    "20260902000324",
+    "20260929000315"
    ],
    "comparisonFindings": [],
    "comparisonScopeVersion": "price-comparison-v1",
@@ -69141,9 +69069,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:34.565818+00:00",
+   "expiresAt": "2026-09-30T08:02:40.118336+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -69152,15 +69080,15 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:34.565818+00:00",
-   "responseRef": "sha256:3399d6d78d0c9cc9dcc1d6c4839b34803de741f2c6b799bb0df578b8c8a4d262",
+   "queriedAt": "2026-09-29T12:02:40.118336+00:00",
+   "responseRef": "sha256:d482936c91670146d12f11c6c53eae808c4feee67061c3993230f6ff782c6d99",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011280",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 49,
+   "to": "20260929",
+   "totalCount": 50,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
   },
@@ -69261,7 +69189,11 @@
     "20260918000457",
     "20260921000303",
     "20260922000245",
-    "20260922000282"
+    "20260922000282",
+    "20260928800199",
+    "20260928000353",
+    "20260929000234",
+    "20260929800344"
    ],
    "comparisonFindings": [
     {
@@ -69413,6 +69345,16 @@
      "id": "20260922000245",
      "receivedOn": "20260922",
      "title": "[기재정정]주요사항보고서(유상증자결정)"
+    },
+    {
+     "id": "20260928800199",
+     "receivedOn": "20260928",
+     "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
+    },
+    {
+     "id": "20260929800344",
+     "receivedOn": "20260929",
+     "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
     }
    ],
    "comparisonScopeVersion": "price-comparison-v1",
@@ -69421,7 +69363,7 @@
    "error": null,
    "eventCounts": {
     "companyDoneAwaitingExchange": 0,
-    "documents": 29,
+    "documents": 31,
     "events": 1,
     "fullyResolved": 0,
     "needsDocument": 0,
@@ -69431,7 +69373,7 @@
    "events": [
     {
      "companyCompleted": false,
-     "documentCount": 29,
+     "documentCount": 31,
      "effectStates": {
       "CORPORATE_EVENT": "OPEN",
       "SHARES": "OPEN",
@@ -69479,7 +69421,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:35.273783+00:00",
+   "expiresAt": "2026-09-30T08:02:41.676771+00:00",
    "findings": [
     {
      "id": "20251030000153",
@@ -69712,9 +69654,25 @@
       "유상증자"
      ],
      "title": "[기재정정]주요사항보고서(유상증자결정)"
+    },
+    {
+     "id": "20260928800199",
+     "receivedOn": "20260928",
+     "terms": [
+      "유상증자"
+     ],
+     "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
+    },
+    {
+     "id": "20260929800344",
+     "receivedOn": "20260929",
+     "terms": [
+      "유상증자"
+     ],
+     "title": "유상증자또는주식관련사채등의발행결과(자율공시)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -69723,15 +69681,15 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:35.273783+00:00",
-   "responseRef": "sha256:979b0b4f0e6cf6992a46ccf02308507ae7291164ef53ddf9005f18005866d64d",
+   "queriedAt": "2026-09-29T12:02:41.676771+00:00",
+   "responseRef": "sha256:cb4fa8e239876acf0181ba806ab21f2a9c38d4dd837afebdf5f8fa9c7148f7bf",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011300",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 95,
+   "to": "20260929",
+   "totalCount": 99,
    "uninterpreted": 0,
    "unresolvedHistorical": 1
   },
@@ -69851,9 +69809,9 @@
     "subsidiary": 0
    },
    "events": [],
-   "expiresAt": "2026-09-24T09:39:36.179916+00:00",
+   "expiresAt": "2026-09-30T08:02:44.097653+00:00",
    "findings": [],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -69862,14 +69820,14 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:36.179916+00:00",
+   "queriedAt": "2026-09-29T12:02:44.097653+00:00",
    "responseRef": "sha256:d25f865e1d220e37566ba4056e20d0787562dcf7a72d55e1837f63cf93550d54",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011320",
    "tickerMatched": true,
-   "to": "20260923",
+   "to": "20260929",
    "totalCount": 97,
    "uninterpreted": 0,
    "unresolvedHistorical": 0
@@ -69975,7 +69933,11 @@
     "20260831800233",
     "20260921800576",
     "20260922000139",
-    "20260922000149"
+    "20260922000149",
+    "20260928800201",
+    "20260928000313",
+    "20260928000318",
+    "20260929800463"
    ],
    "comparisonFindings": [
     {
@@ -70139,7 +70101,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:37.155846+00:00",
+   "expiresAt": "2026-09-30T08:02:46.454857+00:00",
    "findings": [
     {
      "id": "20251107800129",
@@ -70206,24 +70168,24 @@
      "title": "회사합병결정(자율공시)(종속회사의주요경영사항)              "
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
    "listClassified": true,
    "ok": true,
-   "pagesCollected": 1,
-   "pagesExpected": 1,
+   "pagesCollected": 2,
+   "pagesExpected": 2,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:37.155846+00:00",
-   "responseRef": "sha256:79da75cbc488ad5dc89de961f2ad8facf96f7a42bf3c8d3ad6bd062e2ecb3930",
+   "queriedAt": "2026-09-29T12:02:46.454857+00:00",
+   "responseRef": "sha256:ff6850919b62a9cda99c8dfad8ec4dcc2743f8a3cd49250a3603ce0885a21d30",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011330",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 99,
+   "to": "20260929",
+   "totalCount": 103,
    "uninterpreted": 0,
    "unresolvedHistorical": 2
   },
@@ -70274,7 +70236,8 @@
     "20260814001200",
     "20260831900184",
     "20260831900823",
-    "20260908900150"
+    "20260908900150",
+    "20260929900086"
    ],
    "comparisonFindings": [
     {
@@ -70383,7 +70346,7 @@
      ]
     }
    ],
-   "expiresAt": "2026-09-24T09:39:38.005717+00:00",
+   "expiresAt": "2026-09-30T08:02:49.524188+00:00",
    "findings": [
     {
      "id": "20260807900938",
@@ -70404,7 +70367,7 @@
      "title": "주권매매거래정지해제              (액면병합 주권 변경상장)"
     }
    ],
-   "from": "20250923",
+   "from": "20250929",
    "historicalBackfillComplete": true,
    "httpStatus": null,
    "identityBasis": "corp_code_map",
@@ -70413,15 +70376,15 @@
    "pagesCollected": 1,
    "pagesExpected": 1,
    "parserVersion": "opendart-list-json-v3-effects",
-   "queriedAt": "2026-09-23T13:39:38.005717+00:00",
-   "responseRef": "sha256:f70fda95033421f07b4c3bf2582f27196fe6f6fb97cb0afb501886ce8d9536ec",
+   "queriedAt": "2026-09-29T12:02:49.524188+00:00",
+   "responseRef": "sha256:52ba650a14e80bf7b964c233ea69cc2ebaea0f1c9a643dfecc2effabeb88e7c5",
    "retrievalPath": "opendart:list.json?corp_code",
    "source": "OPENDART_API",
    "structureVerified": true,
    "ticker": "011370",
    "tickerMatched": true,
-   "to": "20260923",
-   "totalCount": 45,
+   "to": "20260929",
+   "totalCount": 46,
    "uninterpreted": 1,
    "unresolvedHistorical": 2
   },
@@ -404685,16 +404648,18 @@
    "unresolvedHistorical": 0
   }
  },
- "generatedAt": "2026-09-25T15:40:19.853248+00:00",
+ "generatedAt": "2026-09-29T12:01:17.115183+00:00",
  "notInUniverse": 0,
- "requestsUsed": 44,
+ "requestsUsed": 52,
+ "runComplete": true,
+ "stoppedBy": null,
  "succeeded": 40,
  "targetMode": "cursor_rotation",
  "targetRequested": null,
  "universeMapped": 2600,
  "window": {
-  "days": 366,
-  "from": "20250925",
-  "to": "20260926"
+  "days": 365,
+  "from": "20250929",
+  "to": "20260929"
  }
 }
