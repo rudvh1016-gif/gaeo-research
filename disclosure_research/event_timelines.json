@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-09-29T12:03:30Z",
+ "generatedAt": "2026-09-29T15:23:22Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -291,19 +291,19 @@
  },
  "coverage": {
   "trackedCompanies": 600,
-  "companiesWithTimelines": 277,
+  "companiesWithTimelines": 276,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
     "to": "2026-09-29",
-    "count": 3297
+    "count": 3298
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
     "from": "2025-09-23",
-    "to": "2026-09-23",
-    "count": 921,
+    "to": "2026-09-29",
+    "count": 915,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -10127,7 +10127,8 @@
        "correctionKind": "기재정정",
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260929800906",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -11962,32 +11963,6 @@
      "chain": "capital_increase",
      "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
      "items": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20250923000327",
-       "title": "주요사항보고서(유상증자결정)",
-       "receivedOn": "2025-09-23",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250923000327",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20250925000485",
-       "title": "[기재정정]주요사항보고서(유상증자결정)",
-       "receivedOn": "2025-09-25",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250925000485",
-       "sources": [
-        "evidence"
-       ]
-      },
       {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
@@ -17075,7 +17050,8 @@
        "correctionKind": null,
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800166",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -18998,89 +18974,6 @@
     }
    ]
   },
-  "090460": {
-   "name": "비에이치",
-   "timelines": [
-    {
-     "chain": "capital_increase",
-     "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
-     "items": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20250923800242",
-       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
-       "receivedOn": "2025-09-23",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250923800242",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "REPORTED"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "FILED",
-       "stageLabel": "증권신고서·발행가 확정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "REPORTED",
-     "latestReceivedOn": "2025-09-23",
-     "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
-    },
-    {
-     "chain": "equity_linked_bond",
-     "label": "주식관련사채 발행 결정 → 발행 결과 → 전환·행사",
-     "items": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20250923800242",
-       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
-       "receivedOn": "2025-09-23",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250923800242",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "REPORTED"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "발행 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "전환·행사 청구",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "REPORTED",
-     "latestReceivedOn": "2025-09-23",
-     "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
-    }
-   ]
-  },
   "090710": {
    "name": "휴림로봇",
    "timelines": [
@@ -19795,58 +19688,6 @@
      "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
      "items": [
       {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20250925800406",
-       "title": "유상증자결정(종속회사의주요경영사항)",
-       "receivedOn": "2025-09-25",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250925800406",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20250925800410",
-       "title": "유상증자결정(종속회사의주요경영사항)",
-       "receivedOn": "2025-09-25",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250925800410",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20250925800485",
-       "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
-       "receivedOn": "2025-09-25",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250925800485",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20250925800503",
-       "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
-       "receivedOn": "2025-09-25",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250925800503",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
        "stage": "REPORTED",
        "stageLabel": "발행 결과",
        "rceptNo": "20251031800886",
@@ -20209,6 +20050,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "처분 결정",
+       "rceptNo": "20260929000686",
+       "title": "[기재정정]주요사항보고서(자기주식처분결정)",
+       "receivedOn": "2026-09-29",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260929000686",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -20448,19 +20302,6 @@
       {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
-       "rceptNo": "20250926000239",
-       "title": "[기재정정]주요사항보고서(유상증자결정)",
-       "receivedOn": "2025-09-26",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250926000239",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
        "rceptNo": "20251105000069",
        "title": "[기재정정]주요사항보고서(유상증자결정)",
        "receivedOn": "2025-11-05",
@@ -20507,39 +20348,6 @@
      "latestStage": "REPORTED",
      "latestReceivedOn": "2025-11-11",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
-    },
-    {
-     "chain": "bonus_issue",
-     "label": "무상증자 결정 → 권리락",
-     "items": [
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "권리락",
-       "rceptNo": "20250926900657",
-       "title": "권리락 (유상증자)",
-       "receivedOn": "2025-09-26",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250926900657",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "IN_PROGRESS"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "무상증자 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "IN_PROGRESS",
-     "latestReceivedOn": "2025-09-26",
-     "note": "권리락 공시는 거래소 안내가 DART 목록에 오른 것이다. 신주 상장일은 원문에서 확인한다."
     }
    ]
   },
@@ -20626,7 +20434,8 @@
        "correctionKind": "기재정정",
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260929000138",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       },
       {
