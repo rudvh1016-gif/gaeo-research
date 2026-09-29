@@ -38,7 +38,8 @@ OUT_DIR = os.path.join(HERE, "disclosure_research")
 VOCAB_PATH = os.path.join(HERE, "config", "disclosure_research_vocab.json")
 SEEN_PATH = os.path.join(P.DART_ROOT, "seen_rcept.json")
 EVIDENCE_PATH = os.path.join(HERE, "gaeo_coverage", "corporate_action_evidence.json")
-#: collect_dart.py 가 남기는 공시 목록 수집 상태. 산출물의 generatedAt 은 여기 적힌 **끝까지 확인한 마지막 시각**이다.
+#: collect_dart.py 가 남기는 공시 목록 수집 상태. 산출물의 generatedAt 은 여기 적힌 **여기까지 접수된 공시를 다 본 시각**
+#: (lastComplete.coveredUntil = min(확인을 마친 시각, 조회 끝날 다음 날 0시 KST))이다.
 STATUS_PATH = os.path.join(P.DART_ROOT, "collection_status.json")
 
 
@@ -463,7 +464,7 @@ def _dump(obj):
 
 
 def list_check(status_path=STATUS_PATH):
-    """collection_status.json → {checkedAt, window, latestRun} 또는 None(끝까지 확인한 기록 없음)."""
+    """collection_status.json → {checkedAt, coveredUntil, window, latestRun, catchUp} 또는 None(끝까지 확인한 기록 없음)."""
     try:
         status = _read_json(status_path)
     except (OSError, ValueError):
@@ -471,7 +472,10 @@ def list_check(status_path=STATUS_PATH):
     last = P.last_complete(status)
     if last is None:
         return None
-    return {"checkedAt": last["finishedAt"], "window": {"from": last.get("windowStart"), "to": last["windowEnd"]},
+    return {"checkedAt": last["finishedAt"], "coveredUntil": last.get("coveredUntil"),
+            "window": {"from": last.get("windowStart"), "to": last["windowEnd"]},
+            # 따라잡기 진행(CATCHUP_IN_PROGRESS)은 장애가 아니다 — 끝까지 본 날까지만 generatedAt 이 앞으로 간다.
+            "catchUp": status.get("catchUp") if isinstance(status.get("catchUp"), dict) else None,
             "latestRun": {"ranAt": status.get("ranAt"), "state": status.get("eventState"),
                           "complete": status.get("status") == P.dart_client.OK and status.get("eventState") in P.COMPLETE_STATES}}
 
@@ -482,7 +486,7 @@ def evidence_snapshot(path=EVIDENCE_PATH):
         doc = _read_json(path)
     except (OSError, ValueError):
         return None
-    return {k: doc.get(k) for k in ("generatedAt", "universeMapped", "succeeded", "runComplete", "stoppedBy")}
+    return {k: doc.get(k) for k in ("generatedAt", "universeMapped", "succeeded", "runComplete", "stoppedBy", "cycle")}
 
 
 def _utc_z(value):
@@ -495,7 +499,7 @@ def _utc_z(value):
 def contract(universe, files, vocab, as_of, generated_at, built_at=None, inputs=None):
     return {
         "schemaVersion": SCHEMA_VERSION, "contractVersion": CONTRACT_VERSION,
-        # generatedAt = 공시 목록을 끝까지 확인한 시각(2026-09-29). 다시 빌드해도 새로 확인하지 않았으면 바뀌지 않는다.
+        # generatedAt = 여기까지 접수된 공시를 다 본 시각(2026-09-29). 다시 빌드해도 새로 확인하지 않았으면 바뀌지 않는다.
         "generatedAt": generated_at, "asOf": as_of, "builtAt": built_at, "inputs": inputs,
         "producer": "build_disclosure_research.py (gaeo-analyst-team · corporate-action-evidence.yml · LLM 0 · 네트워크 0)",
         "provider": {"id": "opendart", "gates": "config/source_compliance.json providers.opendart.gates (derivedPublication/commercialUse 조건부 · 조건은 같은 파일 verdictChangeNote)"},
@@ -520,7 +524,7 @@ def build_all(universe=None, vocab=None, as_of=None, now=None, fin_dir=FIN_DIR, 
     universe = universe if universe is not None else P.load_universe()
     vocab = vocab or load_vocab()
     now = now or dt.datetime.now(dt.timezone.utc)
-    generated_at = _utc_z(check["checkedAt"])
+    generated_at = _utc_z(check.get("coveredUntil") or check["checkedAt"])
     as_of = as_of or check["window"]["to"]
     inputs = {"list": check, "evidence": evidence_snapshot(evidence_path)}
     list_rows, list_meta = load_list_filings(universe, seen_path)

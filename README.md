@@ -17,9 +17,12 @@
 - 빌드가 정적 쪽(공부 글 한 편씩 · 공시 사전 · 회사별 요약)과 `sitemap.xml`·`rss.xml`·`robots.txt`·`llms.txt` 를 만든다. 글 본문은 1~2문장 문단으로 끊어 그린다.
 - 빌드에는 Node.js 가 필요하다(`tools/content_dump.js` 가 content/*.js 를 브라우저와 같게 실행해 읽는다).
 - 자동 수집: `.github/workflows/corporate-action-evidence.yml` (예약 실행은 저장소 변수 `DART_PRODUCER_ACTIVE=true` 일 때만)
-  - 2026-09-29: 기업행사 증거(2,600종목)는 예약 회차마다 **30분 안에서 커서부터 이어** 받고 중간 저장한다(한 회차에 전부 못 받는다).
-    그 단계가 실패·시간 상한에 걸려도 오늘의 공시 수집·공시 연구 생성은 돈다. 공시 목록은 끝까지 확인한 마지막 날부터 오늘까지 하루씩 다시 본다(최대 14일).
-  - 공시 연구(`disclosure_research/contract.json`)의 `generatedAt` 은 **공시 목록을 끝까지 확인한 시각**이다(빌드 시각은 `builtAt`). 확인 기록이 없으면 만들지 않는다.
+  - 2026-09-29: 기업행사 증거(2,600종목)는 예약 회차마다 **30분 안에서 커서부터 이어** 받고 중간 저장한다(한 바퀴에 2~3회차 ·
+    `cycle` 에 진행률·최근 한 바퀴 완료 시각). 그 단계가 실패·시간 상한에 걸려도 오늘의 공시 수집·공시 연구 생성은 돈다.
+  - 공시 목록은 끝까지 확인한 마지막 날부터 하루씩 다시 본다 — 한 회차에 최대 14일, 더 밀렸으면 **가장 오래된 날부터** 회차마다 이어 본다
+    (`catchUp.state = CATCHUP_IN_PROGRESS` · 장애가 아니라 복구 진행).
+  - 공시 연구(`disclosure_research/contract.json`)의 `generatedAt` 은 **여기까지 접수된 공시를 다 본 시각**이다(따라잡는 중이면 끝까지 본 날
+    다음 날 0시 KST · 빌드 시각은 `builtAt`). 확인 기록이 없으면 만들지 않는다.
 - 배포: `.github/workflows/pages.yml` — 조립 → 공개 검사 → 배포 → 바뀐 주소만 IndexNow 알림(`tools/indexnow.py`)
 - 방문 통계: 저장소 변수 `GOATCOUNTER_CODE` 가 있을 때만 GoatCounter(쿠키 0)를 붙이고 개인정보처리방침 문단을 함께 바꾼다. 없으면 통계 없음.
 

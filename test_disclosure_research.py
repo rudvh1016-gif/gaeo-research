@@ -260,6 +260,31 @@ class HonestFreshness(unittest.TestCase):
         self.assertTrue(c['inputs']['list']['latestRun']['complete'])
 
 
+class CatchUpFreshness(unittest.TestCase):
+    """2026-09-29 — 따라잡는 중(오래된 날부터 14일씩)에는 오늘 확인했어도 공시 연구가 신선해 보이면 안 된다."""
+    import datetime as dt
+
+    def test_따라잡는_중에는_generatedAt_이_끝까지_본_날_다음_날_0시다(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, True)
+        _fixture(tmp)
+        last = {"finishedAt": "2026-09-29T00:05:00+00:00", "windowStart": "2026-09-01", "windowEnd": "2026-09-14",
+                "coveredUntil": "2026-09-14T15:00:00+00:00"}
+        path = _status(tmp, finished="2026-09-29T00:05:00+00:00", window=("2026-09-01", "2026-09-14"), last=last)
+        with open(path, encoding="utf-8") as f:
+            doc = json.load(f)
+        doc["catchUp"] = {"state": "CATCHUP_IN_PROGRESS", "behindDays": 15, "today": "2026-09-29"}
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(doc, f)
+        docs, _ = B.build_all(universe=UNIVERSE, vocab=B.load_vocab(), now=self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc),
+                              fin_dir=os.path.join(tmp, 'fin'), seen_path=os.path.join(tmp, 'dart', 'seen_rcept.json'),
+                              evidence_path=os.path.join(tmp, 'evidence.json'), status_path=path)
+        c = docs['contract']
+        self.assertEqual((c['generatedAt'], c['asOf']), ('2026-09-14T15:00:00Z', '2026-09-14'))
+        self.assertEqual(c['inputs']['list']['catchUp']['state'], 'CATCHUP_IN_PROGRESS')   # 장애가 아니라 복구 진행
+        self.assertEqual(c['inputs']['list']['checkedAt'], '2026-09-29T00:05:00+00:00')    # 확인한 시각은 따로 남는다
+
+
 class RealOutputs(unittest.TestCase):
     """저장소에 커밋된 산출물이 계약과 맞는가(생산자가 실제로 돌았다는 증거)."""
 

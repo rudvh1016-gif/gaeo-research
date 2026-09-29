@@ -635,6 +635,38 @@ class TimeBoundedResumableRun(unittest.TestCase):
         self.assertEqual(caught.exception.code, 128 + signal.SIGTERM)
 
 
+class CycleProgress(TimeBoundedResumableRun):
+    """2026-09-29 — 한 바퀴(전체 종목)가 여러 회차에 걸리는 것을 정직하게 적는다. '미확인'은 '문제 없음'이 아니다."""
+
+    def test_한_바퀴의_진행률과_끝난_시각을_회차마다_이어_적는다(self):
+        first = self.client()
+        code, saved, _, _ = self.run_main(first, ['--tickers', '4000', '--requests', '5200', '--max-minutes', '2.5'],
+                                          clock=lambda: first.calls * 60.0)
+        c = saved['cycle']
+        self.assertEqual((c['universe'], c['attempted'], c['verified'], c['progressPct']), (5, 3, 3, 60))
+        self.assertTrue(c['resumesNextRun'])
+        self.assertIsNone(c['lastCompletedAt'], '아직 한 바퀴를 끝낸 적이 없다')
+        started = c['startedAt']
+        second = self.client()
+        code, saved, _, _ = self.run_main(second, ['--tickers', '4000', '--requests', '5200'])
+        c = saved['cycle']
+        self.assertEqual((c['attempted'], c['verified'], c['progressPct'], c['resumesNextRun']), (5, 5, 100, False))
+        self.assertEqual(c['completedStartedAt'], started, '같은 순회를 이어서 끝냈다')
+        self.assertIsNotNone(c['lastCompletedAt'])
+        self.assertIsNone(c['startedAt'], '다음 회차에 새 순회를 시작한다')
+
+    def test_종목별_상태는_이번_순회_기준으로_가른다(self):
+        started = '2026-09-29T00:00:00+00:00'
+        old = {'ok': True, 'findings': [], 'queriedAt': '2026-09-25T00:00:00+00:00'}
+        self.assertEqual(collector.ticker_state(old, started), collector.PENDING, '예전 확인을 이번 순회 확인으로 치지 않는다')
+        self.assertEqual(collector.ticker_state(dict(old, queriedAt='2026-09-29T01:00:00+00:00'), started), collector.CHECKED_NONE)
+        self.assertEqual(collector.ticker_state(dict(old, queriedAt='2026-09-29T01:00:00+00:00', findings=[{'id': '1'}]), started),
+                         collector.CHECKED_FOUND)
+        self.assertEqual(collector.ticker_state({'ok': False, 'queriedAt': '2026-09-29T01:00:00+00:00'}, started), collector.CHECK_FAILED)
+        self.assertEqual(collector.ticker_state(None, started), collector.PENDING)
+        self.assertEqual(collector.TICKER_STATE_LABEL[collector.PENDING], '확인 대기 · 전체 순회 진행 중')
+
+
 class WorkflowContract(unittest.TestCase):
     """예약 회차의 단계 계약(2026-09-29). YAML 해석기 없이 글자로 본다(시험은 표준 라이브러리만)."""
 

@@ -58,6 +58,42 @@ LEDGER_CHECKPOINT_EVERY = 10
 CHECKPOINT_EVERY = 100
 #: 경과 시간 시계 — 시험이 바꿔 끼운다.
 _clock = time.monotonic
+
+#: 종목별 확인 상태(2026-09-29) — 이번 전체 순회 기준. '미확인'은 '문제 없음'이 아니다.
+CHECKED_FOUND, CHECKED_NONE, CHECK_FAILED, PENDING = 'CHECKED_FOUND', 'CHECKED_NONE', 'CHECK_FAILED', 'PENDING'
+TICKER_STATE_LABEL = {CHECKED_FOUND: '확인 완료 · 관련 공시 있음', CHECKED_NONE: '확인 완료 · 해당 사항 없음',
+                      CHECK_FAILED: '확인 실패 · 다음 순회에서 다시', PENDING: '확인 대기 · 전체 순회 진행 중'}
+
+
+def ticker_state(record, cycle_started):
+    """이번 전체 순회에서 이 종목을 어떻게 봤나. 순회 시작 전 기록은 '확인 대기'다(예전 확인을 이번 확인으로 치지 않는다)."""
+    record = record if isinstance(record, dict) else {}
+    queried = str(record.get('queriedAt') or '')
+    if not cycle_started or not queried or queried < cycle_started:
+        return PENDING
+    if not record.get('ok'):
+        return CHECK_FAILED
+    return CHECKED_FOUND if record.get('findings') else CHECKED_NONE
+
+
+def cycle_status(order, evidence, previous_cycle, now_iso):
+    """전체 순회(2,600종목 한 바퀴) 진행 상태 — 한 바퀴가 여러 회차에 걸리는 것을 정직하게 적는다.
+
+    startedAt 은 순회 시작 회차의 시각, verified 는 이번 순회에서 확인을 마친 종목 수(부분 순회를 전체 확인처럼 쓰지 않는다).
+    대상 전부를 이번 순회에서 시도했으면 lastCompletedAt 을 적고 다음 회차에 새 순회를 시작한다.
+    """
+    previous_cycle = previous_cycle if isinstance(previous_cycle, dict) else {}
+    started = previous_cycle.get('startedAt') or now_iso
+    states = [ticker_state(evidence.get(t), started) for t in order]
+    attempted = sum(1 for s in states if s != PENDING)
+    verified = sum(1 for s in states if s in (CHECKED_FOUND, CHECKED_NONE))
+    complete = bool(order) and attempted == len(order)
+    return {'universe': len(order), 'startedAt': None if complete else started,
+            'completedStartedAt': started if complete else None,
+            'attempted': attempted, 'verified': verified,
+            'progressPct': round(100 * verified / len(order)) if order else 0,
+            'lastCompletedAt': now_iso if complete else previous_cycle.get('lastCompletedAt'),
+            'resumesNextRun': not complete}
 #: 기준가격·주식수·상장상태에 영향을 주는 공시 제목 낱말. 현금배당은 주식 수를 바꾸지 않아 뺀다.
 RELEVANT_TERMS = ('합병', '분할', '감자', '액면', '무상증자', '유상증자', '권리락',
                   '주식교환', '주식이전', '공개매수', '주식배당', '상장폐지', '거래정지')
@@ -305,6 +341,8 @@ def _collect(args, daily):
                 'notInUniverse': len(target['notInUniverse']),
                 # 이번 회차가 대상 전부를 받았는가 · 아니면 왜 멈췄나(2026-09-29). 부분 수집을 전체 갱신처럼 보이게 하지 않는다.
                 'runComplete': bool(todo) and len(done) == len(todo), 'stoppedBy': stopped,
+                # 전체 순회 진행(여러 회차에 걸친 한 바퀴). 파일 모드는 순회를 건드리지 않는다.
+                'cycle': cycle_status(order, evidence, previous.get('cycle'), now.isoformat()) if rotation else previous.get('cycle'),
                 'efficiency': client.efficiency_report(), 'evidence': evidence}
 
     try:

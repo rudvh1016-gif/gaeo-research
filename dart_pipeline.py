@@ -50,8 +50,9 @@ PAGE_LIMIT_REACHED = "PAGE_LIMIT_REACHED"
 BUDGET_LIMIT_REACHED = "BUDGET_LIMIT_REACHED"
 API_ERROR = "API_ERROR"
 NO_API_KEY = "NO_API_KEY"
-# 멈춘 기간이 따라잡기 상한(collect_dart.MAX_CATCHUP_DAYS)보다 길어 그 사이를 다 다시 보지 못했다(2026-09-29)
-CATCHUP_WINDOW_EXCEEDED = "CATCHUP_WINDOW_EXCEEDED"
+# 공시 목록 따라잡기 상태(2026-09-29) — 장애가 아니라 복구 진행. 가장 오래된 미확인 날부터 회차마다 이어 본다.
+CATCHUP_IN_PROGRESS = "CATCHUP_IN_PROGRESS"
+CAUGHT_UP = "CAUGHT_UP"
 
 #: '끝까지 확인했다'고 말할 수 있는 상태는 이 둘뿐이다(2026-09-29). 나머지는 확인 안 됨이다.
 COMPLETE_STATES = (EVENT_DETECTED, NO_OFFICIAL_EVENT_DETECTED)
@@ -71,13 +72,27 @@ def last_complete(status):
         if (isinstance(kept, dict) and dart_time.parse_instant(kept.get("finishedAt"))
                 and isinstance(kept.get("windowEnd"), str)):
             return {"finishedAt": kept["finishedAt"], "windowStart": kept.get("windowStart"),
-                    "windowEnd": kept["windowEnd"]}
+                    "windowEnd": kept["windowEnd"],
+                    "coveredUntil": kept.get("coveredUntil") or covered_until(kept["finishedAt"], kept["windowEnd"])}
         return None
     window = status.get("queryWindow") or {}
     if (status.get("status") == dart_client.OK and status.get("eventState") in COMPLETE_STATES
             and dart_time.parse_instant(status.get("finishedAt")) and isinstance(window.get("end"), str)):
-        return {"finishedAt": status["finishedAt"], "windowStart": window.get("start"), "windowEnd": window["end"]}
+        return {"finishedAt": status["finishedAt"], "windowStart": window.get("start"), "windowEnd": window["end"],
+                "coveredUntil": covered_until(status["finishedAt"], window["end"])}
     return None
+
+
+def covered_until(finished_at, window_end):
+    """'여기까지 접수된 공시는 다 봤다'고 말할 수 있는 시각(UTC ISO) = min(확인을 마친 시각, 조회 끝날 다음 날 0시 KST).
+
+    평소(끝날 = 오늘)는 확인을 마친 시각이다. 따라잡는 중(끝날이 과거)이면 그 끝날 다음 날 0시 — 오늘 확인했다고 해서
+    그 뒤 날짜의 공시까지 본 것이 아니다. 공시 연구의 generatedAt 이 이 값이다(소비자가 48시간 신선도로 잰다).
+    """
+    finished = dart_time.parse_instant(finished_at)
+    day = datetime.date.fromisoformat(window_end) + datetime.timedelta(days=1)
+    midnight = datetime.datetime(day.year, day.month, day.day, tzinfo=dart_time.KST).astimezone(dart_time.UTC)
+    return min(finished, midnight).isoformat() if finished else None
 
 UNKNOWN_MAPPING = "UNKNOWN_MAPPING"
 NOT_AVAILABLE = "NOT_AVAILABLE"

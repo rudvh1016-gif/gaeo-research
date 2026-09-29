@@ -28,32 +28,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DART_ROOT = P.DART_ROOT
 STATUS_PATH = os.path.join(DART_ROOT, "collection_status.json")
 BUDGET_PATH = os.path.join(DART_ROOT, "api_budget.json")
-#: 공시 목록 따라잡기 상한(일) — 2026-09-29. 예전에는 회차마다 [어제, 오늘]만 봐서, 수집이 며칠 멈추면
-#: (9/26~9/29 실측) 그 사이 접수된 공시를 영영 보지 못한 채 '확인 완료'가 됐다. 이제 끝까지 확인한 마지막
-#: 회차의 조회 끝날부터 오늘까지 **하루씩** 다시 본다(하루 쪽수 상한 P.DEFAULT_MAX_PAGES 가 하루 기준이다).
-#: 멈춘 기간이 이보다 길면 확인 완료로 적지 않는다(CATCHUP_WINDOW_EXCEEDED) — 사람이 따로 메워야 한다.
+#: 공시 목록 따라잡기 — 한 회차에 보는 최대 접수일 수(2026-09-29). 예전에는 회차마다 [어제, 오늘]만 봐서, 수집이
+#: 며칠 멈추면(9/26~9/29 실측) 그 사이 접수된 공시를 영영 보지 못한 채 '확인 완료'가 됐다. 이제 끝까지 확인한 마지막 회차의
+#: 조회 끝날부터 **하루씩** 다시 본다(하루 쪽수 상한 P.DEFAULT_MAX_PAGES 가 하루 기준이다).
+#: 이 값은 한 번에 처리하는 양의 안전장치일 뿐 복구를 포기하는 선이 아니다 — 더 밀렸으면 **가장 오래된 미확인 날부터**
+#: 이만큼씩 회차마다 이어 보고(CATCHUP_IN_PROGRESS), 오늘까지 따라잡으면 평소처럼 [어제, 오늘]만 본다.
 MAX_CATCHUP_DAYS = 14
 
 
 def catchup_days(today, since):
-    """이번 회차에 볼 접수일 목록(YYYY-MM-DD, 오래된 날부터)과 메우지 못한 구간(없으면 None).
+    """이번 회차에 볼 접수일 목록(YYYY-MM-DD, 오래된 날부터)과 남은 따라잡기 일수(0 = 오늘까지 본다).
 
     since = 끝까지 확인한 마지막 회차의 조회 끝날. 그날도 다시 본다(그 뒤에 접수된 공시가 있을 수 있다).
-    since 가 없거나 어제보다 늦으면 예전과 같이 [어제, 오늘].
+    since 가 없거나 어제보다 늦으면 예전과 같이 [어제, 오늘]. 오래된 날을 건너뛰고 최근 날짜부터 보지 않는다.
     """
     end = datetime.date.fromisoformat(today)
     start = end - datetime.timedelta(days=1)
-    gap = None
     if since:
-        resume = datetime.date.fromisoformat(since)
-        floor = end - datetime.timedelta(days=MAX_CATCHUP_DAYS)
-        if resume < floor:
-            gap = {"from": resume.isoformat(), "to": (floor - datetime.timedelta(days=1)).isoformat()}
-            start = floor
-        elif resume < start:
-            start = resume
-    days = [(start + datetime.timedelta(days=i)).isoformat() for i in range((end - start).days + 1)]
-    return days, gap
+        start = min(start, datetime.date.fromisoformat(since))
+    last = min(end, start + datetime.timedelta(days=MAX_CATCHUP_DAYS - 1))
+    days = [(start + datetime.timedelta(days=i)).isoformat() for i in range((last - start).days + 1)]
+    return days, (end - last).days
 
 
 def _now_iso():
@@ -156,7 +151,7 @@ def collect(client, corp_map, budget=None, since=None):
     """
     started = _now_iso()
     today = dart_time.today_kst()
-    days, gap = catchup_days(today, since)
+    days, behind = catchup_days(today, since)
     events, errors, observed = [], [], []
     stats = {k: 0 for k in ("new_filings_detected", "matched_gaeo_filings", "duplicate_skipped",
                             "unmatched_filings", "pages_fetched", "list_requests")}
@@ -182,18 +177,19 @@ def collect(client, corp_map, budget=None, since=None):
                         "totalPagesReported": page["total_pages_reported"],
                         "coverageComplete": page["coverage_complete"],
                         "incompleteReasons": page["incomplete_reasons"]})
-    reasons = sorted({r for d in per_day for r in d["incompleteReasons"]} | ({P.CATCHUP_WINDOW_EXCEEDED} if gap else set()))
+    reasons = sorted({r for d in per_day for r in d["incompleteReasons"]})
     pagination = {"page_limit": P.DEFAULT_MAX_PAGES, "pages_fetched": stats["pages_fetched"],
                   "total_pages_reported": None, "days": per_day,
-                  "coverage_complete": bool(per_day) and all(d["coverageComplete"] for d in per_day) and gap is None,
+                  "coverage_complete": bool(per_day) and all(d["coverageComplete"] for d in per_day),
                   "incomplete_reasons": reasons}
 
     state, reasons = P.coverage_state(events, errors, client.has_key, pagination)
     finished = _now_iso()
     return {
         "startedAt": started, "finishedAt": finished,
-        "queryWindow": {"start": days[0], "end": today, "days": len(days)},
-        "catchUpGap": gap,
+        "queryWindow": {"start": days[0], "end": days[-1], "days": len(days)},
+        # 따라잡기 진행 — 장애가 아니라 복구 진행이다. 끝까지 본 날까지만 확인 완료로 친다(오늘까지 봤다고 하지 않는다).
+        "catchUp": {"state": P.CATCHUP_IN_PROGRESS if behind else P.CAUGHT_UP, "behindDays": behind, "today": today},
         "_researchObservedFilings": observed,
         "eventState": state, "coverageReasons": reasons,
         "coverageNote": P.COVERAGE_NOTE,
@@ -279,9 +275,11 @@ def main():
         payload.update(collect(client, corp_map, budget, since=(last or {}).get("windowEnd")))
         payload["status"] = dart_client.OK if not payload["errors"] else P.EVENT_DATA_ERROR
         if payload["status"] == dart_client.OK and payload["eventState"] in P.COMPLETE_STATES:
-            payload["lastComplete"] = {"finishedAt": payload["finishedAt"],
-                                       "windowStart": payload["queryWindow"]["start"],
-                                       "windowEnd": payload["queryWindow"]["end"]}
+            window = payload["queryWindow"]
+            payload["lastComplete"] = {"finishedAt": payload["finishedAt"], "windowStart": window["start"],
+                                       "windowEnd": window["end"],
+                                       # 따라잡는 중이면 끝날 다음 날 0시(KST)까지만 — 지금 확인했어도 그 뒤 공시는 아직 안 봤다.
+                                       "coveredUntil": P.covered_until(payload["finishedAt"], window["end"])}
 
         # DART Raw도 Daily Segment → gzip → manifest 정책을 그대로 쓴다.
         try:

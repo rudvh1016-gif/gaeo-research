@@ -580,17 +580,16 @@ class CatchUpAfterOutage(unittest.TestCase):
         with open(self.status, encoding="utf-8") as f:
             return json.load(f)
 
-    def test_따라잡을_날짜는_마지막_확인_끝날부터_오늘까지다(self):
-        days, gap = self.CD.catchup_days("2026-09-29", None)
-        self.assertEqual((days, gap), (["2026-09-28", "2026-09-29"], None))          # 예전과 같은 [어제, 오늘]
-        days, gap = self.CD.catchup_days("2026-09-29", "2026-09-26")
-        self.assertEqual((days, gap), (["2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29"], None))
-        days, gap = self.CD.catchup_days("2026-09-29", "2026-09-29")
+    def test_따라잡을_날짜는_가장_오래된_미확인_날부터_한_회차에_14일까지다(self):
+        days, behind = self.CD.catchup_days("2026-09-29", None)
+        self.assertEqual((days, behind), (["2026-09-28", "2026-09-29"], 0))          # 예전과 같은 [어제, 오늘]
+        days, behind = self.CD.catchup_days("2026-09-29", "2026-09-26")
+        self.assertEqual((days, behind), (["2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29"], 0))
+        days, behind = self.CD.catchup_days("2026-09-29", "2026-09-29")
         self.assertEqual(days, ["2026-09-28", "2026-09-29"])                           # 어제는 항상 다시 본다
-        days, gap = self.CD.catchup_days("2026-09-29", "2026-09-01")
-        self.assertEqual(days[0], "2026-09-15")
-        self.assertEqual(len(days), self.CD.MAX_CATCHUP_DAYS + 1)
-        self.assertEqual(gap, {"from": "2026-09-01", "to": "2026-09-14"})
+        days, behind = self.CD.catchup_days("2026-09-29", "2026-09-01")
+        self.assertEqual((days[0], days[-1], len(days)), ("2026-09-01", "2026-09-14", self.CD.MAX_CATCHUP_DAYS))
+        self.assertEqual(behind, 15, "최근 14일만 보고 오래된 날을 버리지 않는다 — 가장 오래된 날부터")
 
     def test_멈춘_뒤_첫_회차는_빠진_날을_하루씩_다시_보고_확인_완료를_옮긴다(self):
         # 2026-09-29 이전 모양의 상태 파일(lastComplete 칸 없음) — 9/25 15:41Z 에 [9/25, 9/26] 을 끝까지 봤다.
@@ -605,7 +604,8 @@ class CatchUpAfterOutage(unittest.TestCase):
         self.assertEqual(status["queryWindow"], {"start": "2026-09-26", "end": "2026-09-29", "days": 4})
         self.assertEqual(status["eventState"], P.NO_OFFICIAL_EVENT_DETECTED)
         self.assertEqual(status["lastComplete"], {"finishedAt": status["finishedAt"],
-                                                  "windowStart": "2026-09-26", "windowEnd": "2026-09-29"})
+                                                  "windowStart": "2026-09-26", "windowEnd": "2026-09-29",
+                                                  "coveredUntil": P.covered_until(status["finishedAt"], "2026-09-29")})
 
     def test_하루라도_못_보면_확인_완료가_아니고_앞의_기록을_그대로_넘긴다(self):
         kept = {"finishedAt": "2026-09-25T15:41:33.305198+00:00", "windowStart": "2026-09-25", "windowEnd": "2026-09-26"}
@@ -614,19 +614,34 @@ class CatchUpAfterOutage(unittest.TestCase):
         client = self.DayClient(fail_days={"20260927"})
         status = self.run_main(client)
         self.assertEqual(status["eventState"], P.EVENT_DATA_ERROR)     # 실패를 '공시 없음'으로 바꾸지 않는다
-        self.assertEqual(status["lastComplete"], kept)
+        self.assertEqual(status["lastComplete"], dict(kept, coveredUntil=P.covered_until(kept["finishedAt"], kept["windowEnd"])))
         self.assertEqual([e.get("day") for e in status["errors"]], ["2026-09-27"])
         self.assertEqual(len(client.calls), 4, "다른 날은 계속 본다 — 다음 회차가 다시 이어받는다")
 
-    def test_따라잡기_상한을_넘는_공백은_확인_완료로_적지_않는다(self):
+    def test_14일보다_오래_밀리면_회차마다_오래된_날부터_이어_보고_오늘까지_따라잡는다(self):
         kept = {"finishedAt": "2026-09-01T00:00:00+00:00", "windowStart": "2026-08-31", "windowEnd": "2026-09-01"}
         with open(self.status, "w", encoding="utf-8") as f:
             json.dump({"status": "OK", "eventState": P.NO_OFFICIAL_EVENT_DETECTED, "lastComplete": kept}, f)
-        status = self.run_main(self.DayClient())
-        self.assertEqual(status["eventState"], P.EVENT_COVERAGE_INCOMPLETE)
-        self.assertIn(P.CATCHUP_WINDOW_EXCEEDED, status["coverageReasons"])
-        self.assertEqual(status["catchUpGap"], {"from": "2026-09-01", "to": "2026-09-14"})
-        self.assertEqual(status["lastComplete"], kept)
+        chunks = []
+        for expected_end, behind in (("2026-09-14", 15), ("2026-09-27", 2), ("2026-09-29", 0)):
+            client = self.DayClient()
+            status = self.run_main(client)
+            days = [c["bgn_de"] for c in client.calls]
+            chunks.append((days[0], days[-1]))
+            self.assertEqual(status["eventState"], P.NO_OFFICIAL_EVENT_DETECTED)     # 끝까지 본 구간은 확인 완료다
+            self.assertEqual(status["lastComplete"]["windowEnd"], expected_end)       # 오늘로 건너뛰지 않는다
+            self.assertEqual(status["catchUp"]["behindDays"], behind)
+            self.assertEqual(status["catchUp"]["state"], P.CATCHUP_IN_PROGRESS if behind else P.CAUGHT_UP)
+        self.assertEqual(chunks, [("20260901", "20260914"), ("20260914", "20260927"), ("20260927", "20260929")])
+
+    def test_따라잡는_중에는_확인_시각이_끝날_다음_날_0시를_넘지_않는다(self):
+        # 오늘 확인했어도 9/14 까지만 봤다면 '9/15 0시(KST)까지 접수분'만 확인한 것이다 — 공시 연구가 신선해 보이면 안 된다.
+        self.assertEqual(P.covered_until("2026-09-29T00:05:00+00:00", "2026-09-14"), "2026-09-14T15:00:00+00:00")
+        self.assertEqual(P.covered_until("2026-09-29T00:05:00+00:00", "2026-09-29"), "2026-09-29T00:05:00+00:00")
+        legacy = P.last_complete({"status": "OK", "eventState": P.NO_OFFICIAL_EVENT_DETECTED,
+                                  "finishedAt": "2026-09-25T15:41:33.305198+00:00",
+                                  "queryWindow": {"start": "2026-09-25", "end": "2026-09-26"}})
+        self.assertEqual(legacy["coveredUntil"], "2026-09-25T15:41:33.305198+00:00")
 
     def test_확인한_기록이_없는_옛_실패_상태는_확인_완료로_치지_않는다(self):
         self.assertIsNone(P.last_complete({"status": "EVENT_DATA_ERROR", "eventState": P.EVENT_DATA_ERROR,
