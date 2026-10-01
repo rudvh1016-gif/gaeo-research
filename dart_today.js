@@ -1,12 +1,192 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-10-01 00:41",
- "priceLabel": "공시 접수일 2026-09-28~2026-09-30 기준 · 시세 자료 공급 종료(2026-09-24)",
- "count": 333,
+ "generatedAt": "2026-10-01 10:48",
+ "priceLabel": "공시 접수일 2026-09-28~2026-10-01 기준 · 시세 자료 공급 종료(2026-09-24)",
+ "count": 349,
  "coverageState": "EVENT_DETECTED",
  "note": "금융감독원 전자공시(DART) 자동 수집(하루 2회 · corporate-action-evidence.yml). 참고 정보이며 점수·판단에는 쓰지 않는다.",
  "items": [
+  {
+   "code": "000720",
+   "name": "현대건설",
+   "title": "[기재정정]중대재해발생",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": true,
+   "rceptNo": "20261001800005"
+  },
+  {
+   "code": "017960",
+   "name": "한국카본",
+   "title": "현금ㆍ현물배당결정",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800104"
+  },
+  {
+   "code": "086790",
+   "name": "하나금융지주",
+   "title": "자기주식취득결과보고서",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001000085"
+  },
+  {
+   "code": "023160",
+   "name": "태광",
+   "title": "[기재정정]반기보고서 (2026.06)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": true,
+   "rceptNo": "20261001000037"
+  },
+  {
+   "code": "035720",
+   "name": "카카오",
+   "title": "기업설명회(IR)개최(안내공시)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800065"
+  },
+  {
+   "code": "010780",
+   "name": "아이에스동서",
+   "title": "단일판매ㆍ공급계약체결",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800062"
+  },
+  {
+   "code": "490470",
+   "name": "세미파이브",
+   "title": "단일판매ㆍ공급계약체결",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001900080"
+  },
+  {
+   "code": "014620",
+   "name": "성광벤드",
+   "title": "주요사항보고서(자기주식취득신탁계약체결결정)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001000062"
+  },
+  {
+   "code": "006800",
+   "name": "미래에셋증권",
+   "title": "일괄신고추가서류(파생결합증권-주가연계증권)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001000091"
+  },
+  {
+   "code": "006800",
+   "name": "미래에셋증권",
+   "title": "투자설명서(일괄신고)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001000087"
+  },
+  {
+   "code": "006800",
+   "name": "미래에셋증권",
+   "title": "일괄신고추가서류(파생결합사채-주가연계파생결합사채)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001000076"
+  },
+  {
+   "code": "003160",
+   "name": "디아이",
+   "title": "단일판매ㆍ공급계약체결(자율공시)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800054"
+  },
+  {
+   "code": "034020",
+   "name": "두산에너빌리티",
+   "title": "단일판매ㆍ공급계약체결",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800034"
+  },
+  {
+   "code": "005880",
+   "name": "대한해운",
+   "title": "단일판매ㆍ공급계약체결",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800028"
+  },
+  {
+   "code": "002900",
+   "name": "TYM",
+   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001000014"
+  },
+  {
+   "code": "010120",
+   "name": "LS일렉트릭",
+   "title": "단일판매ㆍ공급계약체결",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800079"
+  },
+  {
+   "code": "006260",
+   "name": "LS",
+   "title": "단일판매ㆍ공급계약체결(자회사의 주요경영사항)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800084"
+  },
+  {
+   "code": "373220",
+   "name": "LG에너지솔루션",
+   "title": "[기재정정]단일판매ㆍ공급계약체결",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": true,
+   "rceptNo": "20261001800119"
+  },
+  {
+   "code": "034220",
+   "name": "LG디스플레이",
+   "title": "결산실적공시예고(안내공시)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800051"
+  },
+  {
+   "code": "034220",
+   "name": "LG디스플레이",
+   "title": "기업설명회(IR)개최(안내공시)",
+   "receiptDate": "20261001",
+   "detectedAt": "2026-10-01T01:48:29.668257+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261001800049"
+  },
   {
    "code": "145020",
    "name": "휴젤",
@@ -773,33 +953,6 @@ const DART_TODAY = {
    "rceptNo": "20260930901280"
   },
   {
-   "code": "006800",
-   "name": "미래에셋증권",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20260930",
-   "detectedAt": "2026-09-30T15:27:28.313508+00:00",
-   "isCorrection": false,
-   "rceptNo": "20260930000704"
-  },
-  {
-   "code": "006800",
-   "name": "미래에셋증권",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20260930",
-   "detectedAt": "2026-09-30T15:27:28.313508+00:00",
-   "isCorrection": false,
-   "rceptNo": "20260930000621"
-  },
-  {
-   "code": "006800",
-   "name": "미래에셋증권",
-   "title": "증권발행실적보고서",
-   "receiptDate": "20260930",
-   "detectedAt": "2026-09-30T15:27:28.313508+00:00",
-   "isCorrection": false,
-   "rceptNo": "20260930000546"
-  },
-  {
    "code": "138040",
    "name": "메리츠금융지주",
    "title": "임원ㆍ주요주주특정증권등소유상황보고서",
@@ -1185,15 +1338,6 @@ const DART_TODAY = {
    "detectedAt": "2026-09-30T15:27:28.313508+00:00",
    "isCorrection": true,
    "rceptNo": "20260930801255"
-  },
-  {
-   "code": "006260",
-   "name": "LS",
-   "title": "풍문또는보도에대한해명(미확정)(자회사의 주요경영사항)",
-   "receiptDate": "20260930",
-   "detectedAt": "2026-09-30T15:27:28.313508+00:00",
-   "isCorrection": false,
-   "rceptNo": "20260930801254"
   },
   {
    "code": "079550",
