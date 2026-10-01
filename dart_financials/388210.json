@@ -1,0 +1,78 @@
+{
+ "ticker": "388210",
+ "updatedAt": "2026-10-01T15:55:19.871112+00:00",
+ "years": {
+  "2023": {
+   "checkedAt": "2026-10-01T15:55:19.871094+00:00",
+   "status": "NO_DATA"
+  },
+  "2024": {
+   "checkedAt": "2026-10-01T15:55:18.704276+00:00",
+   "status": "NO_DATA"
+  },
+  "2025": {
+   "collectedAt": "2026-10-01T15:55:17.529921+00:00",
+   "coverage": 0.9375,
+   "found": [
+    "revenue",
+    "costOfSales",
+    "grossProfit",
+    "operatingIncome",
+    "netIncome",
+    "totalAssets",
+    "totalLiabilities",
+    "totalEquity",
+    "operatingCashFlow",
+    "investingCashFlow",
+    "sgaExpenses",
+    "currentAssets",
+    "currentLiabilities",
+    "nonCurrentLiabilities",
+    "issuedCapital"
+   ],
+   "fsDiv": "CFS",
+   "matchedBy": {
+    "costOfSales": "account_id",
+    "currentAssets": "account_id",
+    "currentLiabilities": "account_id",
+    "grossProfit": "account_id",
+    "investingCashFlow": "account_id",
+    "issuedCapital": "account_id",
+    "netIncome": "account_id",
+    "nonCurrentLiabilities": "account_id",
+    "operatingCashFlow": "account_id",
+    "operatingIncome": "account_id",
+    "revenue": "account_id",
+    "sgaExpenses": "account_nm",
+    "totalAssets": "account_id",
+    "totalEquity": "account_id",
+    "totalLiabilities": "account_id"
+   },
+   "missing": [
+    "interestExpense"
+   ],
+   "notApplicable": [],
+   "reprtCode": "11011",
+   "sectorHandling": "STANDARD",
+   "status": "OK",
+   "values": {
+    "costOfSales": 95741266099,
+    "currentAssets": 162493560117,
+    "currentLiabilities": 78946341641,
+    "grossProfit": 64814496665,
+    "interestExpense": "NOT_AVAILABLE",
+    "investingCashFlow": -17116460185,
+    "issuedCapital": 4636344000,
+    "netIncome": -21503509753,
+    "nonCurrentLiabilities": 14094034185,
+    "operatingCashFlow": 36194413360,
+    "operatingIncome": 51781944189,
+    "revenue": 160555762764,
+    "sgaExpenses": 13032552476,
+    "totalAssets": 275447075073,
+    "totalEquity": 182406699247,
+    "totalLiabilities": 93040375826
+   }
+  }
+ }
+}
