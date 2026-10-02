@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "financial_changes",
- "generatedAt": "2026-10-02T02:10:27Z",
+ "generatedAt": "2026-10-02T15:12:38Z",
  "source": {
   "provider": "opendart",
   "dataset": "단일회사 전체 재무제표(fnlttSinglAcntAll.json) — 표준 계정(account_id) 수치",
@@ -21,9 +21,9 @@
  },
  "coverage": {
   "trackedCompanies": 600,
-  "companiesCollected": 592,
-  "companiesWithRows": 592,
-  "notCollected": 8,
+  "companiesCollected": 596,
+  "companiesWithRows": 596,
+  "notCollected": 4,
   "notCollectedNote": "아직 수집되지 않은 회사다(재무가 없다는 뜻이 아니다). 하루 40개사·150요청 상한으로 차례로 채운다."
  },
  "targetYears": [
@@ -270864,7 +270864,7 @@
    "periods": [
     {
      "year": "2023",
-     "status": "NOT_COLLECTED",
+     "status": "NO_DATA",
      "fsDiv": null,
      "fsDivLabel": null,
      "reprtCode": null,
@@ -270874,7 +270874,380 @@
     },
     {
      "year": "2024",
-     "status": "NOT_COLLECTED",
+     "status": "OK",
+     "fsDiv": "CFS",
+     "fsDivLabel": "연결",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:54.404612+00:00",
+     "coverage": 0.9375
+    },
+    {
+     "year": "2025",
+     "status": "OK",
+     "fsDiv": "CFS",
+     "fsDivLabel": "연결",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-01T15:57:28.061131+00:00",
+     "coverage": 0.9375
+    }
+   ],
+   "comparablePairs": [
+    {
+     "from": "2024",
+     "to": "2025"
+    }
+   ],
+   "rows": [
+    {
+     "account": "revenue",
+     "label": "매출액",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 493322362934,
+      "2025": 1790921869125
+     },
+     "changes": {
+      "2025": {
+       "abs": 1297599506191,
+       "pct": 263.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "costOfSales",
+     "label": "매출원가",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 240208806445,
+      "2025": 841190155909
+     },
+     "changes": {
+      "2025": {
+       "abs": 600981349464,
+       "pct": 250.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "grossProfit",
+     "label": "매출총이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 253113556489,
+      "2025": 949731713216
+     },
+     "changes": {
+      "2025": {
+       "abs": 696618156727,
+       "pct": 275.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "sgaExpenses",
+     "label": "판매비와관리비",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 161776825008,
+      "2025": 522047501909
+     },
+     "changes": {
+      "2025": {
+       "abs": 360270676901,
+       "pct": 222.7,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "operatingIncome",
+     "label": "영업이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": -120362075,
+      "2025": 162267204336
+     },
+     "changes": {
+      "2025": {
+       "abs": 162387566411,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "interestExpense",
+     "label": "이자비용",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED"
+     },
+     "changes": {},
+     "missing": [
+      "2024",
+      "2025"
+     ]
+    },
+    {
+     "account": "netIncome",
+     "label": "당기순이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 3210792631,
+      "2025": 42619753835
+     },
+     "changes": {
+      "2025": {
+       "abs": 39408961204,
+       "pct": 1227.4,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "operatingCashFlow",
+     "label": "영업활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 56847904527,
+      "2025": 5676061731
+     },
+     "changes": {
+      "2025": {
+       "abs": -51171842796,
+       "pct": -90.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "investingCashFlow",
+     "label": "투자활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": -74441384427,
+      "2025": -67110518758
+     },
+     "changes": {
+      "2025": {
+       "abs": 7330865669,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalAssets",
+     "label": "자산총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 1591146181854,
+      "2025": 1809393507006
+     },
+     "changes": {
+      "2025": {
+       "abs": 218247325152,
+       "pct": 13.7,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "currentAssets",
+     "label": "유동자산",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 996234441988,
+      "2025": 1131827637474
+     },
+     "changes": {
+      "2025": {
+       "abs": 135593195486,
+       "pct": 13.6,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalLiabilities",
+     "label": "부채총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 766419408117,
+      "2025": 943173724181
+     },
+     "changes": {
+      "2025": {
+       "abs": 176754316064,
+       "pct": 23.1,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "currentLiabilities",
+     "label": "유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 530103580800,
+      "2025": 626736338501
+     },
+     "changes": {
+      "2025": {
+       "abs": 96632757701,
+       "pct": 18.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "nonCurrentLiabilities",
+     "label": "비유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 236315827317,
+      "2025": 316437385680
+     },
+     "changes": {
+      "2025": {
+       "abs": 80121558363,
+       "pct": 33.9,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalEquity",
+     "label": "자본총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 824726773737,
+      "2025": 866219782825
+     },
+     "changes": {
+      "2025": {
+       "abs": 41493009088,
+       "pct": 5.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "issuedCapital",
+     "label": "자본금",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 25244195000,
+      "2025": 25244195000
+     },
+     "changes": {
+      "2025": {
+       "abs": 0,
+       "pct": 0.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    }
+   ],
+   "derived": {
+    "2024": {
+     "operatingMarginPct": -0.0,
+     "debtToEquityPct": 92.9
+    },
+    "2025": {
+     "operatingMarginPct": 9.1,
+     "debtToEquityPct": 108.9
+    }
+   },
+   "notes": [
+    "2023: DART 에 해당 연도 사업보고서 자료가 없다고 응답(NO_DATA) — 값을 만들지 않는다"
+   ],
+   "correctionsApplied": "UNKNOWN"
+  },
+  "490470": {
+   "name": "세미파이브",
+   "fsDiv": "CFS",
+   "fsDivLabel": "연결",
+   "periods": [
+    {
+     "year": "2023",
+     "status": "NO_DATA",
+     "fsDiv": null,
+     "fsDivLabel": null,
+     "reprtCode": null,
+     "reportLabel": null,
+     "collectedAt": null,
+     "coverage": null
+    },
+    {
+     "year": "2024",
+     "status": "NO_DATA",
      "fsDiv": null,
      "fsDivLabel": null,
      "reprtCode": null,
@@ -270889,7 +271262,7 @@
      "fsDivLabel": "연결",
      "reprtCode": "11011",
      "reportLabel": "사업보고서(연간)",
-     "collectedAt": "2026-10-01T15:57:28.061131+00:00",
+     "collectedAt": "2026-10-02T15:12:39.419969+00:00",
      "coverage": 0.9375
     }
    ],
@@ -270903,7 +271276,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 1790921869125
+      "2025": 120952056617
      },
      "changes": {},
      "missing": []
@@ -270916,7 +271289,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 841190155909
+      "2025": 101759916838
      },
      "changes": {},
      "missing": []
@@ -270929,7 +271302,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 949731713216
+      "2025": 19192139779
      },
      "changes": {},
      "missing": []
@@ -270942,7 +271315,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 522047501909
+      "2025": 72586178340
      },
      "changes": {},
      "missing": []
@@ -270955,7 +271328,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 162267204336
+      "2025": -53394038561
      },
      "changes": {},
      "missing": []
@@ -270982,7 +271355,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 42619753835
+      "2025": -56220209448
      },
      "changes": {},
      "missing": []
@@ -270995,7 +271368,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 5676061731
+      "2025": -8880636884
      },
      "changes": {},
      "missing": []
@@ -271008,7 +271381,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": -67110518758
+      "2025": -58409996234
      },
      "changes": {},
      "missing": []
@@ -271021,7 +271394,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 1809393507006
+      "2025": 309283897877
      },
      "changes": {},
      "missing": []
@@ -271034,7 +271407,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 1131827637474
+      "2025": 184477343805
      },
      "changes": {},
      "missing": []
@@ -271047,7 +271420,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 943173724181
+      "2025": 88766478846
      },
      "changes": {},
      "missing": []
@@ -271060,7 +271433,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 626736338501
+      "2025": 80148462783
      },
      "changes": {},
      "missing": []
@@ -271073,7 +271446,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 316437385680
+      "2025": 8618016063
      },
      "changes": {},
      "missing": []
@@ -271086,7 +271459,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 866219782825
+      "2025": 220517419031
      },
      "changes": {},
      "missing": []
@@ -271099,7 +271472,7 @@
      "values": {
       "2023": "NOT_COLLECTED",
       "2024": "NOT_COLLECTED",
-      "2025": 25244195000
+      "2025": 33858800000
      },
      "changes": {},
      "missing": []
@@ -271107,8 +271480,1124 @@
    ],
    "derived": {
     "2025": {
-     "operatingMarginPct": 9.1,
-     "debtToEquityPct": 108.9
+     "operatingMarginPct": -44.1,
+     "debtToEquityPct": 40.3
+    }
+   },
+   "notes": [
+    "2023: DART 에 해당 연도 사업보고서 자료가 없다고 응답(NO_DATA) — 값을 만들지 않는다",
+    "2024: DART 에 해당 연도 사업보고서 자료가 없다고 응답(NO_DATA) — 값을 만들지 않는다"
+   ],
+   "correctionsApplied": "UNKNOWN"
+  },
+  "491000": {
+   "name": "리브스메드",
+   "fsDiv": "CFS",
+   "fsDivLabel": "연결",
+   "periods": [
+    {
+     "year": "2023",
+     "status": "NO_DATA",
+     "fsDiv": null,
+     "fsDivLabel": null,
+     "reprtCode": null,
+     "reportLabel": null,
+     "collectedAt": null,
+     "coverage": null
+    },
+    {
+     "year": "2024",
+     "status": "NO_DATA",
+     "fsDiv": null,
+     "fsDivLabel": null,
+     "reprtCode": null,
+     "reportLabel": null,
+     "collectedAt": null,
+     "coverage": null
+    },
+    {
+     "year": "2025",
+     "status": "OK",
+     "fsDiv": "CFS",
+     "fsDivLabel": "연결",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:42.859337+00:00",
+     "coverage": 1.0
+    }
+   ],
+   "comparablePairs": [],
+   "rows": [
+    {
+     "account": "revenue",
+     "label": "매출액",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 51192098328
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "costOfSales",
+     "label": "매출원가",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 21657690403
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "grossProfit",
+     "label": "매출총이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 29534407925
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "sgaExpenses",
+     "label": "판매비와관리비",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 52176611017
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "operatingIncome",
+     "label": "영업이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": -22642203092
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "interestExpense",
+     "label": "이자비용",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 1380055268
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "netIncome",
+     "label": "당기순이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": -22873510223
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "operatingCashFlow",
+     "label": "영업활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": -34739913530
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "investingCashFlow",
+     "label": "투자활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": -129172579177
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "totalAssets",
+     "label": "자산총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 201933050640
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "currentAssets",
+     "label": "유동자산",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 174850078924
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "totalLiabilities",
+     "label": "부채총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 21063982255
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "currentLiabilities",
+     "label": "유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 13793877388
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "nonCurrentLiabilities",
+     "label": "비유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 7270104867
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "totalEquity",
+     "label": "자본총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 180869068385
+     },
+     "changes": {},
+     "missing": []
+    },
+    {
+     "account": "issuedCapital",
+     "label": "자본금",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": "NOT_COLLECTED",
+      "2025": 12340845500
+     },
+     "changes": {},
+     "missing": []
+    }
+   ],
+   "derived": {
+    "2025": {
+     "operatingMarginPct": -44.2,
+     "debtToEquityPct": 11.6
+    }
+   },
+   "notes": [
+    "2023: DART 에 해당 연도 사업보고서 자료가 없다고 응답(NO_DATA) — 값을 만들지 않는다",
+    "2024: DART 에 해당 연도 사업보고서 자료가 없다고 응답(NO_DATA) — 값을 만들지 않는다"
+   ],
+   "correctionsApplied": "UNKNOWN"
+  },
+  "499790": {
+   "name": "GS피앤엘",
+   "fsDiv": "CFS",
+   "fsDivLabel": "연결",
+   "periods": [
+    {
+     "year": "2023",
+     "status": "NO_DATA",
+     "fsDiv": null,
+     "fsDivLabel": null,
+     "reprtCode": null,
+     "reportLabel": null,
+     "collectedAt": null,
+     "coverage": null
+    },
+    {
+     "year": "2024",
+     "status": "OK",
+     "fsDiv": "CFS",
+     "fsDivLabel": "연결",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:47.276654+00:00",
+     "coverage": 0.9375
+    },
+    {
+     "year": "2025",
+     "status": "OK",
+     "fsDiv": "CFS",
+     "fsDivLabel": "연결",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:46.394991+00:00",
+     "coverage": 0.9375
+    }
+   ],
+   "comparablePairs": [
+    {
+     "from": "2024",
+     "to": "2025"
+    }
+   ],
+   "rows": [
+    {
+     "account": "revenue",
+     "label": "매출액",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 38321549330,
+      "2025": 481682588524
+     },
+     "changes": {
+      "2025": {
+       "abs": 443361039194,
+       "pct": 1156.9,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "costOfSales",
+     "label": "매출원가",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 32929106398,
+      "2025": 367823764140
+     },
+     "changes": {
+      "2025": {
+       "abs": 334894657742,
+       "pct": 1017.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "grossProfit",
+     "label": "매출총이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 5392442932,
+      "2025": 113858824384
+     },
+     "changes": {
+      "2025": {
+       "abs": 108466381452,
+       "pct": 2011.5,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "sgaExpenses",
+     "label": "판매비와관리비",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 5430643649,
+      "2025": 35836200732
+     },
+     "changes": {
+      "2025": {
+       "abs": 30405557083,
+       "pct": 559.9,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "operatingIncome",
+     "label": "영업이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": -38200717,
+      "2025": 78022623652
+     },
+     "changes": {
+      "2025": {
+       "abs": 78060824369,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "interestExpense",
+     "label": "이자비용",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED"
+     },
+     "changes": {},
+     "missing": [
+      "2024",
+      "2025"
+     ]
+    },
+    {
+     "account": "netIncome",
+     "label": "당기순이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": -1137050920,
+      "2025": 29943929968
+     },
+     "changes": {
+      "2025": {
+       "abs": 31080980888,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "operatingCashFlow",
+     "label": "영업활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": -4624941598,
+      "2025": 119618149534
+     },
+     "changes": {
+      "2025": {
+       "abs": 124243091132,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "investingCashFlow",
+     "label": "투자활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": -13210868951,
+      "2025": -241629459723
+     },
+     "changes": {
+      "2025": {
+       "abs": -228418590772,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalAssets",
+     "label": "자산총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 2269555200465,
+      "2025": 2458495051224
+     },
+     "changes": {
+      "2025": {
+       "abs": 188939850759,
+       "pct": 8.3,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "currentAssets",
+     "label": "유동자산",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 33720429238,
+      "2025": 45686399992
+     },
+     "changes": {
+      "2025": {
+       "abs": 11965970754,
+       "pct": 35.5,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalLiabilities",
+     "label": "부채총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 1032808789681,
+      "2025": 1199894262343
+     },
+     "changes": {
+      "2025": {
+       "abs": 167085472662,
+       "pct": 16.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "currentLiabilities",
+     "label": "유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 227197032866,
+      "2025": 228596318044
+     },
+     "changes": {
+      "2025": {
+       "abs": 1399285178,
+       "pct": 0.6,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "nonCurrentLiabilities",
+     "label": "비유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 805611756815,
+      "2025": 971297944299
+     },
+     "changes": {
+      "2025": {
+       "abs": 165686187484,
+       "pct": 20.6,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalEquity",
+     "label": "자본총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 1236746410784,
+      "2025": 1258600788881
+     },
+     "changes": {
+      "2025": {
+       "abs": 21854378097,
+       "pct": 1.8,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "issuedCapital",
+     "label": "자본금",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": "NOT_COLLECTED",
+      "2024": 19830841000,
+      "2025": 19830841000
+     },
+     "changes": {
+      "2025": {
+       "abs": 0,
+       "pct": 0.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    }
+   ],
+   "derived": {
+    "2024": {
+     "operatingMarginPct": -0.1,
+     "debtToEquityPct": 83.5
+    },
+    "2025": {
+     "operatingMarginPct": 16.2,
+     "debtToEquityPct": 95.3
+    }
+   },
+   "notes": [
+    "2023: DART 에 해당 연도 사업보고서 자료가 없다고 응답(NO_DATA) — 값을 만들지 않는다"
+   ],
+   "correctionsApplied": "UNKNOWN"
+  },
+  "950160": {
+   "name": "코오롱티슈진",
+   "fsDiv": "OFS",
+   "fsDivLabel": "별도",
+   "periods": [
+    {
+     "year": "2023",
+     "status": "OK",
+     "fsDiv": "OFS",
+     "fsDivLabel": "별도",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:53.295986+00:00",
+     "coverage": 1.0
+    },
+    {
+     "year": "2024",
+     "status": "OK",
+     "fsDiv": "OFS",
+     "fsDivLabel": "별도",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:51.602123+00:00",
+     "coverage": 1.0
+    },
+    {
+     "year": "2025",
+     "status": "OK",
+     "fsDiv": "OFS",
+     "fsDivLabel": "별도",
+     "reprtCode": "11011",
+     "reportLabel": "사업보고서(연간)",
+     "collectedAt": "2026-10-02T15:12:50.018053+00:00",
+     "coverage": 1.0
+    }
+   ],
+   "comparablePairs": [
+    {
+     "from": "2023",
+     "to": "2024"
+    },
+    {
+     "from": "2024",
+     "to": "2025"
+    }
+   ],
+   "rows": [
+    {
+     "account": "revenue",
+     "label": "매출액",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": 2839000,
+      "2024": 3719583,
+      "2025": 3627220
+     },
+     "changes": {
+      "2024": {
+       "abs": 880583,
+       "pct": 31.0,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -92363,
+       "pct": -2.5,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "costOfSales",
+     "label": "매출원가",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": 2522466,
+      "2024": 3283736,
+      "2025": 3145406
+     },
+     "changes": {
+      "2024": {
+       "abs": 761270,
+       "pct": 30.2,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -138330,
+       "pct": -4.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "grossProfit",
+     "label": "매출총이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": 316534,
+      "2024": 435847,
+      "2025": 481814
+     },
+     "changes": {
+      "2024": {
+       "abs": 119313,
+       "pct": 37.7,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 45967,
+       "pct": 10.5,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "sgaExpenses",
+     "label": "판매비와관리비",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": 16023679,
+      "2024": 16563176,
+      "2025": 16177812
+     },
+     "changes": {
+      "2024": {
+       "abs": 539497,
+       "pct": 3.4,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -385364,
+       "pct": -2.3,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "operatingIncome",
+     "label": "영업이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": -15707145,
+      "2024": -16127329,
+      "2025": -15695998
+     },
+     "changes": {
+      "2024": {
+       "abs": -420184,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 431331,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "interestExpense",
+     "label": "이자비용",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": 218953,
+      "2024": 10078962,
+      "2025": 122072273
+     },
+     "changes": {
+      "2024": {
+       "abs": 9860009,
+       "pct": 4503.3,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 111993311,
+       "pct": 1111.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "netIncome",
+     "label": "당기순이익",
+     "statement": "IS",
+     "unit": "KRW",
+     "values": {
+      "2023": -13194601,
+      "2024": -24779552,
+      "2025": -135413281
+     },
+     "changes": {
+      "2024": {
+       "abs": -11584951,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -110633729,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "operatingCashFlow",
+     "label": "영업활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": -18468576,
+      "2024": -14994152,
+      "2025": -16884915
+     },
+     "changes": {
+      "2024": {
+       "abs": 3474424,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -1890763,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "investingCashFlow",
+     "label": "투자활동현금흐름",
+     "statement": "CF",
+     "unit": "KRW",
+     "values": {
+      "2023": -22245482,
+      "2024": -56632314,
+      "2025": -92565639
+     },
+     "changes": {
+      "2024": {
+       "abs": -34386832,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -35933325,
+       "pct": null,
+       "pctReason": "prior_zero_or_negative",
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalAssets",
+     "label": "자산총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 104630356,
+      "2024": 151216411,
+      "2025": 295484173
+     },
+     "changes": {
+      "2024": {
+       "abs": 46586055,
+       "pct": 44.5,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 144267762,
+       "pct": 95.4,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "currentAssets",
+     "label": "유동자산",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 24841461,
+      "2024": 5044454,
+      "2025": 60137913
+     },
+     "changes": {
+      "2024": {
+       "abs": -19797007,
+       "pct": -79.7,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 55093459,
+       "pct": 1092.2,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalLiabilities",
+     "label": "부채총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 15469987,
+      "2024": 51962208,
+      "2025": 250825311
+     },
+     "changes": {
+      "2024": {
+       "abs": 36492221,
+       "pct": 235.9,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 198863103,
+       "pct": 382.7,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "currentLiabilities",
+     "label": "유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 11093030,
+      "2024": 48374639,
+      "2025": 247878986
+     },
+     "changes": {
+      "2024": {
+       "abs": 37281609,
+       "pct": 336.1,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 199504347,
+       "pct": 412.4,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "nonCurrentLiabilities",
+     "label": "비유동부채",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 4376957,
+      "2024": 3587569,
+      "2025": 2946325
+     },
+     "changes": {
+      "2024": {
+       "abs": -789388,
+       "pct": -18.0,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -641244,
+       "pct": -17.9,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "totalEquity",
+     "label": "자본총계",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 89160369,
+      "2024": 99254203,
+      "2025": 44658862
+     },
+     "changes": {
+      "2024": {
+       "abs": 10093834,
+       "pct": 11.3,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": -54595341,
+       "pct": -55.0,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    },
+    {
+     "account": "issuedCapital",
+     "label": "자본금",
+     "statement": "BS",
+     "unit": "KRW",
+     "values": {
+      "2023": 2630,
+      "2024": 2768,
+      "2025": 2840
+     },
+     "changes": {
+      "2024": {
+       "abs": 138,
+       "pct": 5.2,
+       "pctReason": null,
+       "vs": "2023"
+      },
+      "2025": {
+       "abs": 72,
+       "pct": 2.6,
+       "pctReason": null,
+       "vs": "2024"
+      }
+     },
+     "missing": []
+    }
+   ],
+   "derived": {
+    "2023": {
+     "operatingMarginPct": -553.3,
+     "debtToEquityPct": 17.4
+    },
+    "2024": {
+     "operatingMarginPct": -433.6,
+     "debtToEquityPct": 52.4
+    },
+    "2025": {
+     "operatingMarginPct": -432.7,
+     "debtToEquityPct": 561.6
     }
    },
    "notes": [],
@@ -271119,10 +272608,6 @@
   "002810",
   "009155",
   "317400",
-  "477850",
-  "490470",
-  "491000",
-  "499790",
-  "950160"
+  "477850"
  ]
 }
