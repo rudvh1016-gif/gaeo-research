@@ -1,12 +1,21 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-10-03 00:12",
+ "generatedAt": "2026-10-06 02:36",
  "priceLabel": "공시 접수일 2026-09-28~2026-10-02 기준 · 시세 자료 공급 종료(2026-09-24)",
- "count": 597,
+ "count": 598,
  "coverageState": "EVENT_DETECTED",
  "note": "금융감독원 전자공시(DART) 자동 수집(하루 2회 · corporate-action-evidence.yml). 참고 정보이며 점수·판단에는 쓰지 않는다.",
  "items": [
+  {
+   "code": "043260",
+   "name": "성호전자",
+   "title": "[첨부정정]주요사항보고서(신주인수권부사채권발행결정)",
+   "receiptDate": "20261002",
+   "detectedAt": "2026-10-05T17:36:15.822042+00:00",
+   "isCorrection": true,
+   "rceptNo": "20261002000673"
+  },
   {
    "code": "090710",
    "name": "휴림로봇",
