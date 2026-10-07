@@ -1,43 +1,43 @@
 {
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
- "generatedAt": "2026-10-07T02:01:08Z",
- "asOf": "2026-10-07",
- "builtAt": "2026-10-07T02:01:08Z",
+ "generatedAt": "2026-10-07T16:01:40Z",
+ "asOf": "2026-10-08",
+ "builtAt": "2026-10-07T16:01:40Z",
  "inputs": {
   "list": {
-   "checkedAt": "2026-10-07T02:01:08.371077+00:00",
-   "coveredUntil": "2026-10-07T02:01:08.371077+00:00",
+   "checkedAt": "2026-10-07T16:01:40.100315+00:00",
+   "coveredUntil": "2026-10-07T16:01:40.100315+00:00",
    "window": {
-    "from": "2026-10-06",
-    "to": "2026-10-07"
+    "from": "2026-10-07",
+    "to": "2026-10-08"
    },
    "catchUp": {
     "behindDays": 0,
     "state": "CAUGHT_UP",
-    "today": "2026-10-07"
+    "today": "2026-10-08"
    },
    "latestRun": {
-    "ranAt": "2026-10-07T02:00:49.290736+00:00",
+    "ranAt": "2026-10-07T16:01:32.471760+00:00",
     "state": "EVENT_DETECTED",
     "complete": true
    }
   },
   "evidence": {
-   "generatedAt": "2026-10-07T01:30:48.402678+00:00",
+   "generatedAt": "2026-10-07T15:31:31.322861+00:00",
    "universeMapped": 2600,
-   "succeeded": 862,
+   "succeeded": 2273,
    "runComplete": false,
    "stoppedBy": "deadline_reached",
    "cycle": {
-    "attempted": 2075,
-    "completedStartedAt": null,
-    "lastCompletedAt": "2026-10-06T02:12:29.440728+00:00",
-    "progressPct": 80,
-    "resumesNextRun": true,
-    "startedAt": "2026-10-06T15:08:31.037967+00:00",
+    "attempted": 2600,
+    "completedStartedAt": "2026-10-06T15:08:31.037967+00:00",
+    "lastCompletedAt": "2026-10-07T15:31:31.322861+00:00",
+    "progressPct": 100,
+    "resumesNextRun": false,
+    "startedAt": null,
     "universe": 2600,
-    "verified": 2075
+    "verified": 2600
    }
   }
  },
@@ -50,29 +50,29 @@
   {
    "file": "disclosure_research/disclosure_changes.json",
    "kind": "disclosure_changes",
-   "sha256": "8a3cfcb724d758b21b85701b5dcbc6099173843f0c8bc4dd618fd122e3f212a1",
-   "bytes": 1870303,
-   "generatedAt": "2026-10-07T02:01:08Z",
-   "companies": 541,
-   "recordId": "disclosure-research-public-v1:disclosure_changes:8a3cfcb724d758b2"
+   "sha256": "fcdb5f54193ea19972062198766b99784c28d5861265c2126b67327f735ef935",
+   "bytes": 1907242,
+   "generatedAt": "2026-10-07T16:01:40Z",
+   "companies": 543,
+   "recordId": "disclosure-research-public-v1:disclosure_changes:fcdb5f54193ea199"
   },
   {
    "file": "disclosure_research/financial_changes.json",
    "kind": "financial_changes",
-   "sha256": "b53b949e9c7cf5ac74c0cf958cca06d8395d7d3ec12ed52a813cd03046a96a8a",
+   "sha256": "ea998dca2529f181acf623c358a3927c98afe20aedca6d05157f89e701ac350f",
    "bytes": 5438515,
-   "generatedAt": "2026-10-07T02:01:08Z",
+   "generatedAt": "2026-10-07T16:01:40Z",
    "companies": 596,
-   "recordId": "disclosure-research-public-v1:financial_changes:b53b949e9c7cf5ac"
+   "recordId": "disclosure-research-public-v1:financial_changes:ea998dca2529f181"
   },
   {
    "file": "disclosure_research/event_timelines.json",
    "kind": "event_timelines",
-   "sha256": "60ec7ea649e878b1b14abd4ed7e96642d1bd8bf67c4a9f9ab22d49f763df4e42",
-   "bytes": 924137,
-   "generatedAt": "2026-10-07T02:01:08Z",
-   "companies": 283,
-   "recordId": "disclosure-research-public-v1:event_timelines:60ec7ea649e878b1"
+   "sha256": "a54c27f38471cfeb0c997ed29916c10aba7dda4a8a2ce54e067a9993f53c9510",
+   "bytes": 932622,
+   "generatedAt": "2026-10-07T16:01:40Z",
+   "companies": 285,
+   "recordId": "disclosure-research-public-v1:event_timelines:a54c27f38471cfeb"
   }
  ],
  "publicFieldPolicy": "공시 사실만 — 시세·점수·판단·수급·컨센서스·개인 자료는 키 자체가 없다(test_disclosure_research.PublicFieldPolicy 가 고정)",
