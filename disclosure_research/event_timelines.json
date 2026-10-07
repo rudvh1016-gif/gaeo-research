@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-10-06T15:38:46Z",
+ "generatedAt": "2026-10-07T02:01:08Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -296,8 +296,8 @@
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-10-06",
-    "count": 4142
+    "to": "2026-10-07",
+    "count": 4175
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
@@ -7729,6 +7729,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261007000069",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-07",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000069",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -7744,7 +7757,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-06",
+     "latestReceivedOn": "2026-10-07",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     },
     {
@@ -24383,6 +24396,45 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "증자 결정",
+       "rceptNo": "20261007000004",
+       "title": "[기재정정]주요사항보고서(유상증자결정)",
+       "receivedOn": "2026-10-07",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000004",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "FILED",
+       "stageLabel": "증권신고서·발행가 확정",
+       "rceptNo": "20261007000009",
+       "title": "[발행조건확정]증권신고서(지분증권)",
+       "receivedOn": "2026-10-07",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000009",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "FILED",
+       "stageLabel": "증권신고서·발행가 확정",
+       "rceptNo": "20261007800052",
+       "title": "유상증자신주발행가액(안내공시)",
+       "receivedOn": "2026-10-07",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800052",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -24398,7 +24450,7 @@
       }
      ],
      "latestStage": "FILED",
-     "latestReceivedOn": "2026-08-31",
+     "latestReceivedOn": "2026-10-07",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
