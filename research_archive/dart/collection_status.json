@@ -3,94 +3,124 @@
   "byKind": {
    "detail": 0,
    "financial": 0,
-   "list": 4858,
-   "mapping": 2,
+   "list": 2167,
+   "mapping": 1,
    "other": 0
   },
-  "day": "2026-10-08",
+  "day": "2026-10-12",
   "deferrable_allowed": true,
   "deferrable_cutoff": 6500,
-  "deferrable_headroom": 1640,
+  "deferrable_headroom": 4332,
   "deferrable_reserve": 1500,
   "hard_limit": 10000,
   "normal_target_per_day": 500,
   "note": "10,000건은 안전 상한이지 목표가 아니다. 평상시 수백 회 수준을 지향한다.",
   "observation_notice": 4000,
-  "remaining": 5140,
-  "requests_today": 4860,
-  "runs_today": 4,
+  "remaining": 7832,
+  "requests_today": 2168,
+  "runs_today": 1,
   "soft_budget": 8000,
   "status": "BUDGET_OK",
-  "usage_pct_of_hard_limit": 48.6
+  "usage_pct_of_hard_limit": 21.68
  },
  "catchUp": {
   "behindDays": 0,
   "state": "CAUGHT_UP",
-  "today": "2026-10-08"
+  "today": "2026-10-12"
  },
  "coverageNote": "NO_OFFICIAL_EVENT_DETECTED는 '뉴스 없음'이 아니다. 일반 언론뉴스 Coverage가 없어서 공식 공시만 본 결과다.",
  "coverageReasons": [],
  "efficiency": {
   "api_errors": 0,
-  "bytes_received": 247182,
+  "bytes_received": 274221,
   "detail_requests": 0,
-  "duplicate_skipped": 132,
-  "list_requests": 11,
-  "matched_gaeo_filings": 33,
-  "new_filings_detected": 970,
-  "no_data_responses": 0,
-  "pages_fetched": 11,
+  "duplicate_skipped": 33,
+  "list_requests": 14,
+  "matched_gaeo_filings": 193,
+  "new_filings_detected": 1054,
+  "no_data_responses": 3,
+  "pages_fetched": 14,
   "processing_duration_sec": null,
-  "requests_per_run": 11,
-  "unmatched_filings": 805
+  "requests_per_run": 14,
+  "unmatched_filings": 828
  },
  "errors": [],
  "eventState": "EVENT_DETECTED",
- "eventsAcknowledged": 33,
- "eventsFound": 33,
- "eventsStored": 33,
- "finishedAt": "2026-10-08T02:20:20.003179+00:00",
+ "eventsAcknowledged": 193,
+ "eventsFound": 193,
+ "eventsStored": 193,
+ "finishedAt": "2026-10-12T01:44:04.929804+00:00",
  "hasApiKey": true,
- "kstToday": "2026-10-08",
+ "kstToday": "2026-10-12",
  "lastComplete": {
-  "coveredUntil": "2026-10-08T02:20:20.003179+00:00",
-  "finishedAt": "2026-10-08T02:20:20.003179+00:00",
-  "windowEnd": "2026-10-08",
-  "windowStart": "2026-10-07"
+  "coveredUntil": "2026-10-12T01:44:04.929804+00:00",
+  "finishedAt": "2026-10-12T01:44:04.929804+00:00",
+  "windowEnd": "2026-10-12",
+  "windowStart": "2026-10-08"
  },
- "maintenance": [],
+ "maintenance": [
+  {
+   "compressedBytes": 4887,
+   "compressionRatio": 0.0621,
+   "day": "2026-10-08",
+   "rawBytes": 78696,
+   "recordCount": 133,
+   "status": "OK"
+  }
+ ],
  "note": "DART 수집 전용. research_v1.0 / v1.1 판단에 사용하지 않는다. 최초 사용 버전은 research_v2.0이다.",
  "pagination": {
   "coverage_complete": true,
   "days": [
    {
     "coverageComplete": true,
-    "day": "2026-10-07",
+    "day": "2026-10-08",
     "incompleteReasons": [],
-    "pagesFetched": 8,
-    "totalPagesReported": 8
+    "pagesFetched": 10,
+    "totalPagesReported": 10
    },
    {
     "coverageComplete": true,
-    "day": "2026-10-08",
+    "day": "2026-10-09",
     "incompleteReasons": [],
-    "pagesFetched": 3,
-    "totalPagesReported": 3
+    "pagesFetched": 1,
+    "totalPagesReported": null
+   },
+   {
+    "coverageComplete": true,
+    "day": "2026-10-10",
+    "incompleteReasons": [],
+    "pagesFetched": 1,
+    "totalPagesReported": null
+   },
+   {
+    "coverageComplete": true,
+    "day": "2026-10-11",
+    "incompleteReasons": [],
+    "pagesFetched": 1,
+    "totalPagesReported": null
+   },
+   {
+    "coverageComplete": true,
+    "day": "2026-10-12",
+    "incompleteReasons": [],
+    "pagesFetched": 1,
+    "totalPagesReported": 1
    }
   ],
   "incomplete_reasons": [],
   "page_limit": 30,
-  "pages_fetched": 11,
+  "pages_fetched": 14,
   "total_pages_reported": null
  },
  "pendingRetryNext": 0,
  "queryWindow": {
-  "days": 2,
-  "end": "2026-10-08",
-  "start": "2026-10-07"
+  "days": 5,
+  "end": "2026-10-12",
+  "start": "2026-10-08"
  },
- "ranAt": "2026-10-08T02:20:09.822049+00:00",
- "seenTotal": 4309,
- "startedAt": "2026-10-08T02:20:09.824704+00:00",
+ "ranAt": "2026-10-12T01:43:49.035115+00:00",
+ "seenTotal": 4502,
+ "startedAt": "2026-10-12T01:43:49.038452+00:00",
  "status": "OK"
 }

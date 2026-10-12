@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-10-08T02:20:20Z",
+ "generatedAt": "2026-10-12T01:44:04Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -291,19 +291,19 @@
  },
  "coverage": {
   "trackedCompanies": 600,
-  "companiesWithTimelines": 285,
+  "companiesWithTimelines": 287,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-10-08",
-    "count": 4308
+    "to": "2026-10-12",
+    "count": 4501
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
-    "from": "2025-10-10",
-    "to": "2026-10-07",
-    "count": 924,
+    "from": "2025-10-13",
+    "to": "2026-10-08",
+    "count": 927,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -2540,6 +2540,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000335",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000335",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -2701,6 +2714,32 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000292",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000292",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000397",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000397",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -2721,7 +2760,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-02",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -3223,6 +3262,58 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000433",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000433",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000437",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000437",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000471",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000471",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000478",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000478",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -3238,7 +3329,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-09-23",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -5010,6 +5101,72 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000382",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000382",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000633",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000633",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000686",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000686",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000690",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000690",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008800538",
+       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800538",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -5027,6 +5184,46 @@
      "latestStage": "REPORTED",
      "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
+    },
+    {
+     "chain": "equity_linked_bond",
+     "label": "주식관련사채 발행 결정 → 발행 결과 → 전환·행사",
+     "items": [
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008800538",
+       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800538",
+       "sources": [
+        "list",
+        "evidence"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "REPORTED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "발행 결정",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      },
+      {
+       "stage": "IN_PROGRESS",
+       "stageLabel": "전환·행사 청구",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "REPORTED",
+     "latestReceivedOn": "2026-10-08",
+     "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
     }
    ]
   },
@@ -8914,6 +9111,45 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000325",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000325",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000334",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000334",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000463",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000463",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -8934,7 +9170,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-06",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -9365,6 +9601,20 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008800605",
+       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800605",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -9379,8 +9629,8 @@
        "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
       }
      ],
-     "latestStage": "PLANNED",
-     "latestReceivedOn": "2026-09-30",
+     "latestStage": "REPORTED",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     },
     {
@@ -9412,6 +9662,20 @@
        "sources": [
         "evidence"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008800605",
+       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800605",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -9432,7 +9696,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-09-04",
+     "latestReceivedOn": "2026-10-08",
      "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
     }
    ]
@@ -11179,6 +11443,50 @@
     }
    ]
   },
+  "012630": {
+   "name": "HDC",
+   "timelines": [
+    {
+     "chain": "buyback",
+     "label": "자기주식 취득 계획 → 취득 결과 보고 → 소각",
+     "items": [
+      {
+       "stage": "COMPLETED",
+       "stageLabel": "소각 결정·완료",
+       "rceptNo": "20261008800524",
+       "title": "주식소각결정",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800524",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "COMPLETED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "취득 결정",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "취득 결과 보고",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "COMPLETED",
+     "latestReceivedOn": "2026-10-08",
+     "note": "취득 결과 보고나 소각 공시를 찾지 못한 것은 \"미실행\" 이 아니다 — 자료 창 밖이거나 아직 진행 중일 수 있다."
+    }
+   ]
+  },
   "014620": {
    "name": "성광벤드",
    "timelines": [
@@ -11527,6 +11835,32 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000600",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000600",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000616",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000616",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -11547,7 +11881,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-07",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -12084,6 +12418,32 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000630",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000630",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000646",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000646",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -12104,7 +12464,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-06",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -12772,6 +13132,58 @@
      "latestStage": "REPORTED",
      "latestReceivedOn": "2026-04-30",
      "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
+    }
+   ]
+  },
+  "018290": {
+   "name": "브이티",
+   "timelines": [
+    {
+     "chain": "buyback",
+     "label": "자기주식 취득 계획 → 취득 결과 보고 → 소각",
+     "items": [
+      {
+       "stage": "REPORTED",
+       "stageLabel": "취득 결과 보고",
+       "rceptNo": "20261008000470",
+       "title": "자기주식취득결과보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000470",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "COMPLETED",
+       "stageLabel": "소각 결정·완료",
+       "rceptNo": "20261008900574",
+       "title": "주식소각결정",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008900574",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "REPORTED",
+      "COMPLETED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "취득 결정",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "COMPLETED",
+     "latestReceivedOn": "2026-10-08",
+     "note": "취득 결과 보고나 소각 공시를 찾지 못한 것은 \"미실행\" 이 아니다 — 자료 창 밖이거나 아직 진행 중일 수 있다."
     }
    ]
   },
@@ -15378,6 +15790,58 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000313",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000313",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000321",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000321",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000393",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000393",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000638",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000638",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -15398,7 +15862,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-06",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -17433,6 +17897,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261008000631",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008000631",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -17453,46 +17930,8 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-06",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
-    }
-   ]
-  },
-  "041510": {
-   "name": "에스엠",
-   "timelines": [
-    {
-     "chain": "merger",
-     "label": "합병 결정 → 합병 종료 보고",
-     "items": [
-      {
-       "stage": "COMPLETED",
-       "stageLabel": "합병 종료 보고",
-       "rceptNo": "20251010000112",
-       "title": "합병등종료보고서(합병)",
-       "receivedOn": "2025-10-10",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251010000112",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "COMPLETED"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "합병 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "COMPLETED",
-     "latestReceivedOn": "2025-10-10",
-     "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
     }
    ]
   },
@@ -17633,6 +18072,20 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "증자 결정",
+       "rceptNo": "20261008800617",
+       "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
+       "receivedOn": "2026-10-08",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800617",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -17653,7 +18106,7 @@
       }
      ],
      "latestStage": "PLANNED",
-     "latestReceivedOn": "2026-10-07",
+     "latestReceivedOn": "2026-10-08",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -24990,6 +25443,50 @@
     }
    ]
   },
+  "222800": {
+   "name": "심텍",
+   "timelines": [
+    {
+     "chain": "equity_linked_bond",
+     "label": "주식관련사채 발행 결정 → 발행 결과 → 전환·행사",
+     "items": [
+      {
+       "stage": "IN_PROGRESS",
+       "stageLabel": "전환·행사 청구",
+       "rceptNo": "20261008900522",
+       "title": "전환청구권행사",
+       "receivedOn": "2026-10-08",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008900522",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "IN_PROGRESS"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "발행 결정",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "IN_PROGRESS",
+     "latestReceivedOn": "2026-10-08",
+     "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
+    }
+   ]
+  },
   "226950": {
    "name": "올릭스",
    "timelines": [
@@ -28259,7 +28756,8 @@
        "correctionKind": "기재정정",
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008900217",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
