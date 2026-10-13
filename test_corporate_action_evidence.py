@@ -697,11 +697,30 @@ class WorkflowContract(unittest.TestCase):
     def test_뒤의_공시_수집과_공시_연구_생성은_앞_단계_실패로_건너뛰지_않는다(self):
         for prefix in ('오늘의 공시 수집', '오늘의 공시 · 공시 연구 산출물 생성'):
             block = self.step(prefix)
-            self.assertIn("if: ${{ !cancelled() && env.SKIP_COLLECT != '1' }}", block, prefix)
+            self.assertIn("if: ${{ !cancelled() }}", block, prefix)
 
-    def test_예약은_하루_두_번_그대로다(self):
+    def test_예약은_거래일_하루_두_번과_주말_저녁_한_번이다(self):
+        """2026-10-14: 토·일 20:10 KST 목록 전용 회차 — 월요일 아침 공시 확인 공백(48시간 초과)을 없앤다. 거래일 cron 두 개는 그대로."""
         import re
-        self.assertEqual(re.findall(r'- cron: "([^"]+)"', self.text), ['10 22 * * 0-4', '10 8 * * 1-5'])
+        self.assertEqual(re.findall(r'- cron: "([^"]+)"', self.text), ['10 22 * * 0-4', '10 8 * * 1-5', '10 11 * * 6,0'])
+
+    def test_휴장일_예약_회차는_건너뛰지_않고_공시_목록만_확인한다(self):
+        """휴장일(주말·공휴일) 예약 발화 = LIST_ONLY: 기업행사·재무 수집은 쉬고, 공시 목록 확인·산출물 생성·커밋은 돈다."""
+        import re
+        self.assertNotIn('SKIP_COLLECT', self.text, '회차 전체를 건너뛰는 옛 경로가 남아 있다')
+        judge = self.step('거래일 판정')
+        self.assertIn('echo "LIST_ONLY=1" >> "$GITHUB_ENV"', judge)
+        self.assertIn('"${{ github.event_name }}" = "schedule"', judge, '수동 실행은 휴장일에도 전체 수집이다(종전과 같다)')
+        self.assertIn("if: env.LIST_ONLY != '1'", self.step('실제 수집 — 기업행사 증거'))
+        listing = self.step('오늘의 공시 수집')
+        self.assertIn('id: listing', listing)
+        self.assertIn('python3 collect_dart.py', listing)
+        self.assertRegex(listing, r'if \[ "\$LIST_ONLY" = "1" \]', '재무 수집만 휴장일에 쉰다')
+        self.assertLess(listing.index('collect_dart.py'), listing.index('collect_dart_financials.py'))
+        for prefix in ('산출물 커밋', '사용량 원장만 보존'):
+            block = self.step(prefix)
+            self.assertIn("(steps.collect.outcome != 'skipped' || steps.listing.outcome == 'success')", block, prefix)
+        self.assertNotIn("env.LIST_ONLY", self.step('공개 누출 검사'), '누출 검사는 회차 종류와 무관하게 돈다')
 
 
 if __name__ == '__main__':
