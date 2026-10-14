@@ -3,25 +3,25 @@
   "byKind": {
    "detail": 0,
    "financial": 0,
-   "list": 2181,
-   "mapping": 2,
+   "list": 3450,
+   "mapping": 3,
    "other": 0
   },
   "day": "2026-10-14",
   "deferrable_allowed": true,
   "deferrable_cutoff": 6500,
-  "deferrable_headroom": 4317,
+  "deferrable_headroom": 3047,
   "deferrable_reserve": 1500,
   "hard_limit": 10000,
   "normal_target_per_day": 500,
   "note": "10,000건은 안전 상한이지 목표가 아니다. 평상시 수백 회 수준을 지향한다.",
   "observation_notice": 4000,
-  "remaining": 7817,
-  "requests_today": 2183,
-  "runs_today": 4,
+  "remaining": 6547,
+  "requests_today": 3453,
+  "runs_today": 7,
   "soft_budget": 8000,
   "status": "BUDGET_OK",
-  "usage_pct_of_hard_limit": 21.83
+  "usage_pct_of_hard_limit": 34.53
  },
  "catchUp": {
   "behindDays": 0,
@@ -32,29 +32,29 @@
  "coverageReasons": [],
  "efficiency": {
   "api_errors": 0,
-  "bytes_received": 132694,
+  "bytes_received": 259445,
   "detail_requests": 0,
-  "duplicate_skipped": 129,
-  "list_requests": 6,
-  "matched_gaeo_filings": 14,
-  "new_filings_detected": 536,
+  "duplicate_skipped": 142,
+  "list_requests": 11,
+  "matched_gaeo_filings": 169,
+  "new_filings_detected": 1040,
   "no_data_responses": 0,
-  "pages_fetched": 6,
+  "pages_fetched": 11,
   "processing_duration_sec": null,
-  "requests_per_run": 6,
-  "unmatched_filings": 393
+  "requests_per_run": 11,
+  "unmatched_filings": 729
  },
  "errors": [],
  "eventState": "EVENT_DETECTED",
- "eventsAcknowledged": 14,
- "eventsFound": 14,
- "eventsStored": 14,
- "finishedAt": "2026-10-14T01:42:52.897700+00:00",
+ "eventsAcknowledged": 169,
+ "eventsFound": 169,
+ "eventsStored": 169,
+ "finishedAt": "2026-10-14T14:12:43.656950+00:00",
  "hasApiKey": true,
  "kstToday": "2026-10-14",
  "lastComplete": {
-  "coveredUntil": "2026-10-14T01:42:52.897700+00:00",
-  "finishedAt": "2026-10-14T01:42:52.897700+00:00",
+  "coveredUntil": "2026-10-14T14:12:43.656950+00:00",
+  "finishedAt": "2026-10-14T14:12:43.656950+00:00",
   "windowEnd": "2026-10-14",
   "windowStart": "2026-10-13"
  },
@@ -74,13 +74,13 @@
     "coverageComplete": true,
     "day": "2026-10-14",
     "incompleteReasons": [],
-    "pagesFetched": 1,
-    "totalPagesReported": 1
+    "pagesFetched": 6,
+    "totalPagesReported": 6
    }
   ],
   "incomplete_reasons": [],
   "page_limit": 30,
-  "pages_fetched": 6,
+  "pages_fetched": 11,
   "total_pages_reported": null
  },
  "pendingRetryNext": 0,
@@ -89,8 +89,8 @@
   "end": "2026-10-14",
   "start": "2026-10-13"
  },
- "ranAt": "2026-10-14T01:42:38.693664+00:00",
- "seenTotal": 4770,
- "startedAt": "2026-10-14T01:42:38.697027+00:00",
+ "ranAt": "2026-10-14T14:12:17.885160+00:00",
+ "seenTotal": 4939,
+ "startedAt": "2026-10-14T14:12:17.887771+00:00",
  "status": "OK"
 }
