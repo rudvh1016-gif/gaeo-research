@@ -1,12 +1,192 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-10-15 22:56",
- "priceLabel": "공시 접수일 2026-10-12~2026-10-15 기준 · 시세 자료 공급 종료(2026-09-24)",
- "count": 380,
+ "generatedAt": "2026-10-16 09:52",
+ "priceLabel": "공시 접수일 2026-10-12~2026-10-16 기준 · 시세 자료 공급 종료(2026-09-24)",
+ "count": 394,
  "coverageState": "EVENT_DETECTED",
  "note": "금융감독원 전자공시(DART) 자동 수집(하루 2회 · corporate-action-evidence.yml). 참고 정보이며 점수·판단에는 쓰지 않는다.",
  "items": [
+  {
+   "code": "088350",
+   "name": "한화생명",
+   "title": "계열금융회사의약관에의한금융거래-[유가증권-수익증권]",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000023"
+  },
+  {
+   "code": "088350",
+   "name": "한화생명",
+   "title": "계열금융회사의약관에의한금융거래-[유가증권-채권]",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000019"
+  },
+  {
+   "code": "088350",
+   "name": "한화생명",
+   "title": "계열금융회사의약관에의한금융거래-[보험]",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000018"
+  },
+  {
+   "code": "000880",
+   "name": "한화",
+   "title": "특수관계인에대한출자",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000029"
+  },
+  {
+   "code": "000880",
+   "name": "한화",
+   "title": "특수관계인에대한담보제공",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000028"
+  },
+  {
+   "code": "000880",
+   "name": "한화",
+   "title": "기업설명회(IR)개최(안내공시)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016800036"
+  },
+  {
+   "code": "018880",
+   "name": "한온시스템",
+   "title": "기업설명회(IR)개최(안내공시)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016800172"
+  },
+  {
+   "code": "018880",
+   "name": "한온시스템",
+   "title": "결산실적공시예고(안내공시)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016800170"
+  },
+  {
+   "code": "020000",
+   "name": "한섬",
+   "title": "최대주주등소유주식변동신고서",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016800210"
+  },
+  {
+   "code": "020000",
+   "name": "한섬",
+   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000015"
+  },
+  {
+   "code": "020000",
+   "name": "한섬",
+   "title": "주식등의대량보유상황보고서(일반)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000011"
+  },
+  {
+   "code": "161890",
+   "name": "한국콜마",
+   "title": "기업설명회(IR)개최(안내공시)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016800219"
+  },
+  {
+   "code": "003470",
+   "name": "유안타증권",
+   "title": "증권발행실적보고서",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000003"
+  },
+  {
+   "code": "290650",
+   "name": "엘앤씨바이오",
+   "title": "유상증자또는주식관련사채등의청약결과(자율공시)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016900207"
+  },
+  {
+   "code": "030610",
+   "name": "교보증권",
+   "title": "계열금융회사의약관에의한금융거래-[예ㆍ적금]",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000040"
+  },
+  {
+   "code": "030610",
+   "name": "교보증권",
+   "title": "계열금융회사의약관에의한금융거래-[유가증권-수익증권]",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000037"
+  },
+  {
+   "code": "030610",
+   "name": "교보증권",
+   "title": "계열금융회사의약관에의한금융거래-[유가증권-채권]",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016000033"
+  },
+  {
+   "code": "010120",
+   "name": "LS일렉트릭",
+   "title": "결산실적공시예고(안내공시)",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016800208"
+  },
+  {
+   "code": "095340",
+   "name": "ISC",
+   "title": "기업설명회(IR)개최",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016900141"
+  },
+  {
+   "code": "095340",
+   "name": "ISC",
+   "title": "기업설명회(IR)개최",
+   "receiptDate": "20261016",
+   "detectedAt": "2026-10-16T00:52:00.035163+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261016900140"
+  },
   {
    "code": "010690",
    "name": "화신",
@@ -96,15 +276,6 @@ const DART_TODAY = {
    "detectedAt": "2026-10-15T13:56:18.815342+00:00",
    "isCorrection": false,
    "rceptNo": "20261015000156"
-  },
-  {
-   "code": "088350",
-   "name": "한화생명",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000233"
   },
   {
    "code": "052690",
@@ -762,33 +933,6 @@ const DART_TODAY = {
    "detectedAt": "2026-10-15T13:56:18.815342+00:00",
    "isCorrection": true,
    "rceptNo": "20261015800730"
-  },
-  {
-   "code": "030610",
-   "name": "교보증권",
-   "title": "투자설명서(일괄신고)",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000061"
-  },
-  {
-   "code": "030610",
-   "name": "교보증권",
-   "title": "일괄신고추가서류(파생결합사채-주가연계파생결합사채)",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000058"
-  },
-  {
-   "code": "030610",
-   "name": "교보증권",
-   "title": "투자설명서(일괄신고)",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000053"
   },
   {
    "code": "098460",
@@ -2888,15 +3032,6 @@ const DART_TODAY = {
    "rceptNo": "20261012000337"
   },
   {
-   "code": "003470",
-   "name": "유안타증권",
-   "title": "증권발행실적보고서",
-   "receiptDate": "20261012",
-   "detectedAt": "2026-10-12T18:19:32.876976+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261012000145"
-  },
-  {
    "code": "226950",
    "name": "올릭스",
    "title": "투자판단관련주요경영사항 (임상시험계획 승인 신청 반려)",
@@ -2922,15 +3057,6 @@ const DART_TODAY = {
    "detectedAt": "2026-10-12T18:19:32.876976+00:00",
    "isCorrection": false,
    "rceptNo": "20261012000202"
-  },
-  {
-   "code": "290650",
-   "name": "엘앤씨바이오",
-   "title": "[기재정정]주요사항보고서(유무상증자결정)",
-   "receiptDate": "20261012",
-   "detectedAt": "2026-10-12T18:19:32.876976+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261012000188"
   },
   {
    "code": "383310",

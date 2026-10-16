@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-10-15T13:56:33Z",
+ "generatedAt": "2026-10-16T00:52:01Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -296,8 +296,8 @@
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-10-15",
-    "count": 5101
+    "to": "2026-10-16",
+    "count": 5123
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
@@ -4504,6 +4504,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261016000003",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-10-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261016000003",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -4524,7 +4537,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-12",
+     "latestReceivedOn": "2026-10-16",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -23833,6 +23846,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "FILED",
+       "stageLabel": "증권신고서·발행가 확정",
+       "rceptNo": "20260929100018",
+       "title": "효력발생안내( 2026.9.29. 제출 증권신고서(지분증권) )",
+       "receivedOn": "2026-09-29",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260929100018",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -28051,22 +28077,29 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261016900207",
+       "title": "유상증자또는주식관련사채등의청약결과(자율공시)",
+       "receivedOn": "2026-10-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261016900207",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
       "PLANNED",
-      "FILED"
+      "FILED",
+      "REPORTED"
      ],
-     "stagesNotFound": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "FILED",
-     "latestReceivedOn": "2026-10-12",
+     "stagesNotFound": [],
+     "latestStage": "REPORTED",
+     "latestReceivedOn": "2026-10-16",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     },
     {
@@ -28503,19 +28536,6 @@
      "chain": "capital_increase",
      "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
      "items": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20251015900653",
-       "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
-       "receivedOn": "2025-10-15",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015900653",
-       "sources": [
-        "evidence"
-       ]
-      },
       {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
