@@ -1,12 +1,75 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-10-20 23:06",
- "priceLabel": "공시 접수일 2026-10-14~2026-10-20 기준 · 시세 자료 공급 종료(2026-09-24)",
- "count": 492,
+ "generatedAt": "2026-10-21 10:03",
+ "priceLabel": "공시 접수일 2026-10-15~2026-10-21 기준 · 시세 자료 공급 종료(2026-09-24)",
+ "count": 427,
  "coverageState": "EVENT_DETECTED",
  "note": "금융감독원 전자공시(DART) 자동 수집(하루 2회 · corporate-action-evidence.yml). 참고 정보이며 점수·판단에는 쓰지 않는다.",
  "items": [
+  {
+   "code": "489790",
+   "name": "한화비전",
+   "title": "결산실적공시예고(안내공시)",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021800101"
+  },
+  {
+   "code": "086520",
+   "name": "에코프로",
+   "title": "주식등의대량보유상황보고서(일반)",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021000041"
+  },
+  {
+   "code": "047040",
+   "name": "대우건설",
+   "title": "결산실적공시예고(안내공시)",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021800110"
+  },
+  {
+   "code": "005490",
+   "name": "POSCO홀딩스",
+   "title": "풍문또는보도에대한해명(미확정)(자회사의 주요경영사항)",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021800102"
+  },
+  {
+   "code": "060370",
+   "name": "LS마린솔루션",
+   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021900086"
+  },
+  {
+   "code": "032640",
+   "name": "LG유플러스",
+   "title": "투자설명서",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021000003"
+  },
+  {
+   "code": "078930",
+   "name": "GS",
+   "title": "투자설명서",
+   "receiptDate": "20261021",
+   "detectedAt": "2026-10-21T01:03:13.258245+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261021000002"
+  },
   {
    "code": "001500",
    "name": "현대차증권",
@@ -3284,15 +3347,6 @@ const DART_TODAY = {
    "rceptNo": "20261015000427"
   },
   {
-   "code": "086520",
-   "name": "에코프로",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000177"
-  },
-  {
    "code": "295310",
    "name": "에이치브이엠",
    "title": "[기재정정]단일판매ㆍ공급계약체결",
@@ -3617,15 +3671,6 @@ const DART_TODAY = {
    "rceptNo": "20261015800187"
   },
   {
-   "code": "060370",
-   "name": "LS마린솔루션",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000258"
-  },
-  {
    "code": "032640",
    "name": "LG유플러스",
    "title": "[발행조건확정]증권신고서(채무증권)",
@@ -3633,15 +3678,6 @@ const DART_TODAY = {
    "detectedAt": "2026-10-15T13:56:18.815342+00:00",
    "isCorrection": false,
    "rceptNo": "20261015000369"
-  },
-  {
-   "code": "032640",
-   "name": "LG유플러스",
-   "title": "[기재정정]증권신고서(채무증권)",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261015000362"
   },
   {
    "code": "064400",
@@ -3752,15 +3788,6 @@ const DART_TODAY = {
    "rceptNo": "20261015800403"
   },
   {
-   "code": "078930",
-   "name": "GS",
-   "title": "[발행조건확정]증권신고서(채무증권)",
-   "receiptDate": "20261015",
-   "detectedAt": "2026-10-15T13:56:18.815342+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261015000311"
-  },
-  {
    "code": "005830",
    "name": "DB손해보험",
    "title": "계열금융회사의약관에의한금융거래-[유가증권-채권]",
@@ -3822,618 +3849,6 @@ const DART_TODAY = {
    "detectedAt": "2026-10-15T01:00:59.670628+00:00",
    "isCorrection": false,
    "rceptNo": "20261015800111"
-  },
-  {
-   "code": "105630",
-   "name": "한세실업",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800300"
-  },
-  {
-   "code": "017960",
-   "name": "한국카본",
-   "title": "풍문또는보도에대한해명(미확정)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800592"
-  },
-  {
-   "code": "036460",
-   "name": "한국가스공사",
-   "title": "의결권대리행사권유참고서류",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000163"
-  },
-  {
-   "code": "036460",
-   "name": "한국가스공사",
-   "title": "주주총회소집공고",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000141"
-  },
-  {
-   "code": "005810",
-   "name": "풍산홀딩스",
-   "title": "최대주주등소유주식변동신고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800396"
-  },
-  {
-   "code": "003670",
-   "name": "포스코퓨처엠",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000351"
-  },
-  {
-   "code": "005690",
-   "name": "파미셀",
-   "title": "단일판매ㆍ공급계약체결",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800148"
-  },
-  {
-   "code": "034230",
-   "name": "파라다이스",
-   "title": "증권발행실적보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000401"
-  },
-  {
-   "code": "003240",
-   "name": "태광산업",
-   "title": "풍문또는보도에대한해명(미확정)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800611"
-  },
-  {
-   "code": "192820",
-   "name": "코스맥스",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800435"
-  },
-  {
-   "code": "293490",
-   "name": "카카오게임즈",
-   "title": "기업설명회(IR)개최",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900505"
-  },
-  {
-   "code": "293490",
-   "name": "카카오게임즈",
-   "title": "결산실적공시예고",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900504"
-  },
-  {
-   "code": "035720",
-   "name": "카카오",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800334"
-  },
-  {
-   "code": "035720",
-   "name": "카카오",
-   "title": "결산실적공시예고(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800332"
-  },
-  {
-   "code": "080220",
-   "name": "제주반도체",
-   "title": "단기차입금증가결정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900345"
-  },
-  {
-   "code": "056080",
-   "name": "유진로봇",
-   "title": "주식등의대량보유상황보고서(약식)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000265"
-  },
-  {
-   "code": "112040",
-   "name": "위메이드",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000165"
-  },
-  {
-   "code": "019210",
-   "name": "와이지-원",
-   "title": "[기재정정]최대주주변경을수반하는주식담보제공계약체결",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261014900483"
-  },
-  {
-   "code": "226950",
-   "name": "올릭스",
-   "title": "기업설명회(IR)개최",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900099"
-  },
-  {
-   "code": "196170",
-   "name": "알테오젠",
-   "title": "증권발행결과(자율공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900508"
-  },
-  {
-   "code": "196170",
-   "name": "알테오젠",
-   "title": "증권발행결과(자율공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900506"
-  },
-  {
-   "code": "010780",
-   "name": "아이에스동서",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000300"
-  },
-  {
-   "code": "020560",
-   "name": "아시아나항공",
-   "title": "소송등의제기ㆍ신청(일정금액이상의청구)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800463"
-  },
-  {
-   "code": "347700",
-   "name": "스피어",
-   "title": "단일판매ㆍ공급계약체결",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900259"
-  },
-  {
-   "code": "068270",
-   "name": "셀트리온",
-   "title": "투자판단관련주요경영사항 (CTP13 SC(짐펜트라) 한국 임상 3상 시험계획 승인)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800646"
-  },
-  {
-   "code": "490470",
-   "name": "세미파이브",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000454"
-  },
-  {
-   "code": "490470",
-   "name": "세미파이브",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000453"
-  },
-  {
-   "code": "490470",
-   "name": "세미파이브",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000452"
-  },
-  {
-   "code": "046890",
-   "name": "서울반도체",
-   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900322"
-  },
-  {
-   "code": "029780",
-   "name": "삼성카드",
-   "title": "투자설명서(일괄신고)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000411"
-  },
-  {
-   "code": "001270",
-   "name": "부국증권",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000422"
-  },
-  {
-   "code": "002840",
-   "name": "미원상사",
-   "title": "현금ㆍ현물배당결정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800503"
-  },
-  {
-   "code": "002840",
-   "name": "미원상사",
-   "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800486"
-  },
-  {
-   "code": "081660",
-   "name": "미스토홀딩스",
-   "title": "[기재정정]현금ㆍ현물배당결정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261014800392"
-  },
-  {
-   "code": "100790",
-   "name": "미래에셋벤처투자",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000455"
-  },
-  {
-   "code": "086900",
-   "name": "메디톡스",
-   "title": "중간(분기)배당을위한주주명부폐쇄(기준일)결정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900224"
-  },
-  {
-   "code": "086900",
-   "name": "메디톡스",
-   "title": "현금ㆍ현물배당결정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900164"
-  },
-  {
-   "code": "023530",
-   "name": "롯데쇼핑",
-   "title": "최대주주등소유주식변동신고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800458"
-  },
-  {
-   "code": "023530",
-   "name": "롯데쇼핑",
-   "title": "의결권대리행사권유참고서류",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000245"
-  },
-  {
-   "code": "023530",
-   "name": "롯데쇼핑",
-   "title": "주주총회소집공고",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000237"
-  },
-  {
-   "code": "034020",
-   "name": "두산에너빌리티",
-   "title": "기타경영사항(종속회사의주요경영사항)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800640"
-  },
-  {
-   "code": "034020",
-   "name": "두산에너빌리티",
-   "title": "기타경영사항(종속회사의주요경영사항)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800638"
-  },
-  {
-   "code": "145720",
-   "name": "덴티움",
-   "title": "최대주주등소유주식변동신고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800580"
-  },
-  {
-   "code": "145720",
-   "name": "덴티움",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000406"
-  },
-  {
-   "code": "078600",
-   "name": "대주전자재료",
-   "title": "전환가액의조정",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900226"
-  },
-  {
-   "code": "078600",
-   "name": "대주전자재료",
-   "title": "주요사항보고서(전환사채권발행결정)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000146"
-  },
-  {
-   "code": "033640",
-   "name": "네패스",
-   "title": "기업설명회(IR)개최",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900590"
-  },
-  {
-   "code": "000270",
-   "name": "기아",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800271"
-  },
-  {
-   "code": "098460",
-   "name": "고영",
-   "title": "주식등의대량보유상황보고서(약식)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000109"
-  },
-  {
-   "code": "010130",
-   "name": "고려아연",
-   "title": "동일인등출자계열회사와의상품ㆍ용역거래변경",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000138"
-  },
-  {
-   "code": "399720",
-   "name": "가온칩스",
-   "title": "주식등의대량보유상황보고서(일반)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000198"
-  },
-  {
-   "code": "000660",
-   "name": "SK하이닉스",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800385"
-  },
-  {
-   "code": "018670",
-   "name": "SK가스",
-   "title": "장래사업ㆍ경영계획(공정공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800351"
-  },
-  {
-   "code": "018670",
-   "name": "SK가스",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800320"
-  },
-  {
-   "code": "036570",
-   "name": "NC",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800281"
-  },
-  {
-   "code": "373220",
-   "name": "LG에너지솔루션",
-   "title": "횡령ㆍ배임혐의발생",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800616"
-  },
-  {
-   "code": "034220",
-   "name": "LG디스플레이",
-   "title": "횡령ㆍ배임혐의발생",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800643"
-  },
-  {
-   "code": "034220",
-   "name": "LG디스플레이",
-   "title": "조회공시요구(풍문또는보도)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800128"
-  },
-  {
-   "code": "097230",
-   "name": "HJ중공업",
-   "title": "[기재정정]단일판매ㆍ공급계약체결",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T14:12:29.598686+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261014800411"
-  },
-  {
-   "code": "161890",
-   "name": "한국콜마",
-   "title": "기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800077"
-  },
-  {
-   "code": "034230",
-   "name": "파라다이스",
-   "title": "투자설명서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000002"
-  },
-  {
-   "code": "089030",
-   "name": "테크윙",
-   "title": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014900085"
-  },
-  {
-   "code": "102710",
-   "name": "이엔에프테크놀로지",
-   "title": "주식등의대량보유상황보고서(약식)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000024"
-  },
-  {
-   "code": "066970",
-   "name": "엘앤에프",
-   "title": "풍문또는보도에대한해명(미확정)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800059"
-  },
-  {
-   "code": "010780",
-   "name": "아이에스동서",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000019"
-  },
-  {
-   "code": "009900",
-   "name": "명신산업",
-   "title": "[기재정정]기업설명회(IR)개최(안내공시)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261014800075"
-  },
-  {
-   "code": "056190",
-   "name": "SFA",
-   "title": "임원ㆍ주요주주특정증권등소유상황보고서",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014000004"
-  },
-  {
-   "code": "373220",
-   "name": "LG에너지솔루션",
-   "title": "조회공시요구(풍문또는보도)",
-   "receiptDate": "20261014",
-   "detectedAt": "2026-10-14T01:42:50.736810+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261014800003"
   }
  ]
 };
