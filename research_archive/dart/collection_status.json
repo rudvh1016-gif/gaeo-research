@@ -3,25 +3,25 @@
   "byKind": {
    "detail": 0,
    "financial": 0,
-   "list": 1057,
-   "mapping": 1,
+   "list": 2237,
+   "mapping": 2,
    "other": 0
   },
   "day": "2026-10-22",
   "deferrable_allowed": true,
   "deferrable_cutoff": 6500,
-  "deferrable_headroom": 5442,
+  "deferrable_headroom": 4261,
   "deferrable_reserve": 1500,
   "hard_limit": 10000,
   "normal_target_per_day": 500,
   "note": "10,000건은 안전 상한이지 목표가 아니다. 평상시 수백 회 수준을 지향한다.",
   "observation_notice": 4000,
-  "remaining": 8942,
-  "requests_today": 1058,
-  "runs_today": 1,
+  "remaining": 7761,
+  "requests_today": 2239,
+  "runs_today": 4,
   "soft_budget": 8000,
   "status": "BUDGET_OK",
-  "usage_pct_of_hard_limit": 10.58
+  "usage_pct_of_hard_limit": 22.39
  },
  "catchUp": {
   "behindDays": 0,
@@ -32,42 +32,33 @@
  "coverageReasons": [],
  "efficiency": {
   "api_errors": 0,
-  "bytes_received": 147968,
+  "bytes_received": 275979,
   "detail_requests": 0,
-  "duplicate_skipped": 163,
-  "list_requests": 7,
-  "matched_gaeo_filings": 17,
-  "new_filings_detected": 585,
+  "duplicate_skipped": 180,
+  "list_requests": 12,
+  "matched_gaeo_filings": 134,
+  "new_filings_detected": 1093,
   "no_data_responses": 0,
-  "pages_fetched": 7,
+  "pages_fetched": 12,
   "processing_duration_sec": null,
-  "requests_per_run": 7,
-  "unmatched_filings": 405
+  "requests_per_run": 12,
+  "unmatched_filings": 779
  },
  "errors": [],
  "eventState": "EVENT_DETECTED",
- "eventsAcknowledged": 17,
- "eventsFound": 17,
- "eventsStored": 17,
- "finishedAt": "2026-10-22T01:11:21.810606+00:00",
+ "eventsAcknowledged": 134,
+ "eventsFound": 134,
+ "eventsStored": 134,
+ "finishedAt": "2026-10-22T14:18:27.612117+00:00",
  "hasApiKey": true,
  "kstToday": "2026-10-22",
  "lastComplete": {
-  "coveredUntil": "2026-10-22T01:11:21.810606+00:00",
-  "finishedAt": "2026-10-22T01:11:21.810606+00:00",
+  "coveredUntil": "2026-10-22T14:18:27.612117+00:00",
+  "finishedAt": "2026-10-22T14:18:27.612117+00:00",
   "windowEnd": "2026-10-22",
   "windowStart": "2026-10-21"
  },
- "maintenance": [
-  {
-   "compressedBytes": 4747,
-   "compressionRatio": 0.0486,
-   "day": "2026-10-21",
-   "rawBytes": 97727,
-   "recordCount": 165,
-   "status": "OK"
-  }
- ],
+ "maintenance": [],
  "note": "DART 수집 전용. research_v1.0 / v1.1 판단에 사용하지 않는다. 최초 사용 버전은 research_v2.0이다.",
  "pagination": {
   "coverage_complete": true,
@@ -83,13 +74,13 @@
     "coverageComplete": true,
     "day": "2026-10-22",
     "incompleteReasons": [],
-    "pagesFetched": 1,
-    "totalPagesReported": 1
+    "pagesFetched": 6,
+    "totalPagesReported": 6
    }
   ],
   "incomplete_reasons": [],
   "page_limit": 30,
-  "pages_fetched": 7,
+  "pages_fetched": 12,
   "total_pages_reported": null
  },
  "pendingRetryNext": 0,
@@ -98,8 +89,8 @@
   "end": "2026-10-22",
   "start": "2026-10-21"
  },
- "ranAt": "2026-10-22T01:11:06.042812+00:00",
- "seenTotal": 5790,
- "startedAt": "2026-10-22T01:11:06.046116+00:00",
+ "ranAt": "2026-10-22T14:17:58.929141+00:00",
+ "seenTotal": 5924,
+ "startedAt": "2026-10-22T14:17:58.935127+00:00",
  "status": "OK"
 }
