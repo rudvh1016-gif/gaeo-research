@@ -2,8 +2,8 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "disclosure_changes",
- "generatedAt": "2026-10-25T14:55:54Z",
- "asOf": "2026-10-25",
+ "generatedAt": "2026-10-26T00:44:10Z",
+ "asOf": "2026-10-26",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) — 접수번호·보고서명·접수일·회사 고유번호",
@@ -17,13 +17,13 @@
  },
  "windows": {
   "recent": {
-   "from": "2026-09-26",
-   "to": "2026-10-25",
+   "from": "2026-09-27",
+   "to": "2026-10-26",
    "days": 30
   },
   "prior": {
-   "from": "2026-08-27",
-   "to": "2026-09-25",
+   "from": "2026-08-28",
+   "to": "2026-09-26",
    "days": 30,
    "fullyCovered": true
   },
@@ -33,18 +33,18 @@
  "coverage": {
   "trackedCompanies": 600,
   "companiesWithFilings": 565,
-  "filings": 6937,
+  "filings": 6940,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-10-23",
-    "count": 6135
+    "to": "2026-10-26",
+    "count": 6139
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
     "from": "2025-10-23",
-    "to": "2026-10-22",
+    "to": "2026-10-23",
     "count": 939,
     "onlyTitlesMatching": [
      "합병",
@@ -1033,7 +1033,7 @@
    "filingCount": 14,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 8,
-   "priorCount": 5,
+   "priorCount": 3,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -1050,11 +1050,11 @@
      "text": "임원·주요주주 거래 공시 1건 (이전 30일과 같음)"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "contract",
      "recent": 1,
-     "prior": 3,
-     "text": "판매·공급계약 공시 1건 — 이전 30일 3건보다 줄었다"
+     "prior": 1,
+     "text": "판매·공급계약 공시 1건 (이전 30일과 같음)"
     },
     {
      "type": "NEW_CATEGORY",
@@ -3239,14 +3239,14 @@
    "filingCount": 34,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 15,
-   "priorCount": 15,
+   "priorCount": 14,
    "changes": [
     {
      "type": "MORE",
      "category": "insider",
      "recent": 5,
-     "prior": 3,
-     "text": "임원·주요주주 거래 공시 5건 — 이전 30일 3건보다 늘었다"
+     "prior": 2,
+     "text": "임원·주요주주 거래 공시 5건 — 이전 30일 2건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -6105,7 +6105,7 @@
    "filingCount": 160,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 71,
-   "priorCount": 75,
+   "priorCount": 71,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -6139,8 +6139,8 @@
      "type": "FEWER",
      "category": "securities_filing",
      "recent": 61,
-     "prior": 67,
-     "text": "증권신고·발행 공시 61건 — 이전 30일 67건보다 줄었다"
+     "prior": 63,
+     "text": "증권신고·발행 공시 61건 — 이전 30일 63건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -6653,14 +6653,14 @@
    "filingCount": 42,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 25,
-   "priorCount": 14,
+   "priorCount": 13,
    "changes": [
     {
      "type": "MORE",
      "category": "securities_filing",
      "recent": 25,
-     "prior": 14,
-     "text": "증권신고·발행 공시 25건 — 이전 30일 14건보다 늘었다"
+     "prior": 13,
+     "text": "증권신고·발행 공시 25건 — 이전 30일 13건보다 늘었다"
     }
    ],
    "filings": [
@@ -7668,7 +7668,7 @@
    "filingCount": 93,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 52,
-   "priorCount": 30,
+   "priorCount": 28,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -7688,8 +7688,8 @@
      "type": "MORE",
      "category": "securities_filing",
      "recent": 50,
-     "prior": 28,
-     "text": "증권신고·발행 공시 50건 — 이전 30일 28건보다 늘었다"
+     "prior": 26,
+     "text": "증권신고·발행 공시 50건 — 이전 30일 26건보다 늘었다"
     },
     {
      "type": "CORRECTIONS",
@@ -10016,16 +10016,8 @@
    "filingCount": 2,
    "latestReceivedOn": "2026-08-27",
    "recentCount": 0,
-   "priorCount": 2,
-   "changes": [
-    {
-     "type": "FEWER",
-     "category": "major_shareholder",
-     "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 2건"
-    }
-   ],
+   "priorCount": 0,
+   "changes": [],
    "filings": [
     {
      "rceptNo": "20260827000683",
@@ -10994,7 +10986,7 @@
    "filingCount": 7,
    "latestReceivedOn": "2026-10-14",
    "recentCount": 4,
-   "priorCount": 3,
+   "priorCount": 2,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -11011,11 +11003,11 @@
      "text": "풍문·조회공시 공시 2건 (이전 30일과 같음)"
     },
     {
-     "type": "SAME",
+     "type": "NEW_CATEGORY",
      "category": "group",
      "recent": 1,
-     "prior": 1,
-     "text": "기업집단 공시 공시 1건 (이전 30일과 같음)"
+     "prior": 0,
+     "text": "최근 30일에 기업집단 공시 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "CORRECTIONS",
@@ -11180,14 +11172,14 @@
    "filingCount": 8,
    "latestReceivedOn": "2026-10-15",
    "recentCount": 5,
-   "priorCount": 3,
+   "priorCount": 2,
    "changes": [
     {
-     "type": "SAME",
+     "type": "MORE",
      "category": "major_shareholder",
      "recent": 2,
-     "prior": 2,
-     "text": "최대주주·대량보유 공시 2건 (이전 30일과 같음)"
+     "prior": 1,
+     "text": "최대주주·대량보유 공시 2건 — 이전 30일 1건보다 늘었다"
     },
     {
      "type": "MORE",
@@ -11309,7 +11301,7 @@
    "filingCount": 4,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 3,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -11324,13 +11316,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 투자·출자 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "CORRECTIONS",
@@ -12304,7 +12289,7 @@
    "filingCount": 264,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 140,
-   "priorCount": 90,
+   "priorCount": 88,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -12331,8 +12316,8 @@
      "type": "MORE",
      "category": "securities_filing",
      "recent": 124,
-     "prior": 88,
-     "text": "증권신고·발행 공시 124건 — 이전 30일 88건보다 늘었다"
+     "prior": 86,
+     "text": "증권신고·발행 공시 124건 — 이전 30일 86건보다 늘었다"
     },
     {
      "type": "FEWER",
@@ -12838,7 +12823,7 @@
    "filingCount": 130,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 51,
-   "priorCount": 52,
+   "priorCount": 48,
    "changes": [
     {
      "type": "FEWER",
@@ -12872,8 +12857,8 @@
      "type": "FEWER",
      "category": "securities_filing",
      "recent": 41,
-     "prior": 47,
-     "text": "증권신고·발행 공시 41건 — 이전 30일 47건보다 줄었다"
+     "prior": 43,
+     "text": "증권신고·발행 공시 41건 — 이전 30일 43건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -13386,15 +13371,8 @@
    "filingCount": 9,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 3,
-   "priorCount": 5,
+   "priorCount": 3,
    "changes": [
-    {
-     "type": "FEWER",
-     "category": "dividend",
-     "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 배당 공시 0건 — 그 이전 30일에는 2건"
-    },
     {
      "type": "FEWER",
      "category": "major_shareholder",
@@ -13647,7 +13625,7 @@
    "filingCount": 6,
    "latestReceivedOn": "2026-10-01",
    "recentCount": 1,
-   "priorCount": 3,
+   "priorCount": 2,
    "changes": [
     {
      "type": "FEWER",
@@ -13655,13 +13633,6 @@
      "recent": 0,
      "prior": 1,
      "text": "최근 30일에 유상·무상증자 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
-     "type": "FEWER",
-     "category": "equity_linked_bond",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 전환사채 등 주식관련사채 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "SAME",
@@ -13761,7 +13732,7 @@
    "filingCount": 23,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 17,
-   "priorCount": 3,
+   "priorCount": 2,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -13797,13 +13768,6 @@
      "recent": 1,
      "prior": 1,
      "text": "IR·설명회 공시 1건 (이전 30일과 같음)"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "CORRECTIONS",
@@ -14598,7 +14562,7 @@
    "filingCount": 2,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 1,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -14606,13 +14570,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -15190,7 +15147,7 @@
    "filingCount": 5,
    "latestReceivedOn": "2026-10-02",
    "recentCount": 1,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -15198,13 +15155,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 최대주주·대량보유 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -15894,7 +15844,7 @@
    "filingCount": 19,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 6,
-   "priorCount": 5,
+   "priorCount": 4,
    "changes": [
     {
      "type": "FEWER",
@@ -15918,11 +15868,11 @@
      "text": "최근 30일에 증권신고·발행 공시 0건 — 그 이전 30일에는 1건"
     },
     {
-     "type": "SAME",
+     "type": "NEW_CATEGORY",
      "category": "group",
      "recent": 1,
-     "prior": 1,
-     "text": "기업집단 공시 공시 1건 (이전 30일과 같음)"
+     "prior": 0,
+     "text": "최근 30일에 기업집단 공시 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -18318,9 +18268,9 @@
   },
   "005930": {
    "name": "삼성전자",
-   "filingCount": 29,
-   "latestReceivedOn": "2026-10-23",
-   "recentCount": 15,
+   "filingCount": 30,
+   "latestReceivedOn": "2026-10-26",
+   "recentCount": 16,
    "priorCount": 8,
    "changes": [
     {
@@ -18338,11 +18288,11 @@
      "text": "최근 30일에 최대주주·대량보유 공시 5건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "SAME",
+     "type": "MORE",
      "category": "insider",
-     "recent": 7,
+     "recent": 8,
      "prior": 7,
-     "text": "임원·주요주주 거래 공시 7건 (이전 30일과 같음)"
+     "text": "임원·주요주주 거래 공시 8건 — 이전 30일 7건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -18367,6 +18317,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261026000017",
+     "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+     "receivedOn": "2026-10-26",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026000017",
+     "sources": [
+      "list"
+     ],
+     "category": "insider"
+    },
     {
      "rceptNo": "20261023000484",
      "title": "주식등의대량보유상황보고서(일반)",
@@ -19451,7 +19413,7 @@
    "filingCount": 6,
    "latestReceivedOn": "2026-10-13",
    "recentCount": 1,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -19459,13 +19421,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 자기주식 취득·처분 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "merger_split",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 합병·분할·양수도 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -19937,21 +19892,21 @@
    "filingCount": 27,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 9,
-   "priorCount": 12,
+   "priorCount": 10,
    "changes": [
     {
      "type": "FEWER",
      "category": "major_shareholder",
      "recent": 2,
-     "prior": 6,
-     "text": "최대주주·대량보유 공시 2건 — 이전 30일 6건보다 줄었다"
+     "prior": 5,
+     "text": "최대주주·대량보유 공시 2건 — 이전 30일 5건보다 줄었다"
     },
     {
      "type": "MORE",
      "category": "insider",
      "recent": 7,
-     "prior": 6,
-     "text": "임원·주요주주 거래 공시 7건 — 이전 30일 6건보다 늘었다"
+     "prior": 5,
+     "text": "임원·주요주주 거래 공시 7건 — 이전 30일 5건보다 늘었다"
     }
    ],
    "filings": [
@@ -20291,7 +20246,7 @@
    "filingCount": 17,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 7,
-   "priorCount": 10,
+   "priorCount": 9,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -20320,13 +20275,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "guarantee",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 채무보증·담보 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "SAME",
@@ -20990,7 +20938,7 @@
    "filingCount": 218,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 99,
-   "priorCount": 93,
+   "priorCount": 92,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -21024,8 +20972,8 @@
      "type": "FEWER",
      "category": "rumor",
      "recent": 0,
-     "prior": 3,
-     "text": "최근 30일에 풍문·조회공시 공시 0건 — 그 이전 30일에는 3건"
+     "prior": 2,
+     "text": "최근 30일에 풍문·조회공시 공시 0건 — 그 이전 30일에는 2건"
     },
     {
      "type": "FEWER",
@@ -23518,7 +23466,7 @@
    "filingCount": 26,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 12,
-   "priorCount": 9,
+   "priorCount": 6,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -23535,11 +23483,11 @@
      "text": "최근 30일에 판매·공급계약 공시 7건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "earnings",
      "recent": 2,
-     "prior": 4,
-     "text": "실적 공시 공시 2건 — 이전 30일 4건보다 줄었다"
+     "prior": 2,
+     "text": "실적 공시 공시 2건 (이전 30일과 같음)"
     },
     {
      "type": "FEWER",
@@ -23566,8 +23514,8 @@
      "type": "FEWER",
      "category": "group",
      "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 2건"
+     "prior": 1,
+     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -24642,7 +24590,7 @@
    "filingCount": 15,
    "latestReceivedOn": "2026-10-21",
    "recentCount": 8,
-   "priorCount": 4,
+   "priorCount": 1,
    "changes": [
     {
      "type": "FEWER",
@@ -24666,13 +24614,6 @@
      "text": "최근 30일에 실적 공시 공시 2건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
-     "category": "investment",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 투자·출자 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
      "type": "NEW_CATEGORY",
      "category": "ir",
      "recent": 2,
@@ -24680,18 +24621,11 @@
      "text": "최근 30일에 IR·설명회 공시 2건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
-     "type": "SAME",
+     "type": "NEW_CATEGORY",
      "category": "other",
      "recent": 1,
-     "prior": 1,
-     "text": "기타 공시 1건 (이전 30일과 같음)"
+     "prior": 0,
+     "text": "최근 30일에 기타 공시 1건 — 그 이전 30일에는 0건"
     }
    ],
    "filings": [
@@ -27150,7 +27084,7 @@
    "filingCount": 28,
    "latestReceivedOn": "2026-10-20",
    "recentCount": 7,
-   "priorCount": 7,
+   "priorCount": 5,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -27158,13 +27092,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 유상·무상증자 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "insider",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 임원·주요주주 거래 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -27193,13 +27120,6 @@
      "recent": 2,
      "prior": 0,
      "text": "최근 30일에 IR·설명회 공시 2건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -27724,7 +27644,7 @@
    "filingCount": 4,
    "latestReceivedOn": "2026-09-29",
    "recentCount": 3,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -27739,13 +27659,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 임원·주요주주 거래 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -27805,7 +27718,7 @@
    "filingCount": 14,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 7,
-   "priorCount": 6,
+   "priorCount": 5,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -27825,8 +27738,8 @@
      "type": "FEWER",
      "category": "ir",
      "recent": 3,
-     "prior": 5,
-     "text": "IR·설명회 공시 3건 — 이전 30일 5건보다 줄었다"
+     "prior": 4,
+     "text": "IR·설명회 공시 3건 — 이전 30일 4건보다 줄었다"
     },
     {
      "type": "SAME",
@@ -28389,7 +28302,7 @@
    "filingCount": 19,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 9,
-   "priorCount": 8,
+   "priorCount": 7,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -28418,13 +28331,6 @@
      "recent": 1,
      "prior": 1,
      "text": "채무보증·담보 공시 1건 (이전 30일과 같음)"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "MORE",
@@ -29240,7 +29146,7 @@
    "filingCount": 14,
    "latestReceivedOn": "2026-10-21",
    "recentCount": 5,
-   "priorCount": 4,
+   "priorCount": 3,
    "changes": [
     {
      "type": "MORE",
@@ -29255,13 +29161,6 @@
      "recent": 1,
      "prior": 1,
      "text": "임원·주요주주 거래 공시 1건 (이전 30일과 같음)"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -29441,7 +29340,7 @@
    "filingCount": 4,
    "latestReceivedOn": "2026-10-13",
    "recentCount": 3,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -29449,13 +29348,6 @@
      "recent": 2,
      "prior": 0,
      "text": "최근 30일에 임원·주요주주 거래 공시 2건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "shareholder_meeting",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 주주총회·기준일 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -30056,7 +29948,7 @@
    "filingCount": 36,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 26,
-   "priorCount": 3,
+   "priorCount": 1,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -30085,20 +29977,6 @@
      "recent": 17,
      "prior": 0,
      "text": "최근 30일에 임원·주요주주 거래 공시 17건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "investment",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 투자·출자 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -30587,7 +30465,7 @@
    "filingCount": 209,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 90,
-   "priorCount": 91,
+   "priorCount": 88,
    "changes": [
     {
      "type": "MORE",
@@ -30607,8 +30485,8 @@
      "type": "FEWER",
      "category": "securities_filing",
      "recent": 70,
-     "prior": 74,
-     "text": "증권신고·발행 공시 70건 — 이전 30일 74건보다 줄었다"
+     "prior": 72,
+     "text": "증권신고·발행 공시 70건 — 이전 30일 72건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -30616,13 +30494,6 @@
      "recent": 0,
      "prior": 1,
      "text": "최근 30일에 풍문·조회공시 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "MORE",
@@ -31128,14 +30999,14 @@
    "filingCount": 15,
    "latestReceivedOn": "2026-10-13",
    "recentCount": 1,
-   "priorCount": 9,
+   "priorCount": 8,
    "changes": [
     {
      "type": "FEWER",
      "category": "buyback",
      "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 자기주식 취득·처분 공시 0건 — 그 이전 30일에는 2건"
+     "prior": 1,
+     "text": "최근 30일에 자기주식 취득·처분 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -31713,22 +31584,8 @@
    "filingCount": 4,
    "latestReceivedOn": "2026-10-02",
    "recentCount": 1,
-   "priorCount": 3,
+   "priorCount": 1,
    "changes": [
-    {
-     "type": "FEWER",
-     "category": "major_shareholder",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
-    },
     {
      "type": "SAME",
      "category": "other",
@@ -32388,7 +32245,7 @@
    "filingCount": 19,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 9,
-   "priorCount": 3,
+   "priorCount": 1,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -32396,13 +32253,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 자기주식 취득·처분 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "merger_split",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 합병·분할·양수도 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -32429,8 +32279,8 @@
      "type": "FEWER",
      "category": "group",
      "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 2건"
+     "prior": 1,
+     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -33490,9 +33340,9 @@
   },
   "020560": {
    "name": "아시아나항공",
-   "filingCount": 12,
-   "latestReceivedOn": "2026-10-14",
-   "recentCount": 1,
+   "filingCount": 13,
+   "latestReceivedOn": "2026-10-26",
+   "recentCount": 2,
    "priorCount": 2,
    "changes": [
     {
@@ -33512,12 +33362,24 @@
     {
      "type": "NEW_CATEGORY",
      "category": "other",
-     "recent": 1,
+     "recent": 2,
      "prior": 0,
-     "text": "최근 30일에 기타 공시 1건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 기타 공시 2건 — 그 이전 30일에는 0건"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261026800005",
+     "title": "소송등의판결ㆍ결정(일정금액이상의청구)",
+     "receivedOn": "2026-10-26",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800005",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261014800463",
      "title": "소송등의제기ㆍ신청(일정금액이상의청구)",
@@ -34027,7 +33889,7 @@
    "filingCount": 15,
    "latestReceivedOn": "2026-10-14",
    "recentCount": 10,
-   "priorCount": 4,
+   "priorCount": 3,
    "changes": [
     {
      "type": "MORE",
@@ -34063,13 +33925,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -36751,7 +36606,7 @@
    "filingCount": 385,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 170,
-   "priorCount": 170,
+   "priorCount": 168,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -36764,8 +36619,8 @@
      "type": "FEWER",
      "category": "securities_filing",
      "recent": 165,
-     "prior": 169,
-     "text": "증권신고·발행 공시 165건 — 이전 30일 169건보다 줄었다"
+     "prior": 167,
+     "text": "증권신고·발행 공시 165건 — 이전 30일 167건보다 줄었다"
     },
     {
      "type": "FEWER",
@@ -39638,15 +39493,8 @@
    "filingCount": 35,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 14,
-   "priorCount": 9,
+   "priorCount": 7,
    "changes": [
-    {
-     "type": "FEWER",
-     "category": "buyback",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 자기주식 취득·처분 공시 0건 — 그 이전 30일에는 1건"
-    },
     {
      "type": "NEW_CATEGORY",
      "category": "major_shareholder",
@@ -39674,13 +39522,6 @@
      "recent": 5,
      "prior": 2,
      "text": "증권신고·발행 공시 5건 — 이전 30일 2건보다 늘었다"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -41282,7 +41123,7 @@
    "filingCount": 17,
    "latestReceivedOn": "2026-10-14",
    "recentCount": 8,
-   "priorCount": 7,
+   "priorCount": 6,
    "changes": [
     {
      "type": "FEWER",
@@ -41299,11 +41140,11 @@
      "text": "실적 공시 공시 1건 (이전 30일과 같음)"
     },
     {
-     "type": "SAME",
+     "type": "MORE",
      "category": "shareholder_meeting",
      "recent": 2,
-     "prior": 2,
-     "text": "주주총회·기준일 공시 2건 (이전 30일과 같음)"
+     "prior": 1,
+     "text": "주주총회·기준일 공시 2건 — 이전 30일 1건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -42038,14 +41879,14 @@
    "filingCount": 22,
    "latestReceivedOn": "2026-10-02",
    "recentCount": 9,
-   "priorCount": 4,
+   "priorCount": 3,
    "changes": [
     {
-     "type": "MORE",
+     "type": "NEW_CATEGORY",
      "category": "buyback",
      "recent": 2,
-     "prior": 1,
-     "text": "자기주식 취득·처분 공시 2건 — 이전 30일 1건보다 늘었다"
+     "prior": 0,
+     "text": "최근 30일에 자기주식 취득·처분 공시 2건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -42929,7 +42770,7 @@
    "filingCount": 196,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 87,
-   "priorCount": 81,
+   "priorCount": 73,
    "changes": [
     {
      "type": "SAME",
@@ -42960,11 +42801,11 @@
      "text": "최근 30일에 투자·출자 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "MORE",
      "category": "securities_filing",
      "recent": 77,
-     "prior": 79,
-     "text": "증권신고·발행 공시 77건 — 이전 30일 79건보다 줄었다"
+     "prior": 71,
+     "text": "증권신고·발행 공시 77건 — 이전 30일 71건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -44344,7 +44185,7 @@
    "filingCount": 14,
    "latestReceivedOn": "2026-10-13",
    "recentCount": 3,
-   "priorCount": 4,
+   "priorCount": 3,
    "changes": [
     {
      "type": "SAME",
@@ -44352,13 +44193,6 @@
      "recent": 2,
      "prior": 2,
      "text": "전환사채 등 주식관련사채 공시 2건 (이전 30일과 같음)"
-    },
-    {
-     "type": "FEWER",
-     "category": "investment",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 투자·출자 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -45051,7 +44885,7 @@
    "filingCount": 14,
    "latestReceivedOn": "2026-10-20",
    "recentCount": 2,
-   "priorCount": 9,
+   "priorCount": 8,
    "changes": [
     {
      "type": "FEWER",
@@ -45087,13 +44921,6 @@
      "recent": 1,
      "prior": 2,
      "text": "IR·설명회 공시 1건 — 이전 30일 2건보다 줄었다"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -47058,16 +46885,8 @@
    "filingCount": 3,
    "latestReceivedOn": "2026-08-27",
    "recentCount": 0,
-   "priorCount": 1,
-   "changes": [
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
-    }
-   ],
+   "priorCount": 0,
+   "changes": [],
    "filings": [
     {
      "rceptNo": "20260827000347",
@@ -49792,16 +49611,8 @@
    "filingCount": 2,
    "latestReceivedOn": "2026-08-27",
    "recentCount": 0,
-   "priorCount": 1,
-   "changes": [
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
-    }
-   ],
+   "priorCount": 0,
+   "changes": [],
    "filings": [
     {
      "rceptNo": "20260827000759",
@@ -53366,7 +53177,7 @@
    "filingCount": 23,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 14,
-   "priorCount": 7,
+   "priorCount": 5,
    "changes": [
     {
      "type": "SAME",
@@ -53416,13 +53227,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 2건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -55270,21 +55074,21 @@
    "filingCount": 93,
    "latestReceivedOn": "2026-10-22",
    "recentCount": 30,
-   "priorCount": 59,
+   "priorCount": 54,
    "changes": [
     {
-     "type": "SAME",
+     "type": "MORE",
      "category": "major_shareholder",
      "recent": 4,
-     "prior": 4,
-     "text": "최대주주·대량보유 공시 4건 (이전 30일과 같음)"
+     "prior": 3,
+     "text": "최대주주·대량보유 공시 4건 — 이전 30일 3건보다 늘었다"
     },
     {
      "type": "FEWER",
      "category": "insider",
      "recent": 25,
-     "prior": 51,
-     "text": "임원·주요주주 거래 공시 25건 — 이전 30일 51건보다 줄었다"
+     "prior": 47,
+     "text": "임원·주요주주 거래 공시 25건 — 이전 30일 47건보다 줄었다"
     },
     {
      "type": "SAME",
@@ -56545,7 +56349,7 @@
    "filingCount": 9,
    "latestReceivedOn": "2026-10-16",
    "recentCount": 4,
-   "priorCount": 2,
+   "priorCount": 1,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -56567,13 +56371,6 @@
      "recent": 2,
      "prior": 1,
      "text": "IR·설명회 공시 2건 — 이전 30일 1건보다 늘었다"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -64688,9 +64485,9 @@
   },
   "178920": {
    "name": "PI첨단소재",
-   "filingCount": 2,
-   "latestReceivedOn": "2026-10-23",
-   "recentCount": 1,
+   "filingCount": 4,
+   "latestReceivedOn": "2026-10-26",
+   "recentCount": 3,
    "priorCount": 1,
    "changes": [
     {
@@ -64706,9 +64503,40 @@
      "recent": 0,
      "prior": 1,
      "text": "최근 30일에 주주총회·기준일 공시 0건 — 그 이전 30일에는 1건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "ir",
+     "recent": 2,
+     "prior": 0,
+     "text": "최근 30일에 IR·설명회 공시 2건 — 그 이전 30일에는 0건"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261026800048",
+     "title": "기업설명회(IR)개최(안내공시)",
+     "receivedOn": "2026-10-26",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800048",
+     "sources": [
+      "list"
+     ],
+     "category": "ir"
+    },
+    {
+     "rceptNo": "20261026800047",
+     "title": "기업설명회(IR)개최(안내공시)",
+     "receivedOn": "2026-10-26",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800047",
+     "sources": [
+      "list"
+     ],
+     "category": "ir"
+    },
     {
      "rceptNo": "20261023800215",
      "title": "결산실적공시예고(안내공시)",
@@ -64850,7 +64678,7 @@
   },
   "181710": {
    "name": "NHN",
-   "filingCount": 18,
+   "filingCount": 17,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 5,
    "priorCount": 7,
@@ -65113,18 +64941,6 @@
      "isCorrection": true,
      "correctionKind": "첨부정정",
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251031000117",
-     "sources": [
-      "evidence"
-     ],
-     "category": "merger_split"
-    },
-    {
-     "rceptNo": "20251023000310",
-     "title": "주요사항보고서(회사합병결정)",
-     "receivedOn": "2025-10-23",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251023000310",
      "sources": [
       "evidence"
      ],
@@ -67549,7 +67365,7 @@
    "filingCount": 6,
    "latestReceivedOn": "2026-10-06",
    "recentCount": 2,
-   "priorCount": 3,
+   "priorCount": 2,
    "changes": [
     {
      "type": "MORE",
@@ -67557,13 +67373,6 @@
      "recent": 2,
      "prior": 1,
      "text": "최대주주·대량보유 공시 2건 — 이전 30일 1건보다 늘었다"
-    },
-    {
-     "type": "FEWER",
-     "category": "investment",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 투자·출자 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -68696,14 +68505,14 @@
    "filingCount": 3,
    "latestReceivedOn": "2026-09-29",
    "recentCount": 1,
-   "priorCount": 2,
+   "priorCount": 1,
    "changes": [
     {
-     "type": "SAME",
+     "type": "NEW_CATEGORY",
      "category": "contract",
      "recent": 1,
-     "prior": 1,
-     "text": "판매·공급계약 공시 1건 (이전 30일과 같음)"
+     "prior": 0,
+     "text": "최근 30일에 판매·공급계약 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "FEWER",
@@ -70477,7 +70286,7 @@
    "filingCount": 11,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 3,
-   "priorCount": 5,
+   "priorCount": 4,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -70490,8 +70299,8 @@
      "type": "FEWER",
      "category": "major_shareholder",
      "recent": 0,
-     "prior": 2,
-     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 2건"
+     "prior": 1,
+     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "SAME",
@@ -70890,7 +70699,7 @@
    "filingCount": 11,
    "latestReceivedOn": "2026-10-21",
    "recentCount": 7,
-   "priorCount": 2,
+   "priorCount": 1,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -70919,13 +70728,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "SAME",
@@ -71083,7 +70885,7 @@
    "filingCount": 7,
    "latestReceivedOn": "2026-10-20",
    "recentCount": 5,
-   "priorCount": 2,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -71100,25 +70902,11 @@
      "text": "최근 30일에 임원·주요주주 거래 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
-     "category": "contract",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 판매·공급계약 공시 0건 — 그 이전 30일에는 1건"
-    },
-    {
      "type": "NEW_CATEGORY",
      "category": "ir",
      "recent": 2,
      "prior": 0,
      "text": "최근 30일에 IR·설명회 공시 2건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -71384,7 +71172,7 @@
    "filingCount": 12,
    "latestReceivedOn": "2026-10-15",
    "recentCount": 2,
-   "priorCount": 9,
+   "priorCount": 8,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -71397,8 +71185,8 @@
      "type": "FEWER",
      "category": "major_shareholder",
      "recent": 0,
-     "prior": 9,
-     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 9건"
+     "prior": 8,
+     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 8건"
     }
    ],
    "filings": [
@@ -72157,7 +71945,7 @@
    "filingCount": 8,
    "latestReceivedOn": "2026-10-20",
    "recentCount": 3,
-   "priorCount": 5,
+   "priorCount": 4,
    "changes": [
     {
      "type": "FEWER",
@@ -72181,11 +71969,11 @@
      "text": "최근 30일에 주주총회·기준일 공시 0건 — 그 이전 30일에는 1건"
     },
     {
-     "type": "SAME",
+     "type": "NEW_CATEGORY",
      "category": "ir",
      "recent": 1,
-     "prior": 1,
-     "text": "IR·설명회 공시 1건 (이전 30일과 같음)"
+     "prior": 0,
+     "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -72594,7 +72382,7 @@
    "filingCount": 3,
    "latestReceivedOn": "2026-10-02",
    "recentCount": 1,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -72602,13 +72390,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 최대주주·대량보유 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -72822,7 +72603,8 @@
      "correctionKind": null,
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023900853",
      "sources": [
-      "list"
+      "list",
+      "evidence"
      ],
      "category": "capital_increase"
     },
@@ -74117,7 +73899,7 @@
    "filingCount": 9,
    "latestReceivedOn": "2026-09-30",
    "recentCount": 4,
-   "priorCount": 5,
+   "priorCount": 4,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -74139,13 +73921,6 @@
      "recent": 1,
      "prior": 3,
      "text": "판매·공급계약 공시 1건 — 이전 30일 3건보다 줄었다"
-    },
-    {
-     "type": "FEWER",
-     "category": "ir",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 IR·설명회 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -75731,7 +75506,7 @@
    "filingCount": 16,
    "latestReceivedOn": "2026-09-23",
    "recentCount": 0,
-   "priorCount": 10,
+   "priorCount": 9,
    "changes": [
     {
      "type": "FEWER",
@@ -75753,13 +75528,6 @@
      "recent": 0,
      "prior": 2,
      "text": "최근 30일에 판매·공급계약 공시 0건 — 그 이전 30일에는 2건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "FEWER",
@@ -76195,7 +75963,7 @@
    "filingCount": 24,
    "latestReceivedOn": "2026-10-21",
    "recentCount": 9,
-   "priorCount": 10,
+   "priorCount": 9,
    "changes": [
     {
      "type": "FEWER",
@@ -76212,11 +75980,11 @@
      "text": "판매·공급계약 공시 4건 — 이전 30일 1건보다 늘었다"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "earnings",
      "recent": 1,
-     "prior": 2,
-     "text": "실적 공시 공시 1건 — 이전 30일 2건보다 줄었다"
+     "prior": 1,
+     "text": "실적 공시 공시 1건 (이전 30일과 같음)"
     },
     {
      "type": "NEW_CATEGORY",
@@ -78023,7 +77791,7 @@
    "filingCount": 21,
    "latestReceivedOn": "2026-10-20",
    "recentCount": 6,
-   "priorCount": 9,
+   "priorCount": 8,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -78071,8 +77839,8 @@
      "type": "FEWER",
      "category": "other",
      "recent": 1,
-     "prior": 3,
-     "text": "기타 공시 1건 — 이전 30일 3건보다 줄었다"
+     "prior": 2,
+     "text": "기타 공시 1건 — 이전 30일 2건보다 줄었다"
     },
     {
      "type": "CORRECTIONS",
@@ -78347,7 +78115,7 @@
    "filingCount": 9,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 4,
-   "priorCount": 2,
+   "priorCount": 1,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -78371,11 +78139,11 @@
      "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "SAME",
+     "type": "NEW_CATEGORY",
      "category": "group",
      "recent": 1,
-     "prior": 1,
-     "text": "기업집단 공시 공시 1건 (이전 30일과 같음)"
+     "prior": 0,
+     "text": "최근 30일에 기업집단 공시 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -78652,16 +78420,8 @@
    "filingCount": 11,
    "latestReceivedOn": "2026-08-27",
    "recentCount": 0,
-   "priorCount": 1,
-   "changes": [
-    {
-     "type": "FEWER",
-     "category": "insider",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 임원·주요주주 거래 공시 0건 — 그 이전 30일에는 1건"
-    }
-   ],
+   "priorCount": 0,
+   "changes": [],
    "filings": [
     {
      "rceptNo": "20260827000041",
@@ -79304,7 +79064,7 @@
    "filingCount": 15,
    "latestReceivedOn": "2026-10-23",
    "recentCount": 8,
-   "priorCount": 6,
+   "priorCount": 4,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -79321,11 +79081,11 @@
      "text": "최근 30일에 임원·주요주주 거래 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "contract",
      "recent": 1,
-     "prior": 3,
-     "text": "판매·공급계약 공시 1건 — 이전 30일 3건보다 줄었다"
+     "prior": 1,
+     "text": "판매·공급계약 공시 1건 (이전 30일과 같음)"
     },
     {
      "type": "NEW_CATEGORY",
@@ -80873,16 +80633,8 @@
    "filingCount": 6,
    "latestReceivedOn": "2026-08-27",
    "recentCount": 0,
-   "priorCount": 1,
-   "changes": [
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
-    }
-   ],
+   "priorCount": 0,
+   "changes": [],
    "filings": [
     {
      "rceptNo": "20260827000815",
@@ -81482,7 +81234,7 @@
    "filingCount": 2,
    "latestReceivedOn": "2026-10-13",
    "recentCount": 1,
-   "priorCount": 1,
+   "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
@@ -81490,13 +81242,6 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 판매·공급계약 공시 1건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     }
    ],
    "filings": [
@@ -82694,14 +82439,14 @@
    "filingCount": 8,
    "latestReceivedOn": "2026-10-19",
    "recentCount": 1,
-   "priorCount": 4,
+   "priorCount": 3,
    "changes": [
     {
      "type": "FEWER",
      "category": "other",
      "recent": 1,
-     "prior": 4,
-     "text": "기타 공시 1건 — 이전 30일 4건보다 줄었다"
+     "prior": 3,
+     "text": "기타 공시 1건 — 이전 30일 3건보다 줄었다"
     }
    ],
    "filings": [
@@ -83448,7 +83193,7 @@
    "filingCount": 9,
    "latestReceivedOn": "2026-10-15",
    "recentCount": 7,
-   "priorCount": 2,
+   "priorCount": 1,
    "changes": [
     {
      "type": "MORE",
@@ -83470,13 +83215,6 @@
      "recent": 2,
      "prior": 0,
      "text": "최근 30일에 판매·공급계약 공시 2건 — 그 이전 30일에는 0건"
-    },
-    {
-     "type": "FEWER",
-     "category": "group",
-     "recent": 0,
-     "prior": 1,
-     "text": "최근 30일에 기업집단 공시 공시 0건 — 그 이전 30일에는 1건"
     },
     {
      "type": "NEW_CATEGORY",
