@@ -3,68 +3,68 @@
   "byKind": {
    "detail": 0,
    "financial": 0,
-   "list": 1178,
+   "list": 2469,
    "mapping": 1,
    "other": 0
   },
-  "day": "2026-10-28",
+  "day": "2026-10-29",
   "deferrable_allowed": true,
   "deferrable_cutoff": 6500,
-  "deferrable_headroom": 5321,
+  "deferrable_headroom": 4030,
   "deferrable_reserve": 1500,
   "hard_limit": 10000,
   "normal_target_per_day": 500,
   "note": "10,000건은 안전 상한이지 목표가 아니다. 평상시 수백 회 수준을 지향한다.",
   "observation_notice": 4000,
-  "remaining": 8821,
-  "requests_today": 1179,
+  "remaining": 7530,
+  "requests_today": 2470,
   "runs_today": 1,
   "soft_budget": 8000,
   "status": "BUDGET_OK",
-  "usage_pct_of_hard_limit": 11.79
+  "usage_pct_of_hard_limit": 24.7
  },
  "catchUp": {
   "behindDays": 0,
   "state": "CAUGHT_UP",
-  "today": "2026-10-28"
+  "today": "2026-10-29"
  },
  "coverageNote": "NO_OFFICIAL_EVENT_DETECTED는 '뉴스 없음'이 아니다. 일반 언론뉴스 Coverage가 없어서 공식 공시만 본 결과다.",
  "coverageReasons": [],
  "efficiency": {
   "api_errors": 0,
-  "bytes_received": 169419,
+  "bytes_received": 168437,
   "detail_requests": 0,
-  "duplicate_skipped": 160,
+  "duplicate_skipped": 25,
   "list_requests": 8,
-  "matched_gaeo_filings": 26,
-  "new_filings_detected": 660,
-  "no_data_responses": 0,
+  "matched_gaeo_filings": 220,
+  "new_filings_detected": 664,
+  "no_data_responses": 1,
   "pages_fetched": 8,
   "processing_duration_sec": null,
   "requests_per_run": 8,
-  "unmatched_filings": 474
+  "unmatched_filings": 419
  },
  "errors": [],
  "eventState": "EVENT_DETECTED",
- "eventsAcknowledged": 26,
- "eventsFound": 26,
- "eventsStored": 26,
- "finishedAt": "2026-10-28T01:46:29.510044+00:00",
+ "eventsAcknowledged": 220,
+ "eventsFound": 220,
+ "eventsStored": 220,
+ "finishedAt": "2026-10-28T15:33:51.447337+00:00",
  "hasApiKey": true,
- "kstToday": "2026-10-28",
+ "kstToday": "2026-10-29",
  "lastComplete": {
-  "coveredUntil": "2026-10-28T01:46:29.510044+00:00",
-  "finishedAt": "2026-10-28T01:46:29.510044+00:00",
-  "windowEnd": "2026-10-28",
-  "windowStart": "2026-10-27"
+  "coveredUntil": "2026-10-28T15:33:51.447337+00:00",
+  "finishedAt": "2026-10-28T15:33:51.447337+00:00",
+  "windowEnd": "2026-10-29",
+  "windowStart": "2026-10-28"
  },
  "maintenance": [
   {
-   "compressedBytes": 10467,
-   "compressionRatio": 0.0539,
-   "day": "2026-10-27",
-   "rawBytes": 194299,
-   "recordCount": 327,
+   "compressedBytes": 1471,
+   "compressionRatio": 0.0955,
+   "day": "2026-10-28",
+   "rawBytes": 15406,
+   "recordCount": 26,
    "status": "OK"
   }
  ],
@@ -74,17 +74,17 @@
   "days": [
    {
     "coverageComplete": true,
-    "day": "2026-10-27",
+    "day": "2026-10-28",
     "incompleteReasons": [],
-    "pagesFetched": 6,
-    "totalPagesReported": 6
+    "pagesFetched": 7,
+    "totalPagesReported": 7
    },
    {
     "coverageComplete": true,
-    "day": "2026-10-28",
+    "day": "2026-10-29",
     "incompleteReasons": [],
-    "pagesFetched": 2,
-    "totalPagesReported": 2
+    "pagesFetched": 1,
+    "totalPagesReported": null
    }
   ],
   "incomplete_reasons": [],
@@ -95,11 +95,11 @@
  "pendingRetryNext": 0,
  "queryWindow": {
   "days": 2,
-  "end": "2026-10-28",
-  "start": "2026-10-27"
+  "end": "2026-10-29",
+  "start": "2026-10-28"
  },
- "ranAt": "2026-10-28T01:46:12.046757+00:00",
- "seenTotal": 6493,
- "startedAt": "2026-10-28T01:46:12.050027+00:00",
+ "ranAt": "2026-10-28T15:33:44.585520+00:00",
+ "seenTotal": 6713,
+ "startedAt": "2026-10-28T15:33:44.588731+00:00",
  "status": "OK"
 }
