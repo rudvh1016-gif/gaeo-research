@@ -297,11 +297,12 @@ def main(argv=None):
     # 시작 전에도 같은 기준으로 판단한다 — 재무가 끊기는 선(soft budget) 앞의 몫만 남았으면 아예 시작하지 않는다.
     if args.requests < 1 or not daily.allow_for_deferrable('mapping'):
         status = daily.status()
+        headroom = None if status == dart_budget.DART_BUDGET_UNVERIFIED else daily.deferrable_headroom()
         print(json.dumps({'ok': False, 'stage': 'budget',
                           'status': (dart_budget.DART_BUDGET_UNVERIFIED
                                      if status == dart_budget.DART_BUDGET_UNVERIFIED else dart_budget.DART_BUDGET_EXCEEDED),
                           'remaining': daily.remaining,
-                          'deferrableHeadroom': max(0, daily.deferrable_headroom()),
+                          'deferrableHeadroom': max(0, headroom) if headroom is not None else None,
                           'deferrableCutoff': dart_budget.deferrable_cutoff(),
                           'deferrableReserve': dart_budget.DEFERRABLE_RESERVE}))
         return 2

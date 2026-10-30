@@ -45,6 +45,27 @@ def run(client, budget=50):
 
 
 class CollectorTests(unittest.TestCase):
+    def test_corrupt_budget_stops_before_client_and_reports_unknown(self):
+        import io, json, os, tempfile
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, 'budget.json')
+            raw = b'{"broken":'
+            with open(path, 'wb') as f:
+                f.write(raw)
+            with mock.patch.object(collector, 'BUDGET_FILE', path), \
+                 mock.patch.object(collector.dart_client, 'DartClient') as client, \
+                 mock.patch('sys.stdout', new=io.StringIO()) as stdout:
+                result = collector.main(['--tickers', '1', '--requests', '2'])
+            output = json.loads(stdout.getvalue())
+            client.assert_not_called()
+            self.assertEqual(result, 2)
+            self.assertEqual(output['status'], 'DART_BUDGET_UNVERIFIED')
+            self.assertIsNone(output['remaining'])
+            self.assertIsNone(output['deferrableHeadroom'])
+            with open(path, 'rb') as f:
+                self.assertEqual(f.read(), raw)
+
     def test_price_comparison_scope_is_additive_without_extra_requests(self):
         client = FakeClient([page([filing('20260901000001', '현금·현물배당 결정'),
                                   filing('20260901000002', '주식병합 안내')])])

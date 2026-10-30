@@ -355,7 +355,7 @@ class DailyBudget:
             "observation_notice": OBSERVATION_NOTICE,
             "deferrable_reserve": DEFERRABLE_RESERVE,
             "deferrable_cutoff": deferrable_cutoff(self.hard_limit, self.soft_budget),
-            "deferrable_headroom": max(0, headroom),
+            "deferrable_headroom": max(0, headroom) if available else None,
             "deferrable_allowed": headroom > 0 and self.allow("list"),
             "remaining": self.remaining,
             "usage_pct_of_hard_limit": round(self.total / self.hard_limit * 100, 2)

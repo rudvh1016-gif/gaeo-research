@@ -226,6 +226,7 @@ class SaveIsExactUnderFailureAndRetry(unittest.TestCase):
                 self.assertFalse(b.allow('list'))
                 self.assertEqual(b.report()['status'], 'DART_BUDGET_UNVERIFIED')
                 self.assertIsNone(b.report()['requests_today'])
+                self.assertIsNone(b.report()['deferrable_headroom'])
                 with self.assertRaises(dart_budget.BudgetLedgerUnverified):
                     b.spend('list')
                 with self.assertRaises(dart_budget.BudgetLedgerUnverified):
