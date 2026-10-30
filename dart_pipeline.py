@@ -28,6 +28,7 @@ import os
 import re
 import zipfile
 
+import dart_budget
 import dart_client
 import dart_time
 
@@ -240,6 +241,10 @@ def normalize_filing(row, corp_map_entry, detected_at, source_mode=LIVE_DART_PIT
     }
 
 
+class SeenRegistryUnverified(ValueError):
+    """Existing registry cannot be verified; it must not be replaced."""
+
+
 class SeenRegistry:
     """rcept_no 기반 중복 제거 + Durable Write 상태 관리 (요구 5·6번).
 
@@ -265,12 +270,24 @@ class SeenRegistry:
     def __init__(self, path):
         self.path = path
         self.seen = {}
-        if os.path.exists(path):
-            try:
-                with open(path, encoding="utf-8") as f:
-                    self.seen = json.load(f).get("seen", {})
-            except (OSError, json.JSONDecodeError):
-                self.seen = {}
+        try:
+            if os.path.islink(path):
+                raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            if os.path.lexists(path):
+                raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+            return
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError, RecursionError):
+            raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        if (not isinstance(data, dict) or not isinstance(data.get('seen'), dict)
+                or any(not isinstance(key, str) or not isinstance(value, dict)
+                       for key, value in data['seen'].items())
+                or ('count' in data and (type(data['count']) is not int
+                                         or data['count'] != len(data['seen'])))):
+            raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        self.seen = data['seen']
 
     def is_new(self, rcept_no):
         """아직 '처리 완료'로 확정되지 않은 접수번호인가.
@@ -713,7 +730,10 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
             break
         if budget is not None and not budget.allow("list"):
             coverage_complete = False
-            incomplete_reasons.append(BUDGET_LIMIT_REACHED)
+            status = getattr(budget, 'status', None)
+            state = status() if callable(status) else None
+            incomplete_reasons.append(dart_budget.DART_BUDGET_UNVERIFIED
+                                      if state == dart_budget.DART_BUDGET_UNVERIFIED else BUDGET_LIMIT_REACHED)
             break
         request_started = dart_time.iso_now()
         start_time = dart_time.parse_instant(request_started)

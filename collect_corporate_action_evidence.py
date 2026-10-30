@@ -157,7 +157,9 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
         # allow() 만 쓰면 이 요청은 'list'(ESSENTIAL)라 soft budget 에 전혀 걸리지 않았다(2026-09-22 발견).
         # 2026-09-23: 몫을 하드 상한 기준으로 재던 것을 soft budget 기준으로 고쳤다(재무보다 먼저 물러난다).
         if daily is not None and not daily.allow_for_deferrable('list'):
-            base['error'] = dart_budget.DART_BUDGET_EXCEEDED
+            status = daily.status() if callable(getattr(daily, 'status', None)) else None
+            base['error'] = (dart_budget.DART_BUDGET_UNVERIFIED
+                             if status == dart_budget.DART_BUDGET_UNVERIFIED else dart_budget.DART_BUDGET_EXCEEDED)
             return base
         request_started = _today()
         if (request_started.tzinfo is None or request_started < previous_observed or
@@ -294,8 +296,10 @@ def main(argv=None):
     daily = dart_budget.DailyBudget(BUDGET_FILE)
     # 시작 전에도 같은 기준으로 판단한다 — 재무가 끊기는 선(soft budget) 앞의 몫만 남았으면 아예 시작하지 않는다.
     if args.requests < 1 or not daily.allow_for_deferrable('mapping'):
+        status = daily.status()
         print(json.dumps({'ok': False, 'stage': 'budget',
-                          'status': dart_budget.DART_BUDGET_EXCEEDED,
+                          'status': (dart_budget.DART_BUDGET_UNVERIFIED
+                                     if status == dart_budget.DART_BUDGET_UNVERIFIED else dart_budget.DART_BUDGET_EXCEEDED),
                           'remaining': daily.remaining,
                           'deferrableHeadroom': max(0, daily.deferrable_headroom()),
                           'deferrableCutoff': dart_budget.deferrable_cutoff(),
@@ -415,7 +419,8 @@ def _collect(args, daily):
             # 실패 기록으로 덮어썼다(2026-09-23 발견). 남은 종목은 손대지 않고 notProcessed 로 센다.
             left_over = len(attempted) < len(todo)
             if not daily.allow_for_deferrable('list'):
-                stopped = 'daily_reserve_reached' if left_over else None
+                stopped = (('budget_unverified' if daily.status() == dart_budget.DART_BUDGET_UNVERIFIED
+                            else 'daily_reserve_reached') if left_over else None)
                 break
             if budget['left'] <= 0:
                 stopped = 'request_limit_reached' if left_over else None

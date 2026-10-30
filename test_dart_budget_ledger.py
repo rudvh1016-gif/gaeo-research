@@ -214,6 +214,49 @@ class SaveIsExactUnderFailureAndRetry(unittest.TestCase):
         b.save()
         self.assertEqual(sorted(os.listdir(self.tmp)), ['ledger.json'])
 
+    def test_corrupt_existing_ledger_blocks_requests_and_preserves_bytes(self):
+        for raw in ('{"counts":', '[]', '{"day":"2026-10-31","counts":{}}'):
+            with self.subTest(raw=raw):
+                with open(self.path, 'w', encoding='utf-8') as f:
+                    f.write(raw)
+                b = dart_budget.DailyBudget(self.path)
+                self.assertFalse(b.allow('list'))
+                self.assertEqual(b.report()['status'], 'DART_BUDGET_UNVERIFIED')
+                self.assertIsNone(b.report()['requests_today'])
+                with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                    b.spend('list')
+                with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                    b.save()
+                with open(self.path, encoding='utf-8') as f:
+                    self.assertEqual(f.read(), raw)
+
+    def test_day_change_blocks_new_attempts_but_saves_old_pending(self):
+        with mock.patch.object(dart_time, 'today_kst', return_value='2026-10-30'):
+            b = dart_budget.DailyBudget(self.path)
+            b.spend('list', 2)
+        with mock.patch.object(dart_time, 'today_kst', return_value='2026-10-31'):
+            self.assertFalse(b.allow('list'))
+            with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                b.spend('list')
+            b.save()
+        self.assertEqual((_ledger(self.path)['day'], _ledger(self.path)['counts']['list']), ('2026-10-30', 2))
+
+    def test_older_process_never_overwrites_newer_day_or_corruption(self):
+        with mock.patch.object(dart_time, 'today_kst', return_value='2026-10-30'):
+            b = dart_budget.DailyBudget(self.path)
+            b.spend('list', 2)
+        other = {'schemaVersion': 'dart_budget_v1', 'day': '2026-10-31',
+                 'counts': {k: 1 for k in dart_budget.KINDS}, 'runs': 1, 'updatedAt': '2026-10-31T00:00:00+09:00'}
+        for text in (json.dumps(other), '{"corrupt":'):
+            with self.subTest(text=text):
+                with open(self.path, 'w', encoding='utf-8') as f:
+                    f.write(text)
+                with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                    b.save()
+                with open(self.path, encoding='utf-8') as f:
+                    self.assertEqual(f.read(), text)
+                self.assertEqual(b.pending_increment()['list'], 2)
+
 
 def _save_in_child(path, kind, amount, delay, use_lock):
     """다른 프로세스 — 읽은 뒤 잠깐 멈춰 다른 프로세스가 끼어들 틈을 만든다."""

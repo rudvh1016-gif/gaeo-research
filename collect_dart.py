@@ -16,6 +16,7 @@
 import datetime
 import json
 import os
+import signal
 import sys
 
 import dart_budget
@@ -80,8 +81,10 @@ def refresh_corp_map(client, budget=None):
     """corp_code 매핑 테이블 갱신. 자주 부를 필요 없다(하루 1회 이하)."""
     universe = P.load_universe()
     if budget is not None and not budget.allow("mapping"):
-        return {"status": dart_budget.DART_BUDGET_EXCEEDED,
-                "error": "일일 예산이 부족해 매핑 갱신을 미룹니다."}
+        status = budget.status() if callable(getattr(budget, 'status', None)) else None
+        return {"status": (dart_budget.DART_BUDGET_UNVERIFIED
+                           if status == dart_budget.DART_BUDGET_UNVERIFIED else dart_budget.DART_BUDGET_EXCEEDED),
+                "error": "예산을 확인할 수 없거나 여유가 없어 매핑 갱신을 미룹니다."}
     if budget is not None:
         budget.spend("mapping")
     res = client.corp_code_zip()
@@ -144,7 +147,8 @@ def _store_and_ack(events, registry, allow_ack=False):
             store_errors.append({"stage": "append",
                                  "error": dart_client.redact(str(ex))[:200]})
     # 저장 결과가 확정된 뒤에 registry를 디스크에 쓴다.
-    registry.save()
+    if events:
+        registry.save()
     return stored, acknowledged, store_errors
 
 
@@ -239,8 +243,13 @@ def _save_budget(budget, payload):
     try:
         budget.save()
         payload.setdefault("budget", budget.report())
-    except OSError as ex:
-        payload["budgetSaveError"] = str(ex)[:120]
+    except Exception:
+        # Exception text may contain a sensitive path, URL, or credential.
+        payload["budgetSaveError"] = "BUDGET_SAVE_FAILED"
+
+
+def _stop_on_signal(signum, frame):
+    raise SystemExit(128 + signum)
 
 
 def main():
@@ -272,6 +281,13 @@ def main():
         return 0
 
     try:
+        previous_handler = signal.signal(signal.SIGTERM, _stop_on_signal)
+    except (AttributeError, ValueError):
+        payload.update({"status": P.EVENT_DATA_ERROR, "eventState": P.EVENT_DATA_ERROR,
+                        "error": "SIGNAL_HANDLER_UNAVAILABLE"})
+        write_status(payload)
+        return 1
+    try:
         # ⚠️ 유니버스가 늘었는데 기존 매핑 테이블을 그대로 쓰면, 새로 추가된 종목은
         #    영원히 DART 매핑이 안 된다(2026-08-15 500 → 600 확대 때 실제로 발견).
         #    저장된 universeSize와 지금 종목 수가 다르면 매핑을 다시 만든다.
@@ -289,8 +305,6 @@ def main():
             payload.update({"status": P.EVENT_DATA_ERROR,
                             "eventState": P.EVENT_COVERAGE_INCOMPLETE,
                             "error": "corp_map을 만들지 못했습니다"})
-            _save_budget(budget, payload)
-            write_status(payload)
             print("[DART] 매핑 테이블 없음 — 수집 생략")
             return 0
         payload.update(collect(client, corp_map, budget, since=(last or {}).get("windowEnd")))
@@ -322,9 +336,16 @@ def main():
                         "eventState": P.EVENT_DATA_ERROR, "lastComplete": last,
                         "error": dart_client.redact(f"{type(ex).__name__}: {ex}")[:300]})
         print(f"[DART] 수집 실패 — 나머지 파이프라인은 계속 진행: {payload['error']}")
-
-    _save_budget(budget, payload)
-    write_status(payload)
+    except BaseException:
+        payload.update({"status": P.EVENT_DATA_ERROR, "eventState": P.EVENT_DATA_ERROR,
+                        "lastComplete": last, "error": "COLLECTION_INTERRUPTED"})
+        raise
+    finally:
+        try:
+            _save_budget(budget, payload)
+            write_status(payload)
+        finally:
+            signal.signal(signal.SIGTERM, previous_handler)
     return 0
 
 

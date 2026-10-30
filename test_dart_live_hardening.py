@@ -11,7 +11,10 @@ import gzip
 import json
 import os
 import re
+import signal
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from zoneinfo import ZoneInfo
@@ -906,6 +909,91 @@ class CatchUpAfterOutage(unittest.TestCase):
         with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
             saved = json.load(f)
         self.assertEqual(saved['counts']['mapping'], 1)
+
+    def test_interruption_saves_attempt_and_marks_status_unavailable(self):
+        from unittest import mock
+        class InterruptedClient(self.DayClient):
+            def list_filings(self, **kw):
+                self.calls.append(kw)
+                raise SystemExit(143)
+        with mock.patch.object(self.CD.dart_client, 'DartClient', return_value=InterruptedClient()):
+            with self.assertRaises(SystemExit):
+                self.CD.main()
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        with open(self.status, encoding='utf-8') as f:
+            status = json.load(f)
+        self.assertEqual(saved['counts']['list'], 1)
+        self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+        self.assertEqual(status['error'], 'COLLECTION_INTERRUPTED')
+
+    def test_sigterm_during_list_request_persists_reserved_attempt(self):
+        script = '''import os, signal, sys
+from unittest import mock
+import collect_dart as C, dart_pipeline as P, dart_time as T
+root = sys.argv[1]
+C.STATUS_PATH = os.path.join(root, "signal-status.json")
+C.BUDGET_PATH = os.path.join(root, "signal-budget.json")
+P.DART_ROOT = root
+class Client:
+    has_key = True
+    def list_filings(self, **kwargs):
+        os.kill(os.getpid(), signal.SIGTERM)
+client = Client()
+mapping = {"mapped": {"000001": {"corp_code": "00126380", "ticker": "000001"}}, "universeSize": 1}
+with mock.patch.object(C.dart_client, "DartClient", return_value=client), \\
+     mock.patch.object(P, "load_corp_map", return_value=mapping), \\
+     mock.patch.object(P, "load_universe", return_value={"000001": {}}), \\
+     mock.patch.object(T, "today_kst", return_value="2026-09-29"), \\
+     mock.patch.object(sys, "argv", ["collect_dart.py"]):
+    C.main()
+'''
+        result = subprocess.run([sys.executable, '-c', script, self.tmp], capture_output=True, timeout=5)
+        self.assertEqual(result.returncode, 128 + signal.SIGTERM, result.stderr.decode('utf-8'))
+        with open(os.path.join(self.tmp, 'signal-budget.json'), encoding='utf-8') as f:
+            self.assertEqual(json.load(f)['counts']['list'], 1)
+        with open(os.path.join(self.tmp, 'signal-status.json'), encoding='utf-8') as f:
+            self.assertEqual(json.load(f)['error'], 'COLLECTION_INTERRUPTED')
+
+    def test_budget_save_error_never_exposes_exception_text(self):
+        from unittest import mock
+        with mock.patch.object(dart_budget.DailyBudget, 'save', side_effect=OSError('sensitive-url-or-token')):
+            status = self.run_main(self.DayClient())
+        self.assertEqual(status.get('budgetSaveError'), 'BUDGET_SAVE_FAILED')
+        self.assertNotIn('sensitive-url-or-token', json.dumps(status))
+
+    def test_damaged_seen_registry_is_preserved_and_no_request_is_sent(self):
+        path = os.path.join(self.tmp, 'seen_rcept.json')
+        damaged = (b'{"seen":', b'[]', b'{"seen": []}',
+                   b'{"seen": {"one": null}}', b'{"seen": {}, "count": 2}')
+        for raw in damaged:
+            with self.subTest(raw=raw):
+                with open(path, 'wb') as f:
+                    f.write(raw)
+                client = self.DayClient()
+                status = self.run_main(client)
+                with open(path, 'rb') as f:
+                    self.assertEqual(f.read(), raw)
+                self.assertEqual(client.calls, [])
+                self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+
+    def test_corrupt_budget_reports_unknown_without_touching_seen_or_sending(self):
+        budget_path = os.path.join(self.tmp, 'budget.json')
+        seen_path = os.path.join(self.tmp, 'seen_rcept.json')
+        with open(budget_path, 'w', encoding='utf-8') as f:
+            f.write('{"damaged":')
+        with open(seen_path, 'w', encoding='utf-8') as f:
+            f.write('{"seen": {}, "count": 0}')
+        client = self.DayClient()
+        status = self.run_main(client)
+        self.assertEqual(client.calls, [])
+        self.assertEqual(status['eventState'], P.EVENT_COVERAGE_INCOMPLETE)
+        self.assertIn('DART_BUDGET_UNVERIFIED', status['coverageReasons'])
+        self.assertEqual(status['budgetSaveError'], 'BUDGET_SAVE_FAILED')
+        with open(budget_path, encoding='utf-8') as f:
+            self.assertEqual(f.read(), '{"damaged":')
+        with open(seen_path, encoding='utf-8') as f:
+            self.assertEqual(f.read(), '{"seen": {}, "count": 0}')
 
     def test_14일보다_오래_밀리면_회차마다_오래된_날부터_이어_보고_오늘까지_따라잡는다(self):
         kept = {"finishedAt": "2026-09-01T00:00:00+00:00", "windowStart": "2026-08-31", "windowEnd": "2026-09-01"}
