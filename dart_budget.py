@@ -27,6 +27,7 @@ import datetime
 import hashlib
 import json
 import os
+import secrets
 import stat
 import subprocess
 import sys
@@ -106,6 +107,16 @@ def _empty_counts():
     return {k: 0 for k in KINDS}
 
 
+def unique_json_object(pairs):
+    """Duplicate JSON keys are ambiguous evidence, even inside nested objects."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError('DUPLICATE_JSON_KEY')
+        result[key] = value
+    return result
+
+
 def _read_ledger(path):
     """원장 파일 → dict. 없거나 깨졌으면 None(0건이라는 뜻이 아니다 — 호출자가 구분한다)."""
     if not hasattr(os, 'O_NOFOLLOW') or not hasattr(os, 'O_NONBLOCK'):
@@ -118,8 +129,8 @@ def _read_ledger(path):
             raw = f.read(65_537)
         if len(raw) > 65_536:
             return None
-        data = json.loads(raw)
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError, RecursionError):
+        data = json.loads(raw, object_pairs_hook=unique_json_object)
+    except (OSError, UnicodeDecodeError, ValueError, RecursionError):
         return None
     return data if isinstance(data, dict) else None
 
@@ -139,7 +150,9 @@ def _checked_ledger(path):
     if not stat.S_ISREG(info.st_mode):
         raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
     data = _read_ledger(path)
-    if not isinstance(data, dict) or data.get('schemaVersion') != SCHEMA_VERSION:
+    if (not isinstance(data, dict) or set(data) != {'schemaVersion', 'day', 'counts', 'runs', 'updatedAt'}
+            or data.get('schemaVersion') != SCHEMA_VERSION
+            or dart_time.parse_instant(data.get('updatedAt')) is None):
         raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
     day, counts, runs = data.get('day'), data.get('counts'), data.get('runs')
     try:
@@ -153,18 +166,45 @@ def _checked_ledger(path):
     return data
 
 
-def _write_ledger(path, doc):
-    """임시 파일 → fsync → 원자 교체. 반쯤 쓰인 원장이 남지 않는다.
+def write_json_atomic(path, doc):
+    """Exclusive no-follow temporary file and atomic replace in one fixed directory."""
+    if not hasattr(os, 'O_NOFOLLOW') or not hasattr(os, 'O_DIRECTORY'):
+        raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+    directory, name = os.path.dirname(path) or '.', os.path.basename(path)
+    os.makedirs(directory, exist_ok=True)
+    dir_fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    tmp = None
+    created = False
+    try:
+        for _ in range(8):
+            tmp = '.' + name + '.' + secrets.token_hex(12) + '.tmp'
+            try:
+                fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                             0o600, dir_fd=dir_fd)
+                created = True
+                break
+            except FileExistsError:
+                continue
+        else:
+            raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, name, src_dir_fd=dir_fd, dst_dir_fd=dir_fd)
+        created = False
+    finally:
+        if created:
+            try:
+                os.unlink(tmp, dir_fd=dir_fd)
+            except FileNotFoundError:
+                pass
+        os.close(dir_fd)
 
-    임시 이름에 pid 를 넣는다 — 같은 이름을 두 프로세스가 쓰면 한쪽의 os.replace 가 '파일 없음' 으로 죽는다
-    (잠금이 있으면 겹치지 않지만, 잠금 없는 플랫폼·통제군 시험에서 실제로 그렇게 죽었다).
-    """
-    tmp = f"{path}.{os.getpid()}.tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+
+def _write_ledger(path, doc):
+    """Write the ledger without following or overwriting a temporary link."""
+    write_json_atomic(path, doc)
 
 
 @contextlib.contextmanager

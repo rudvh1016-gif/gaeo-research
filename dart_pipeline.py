@@ -22,10 +22,12 @@
 - 없는 값을 0으로 만들지 않는다. NOT_AVAILABLE로 남긴다.
 """
 import datetime
+import hashlib
 import io
 import json
 import os
 import re
+import stat
 import zipfile
 
 import dart_budget
@@ -245,6 +247,42 @@ class SeenRegistryUnverified(ValueError):
     """Existing registry cannot be verified; it must not be replaced."""
 
 
+def _seen_bytes(path):
+    if not hasattr(os, 'O_NOFOLLOW') or not hasattr(os, 'O_NONBLOCK'):
+        raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+    try:
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        with os.fdopen(fd, 'rb') as file:
+            if not stat.S_ISREG(os.fstat(file.fileno()).st_mode):
+                raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+            raw = file.read(32_000_001)
+        if len(raw) > 32_000_000:
+            raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        return raw
+    except FileNotFoundError:
+        if os.path.lexists(path):
+            raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        return None
+    except OSError:
+        raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+
+
+def _valid_seen_entry(receipt, record):
+    if (not isinstance(receipt, str) or not re.fullmatch(r'[0-9]{14}', receipt)
+            or not isinstance(record, dict) or record.get('state') not in ('PENDING', 'STORED', 'ACKNOWLEDGED')
+            or not isinstance(record.get('ticker'), str) or not re.fullmatch(r'[0-9]{6}', record['ticker'])
+            or not isinstance(record.get('report_name'), str) or not record['report_name'].strip()):
+        return False
+    detected = dart_time.parse_instant(record.get('detected_at'))
+    if detected is None:
+        return False
+    if record['state'] == 'ACKNOWLEDGED':
+        acknowledged = dart_time.parse_instant(record.get('acknowledgedAt'))
+        if acknowledged is None or acknowledged < detected:
+            return False
+    return True
+
+
 class SeenRegistry:
     """rcept_no 기반 중복 제거 + Durable Write 상태 관리 (요구 5·6번).
 
@@ -270,22 +308,20 @@ class SeenRegistry:
     def __init__(self, path):
         self.path = path
         self.seen = {}
-        try:
-            if os.path.islink(path):
-                raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
-            with open(path, encoding="utf-8") as f:
-                data = json.load(f)
-        except FileNotFoundError:
-            if os.path.lexists(path):
-                raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        raw = _seen_bytes(path)
+        self._source_hash = hashlib.sha256(raw).digest() if raw is not None else None
+        if raw is None:
             return
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError, RecursionError):
+        try:
+            data = json.loads(raw, object_pairs_hook=dart_budget.unique_json_object)
+        except (UnicodeDecodeError, ValueError, RecursionError):
             raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
-        if (not isinstance(data, dict) or not isinstance(data.get('seen'), dict)
-                or any(not isinstance(key, str) or not isinstance(value, dict)
-                       for key, value in data['seen'].items())
-                or ('count' in data and (type(data['count']) is not int
-                                         or data['count'] != len(data['seen'])))):
+        if (not isinstance(data, dict) or set(data) != {'schemaVersion', 'updatedAt', 'count', 'seen'}
+                or data.get('schemaVersion') != 'dart_seen_v2'
+                or dart_time.parse_instant(data.get('updatedAt')) is None
+                or not isinstance(data.get('seen'), dict)
+                or any(not _valid_seen_entry(key, value) for key, value in data['seen'].items())
+                or type(data.get('count')) is not int or data['count'] != len(data['seen'])):
             raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
         self.seen = data['seen']
 
@@ -353,15 +389,17 @@ class SeenRegistry:
 
     def save(self):
         """원자적으로 쓴다. 쓰는 도중 죽어도 기존 파일이 깨지지 않게."""
-        os.makedirs(os.path.dirname(self.path), exist_ok=True)
-        tmp = self.path + ".tmp"
-        with open(tmp, "w", encoding="utf-8") as f:
-            json.dump({"schemaVersion": "dart_seen_v2", "updatedAt": dart_time.iso_now(),
-                       "count": len(self.seen), "seen": self.seen},
-                      f, ensure_ascii=False, separators=(",", ":"))
-            f.flush()
-            os.fsync(f.fileno())
-        os.replace(tmp, self.path)
+        if any(not _valid_seen_entry(key, value) for key, value in self.seen.items()):
+            raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        raw = _seen_bytes(self.path)
+        current_hash = hashlib.sha256(raw).digest() if raw is not None else None
+        if current_hash != self._source_hash:
+            raise SeenRegistryUnverified('SEEN_REGISTRY_UNVERIFIED')
+        doc = {"schemaVersion": "dart_seen_v2", "updatedAt": dart_time.iso_now(),
+               "count": len(self.seen), "seen": self.seen}
+        dart_budget.write_json_atomic(self.path, doc)
+        encoded = json.dumps(doc, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+        self._source_hash = hashlib.sha256(encoded).digest()
 
 
 # ── 3. Point-in-Time EVENT 규칙 (요구 8번) ───────────────────────────────────

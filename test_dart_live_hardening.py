@@ -965,7 +965,12 @@ with mock.patch.object(C.dart_client, "DartClient", return_value=client), \\
     def test_damaged_seen_registry_is_preserved_and_no_request_is_sent(self):
         path = os.path.join(self.tmp, 'seen_rcept.json')
         damaged = (b'{"seen":', b'[]', b'{"seen": []}',
-                   b'{"seen": {"one": null}}', b'{"seen": {}, "count": 2}')
+                   b'{"seen": {"one": null}}', b'{"seen": {}, "count": 2}',
+                   b'{"schemaVersion":"dart_seen_v2","updatedAt":"2026-09-29T00:00:00Z","count":1,"seen":{'
+                   b'"20260901000001":{"state":"PENDING","ticker":"000001","report_name":"x",'
+                   b'"detected_at":"2026-09-28T00:00:00Z"},'
+                   b'"20260901000001":{"state":"PENDING","ticker":"000001","report_name":"x",'
+                   b'"detected_at":"2026-09-28T00:00:00Z"}}}')
         for raw in damaged:
             with self.subTest(raw=raw):
                 with open(path, 'wb') as f:
@@ -982,8 +987,9 @@ with mock.patch.object(C.dart_client, "DartClient", return_value=client), \\
         seen_path = os.path.join(self.tmp, 'seen_rcept.json')
         with open(budget_path, 'w', encoding='utf-8') as f:
             f.write('{"damaged":')
+        seen = '{"schemaVersion":"dart_seen_v2","updatedAt":"2026-09-29T00:00:00+00:00","count":0,"seen":{}}'
         with open(seen_path, 'w', encoding='utf-8') as f:
-            f.write('{"seen": {}, "count": 0}')
+            f.write(seen)
         client = self.DayClient()
         status = self.run_main(client)
         self.assertEqual(client.calls, [])
@@ -993,7 +999,7 @@ with mock.patch.object(C.dart_client, "DartClient", return_value=client), \\
         with open(budget_path, encoding='utf-8') as f:
             self.assertEqual(f.read(), '{"damaged":')
         with open(seen_path, encoding='utf-8') as f:
-            self.assertEqual(f.read(), '{"seen": {}, "count": 0}')
+            self.assertEqual(f.read(), seen)
 
     def test_14일보다_오래_밀리면_회차마다_오래된_날부터_이어_보고_오늘까지_따라잡는다(self):
         kept = {"finishedAt": "2026-09-01T00:00:00+00:00", "windowStart": "2026-08-31", "windowEnd": "2026-09-01"}

@@ -555,7 +555,7 @@ class DeferrableReserveContract(unittest.TestCase):
             with open(path, 'w', encoding='utf-8') as fh:
                 json.dump({'schemaVersion': 'dart_budget_v1', 'day': '2000-01-01',
                            'counts': {'list': 9999, 'mapping': 0, 'detail': 0, 'financial': 0, 'other': 0},
-                           'runs': 40}, fh)
+                           'runs': 40, 'updatedAt': '2000-01-01T00:00:00+00:00'}, fh)
             a = dart_budget.DailyBudget(path)      # 어제 원장은 읽지 않는다(0부터)
             a.spend('list', 5)
             a.save()

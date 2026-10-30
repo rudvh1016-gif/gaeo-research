@@ -9,6 +9,8 @@
 import io
 import json
 import os
+import subprocess
+import sys
 import tempfile
 import unittest
 import zipfile
@@ -168,10 +170,45 @@ class Deduplication(unittest.TestCase):
 
     def test_dedup_persists(self):
         reg = P.SeenRegistry(self.path)
-        reg.mark_pending("20260815000001", {"ticker": "005930", "report_name": "x"})
+        reg.mark_pending("20260815000001", {"ticker": "005930", "report_name": "x",
+                                            "detected_at": "2026-08-15T09:00:00+00:00"})
         reg.acknowledge("20260815000001")
         reg.save()
         self.assertFalse(P.SeenRegistry(self.path).is_new("20260815000001"))
+
+    def test_existing_temp_symlink_cannot_overwrite_another_file(self):
+        victim = os.path.join(self.tmp, 'victim')
+        with open(victim, 'w', encoding='utf-8') as f:
+            f.write('preserve')
+        os.symlink(victim, self.path + '.tmp')
+        reg = P.SeenRegistry(self.path)
+        reg.mark_pending('20260815000001', {'ticker': '000001', 'report_name': 'x',
+                                           'detected_at': '2026-08-15T09:00:00+00:00'})
+        reg.save()
+        with open(victim, encoding='utf-8') as f:
+            self.assertEqual(f.read(), 'preserve')
+        self.assertFalse(os.path.islink(self.path))
+
+    def test_registry_changed_after_read_is_never_overwritten(self):
+        reg = P.SeenRegistry(self.path)
+        other = '{"seen": {"20260815000002": {"state": "ACKNOWLEDGED"}}, "count": 1}'
+        with open(self.path, 'w', encoding='utf-8') as f:
+            f.write(other)
+        reg.mark_pending('20260815000001', {'ticker': '000001', 'report_name': 'x',
+                                           'detected_at': '2026-08-15T09:00:00+00:00'})
+        with self.assertRaises(P.SeenRegistryUnverified):
+            reg.save()
+        with open(self.path, encoding='utf-8') as f:
+            self.assertEqual(f.read(), other)
+
+    def test_fifo_registry_is_rejected_without_blocking(self):
+        os.mkfifo(self.path)
+        script = ("import dart_pipeline,sys\n"
+                  "try:\n dart_pipeline.SeenRegistry(sys.argv[1])\n"
+                  "except dart_pipeline.SeenRegistryUnverified:\n sys.exit(0)\n"
+                  "sys.exit(1)\n")
+        result = subprocess.run([sys.executable, '-c', script, self.path], capture_output=True, timeout=3)
+        self.assertEqual(result.returncode, 0)
 
     def test_correction_is_separate_receipt(self):
         """정정공시는 새 rcept_no라 별개 Event로 들어온다."""
