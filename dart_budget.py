@@ -27,6 +27,8 @@ import datetime
 import hashlib
 import json
 import os
+import secrets
+import stat
 import subprocess
 import sys
 import tempfile
@@ -87,6 +89,7 @@ KINDS = ("list", "mapping", "detail", "financial", "other")
 BUDGET_OK = "BUDGET_OK"
 DART_BUDGET_WARNING = "DART_BUDGET_WARNING"
 DART_BUDGET_EXCEEDED = "DART_BUDGET_EXCEEDED"
+DART_BUDGET_UNVERIFIED = "DART_BUDGET_UNVERIFIED"
 
 SCHEMA_VERSION = "dart_budget_v1"
 #: 저장소 기준 원장 경로 — `.gitattributes` 의 항목과 같은 문자열이어야 한다(test_dart_budget_ledger 가 대조한다).
@@ -104,28 +107,104 @@ def _empty_counts():
     return {k: 0 for k in KINDS}
 
 
+def unique_json_object(pairs):
+    """Duplicate JSON keys are ambiguous evidence, even inside nested objects."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError('DUPLICATE_JSON_KEY')
+        result[key] = value
+    return result
+
+
 def _read_ledger(path):
     """원장 파일 → dict. 없거나 깨졌으면 None(0건이라는 뜻이 아니다 — 호출자가 구분한다)."""
+    if not hasattr(os, 'O_NOFOLLOW') or not hasattr(os, 'O_NONBLOCK'):
+        return None
     try:
-        with open(path, encoding="utf-8") as f:
-            data = json.load(f)
-    except (OSError, json.JSONDecodeError):
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        with os.fdopen(fd, encoding="utf-8") as f:
+            if not stat.S_ISREG(os.fstat(f.fileno()).st_mode):
+                return None
+            raw = f.read(65_537)
+        if len(raw) > 65_536:
+            return None
+        data = json.loads(raw, object_pairs_hook=unique_json_object)
+    except (OSError, UnicodeDecodeError, ValueError, RecursionError):
         return None
     return data if isinstance(data, dict) else None
 
 
-def _write_ledger(path, doc):
-    """임시 파일 → fsync → 원자 교체. 반쯤 쓰인 원장이 남지 않는다.
+class BudgetLedgerUnverified(OSError):
+    """A budget original cannot be safely read or replaced."""
 
-    임시 이름에 pid 를 넣는다 — 같은 이름을 두 프로세스가 쓰면 한쪽의 os.replace 가 '파일 없음' 으로 죽는다
-    (잠금이 있으면 겹치지 않지만, 잠금 없는 플랫폼·통제군 시험에서 실제로 그렇게 죽었다).
-    """
-    tmp = f"{path}.{os.getpid()}.tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+
+def _checked_ledger(path):
+    """Distinguish a new absent file from an existing unreadable or corrupt one."""
+    try:
+        info = os.lstat(path)
+    except FileNotFoundError:
+        return None
+    except OSError:
+        raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+    if not stat.S_ISREG(info.st_mode):
+        raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+    data = _read_ledger(path)
+    if (not isinstance(data, dict) or set(data) != {'schemaVersion', 'day', 'counts', 'runs', 'updatedAt'}
+            or data.get('schemaVersion') != SCHEMA_VERSION
+            or dart_time.parse_instant(data.get('updatedAt')) is None):
+        raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+    day, counts, runs = data.get('day'), data.get('counts'), data.get('runs')
+    try:
+        valid_day = isinstance(day, str) and datetime.date.fromisoformat(day).isoformat() == day
+    except ValueError:
+        valid_day = False
+    if (not valid_day or not isinstance(counts, dict) or set(counts) != set(KINDS)
+            or any(type(v) is not int or v < 0 for v in counts.values())
+            or type(runs) is not int or runs < 0):
+        raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+    return data
+
+
+def write_json_atomic(path, doc):
+    """Exclusive no-follow temporary file and atomic replace in one fixed directory."""
+    if not hasattr(os, 'O_NOFOLLOW') or not hasattr(os, 'O_DIRECTORY'):
+        raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+    directory, name = os.path.dirname(path) or '.', os.path.basename(path)
+    os.makedirs(directory, exist_ok=True)
+    dir_fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    tmp = None
+    created = False
+    try:
+        for _ in range(8):
+            tmp = '.' + name + '.' + secrets.token_hex(12) + '.tmp'
+            try:
+                fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                             0o600, dir_fd=dir_fd)
+                created = True
+                break
+            except FileExistsError:
+                continue
+        else:
+            raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, name, src_dir_fd=dir_fd, dst_dir_fd=dir_fd)
+        created = False
+    finally:
+        if created:
+            try:
+                os.unlink(tmp, dir_fd=dir_fd)
+            except FileNotFoundError:
+                pass
+        os.close(dir_fd)
+
+
+def _write_ledger(path, doc):
+    """Write the ledger without following or overwriting a temporary link."""
+    write_json_atomic(path, doc)
 
 
 @contextlib.contextmanager
@@ -176,6 +255,8 @@ class DailyBudget:
         self.day = dart_time.today_kst()
         self.counts = _empty_counts()
         self.runs = 0
+        self._verified = True
+        self._had_on_disk = False
         self._load()
         # 이 프로세스가 마지막으로 원장과 맞춘 값. save() 는 "내 증가분"(counts − _base)만 파일에 더한다.
         self._base = dict(self.counts)
@@ -183,7 +264,15 @@ class DailyBudget:
         self._run_counted = False
 
     def _load(self):
-        data = _read_ledger(self.path)
+        try:
+            data = _checked_ledger(self.path)
+        except BudgetLedgerUnverified:
+            self._verified = False
+            return
+        self._had_on_disk = data is not None
+        if data is not None and data['day'] > self.day:
+            self._verified = False
+            return
         if data is None or data.get("day") != self.day:
             return                     # 날이 바뀌면 0부터
         for k, v in (data.get("counts") or {}).items():
@@ -197,10 +286,17 @@ class DailyBudget:
 
     @property
     def remaining(self):
+        if not self._available():
+            return None
         return max(0, self.hard_limit - self.total)
+
+    def _available(self):
+        return self._verified and dart_time.today_kst() == self.day
 
     def allow(self, kind):
         """이 종류의 요청을 지금 해도 되는가."""
+        if not self._available():
+            return False
         if self.total >= self.hard_limit:
             return False
         if kind in OPTIONAL and self.total >= self.soft_budget:
@@ -213,6 +309,8 @@ class DailyBudget:
         재무(OPTIONAL)가 끊기는 선(`soft_budget`)에서 몫(`reserve`)을 뺀 자리까지만 쓴다. 0 이하면 물러난다.
         하드 상한이 아니라 소프트 예산을 기준으로 재는 이유는 위 `DEFERRABLE_RESERVE` 주석 참조.
         """
+        if not self._available():
+            return 0
         floor = DEFERRABLE_RESERVE if reserve is None else reserve
         return deferrable_cutoff(self.hard_limit, self.soft_budget, floor) - self.total
 
@@ -230,9 +328,13 @@ class DailyBudget:
         return self.deferrable_headroom(reserve) > 0
 
     def spend(self, kind, n=1):
+        if not self._available():
+            raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
         self.counts[kind if kind in self.counts else "other"] += n
 
     def status(self):
+        if not self._available():
+            return DART_BUDGET_UNVERIFIED
         if self.total >= self.hard_limit:
             return DART_BUDGET_EXCEEDED
         if self.total >= self.soft_budget:
@@ -241,22 +343,23 @@ class DailyBudget:
 
     def report(self):
         headroom = self.deferrable_headroom()
+        available = self._available()
         return {
             "day": self.day,
-            "requests_today": self.total,
-            "byKind": dict(self.counts),
-            "runs_today": self.runs,
+            "requests_today": self.total if available else None,
+            "byKind": dict(self.counts) if available else None,
+            "runs_today": self.runs if available else None,
             "hard_limit": self.hard_limit,
             "soft_budget": self.soft_budget,
             "normal_target_per_day": NORMAL_TARGET_PER_DAY,
             "observation_notice": OBSERVATION_NOTICE,
             "deferrable_reserve": DEFERRABLE_RESERVE,
             "deferrable_cutoff": deferrable_cutoff(self.hard_limit, self.soft_budget),
-            "deferrable_headroom": max(0, headroom),
+            "deferrable_headroom": max(0, headroom) if available else None,
             "deferrable_allowed": headroom > 0 and self.allow("list"),
             "remaining": self.remaining,
             "usage_pct_of_hard_limit": round(self.total / self.hard_limit * 100, 2)
-            if self.hard_limit else None,
+            if available and self.hard_limit else None,
             "status": self.status(),
             "note": "10,000건은 안전 상한이지 목표가 아니다. 평상시 수백 회 수준을 지향한다.",
         }
@@ -278,17 +381,23 @@ class DailyBudget:
            flock 으로 막는다. 다른 컴퓨터(러너) 사이의 합산은 git 병합 드라이버(`merge_ledgers`)가 맡는다.
         회차(runs)는 **프로세스당 한 번**만 센다 — 중간 저장(체크포인트)을 여러 번 해도 회차 수는 늘지 않는다.
         """
+        if not self._verified:
+            raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
         os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
         increment = self.pending_increment()
         run_increment = 0 if self._run_counted else 1
         with _ledger_lock(self.path):
-            merged = merge_increment(_read_ledger(self.path), self.day, increment, run_increment)
+            disk = _checked_ledger(self.path)
+            if (disk is None and self._had_on_disk) or (disk is not None and disk['day'] > self.day):
+                raise BudgetLedgerUnverified(DART_BUDGET_UNVERIFIED)
+            merged = merge_increment(disk, self.day, increment, run_increment)
             _write_ledger(self.path, merged)
         # 여기까지 왔으면 파일에 들어갔다 — 이제야 기준점을 옮긴다(실패·재시도에서 두 번 더해지지 않게).
         self.counts = dict(merged["counts"])
         self.runs = merged["runs"]
         self._base = dict(self.counts)
         self._run_counted = True
+        self._had_on_disk = True
 
 
 # ── git 병합 드라이버: 서로 다른 러너의 원장을 더한다 ──────────────────────────────────────

@@ -214,6 +214,82 @@ class SaveIsExactUnderFailureAndRetry(unittest.TestCase):
         b.save()
         self.assertEqual(sorted(os.listdir(self.tmp)), ['ledger.json'])
 
+    def test_corrupt_existing_ledger_blocks_requests_and_preserves_bytes(self):
+        duplicate = ('{"schemaVersion":"dart_budget_v1","day":"2026-10-31",'
+                     '"counts":{"list":9999,"list":0,"mapping":0,"detail":0,"financial":0,"other":0},'
+                     '"runs":1,"updatedAt":"2026-10-31T00:00:00+09:00"}')
+        for raw in ('{"counts":', '[]', '{"day":"2026-10-31","counts":{}}', duplicate):
+            with self.subTest(raw=raw):
+                with open(self.path, 'w', encoding='utf-8') as f:
+                    f.write(raw)
+                b = dart_budget.DailyBudget(self.path)
+                self.assertFalse(b.allow('list'))
+                self.assertEqual(b.report()['status'], 'DART_BUDGET_UNVERIFIED')
+                self.assertIsNone(b.report()['requests_today'])
+                self.assertIsNone(b.report()['deferrable_headroom'])
+                with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                    b.spend('list')
+                with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                    b.save()
+                with open(self.path, encoding='utf-8') as f:
+                    self.assertEqual(f.read(), raw)
+
+    def test_predictable_temp_link_does_not_touch_another_file(self):
+        victim = os.path.join(self.tmp, 'victim')
+        with open(victim, 'w', encoding='utf-8') as f:
+            f.write('preserve')
+        os.symlink(victim, self.path + '.' + str(os.getpid()) + '.tmp')
+        b = dart_budget.DailyBudget(self.path)
+        b.spend('list')
+        b.save()
+        with open(victim, encoding='utf-8') as f:
+            self.assertEqual(f.read(), 'preserve')
+        self.assertFalse(os.path.islink(self.path))
+
+    def test_random_temp_name_collision_cannot_replace_or_delete_a_link(self):
+        victim = os.path.join(self.tmp, 'victim')
+        with open(victim, 'w', encoding='utf-8') as f:
+            f.write('preserve')
+        name = '.ledger.json.' + 'a' * 24 + '.tmp'
+        link = os.path.join(self.tmp, name)
+        os.symlink(victim, link)
+        b = dart_budget.DailyBudget(self.path)
+        b.spend('list')
+        with mock.patch.object(dart_budget.secrets, 'token_hex', return_value='a' * 24):
+            with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                b.save()
+        with open(victim, encoding='utf-8') as f:
+            self.assertEqual(f.read(), 'preserve')
+        self.assertTrue(os.path.islink(link))
+        self.assertFalse(os.path.exists(self.path))
+
+    def test_day_change_blocks_new_attempts_but_saves_old_pending(self):
+        with mock.patch.object(dart_time, 'today_kst', return_value='2026-10-30'):
+            b = dart_budget.DailyBudget(self.path)
+            b.spend('list', 2)
+        with mock.patch.object(dart_time, 'today_kst', return_value='2026-10-31'):
+            self.assertFalse(b.allow('list'))
+            with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                b.spend('list')
+            b.save()
+        self.assertEqual((_ledger(self.path)['day'], _ledger(self.path)['counts']['list']), ('2026-10-30', 2))
+
+    def test_older_process_never_overwrites_newer_day_or_corruption(self):
+        with mock.patch.object(dart_time, 'today_kst', return_value='2026-10-30'):
+            b = dart_budget.DailyBudget(self.path)
+            b.spend('list', 2)
+        other = {'schemaVersion': 'dart_budget_v1', 'day': '2026-10-31',
+                 'counts': {k: 1 for k in dart_budget.KINDS}, 'runs': 1, 'updatedAt': '2026-10-31T00:00:00+09:00'}
+        for text in (json.dumps(other), '{"corrupt":'):
+            with self.subTest(text=text):
+                with open(self.path, 'w', encoding='utf-8') as f:
+                    f.write(text)
+                with self.assertRaises(dart_budget.BudgetLedgerUnverified):
+                    b.save()
+                with open(self.path, encoding='utf-8') as f:
+                    self.assertEqual(f.read(), text)
+                self.assertEqual(b.pending_increment()['list'], 2)
+
 
 def _save_in_child(path, kind, amount, delay, use_lock):
     """다른 프로세스 — 읽은 뒤 잠깐 멈춰 다른 프로세스가 끼어들 틈을 만든다."""
@@ -246,6 +322,11 @@ class ConcurrentSavesOnOneMachine(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def run_children(self, use_lock):
+        # Start from an existing valid ledger so the delayed read actually
+        # overlaps for all processes, including the unlocked control.
+        dart_budget._write_ledger(self.path, {
+            'schemaVersion': dart_budget.SCHEMA_VERSION, 'day': dart_time.today_kst(),
+            'counts': {k: 0 for k in dart_budget.KINDS}, 'runs': 0, 'updatedAt': dart_time.iso_now()})
         ctx = multiprocessing.get_context('fork')
         procs = [ctx.Process(target=_save_in_child, args=(self.path, 'list', n, 0.4, use_lock))
                  for n in self.AMOUNTS]

@@ -16,6 +16,7 @@
 import datetime
 import json
 import os
+import signal
 import sys
 
 import dart_budget
@@ -80,11 +81,13 @@ def refresh_corp_map(client, budget=None):
     """corp_code 매핑 테이블 갱신. 자주 부를 필요 없다(하루 1회 이하)."""
     universe = P.load_universe()
     if budget is not None and not budget.allow("mapping"):
-        return {"status": dart_budget.DART_BUDGET_EXCEEDED,
-                "error": "일일 예산이 부족해 매핑 갱신을 미룹니다."}
-    res = client.corp_code_zip()
+        status = budget.status() if callable(getattr(budget, 'status', None)) else None
+        return {"status": (dart_budget.DART_BUDGET_UNVERIFIED
+                           if status == dart_budget.DART_BUDGET_UNVERIFIED else dart_budget.DART_BUDGET_EXCEEDED),
+                "error": "예산을 확인할 수 없거나 여유가 없어 매핑 갱신을 미룹니다."}
     if budget is not None:
         budget.spend("mapping")
+    res = client.corp_code_zip()
     if res["status"] != dart_client.OK:
         return {"status": res["status"], "error": res["error"],
                 "universeSize": len(universe)}
@@ -103,7 +106,7 @@ def refresh_corp_map(client, budget=None):
             "mappingRate": round(rate, 4)}
 
 
-def _store_and_ack(events, registry):
+def _store_and_ack(events, registry, allow_ack=False):
     """발견한 공시를 오늘 Segment 에 저장하고, 저장이 읽히는 것만 ACK 한다. (stored, acknowledged, errors)"""
     stored = 0
     store_errors = []
@@ -119,13 +122,23 @@ def _store_and_ack(events, registry):
             added, replaced = store.append_predictions(day, records, today=day)
             stored = added + replaced
             # 저장이 실제로 읽히는지 확인한 뒤에만 ACK. 여기서 실패하면 재시도된다.
-            saved_keys = {str(r.get("rcept_no")) for r in store.read_day(day)}
-            ok_nos = [e["rcept_no"] for e in events if e["rcept_no"] in saved_keys]
-            missing = [e["rcept_no"] for e in events if e["rcept_no"] not in saved_keys]
-            for no in ok_nos:
-                registry.mark_stored(no)
-            registry.acknowledge_many(ok_nos)
-            acknowledged = len(ok_nos)
+            saved = {}
+            for row in store.read_day(day):
+                if isinstance(row, dict) and isinstance(row.get('rcept_no'), str):
+                    saved.setdefault(row['rcept_no'], []).append(row)
+            expected = {}
+            for row in records:
+                expected.setdefault(row['rcept_no'], []).append(row)
+            ok_nos = [no for no, values in expected.items()
+                      if len(values) == 1 and len(saved.get(no, [])) == 1 and saved[no][0] == values[0]]
+            missing = [no for no in expected if no not in ok_nos]
+            if allow_ack:
+                for no in ok_nos:
+                    registry.mark_stored(no)
+                registry.acknowledge_many(ok_nos)
+                acknowledged = len(ok_nos)
+            # A partial query may have saved an earlier valid page, but it
+            # must be retried until the entire interval is verified.
             if missing:
                 store_errors.append({"stage": "verify",
                                      "error": f"저장 확인 실패 {len(missing)}건 — 다음 실행에서 재시도"})
@@ -134,7 +147,8 @@ def _store_and_ack(events, registry):
             store_errors.append({"stage": "append",
                                  "error": dart_client.redact(str(ex))[:200]})
     # 저장 결과가 확정된 뒤에 registry를 디스크에 쓴다.
-    registry.save()
+    if events:
+        registry.save()
     return stored, acknowledged, store_errors
 
 
@@ -164,7 +178,8 @@ def collect(client, corp_map, budget=None, since=None):
         # 하루씩 — 쪽수 상한(P.DEFAULT_MAX_PAGES)은 하루 공시 전체 기준이다.
         result = P.collect_new_filings(client, corp_map, bgn_de=compact, end_de=compact, budget=budget)
         registry = result["registry"]
-        day_stored, day_acked, store_errors = _store_and_ack(result["events"], registry)
+        day_stored, day_acked, store_errors = _store_and_ack(
+            result["events"], registry, allow_ack=result["pagination"]["coverage_complete"])
         stored += day_stored
         acknowledged += day_acked
         events.extend(result["events"])
@@ -223,6 +238,20 @@ def self_test():
     return 0
 
 
+def _save_budget(budget, payload):
+    """Persist already reserved attempts even when collection cannot continue."""
+    try:
+        budget.save()
+        payload.setdefault("budget", budget.report())
+    except Exception:
+        # Exception text may contain a sensitive path, URL, or credential.
+        payload["budgetSaveError"] = "BUDGET_SAVE_FAILED"
+
+
+def _stop_on_signal(signum, frame):
+    raise SystemExit(128 + signum)
+
+
 def main():
     args = set(sys.argv[1:])
     if "--self-test" in args:
@@ -252,6 +281,13 @@ def main():
         return 0
 
     try:
+        previous_handler = signal.signal(signal.SIGTERM, _stop_on_signal)
+    except (AttributeError, ValueError):
+        payload.update({"status": P.EVENT_DATA_ERROR, "eventState": P.EVENT_DATA_ERROR,
+                        "error": "SIGNAL_HANDLER_UNAVAILABLE"})
+        write_status(payload)
+        return 1
+    try:
         # ⚠️ 유니버스가 늘었는데 기존 매핑 테이블을 그대로 쓰면, 새로 추가된 종목은
         #    영원히 DART 매핑이 안 된다(2026-08-15 500 → 600 확대 때 실제로 발견).
         #    저장된 universeSize와 지금 종목 수가 다르면 매핑을 다시 만든다.
@@ -269,7 +305,6 @@ def main():
             payload.update({"status": P.EVENT_DATA_ERROR,
                             "eventState": P.EVENT_COVERAGE_INCOMPLETE,
                             "error": "corp_map을 만들지 못했습니다"})
-            write_status(payload)
             print("[DART] 매핑 테이블 없음 — 수집 생략")
             return 0
         payload.update(collect(client, corp_map, budget, since=(last or {}).get("windowEnd")))
@@ -301,13 +336,16 @@ def main():
                         "eventState": P.EVENT_DATA_ERROR, "lastComplete": last,
                         "error": dart_client.redact(f"{type(ex).__name__}: {ex}")[:300]})
         print(f"[DART] 수집 실패 — 나머지 파이프라인은 계속 진행: {payload['error']}")
-
-    try:
-        budget.save()
-        payload.setdefault("budget", budget.report())
-    except OSError as ex:
-        payload["budgetSaveError"] = str(ex)[:120]
-    write_status(payload)
+    except BaseException:
+        payload.update({"status": P.EVENT_DATA_ERROR, "eventState": P.EVENT_DATA_ERROR,
+                        "lastComplete": last, "error": "COLLECTION_INTERRUPTED"})
+        raise
+    finally:
+        try:
+            _save_budget(budget, payload)
+            write_status(payload)
+        finally:
+            signal.signal(signal.SIGTERM, previous_handler)
     return 0
 
 
