@@ -11,6 +11,7 @@
 import json
 import os
 import shutil
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -20,8 +21,8 @@ import dart_client
 import dart_pipeline as P
 
 
-def fake_payload(assets=2000):
-    return {"status": "000", "list": [
+def fake_payload(assets=2000, corp_code="C000001", year=2025, reprt_code="11011"):
+    payload = {"status": "000", "list": [
         {"account_id": "ifrs-full_Assets", "sj_div": "BS", "thstrm_amount": str(assets)},
         {"account_id": "ifrs-full_Liabilities", "sj_div": "BS", "thstrm_amount": "800"},
         {"account_id": "ifrs-full_Equity", "sj_div": "BS", "thstrm_amount": "1200"},
@@ -39,6 +40,9 @@ def fake_payload(assets=2000):
         {"account_id": "ifrs-full_CashFlowsFromUsedInInvestingActivities",
          "sj_div": "CF", "thstrm_amount": "-50"},
     ]}
+    for row in payload["list"]:
+        row.update(corp_code=corp_code, bsns_year=str(year), reprt_code=reprt_code, currency="KRW")
+    return payload
 
 
 class FakeClient:
@@ -54,8 +58,10 @@ class FakeClient:
     def financial_statement(self, corp_code, year, reprt_code, fs_div="CFS"):
         self.calls.append((corp_code, year, fs_div))
         if (corp_code, year) in self.empty_for:
-            return {"status": dart_client.OK, "data": {"status": "013", "list": []}}
-        return {"status": dart_client.OK, "data": fake_payload()}
+            return {"status": dart_client.OK, "noData": True,
+                    "data": {"status": "013", "list": []}}
+        return {"status": dart_client.OK, "data": fake_payload(corp_code=corp_code, year=year,
+                                                                   reprt_code=reprt_code)}
 
 
 class FakeBudget:
@@ -123,7 +129,10 @@ class CollectorContract(unittest.TestCase):
         with patch.dict(os.environ, {}, clear=True):
             self.assertEqual(C.collect(dart_client.DartClient(), corp_map(1))["status"], C.SKIPPED_NO_KEY)
         client = dart_client.DartClient(api_key="test-only-not-a-secret")
-        with patch.object(client, "financial_statement", return_value={"status": dart_client.OK, "data": fake_payload()}):
+        def respond(corp_code, year, reprt_code, fs_div="CFS"):
+            return {"status": dart_client.OK, "data": fake_payload(corp_code=corp_code, year=year,
+                                                                     reprt_code=reprt_code)}
+        with patch.object(client, "financial_statement", side_effect=respond):
             self.assertEqual(C.collect(client, corp_map(1), budget=FakeBudget())["yearsStored"], 3)
 
     def test_fallback_request_cannot_exceed_call_budget(self):
@@ -151,6 +160,215 @@ class CollectorContract(unittest.TestCase):
         C.collect(cl2, cm, budget=FakeBudget(), max_companies=1, max_calls=99,
                   today="2026-09-04")
         self.assertEqual(len(cl2.calls), 0, "NO_DATA로 확인된 해를 다시 불렀다")
+
+    def test_request_failure_is_retryable_and_does_not_query_ofs(self):
+        client = FakeClient()
+        def fail_cfs(corp_code, year, reprt_code, fs_div="CFS"):
+            client.calls.append((corp_code, year, fs_div))
+            return {"status": dart_client.DART_UNREACHABLE, "data": None}
+        client.financial_statement = fail_cfs
+        out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                        max_calls=3, today="2026-09-04")
+        self.assertEqual(out["status"], "PARTIAL")
+        self.assertEqual(out["yearsNoData"], 0)
+        self.assertTrue(all(call[2] == "CFS" for call in client.calls))
+        self.assertEqual(C.missing_years("000001", C.target_years("2026-09-04")),
+                         C.target_years("2026-09-04"))
+        retry = C.collect(FakeClient(), corp_map(1), budget=FakeBudget(), max_companies=1,
+                          max_calls=3, today="2026-09-05")
+        self.assertEqual(retry["yearsStored"], 3)
+
+    def test_only_confirmed_no_data_can_trigger_fallback(self):
+        bad = [
+            {"status": dart_client.OK, "data": {"status": "000", "list": []}},
+            {"status": dart_client.OK, "data": {"status": "013", "list": []}},
+            {"status": dart_client.OK, "noData": True,
+             "data": {"status": "013", "list": [{"account_id": "unexpected"}]}},
+            {"status": dart_client.OK, "noData": 1, "data": fake_payload()},
+            {"status": dart_client.OK, "data": {"status": "000", "list": "invalid"}},
+        ]
+        for response in bad:
+            with self.subTest(response=response):
+                shutil.rmtree(self.tmp, ignore_errors=True)
+                client = FakeClient()
+                def invalid(corp_code, year, reprt_code, fs_div="CFS"):
+                    client.calls.append((corp_code, year, fs_div))
+                    return response
+                client.financial_statement = invalid
+                out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                                max_calls=1, today="2026-09-04")
+                self.assertEqual(out["status"], "PARTIAL")
+                self.assertEqual([call[2] for call in client.calls], ["CFS"])
+                self.assertNotIn("2025", C.load_company("000001")["years"])
+
+    def test_fallback_and_proven_absence(self):
+        client = FakeClient()
+        def answer(corp_code, year, reprt_code, fs_div="CFS"):
+            client.calls.append((corp_code, year, fs_div))
+            if fs_div == "CFS" or year == 2024:
+                return {"status": dart_client.OK, "noData": True,
+                        "data": {"status": "013"}}
+            return {"status": dart_client.OK, "data": fake_payload(corp_code=corp_code, year=year,
+                                                                     reprt_code=reprt_code)}
+        client.financial_statement = answer
+        out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                        max_calls=4, today="2026-09-04")
+        doc = C.load_company("000001")["years"]
+        self.assertEqual(out["yearsStored"], 1)
+        self.assertEqual(doc["2025"]["fsDiv"], "OFS")
+        self.assertEqual(doc["2024"]["status"], "NO_DATA")
+        self.assertEqual(doc["2024"]["absenceEvidence"], {"CFS": "013", "OFS": "013"})
+        self.assertNotIn("2023", doc)
+
+    def test_error_after_confirmed_cfs_absence_remains_retryable(self):
+        client = FakeClient()
+        def answer(corp_code, year, reprt_code, fs_div="CFS"):
+            client.calls.append((corp_code, year, fs_div))
+            if fs_div == "CFS":
+                return {"status": dart_client.OK, "noData": True,
+                        "data": {"status": "013"}}
+            return {"status": dart_client.DART_UNREACHABLE, "data": None}
+        client.financial_statement = answer
+        out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                        max_calls=2, today="2026-09-04")
+        self.assertEqual(out["status"], "PARTIAL")
+        self.assertNotIn("2025", C.load_company("000001")["years"])
+
+    def test_invalid_existing_store_is_not_overwritten(self):
+        path = C.store_path("000001")
+        with open(path, "w", encoding="utf-8") as file:
+            file.write('{"damaged":')
+        client = FakeClient()
+        out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                        max_calls=3, today="2026-09-04")
+        with open(path, encoding="utf-8") as file:
+            self.assertEqual(file.read(), '{"damaged":')
+        self.assertEqual(client.calls, [])
+        self.assertEqual(out["status"], "PARTIAL")
+
+    def test_client_exception_is_counted_and_does_not_save_error_text(self):
+        client = FakeClient()
+        client.financial_statement = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("secret-like-url"))
+        budget = FakeBudget()
+        out = C.collect(client, corp_map(1), budget=budget, max_companies=1,
+                        max_calls=1, today="2026-09-04")
+        self.assertEqual((out["status"], out["apiCalls"], budget.spent), ("PARTIAL", 1, 1))
+        self.assertEqual(out["errors"][0]["status"], "CLIENT_EXCEPTION")
+        self.assertNotIn("secret-like-url", json.dumps(out))
+        self.assertFalse(os.path.exists(C.store_path("000001")))
+
+    def test_malformed_success_rows_are_not_saved_as_ok(self):
+        for rows in ([{"unexpected": "schema"}],
+                     [{"account_id": 123, "sj_div": "BS", "thstrm_amount": "9"}]):
+            with self.subTest(rows=rows):
+                client = FakeClient()
+                client.financial_statement = lambda *a, **k: {
+                    "status": dart_client.OK, "data": {"status": "000", "list": rows}}
+                out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                                max_calls=1, today="2026-09-04")
+                self.assertEqual((out["status"], out["yearsStored"]), ("PARTIAL", 0))
+                self.assertFalse(os.path.exists(C.store_path("000001")))
+
+    def test_wrong_company_year_report_or_currency_is_not_saved(self):
+        for field, wrong in (("corp_code", "OTHER"), ("bsns_year", "1900"),
+                             ("reprt_code", "11013"), ("currency", "USD"), ("currency", None)):
+            with self.subTest(field=field, wrong=wrong):
+                payload = fake_payload()
+                payload["list"][0][field] = wrong
+                client = FakeClient()
+                client.financial_statement = lambda *a, **k: {"status": dart_client.OK, "data": payload}
+                out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                                max_calls=1, today="2026-09-04")
+                self.assertEqual((out["status"], out["yearsStored"]), ("PARTIAL", 0))
+                self.assertFalse(os.path.exists(C.store_path("000001")))
+
+    def test_extraction_failure_is_retryable(self):
+        with patch.object(P, "extract_financials", side_effect=ValueError("unsafe details")):
+            out = C.collect(FakeClient(), corp_map(1), budget=FakeBudget(), max_companies=1,
+                            max_calls=1, today="2026-09-04")
+        self.assertEqual((out["status"], out["yearsStored"]), ("PARTIAL", 0))
+        self.assertEqual(out["errors"][0]["status"], "EXTRACT_ERROR")
+        self.assertNotIn("unsafe details", json.dumps(out))
+        self.assertFalse(os.path.exists(C.store_path("000001")))
+
+    def test_interruption_after_complete_year_saves_only_that_year(self):
+        client = FakeClient(empty_for=[("C000001", 2024)])
+        out = C.collect(client, corp_map(1), budget=FakeBudget(allow_n=2), max_companies=1,
+                        max_calls=9, today="2026-09-04")
+        self.assertTrue(out["budgetStopped"])
+        self.assertEqual(list(C.load_company("000001")["years"]), ["2025"])
+        retry = FakeClient(empty_for=[("C000001", 2024)])
+        C.collect(retry, corp_map(1), budget=FakeBudget(), max_companies=1,
+                  max_calls=9, today="2026-09-05")
+        self.assertTrue(all(call[1] != 2025 for call in retry.calls))
+        self.assertEqual(C.load_company("000001")["years"]["2024"]["status"], "NO_DATA")
+
+    def test_persistent_failure_does_not_starve_next_company(self):
+        client = FakeClient()
+        def answer(corp_code, year, reprt_code, fs_div="CFS"):
+            client.calls.append((corp_code, year, fs_div))
+            if corp_code == "C000001":
+                return {"status": dart_client.DART_UNREACHABLE, "data": None}
+            return {"status": dart_client.OK, "data": fake_payload(corp_code=corp_code, year=year,
+                                                                     reprt_code=reprt_code)}
+        client.financial_statement = answer
+        first = C.collect(client, corp_map(2), budget=FakeBudget(), max_companies=1,
+                          max_calls=3, today="2026-09-04")
+        second = C.collect(client, corp_map(2), budget=FakeBudget(), max_companies=1,
+                           max_calls=3, today="2026-09-05", selection_after=first["selectionCursor"])
+        self.assertEqual(first["status"], "PARTIAL")
+        self.assertEqual(second["yearsStored"], 3)
+        self.assertEqual(C.missing_years("000001", C.target_years("2026-09-04")),
+                         C.target_years("2026-09-04"))
+
+    def test_corrupt_first_company_does_not_starve_next_company(self):
+        with open(C.store_path("000001"), "w", encoding="utf-8") as file:
+            file.write('{"damaged":')
+        first = C.collect(FakeClient(), corp_map(2), budget=FakeBudget(), max_companies=1,
+                          max_calls=3, today="2026-09-04")
+        second = C.collect(FakeClient(), corp_map(2), budget=FakeBudget(), max_companies=1,
+                           max_calls=3, today="2026-09-05", selection_after=first["selectionCursor"])
+        self.assertEqual((first["status"], second["yearsStored"]), ("PARTIAL", 3))
+        with open(C.store_path("000001"), encoding="utf-8") as file:
+            self.assertEqual(file.read(), '{"damaged":')
+
+    def test_daily_skip_preserves_cursor(self):
+        path = os.path.join(self.tmp, "_status.json")
+        C.save_status(path, {"status": "PARTIAL", "selectionCursor": "000001"})
+        budget = FakeBudget(financial_today=1)
+        with patch.object(C, "STATUS_PATH", path), patch.object(C.dart_budget, "DailyBudget", return_value=budget), \
+             patch.object(C.dart_client, "DartClient", return_value=FakeClient()), \
+             patch.object(C.P, "load_corp_map", return_value=corp_map(2)), \
+             patch.object(sys, "argv", ["collect_dart_financials.py", "--once-per-day"]):
+            self.assertEqual(C.main(), 0)
+        self.assertEqual(C.load_selection_cursor(path), "000001")
+
+    def test_invalid_status_does_not_reset_cursor_or_send_requests(self):
+        path = os.path.join(self.tmp, "_status.json")
+        with open(path, "w", encoding="utf-8") as file:
+            file.write('{"damaged":')
+        client = FakeClient()
+        with patch.object(C, "STATUS_PATH", path), patch.object(C.dart_budget, "DailyBudget", return_value=FakeBudget()), \
+             patch.object(C.dart_client, "DartClient", return_value=client), \
+             patch.object(C.P, "load_corp_map", return_value=corp_map(2)), \
+             patch.object(sys, "argv", ["collect_dart_financials.py"]):
+            self.assertEqual(C.main(), 1)
+        self.assertEqual(client.calls, [])
+        with open(path, encoding="utf-8") as file:
+            self.assertEqual(file.read(), '{"damaged":')
+
+    def test_budget_is_saved_after_unexpected_collection_failure(self):
+        budget = FakeBudget()
+        budget.save = unittest.mock.Mock()
+        with patch.object(C, "STATUS_PATH", os.path.join(self.tmp, "_status.json")), \
+             patch.object(C.dart_budget, "DailyBudget", return_value=budget), \
+             patch.object(C.dart_client, "DartClient", return_value=FakeClient()), \
+             patch.object(C.P, "load_corp_map", return_value=corp_map(1)), \
+             patch.object(C, "collect", side_effect=OSError("write failed")), \
+             patch.object(sys, "argv", ["collect_dart_financials.py"]):
+            with self.assertRaises(OSError):
+                C.main()
+        budget.save.assert_called_once()
 
     def test_collects_three_fiscal_years(self):
         """Piotroski는 회계연도 3개가 필요하다."""
