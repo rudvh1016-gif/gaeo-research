@@ -13,7 +13,8 @@
   한 번에 다 받으면 안 된다. 그래서:
     - 한 실행에서 받을 회사 수와 호출 수에 상한을 둔다(기본 40개사 · 150호출).
     - 이미 저장한 (회사, 연도)는 다시 받지 않는다. 연간 재무는 1년에 한 번만 바뀐다.
-    - 가장 오래 못 받은 회사부터 받는다. 그러면 유니버스 한 바퀴에 약 2주가 걸리고,
+    - 결손이 있는 회사를 순회한다. 반복 실패가 뒤 회사를 막지 않도록 이어서 시작한다.
+      그러면 유니버스 한 바퀴에 약 2주가 걸리고,
       그 뒤로는 새 사업보고서가 나온 회사만 갱신하면 된다.
     - 예산 상태가 나쁘면(`financial`은 OPTIONAL) 조용히 멈춘다.
 
@@ -23,6 +24,7 @@
 import argparse
 import json
 import os
+import tempfile
 
 import dart_budget
 import dart_client
@@ -44,6 +46,11 @@ SKIPPED_NO_MAPPING = "SKIPPED_NO_MAPPING"
 SKIPPED_BUDGET = "SKIPPED_BUDGET"
 SKIPPED_ALREADY_TODAY = "SKIPPED_ALREADY_TODAY"
 OK = "OK"
+PARTIAL = "PARTIAL"
+
+
+class InvalidFinancialStore(Exception):
+    """An existing company file could not be verified and must not be replaced."""
 
 
 def already_ran_today(budget):
@@ -72,17 +79,31 @@ def store_path(ticker):
     return os.path.join(STORE_DIR, f"{ticker}.json")
 
 
-def load_company(ticker):
+def load_company(ticker, strict=False):
     path = store_path(ticker)
     if not os.path.exists(path):
+        if strict and os.path.lexists(path):
+            raise InvalidFinancialStore()
         return {"ticker": ticker, "years": {}}
     try:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
-        if isinstance(data, dict) and isinstance(data.get("years"), dict):
+        if (isinstance(data, dict) and isinstance(data.get("years"), dict)
+                and (not strict or data.get("ticker") == ticker)):
+            if strict:
+                for year, record in data["years"].items():
+                    if (not isinstance(year, str) or len(year) != 4 or not year.isascii()
+                            or not year.isdecimal() or not isinstance(record, dict)
+                            or record.get("status") not in (OK, "NO_DATA")):
+                        raise InvalidFinancialStore()
+                    if record["status"] == OK and (record.get("fsDiv") not in ("CFS", "OFS")
+                                                    or not isinstance(record.get("values"), dict)):
+                        raise InvalidFinancialStore()
             return data
-    except (OSError, json.JSONDecodeError):
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, RecursionError):
         pass
+    if strict:
+        raise InvalidFinancialStore()
     return {"ticker": ticker, "years": {}}
 
 
@@ -101,20 +122,43 @@ def missing_years(ticker, years):
     return [y for y in years if str(y) not in have]
 
 
-def pick_companies(corp_map, years, limit):
-    """가장 급한 회사부터 고른다 — 못 받은 연도가 많은 순, 그다음 코드 순(재현 가능)."""
+def pick_companies(corp_map, years, limit, after=None):
+    """Cycle through incomplete companies so persistent failures cannot starve the rest."""
     mapped = (corp_map or {}).get("mapped") or {}
     rows = []
     for ticker, entry in mapped.items():
-        need = missing_years(ticker, years)
+        try:
+            doc = load_company(ticker, strict=True)
+            need = [year for year in years if str(year) not in doc["years"]]
+        except InvalidFinancialStore:
+            # Report this company even if corrupt year keys appear complete.
+            need = list(years)
         if need:
             rows.append((len(need), ticker, entry, need))
-    rows.sort(key=lambda r: (-r[0], r[1]))
+    rows.sort(key=lambda r: r[1])
+    if after:
+        rows = [r for r in rows if r[1] > after] + [r for r in rows if r[1] <= after]
     return rows[:limit]
 
 
+def valid_financial_rows(rows, corp_code, year, reprt_code):
+    """Check documented identity/currency fields without inventing missing accounts."""
+    if not isinstance(rows, list) or not rows or not all(isinstance(row, dict) for row in rows):
+        return False
+    for row in rows:
+        if (row.get("corp_code") != corp_code or row.get("bsns_year") != str(year)
+                or row.get("reprt_code") != reprt_code or row.get("currency") != "KRW"):
+            return False
+        for key in ("account_id", "account_nm", "sj_div", "thstrm_amount"):
+            if row.get(key) is not None and not isinstance(row[key], str):
+                return False
+    return any((isinstance(row.get("account_id"), str) and row["account_id"].strip()
+                or isinstance(row.get("account_nm"), str) and row["account_nm"].strip())
+               and "thstrm_amount" in row for row in rows)
+
+
 def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
-            max_calls=DEFAULT_MAX_CALLS, today=None, once_per_day=False):
+            max_calls=DEFAULT_MAX_CALLS, today=None, once_per_day=False, selection_after=None):
     started = dart_time.iso_now()
     if once_per_day and already_ran_today(budget):
         return {"status": SKIPPED_ALREADY_TODAY, "startedAt": started,
@@ -128,7 +172,8 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
                 "reason": "corp_code 매핑이 없어 재무 수집을 건너뛴다."}
 
     years = target_years(today)
-    picks = pick_companies(corp_map, years, max_companies)
+    picks = pick_companies(corp_map, years, max_companies, selection_after)
+    cursor = selection_after
     calls = 0
     stored = 0
     no_data = 0
@@ -139,7 +184,16 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
     for _need_n, ticker, entry, need in picks:
         if calls >= max_calls or budget_stopped:
             break
-        doc = load_company(ticker)
+        try:
+            doc = load_company(ticker, strict=True)
+        except InvalidFinancialStore:
+            errors.append({"ticker": ticker, "status": "STORE_UNVERIFIED"})
+            cursor = ticker
+            continue
+        # The file may have gained a year since the initial selection.
+        need = [year for year in need if str(year) not in doc["years"]]
+        calls_before = calls
+        changed = False
         for year in need:
             if calls >= max_calls:
                 break
@@ -148,6 +202,8 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
                 budget_stopped = True
                 break
             got = None
+            absence = []
+            failed = False
             for fs_div in ("CFS", "OFS"):
                 if calls >= max_calls or (budget is not None and not budget.allow("financial")):
                     budget_stopped = True
@@ -155,26 +211,53 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
                 if budget is not None:
                     budget.spend("financial")
                 calls += 1
-                res = client.financial_statement(entry["corp_code"], year,
-                                                 P.REPRT_CODES["FY"], fs_div)
-                payload = res.get("data") or {}
-                rows = payload.get("list") or []
-                if res.get("status") == dart_client.OK and rows:
+                try:
+                    res = client.financial_statement(entry["corp_code"], year,
+                                                     P.REPRT_CODES["FY"], fs_div)
+                except Exception:
+                    # Don't persist exception text: it can contain a URL or credential.
+                    res = {"status": "CLIENT_EXCEPTION"}
+                payload = res.get("data") if isinstance(res, dict) else None
+                rows = payload.get("list") if isinstance(payload, dict) else None
+                if (isinstance(res, dict) and res.get("status") == dart_client.OK
+                        and isinstance(payload, dict) and payload.get("status") == dart_client.STATUS_OK
+                        and ("noData" not in res or res.get("noData") is False)
+                        and valid_financial_rows(rows, entry["corp_code"], year, P.REPRT_CODES["FY"])):
                     got = (fs_div, payload)
                     break
-                if res.get("status") != dart_client.OK:
-                    errors.append({"ticker": ticker, "year": year, "fsDiv": fs_div,
-                                   "status": res.get("status")})
+                if (isinstance(res, dict) and res.get("status") == dart_client.OK
+                        and res.get("noData") is True and isinstance(payload, dict)
+                        and payload.get("status") == dart_client.STATUS_NO_DATA
+                        and ("list" not in payload or rows == [])):
+                    absence.append(fs_div)
+                    continue
+                failed = True
+                status = res.get("status") if isinstance(res, dict) else None
+                known_errors = (dart_client.EVENT_DATA_ERROR, dart_client.DART_KEY_MISSING,
+                                dart_client.DART_UNREACHABLE, "CLIENT_EXCEPTION")
+                errors.append({"ticker": ticker, "year": year, "fsDiv": fs_div,
+                               "status": status if status in known_errors else "INVALID_RESPONSE"})
+                break
             if budget_stopped and not got:
                 break
             if not got:
-                # 그 해 자료가 아예 없다고 확정한다. 매번 다시 묻지 않기 위해 남긴다.
+                if failed or absence != ["CFS", "OFS"]:
+                    # Failed or interrupted is not absence; leave it retryable.
+                    continue
+                # Confirmed independently for both bases; avoid unnecessary repeat calls.
                 doc["years"][str(year)] = {"status": "NO_DATA",
-                                           "checkedAt": dart_time.iso_now()}
+                                           "checkedAt": dart_time.iso_now(),
+                                           "absenceEvidence": {"CFS": "013", "OFS": "013"}}
                 no_data += 1
+                changed = True
                 continue
             fs_div, payload = got
-            ext = P.extract_financials(payload, sector=entry.get("sector"))
+            try:
+                ext = P.extract_financials(payload, sector=entry.get("sector"))
+            except Exception:
+                errors.append({"ticker": ticker, "year": year, "fsDiv": fs_div,
+                               "status": "EXTRACT_ERROR"})
+                continue
             doc["years"][str(year)] = {
                 "status": OK,
                 "fsDiv": fs_div,
@@ -190,12 +273,16 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
             }
             coverage_samples.append(ext["coverage"])
             stored += 1
-        doc["updatedAt"] = dart_time.iso_now()
-        save_company(doc)
+            changed = True
+        if changed:
+            doc["updatedAt"] = dart_time.iso_now()
+            save_company(doc)
+        if calls > calls_before or not need:
+            cursor = ticker
 
     avg_cov = round(sum(coverage_samples) / len(coverage_samples), 4) if coverage_samples else None
     return {
-        "status": OK,
+        "status": PARTIAL if errors else OK,
         "startedAt": started,
         "finishedAt": dart_time.iso_now(),
         "targetYears": years,
@@ -205,10 +292,46 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
         "yearsNoData": no_data,
         "averageCoverage": avg_cov,
         "budgetStopped": budget_stopped,
+        "selectionCursor": cursor,
         "errors": errors[:20],
         "note": ("연간 재무는 1년에 한 번만 바뀌므로 이미 받은 (회사, 연도)는 다시 받지 않는다. "
                  "유니버스 한 바퀴를 여러 날에 나눠 돈다."),
     }
+
+
+def load_selection_cursor(path):
+    """Keep the previous cursor across daily skips; do not reset a damaged status file."""
+    try:
+        with open(path, encoding="utf-8") as file:
+            doc = json.load(file)
+    except FileNotFoundError:
+        if os.path.lexists(path):
+            raise InvalidFinancialStore()
+        return None
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, RecursionError):
+        raise InvalidFinancialStore()
+    if not isinstance(doc, dict):
+        raise InvalidFinancialStore()
+    cursor = doc.get("selectionCursor")
+    if cursor is not None and (not isinstance(cursor, str) or len(cursor) != 6
+                               or not cursor.isascii() or not cursor.isdecimal()):
+        raise InvalidFinancialStore()
+    return cursor
+
+
+def save_status(path, result):
+    """Publish a complete status/cursor together; retain the prior file on write failure."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fd, temp = tempfile.mkstemp(prefix=".financial-status-", suffix=".tmp", dir=os.path.dirname(path))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as file:
+            json.dump(result, file, ensure_ascii=False, indent=1, sort_keys=True)
+            file.flush()
+            os.fsync(file.fileno())
+        os.replace(temp, path)
+    finally:
+        if os.path.exists(temp):
+            os.unlink(temp)
 
 
 def universe_readiness(corp_map=None, today=None):
@@ -248,13 +371,21 @@ def main():
     client = dart_client.DartClient()
     budget = dart_budget.DailyBudget(os.path.join(P.DART_ROOT, "api_budget.json"))
     corp_map = P.load_corp_map()
-    result = collect(client, corp_map, budget=budget,
-                     max_companies=args.max_companies, max_calls=args.max_calls,
-                     once_per_day=args.once_per_day)
-    budget.save() if hasattr(budget, "save") else None
-    os.makedirs(STORE_DIR, exist_ok=True)
-    with open(STATUS_PATH, "w", encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=1, sort_keys=True)
+    try:
+        cursor = load_selection_cursor(STATUS_PATH)
+    except InvalidFinancialStore:
+        print(json.dumps({"status": "STATUS_UNVERIFIED"}, ensure_ascii=False))
+        return 1
+    try:
+        result = collect(client, corp_map, budget=budget,
+                         max_companies=args.max_companies, max_calls=args.max_calls,
+                         once_per_day=args.once_per_day, selection_after=cursor)
+    finally:
+        # Calls already spent must survive ordinary collector/write exceptions.
+        # A process kill or host loss still requires separate budget reconciliation.
+        budget.save() if hasattr(budget, "save") else None
+    result.setdefault("selectionCursor", cursor)
+    save_status(STATUS_PATH, result)
     print(json.dumps({k: v for k, v in result.items() if k != "errors"},
                      ensure_ascii=False))
     return 0
