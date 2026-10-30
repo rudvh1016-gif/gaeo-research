@@ -246,6 +246,23 @@ class CollectorContract(unittest.TestCase):
         self.assertEqual(client.calls, [])
         self.assertEqual(out["status"], "PARTIAL")
 
+    def test_invalid_year_records_are_reported_without_overwriting(self):
+        for bad in (None, "broken", {"status": "MYSTERY"},
+                    {"status": "OK", "fsDiv": "CFS", "values": "broken"}):
+            with self.subTest(bad=bad):
+                doc = {"ticker": "000001", "years": {str(y): bad for y in C.target_years("2026-09-04")}}
+                path = C.store_path("000001")
+                with open(path, "w", encoding="utf-8") as file:
+                    json.dump(doc, file)
+                client = FakeClient()
+                out = C.collect(client, corp_map(1), budget=FakeBudget(), max_companies=1,
+                                max_calls=3, today="2026-09-04")
+                self.assertEqual(out["status"], "PARTIAL")
+                self.assertEqual(out["errors"][0]["status"], "STORE_UNVERIFIED")
+                self.assertEqual(client.calls, [])
+                with open(path, encoding="utf-8") as file:
+                    self.assertEqual(json.load(file), doc)
+
     def test_client_exception_is_counted_and_does_not_save_error_text(self):
         client = FakeClient()
         client.financial_statement = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("secret-like-url"))

@@ -90,6 +90,15 @@ def load_company(ticker, strict=False):
             data = json.load(f)
         if (isinstance(data, dict) and isinstance(data.get("years"), dict)
                 and (not strict or data.get("ticker") == ticker)):
+            if strict:
+                for year, record in data["years"].items():
+                    if (not isinstance(year, str) or len(year) != 4 or not year.isascii()
+                            or not year.isdecimal() or not isinstance(record, dict)
+                            or record.get("status") not in (OK, "NO_DATA")):
+                        raise InvalidFinancialStore()
+                    if record["status"] == OK and (record.get("fsDiv") not in ("CFS", "OFS")
+                                                    or not isinstance(record.get("values"), dict)):
+                        raise InvalidFinancialStore()
             return data
     except (OSError, UnicodeDecodeError, json.JSONDecodeError, RecursionError):
         pass
@@ -118,7 +127,12 @@ def pick_companies(corp_map, years, limit, after=None):
     mapped = (corp_map or {}).get("mapped") or {}
     rows = []
     for ticker, entry in mapped.items():
-        need = missing_years(ticker, years)
+        try:
+            doc = load_company(ticker, strict=True)
+            need = [year for year in years if str(year) not in doc["years"]]
+        except InvalidFinancialStore:
+            # Report this company even if corrupt year keys appear complete.
+            need = list(years)
         if need:
             rows.append((len(need), ticker, entry, need))
     rows.sort(key=lambda r: r[1])
@@ -219,8 +233,10 @@ def collect(client, corp_map, budget=None, max_companies=DEFAULT_MAX_COMPANIES,
                     continue
                 failed = True
                 status = res.get("status") if isinstance(res, dict) else None
+                known_errors = (dart_client.EVENT_DATA_ERROR, dart_client.DART_KEY_MISSING,
+                                dart_client.DART_UNREACHABLE, "CLIENT_EXCEPTION")
                 errors.append({"ticker": ticker, "year": year, "fsDiv": fs_div,
-                               "status": status if status and status != dart_client.OK else "INVALID_RESPONSE"})
+                               "status": status if status in known_errors else "INVALID_RESPONSE"})
                 break
             if budget_stopped and not got:
                 break
