@@ -872,6 +872,41 @@ class CatchUpAfterOutage(unittest.TestCase):
         self.assertEqual(recovered['eventState'], P.NO_OFFICIAL_EVENT_DETECTED)
         self.assertEqual(recovered['lastComplete']['windowEnd'], '2026-09-29')
 
+    def test_unexpected_list_exception_still_saves_attempted_budget(self):
+        class ExplodingClient(self.DayClient):
+            def list_filings(self, **kw):
+                self.calls.append(kw)
+                raise RuntimeError('unexpected response failure')
+        status = self.run_main(ExplodingClient())
+        self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        self.assertEqual(saved['counts']['list'], 1)
+
+    def test_failed_mapping_early_return_still_saves_attempted_budget(self):
+        from unittest import mock
+        client = self.DayClient()
+        client.corp_code_zip = lambda: {'status': C.EVENT_DATA_ERROR, 'data': None, 'error': 'offline'}
+        with mock.patch.object(P, 'load_corp_map', return_value=None):
+            status = self.run_main(client)
+        self.assertEqual(status['eventState'], P.EVENT_COVERAGE_INCOMPLETE)
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        self.assertEqual(saved['counts']['mapping'], 1)
+
+    def test_unexpected_mapping_exception_still_saves_attempted_budget(self):
+        from unittest import mock
+        client = self.DayClient()
+        def fail():
+            raise RuntimeError('unexpected response failure')
+        client.corp_code_zip = fail
+        with mock.patch.object(P, 'load_corp_map', return_value=None):
+            status = self.run_main(client)
+        self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        self.assertEqual(saved['counts']['mapping'], 1)
+
     def test_14일보다_오래_밀리면_회차마다_오래된_날부터_이어_보고_오늘까지_따라잡는다(self):
         kept = {"finishedAt": "2026-09-01T00:00:00+00:00", "windowStart": "2026-08-31", "windowEnd": "2026-09-01"}
         with open(self.status, "w", encoding="utf-8") as f:

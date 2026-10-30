@@ -82,9 +82,9 @@ def refresh_corp_map(client, budget=None):
     if budget is not None and not budget.allow("mapping"):
         return {"status": dart_budget.DART_BUDGET_EXCEEDED,
                 "error": "일일 예산이 부족해 매핑 갱신을 미룹니다."}
-    res = client.corp_code_zip()
     if budget is not None:
         budget.spend("mapping")
+    res = client.corp_code_zip()
     if res["status"] != dart_client.OK:
         return {"status": res["status"], "error": res["error"],
                 "universeSize": len(universe)}
@@ -234,6 +234,15 @@ def self_test():
     return 0
 
 
+def _save_budget(budget, payload):
+    """Persist already reserved attempts even when collection cannot continue."""
+    try:
+        budget.save()
+        payload.setdefault("budget", budget.report())
+    except OSError as ex:
+        payload["budgetSaveError"] = str(ex)[:120]
+
+
 def main():
     args = set(sys.argv[1:])
     if "--self-test" in args:
@@ -280,6 +289,7 @@ def main():
             payload.update({"status": P.EVENT_DATA_ERROR,
                             "eventState": P.EVENT_COVERAGE_INCOMPLETE,
                             "error": "corp_map을 만들지 못했습니다"})
+            _save_budget(budget, payload)
             write_status(payload)
             print("[DART] 매핑 테이블 없음 — 수집 생략")
             return 0
@@ -313,11 +323,7 @@ def main():
                         "error": dart_client.redact(f"{type(ex).__name__}: {ex}")[:300]})
         print(f"[DART] 수집 실패 — 나머지 파이프라인은 계속 진행: {payload['error']}")
 
-    try:
-        budget.save()
-        payload.setdefault("budget", budget.report())
-    except OSError as ex:
-        payload["budgetSaveError"] = str(ex)[:120]
+    _save_budget(budget, payload)
     write_status(payload)
     return 0
 

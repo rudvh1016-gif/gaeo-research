@@ -227,7 +227,8 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
     ids, findings, uninterpreted = [], [], 0
     for row in rows:
         stock_field = row.get('stock_code')
-        if (not dart_pipeline.valid_filing_row(row, window, expected_corp=corp_code) or
+        if (not dart_pipeline.valid_filing_row(row, window, expected_corp=corp_code,
+                                               require_prefix_match=False) or
                 (stock_field is not None and not isinstance(stock_field, str))):
             uninterpreted += 1                 # 식별·제목이 없는 줄은 해석하지 못한 자료다
             continue

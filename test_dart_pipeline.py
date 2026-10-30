@@ -373,6 +373,14 @@ class NoPerStockPolling(unittest.TestCase):
         for call in client.calls:
             self.assertNotIn("corp_code", call)
 
+    def test_global_list_keeps_prefix_mismatch_unverified_until_builder_is_migrated(self):
+        pages = {1: {"list": [{"corp_code": "00126380", "rcept_no": "20260816000001",
+                                 "report_nm": "주요사항보고서", "rcept_dt": "20260815"}],
+                     "total_page": 1}}
+        _, result = self._run(pages, self.seen)
+        self.assertFalse(result['pagination']['coverage_complete'])
+        self.assertEqual(result['events'], [])
+
     def test_out_of_universe_filings_are_dropped(self):
         pages = {1: {"list": [
             {"corp_code": "00126380", "rcept_no": "20260815000001", "report_nm": "x", "rcept_dt": "20260815"},

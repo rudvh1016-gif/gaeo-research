@@ -650,7 +650,7 @@ def filing_window(bgn_de, end_de):
     return (start, end) if start and end and start <= end else None
 
 
-def valid_filing_row(row, window, expected_corp=None):
+def valid_filing_row(row, window, expected_corp=None, *, require_prefix_match=True):
     """A malformed or out-of-window row cannot prove that coverage is complete."""
     if not isinstance(row, dict) or window is None:
         return False
@@ -661,9 +661,11 @@ def valid_filing_row(row, window, expected_corp=None):
             or not isinstance(title, str) or not title.strip()):
         return False
     dated = filing_window(day, day)
-    # Downstream Research uses the receipt-number prefix as the receipt day.
-    # Contradictory dates therefore cannot be stored as reliable evidence.
-    return bool(dated and receipt[:8] == day and window[0] <= dated[0] <= window[1])
+    # The global list registry still feeds a legacy builder that derives the
+    # date from the ID. Keep that path unverified until it preserves rcept_dt.
+    # An issuer consumer preserving rcept_dt can avoid the unsupported prefix assumption.
+    return bool(dated and window[0] <= dated[0] <= window[1]
+                and (not require_prefix_match or receipt[:8] == day))
 
 
 def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=None,
@@ -720,14 +722,16 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
             coverage_complete = False
             incomplete_reasons.append(PAGINATION_UNVERIFIED)
             break
+        # Conservatively reserve an attempt before transmission. A client
+        # exception must not make a possibly sent request disappear from budget.
+        if budget is not None:
+            budget.spend("list")
         res = client.list_filings(bgn_de=bgn_de, end_de=end_de,
                                   page_no=page, page_count=100)
         # An event is first observable only after the response arrived. Never
         # give a future page the timestamp from before the request started.
         detected_at = dart_time.iso_now()
         stats["list_requests"] += 1
-        if budget is not None:
-            budget.spend("list")
         if res["status"] != dart_client.OK:
             errors.append({"page": page, "status": res["status"], "error": res["error"]})
             coverage_complete = False

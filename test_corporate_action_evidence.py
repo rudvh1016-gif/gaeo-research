@@ -200,12 +200,21 @@ class CollectorTests(unittest.TestCase):
                     dict(filing('R1', '기타'), rcept_dt='20260912'),
                     dict(filing('R1', '기타'), rcept_dt='20260230'),
                     dict(filing('R1', '기타'), rcept_dt=None),
-                    dict(filing('R1', '기타'), rcept_no='bad'),
-                    dict(filing('R1', '기타'), rcept_no='20260902000001')):
+                    dict(filing('R1', '기타'), rcept_no='bad')):
             with self.subTest(row=row):
                 out = run(FakeClient([page([row])]))
                 self.assertFalse(out['ok'])
                 self.assertFalse(out['historicalBackfillComplete'])
+
+    def test_receipt_identifier_is_not_assumed_to_encode_receipt_date(self):
+        # The issuer response preserves rcept_dt itself. Official OpenDART
+        # documents the 14-digit ID and receipt date as separate fields.
+        row = filing('20260902000001', '현금·현물배당 결정')
+        out = run(FakeClient([page([row])]))
+        self.assertTrue(out['ok'])
+        self.assertTrue(out['historicalBackfillComplete'])
+        self.assertEqual(out['collectedIds'], [row['rcept_no']])
+        self.assertEqual(out['comparisonFindings'][0]['receivedOn'], '20260901')
 
     def test_missing_page_number_does_not_prove_issuer_response(self):
         class RawClient:
