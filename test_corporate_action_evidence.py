@@ -226,10 +226,23 @@ class CollectorTests(unittest.TestCase):
         from unittest import mock
         started = datetime.datetime(2026,9,11,0,0,tzinfo=datetime.timezone.utc)
         received = started + datetime.timedelta(minutes=3)
-        with mock.patch.object(collector, '_today', side_effect=[started, received]):
+        with mock.patch.object(collector, '_today', side_effect=[started, started, received]):
             out = run(FakeClient([{'status':dart_client.OK,'data':{'status':'013'},'noData':True}]))
         self.assertEqual(out['queriedAt'], received.isoformat())
         self.assertEqual(out['expiresAt'], (started + datetime.timedelta(hours=20)).isoformat())
+
+    def test_clock_rollback_between_issuer_pages_is_not_verified(self):
+        import datetime
+        from unittest import mock
+        started = datetime.datetime(2026,9,11,0,0,tzinfo=datetime.timezone.utc)
+        responses = [page([filing('R1','기타')],total_page=2,total_count=2),
+                     page([filing('R2','기타')],total_page=2,total_count=2)]
+        with mock.patch.object(collector, '_today', side_effect=[started, started, started + datetime.timedelta(minutes=5),
+                                                                 started + datetime.timedelta(minutes=1),
+                                                                 started + datetime.timedelta(minutes=2)]):
+            out = run(FakeClient(responses))
+        self.assertFalse(out['ok'])
+        self.assertFalse(out['historicalBackfillComplete'])
 
 
 class DueTargetMode(unittest.TestCase):

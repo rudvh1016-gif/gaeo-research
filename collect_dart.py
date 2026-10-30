@@ -103,7 +103,7 @@ def refresh_corp_map(client, budget=None):
             "mappingRate": round(rate, 4)}
 
 
-def _store_and_ack(events, registry, allow_ack=True):
+def _store_and_ack(events, registry, allow_ack=False):
     """발견한 공시를 오늘 Segment 에 저장하고, 저장이 읽히는 것만 ACK 한다. (stored, acknowledged, errors)"""
     stored = 0
     store_errors = []
@@ -119,9 +119,16 @@ def _store_and_ack(events, registry, allow_ack=True):
             added, replaced = store.append_predictions(day, records, today=day)
             stored = added + replaced
             # 저장이 실제로 읽히는지 확인한 뒤에만 ACK. 여기서 실패하면 재시도된다.
-            saved_keys = {str(r.get("rcept_no")) for r in store.read_day(day)}
-            ok_nos = [e["rcept_no"] for e in events if e["rcept_no"] in saved_keys]
-            missing = [e["rcept_no"] for e in events if e["rcept_no"] not in saved_keys]
+            saved = {}
+            for row in store.read_day(day):
+                if isinstance(row, dict) and isinstance(row.get('rcept_no'), str):
+                    saved.setdefault(row['rcept_no'], []).append(row)
+            expected = {}
+            for row in records:
+                expected.setdefault(row['rcept_no'], []).append(row)
+            ok_nos = [no for no, values in expected.items()
+                      if len(values) == 1 and len(saved.get(no, [])) == 1 and saved[no][0] == values[0]]
+            missing = [no for no in expected if no not in ok_nos]
             if allow_ack:
                 for no in ok_nos:
                     registry.mark_stored(no)

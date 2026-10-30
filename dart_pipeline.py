@@ -695,6 +695,7 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
     total_pages_reported = None
     total_count_reported = None
     received_ids = set()
+    previous_received_time = None
     coverage_complete = True
     incomplete_reasons = []
     window = filing_window(bgn_de, end_de)
@@ -713,6 +714,12 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
             incomplete_reasons.append(BUDGET_LIMIT_REACHED)
             break
         request_started = dart_time.iso_now()
+        start_time = dart_time.parse_instant(request_started)
+        if (start_time is None or
+                (previous_received_time is not None and start_time < previous_received_time)):
+            coverage_complete = False
+            incomplete_reasons.append(PAGINATION_UNVERIFIED)
+            break
         res = client.list_filings(bgn_de=bgn_de, end_de=end_de,
                                   page_no=page, page_count=100)
         # An event is first observable only after the response arrived. Never
@@ -726,11 +733,13 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
             coverage_complete = False
             incomplete_reasons.append(API_ERROR)
             break
-        start_time, received_time = dart_time.parse_instant(request_started), dart_time.parse_instant(detected_at)
-        if start_time is None or received_time is None or received_time < start_time:
+        received_time = dart_time.parse_instant(detected_at)
+        if (received_time is None or received_time < start_time or
+                (previous_received_time is not None and received_time < previous_received_time)):
             coverage_complete = False
             incomplete_reasons.append(PAGINATION_UNVERIFIED)
             break
+        previous_received_time = received_time
         stats["pages_fetched"] += 1
         payload = res.get("data")
         payload = payload if isinstance(payload, dict) else {}

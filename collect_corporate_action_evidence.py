@@ -146,6 +146,7 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
 
     rows, pages_expected, total_expected, digest = [], None, None, hashlib.sha256()
     page_no = 1
+    previous_observed = queried_at
     while True:
         if budget['left'] <= 0:
             base['error'] = 'REQUEST_BUDGET_EXHAUSTED'
@@ -158,10 +159,21 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
         if daily is not None and not daily.allow_for_deferrable('list'):
             base['error'] = dart_budget.DART_BUDGET_EXCEEDED
             return base
+        request_started = _today()
+        if (request_started.tzinfo is None or request_started < previous_observed or
+                request_started >= queried_at + datetime.timedelta(hours=EVIDENCE_TTL_HOURS)):
+            base['error'] = 'OBSERVATION_TIME_INVALID'
+            return base
         budget['left'] -= 1
         if daily is not None:
             daily.spend('list')
         result = client.list_issuer_filings(corp_code, bgn_de, end_de, page_no=page_no)
+        observed_at = _today()
+        if (observed_at.tzinfo is None or observed_at < request_started or observed_at < previous_observed or
+                observed_at >= queried_at + datetime.timedelta(hours=EVIDENCE_TTL_HOURS)):
+            base['error'] = 'OBSERVATION_TIME_INVALID'
+            return base
+        previous_observed = observed_at
         if result['status'] != dart_client.OK:
             # 전송 실패와 API 오류를 구분해 남긴다. 둘 다 0건이 아니다.
             base['error'] = result['status']
@@ -255,14 +267,9 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
         # Missing, mismatched or repeated rows are not a verified absence.
         base['error'] = 'RESULT_COUNT_MISMATCH'
         return base
-    observed_at = _today()
-    if (observed_at.tzinfo is None or observed_at < queried_at or
-            observed_at >= queried_at + datetime.timedelta(hours=EVIDENCE_TTL_HOURS)):
-        base['error'] = 'OBSERVATION_TIME_INVALID'
-        return base
     # Completion is when the last response became observable. The expiry is
     # still measured from the start so this change never extends freshness.
-    base['queriedAt'] = observed_at.isoformat()
+    base['queriedAt'] = previous_observed.isoformat()
     base['historicalBackfillComplete'] = True
     base['ok'] = True
     return base

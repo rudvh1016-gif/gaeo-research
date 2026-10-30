@@ -354,6 +354,45 @@ class PaginationCoverage(unittest.TestCase):
         self.assertFalse(P.event_visible_at(result['events'][0], '2026-08-15T00:00:04+00:00'))
         self.assertFalse(P.event_visible_at(result['events'][1], '2026-08-15T00:00:09+00:00'))
 
+    def test_clock_rollback_between_pages_is_unverified(self):
+        from unittest import mock
+        clock = {'now':'2026-08-15T00:00:00+00:00'}
+        responses = [self.response([_filing('A1')],total_page=2,total_count=2),
+                     self.response([_filing('A2')],total_page=2,total_count=2,page_no=2)]
+        class Client(self.RawClient):
+            def list_filings(self, **kw):
+                clock['now'] = ('2026-08-15T00:00:05+00:00' if kw['page_no'] == 1
+                                else '2026-08-15T00:00:02+00:00')
+                return super().list_filings(**kw)
+        mark = P.SeenRegistry.mark_pending
+        def mark_then_rollback(registry, receipt, meta):
+            mark(registry, receipt, meta)
+            clock['now'] = '2026-08-15T00:00:01+00:00'
+        with mock.patch.object(T, 'iso_now', side_effect=lambda:clock['now']), \
+             mock.patch.object(P.SeenRegistry, 'mark_pending', mark_then_rollback):
+            result = self._run({},client=Client(responses))
+        self.assertFalse(result['pagination']['coverage_complete'])
+        self.assertEqual(len(result['events']), 1)
+
+    def test_clock_rollback_before_request_is_not_hidden_by_later_recovery(self):
+        from unittest import mock
+        clock = {'now':'2026-08-15T00:00:00+00:00'}
+        responses = [self.response([_filing('A1')],total_page=2,total_count=2),
+                     self.response([_filing('A2')],total_page=2,total_count=2,page_no=2)]
+        class Client(self.RawClient):
+            def list_filings(self, **kw):
+                clock['now'] = ('2026-08-15T00:00:05+00:00' if kw['page_no'] == 1
+                                else '2026-08-15T00:00:06+00:00')
+                return super().list_filings(**kw)
+        mark = P.SeenRegistry.mark_pending
+        def mark_then_rollback(registry, receipt, meta):
+            mark(registry, receipt, meta)
+            clock['now'] = '2026-08-15T00:00:01+00:00'
+        with mock.patch.object(T, 'iso_now', side_effect=lambda:clock['now']), \
+             mock.patch.object(P.SeenRegistry, 'mark_pending', mark_then_rollback):
+            result = self._run({},client=Client(responses))
+        self.assertFalse(result['pagination']['coverage_complete'])
+
     def test_partial_pages_are_saved_pending_and_retry_before_ack(self):
         from unittest import mock
         import collect_dart as CD
@@ -380,7 +419,7 @@ class PaginationCoverage(unittest.TestCase):
                                  self.response([correction],total_page=2,total_count=101,page_no=2)])
             self.assertTrue(complete['pagination']['coverage_complete'])
             self.assertEqual(len(complete['events']), 2)
-            CD._store_and_ack(complete['events'], complete['registry'])
+            CD._store_and_ack(complete['events'], complete['registry'], allow_ack=True)
         self.assertEqual(store.records[first['rcept_no']]['report_name'], '[기재정정]원본 공시')
         self.assertEqual(complete['registry'].seen[first['rcept_no']]['state'], P.SeenRegistry.ACKNOWLEDGED)
 
@@ -421,6 +460,25 @@ class PaginationCoverage(unittest.TestCase):
             self.assertEqual(complete['eventState'], P.EVENT_DETECTED)
             self.assertEqual(complete['eventsAcknowledged'], 1)
         self.assertEqual(store.records[first['rcept_no']]['report_name'], '[기재정정]원본 공시')
+
+    def test_ack_requires_exact_unique_readback(self):
+        from unittest import mock
+        import collect_dart as CD
+        result = self.raw([self.response([_filing('A1',name='정정된 공시')])])
+        event = result['events'][0]
+        class Store:
+            def __init__(self, duplicate): self.duplicate = duplicate
+            def segment_state(self, *a, **kw): return 'ACTIVE'
+            def append_predictions(self, day, rows, **kw): self.rows = rows; return len(rows), 0
+            def read_day(self, day):
+                if self.duplicate: return self.rows + self.rows
+                return [dict(self.rows[0], report_name='이전 내용')]
+        for duplicate in (False, True):
+            with self.subTest(duplicate=duplicate), mock.patch.object(CD, '_dart_store', return_value=Store(duplicate)):
+                _, acked, errors = CD._store_and_ack([event], result['registry'], allow_ack=True)
+                self.assertEqual(acked, 0)
+                self.assertTrue(errors)
+                self.assertEqual(result['registry'].seen[event['rcept_no']]['state'], P.SeenRegistry.PENDING)
 
     def test_already_acknowledged_receipt_with_changed_title_is_not_silently_ignored(self):
         first = self.raw([self.response([_filing('A1',name='원본 공시')])])
