@@ -50,6 +50,7 @@ PAGE_LIMIT_REACHED = "PAGE_LIMIT_REACHED"
 BUDGET_LIMIT_REACHED = "BUDGET_LIMIT_REACHED"
 API_ERROR = "API_ERROR"
 NO_API_KEY = "NO_API_KEY"
+PAGINATION_UNVERIFIED = "PAGINATION_UNVERIFIED"
 # 공시 목록 따라잡기 상태(2026-09-29) — 장애가 아니라 복구 진행. 가장 오래된 미확인 날부터 회차마다 이어 본다.
 CATCHUP_IN_PROGRESS = "CATCHUP_IN_PROGRESS"
 CAUGHT_UP = "CAUGHT_UP"
@@ -612,6 +613,59 @@ def financial_pit_record(corp_code, ticker, year, reprt_code, extracted,
 
 
 # ── 5. 수집 실행 (요구 4·16번) ───────────────────────────────────────────────
+def positive_decimal(value):
+    """Accept documented positive integer metadata, never bool/float/garbage."""
+    if isinstance(value, bool) or not isinstance(value, (str, int)):
+        return None
+    text = str(value)
+    if len(text) > 12 or not text.isascii() or not text.isdecimal():
+        return None
+    number = int(text)
+    return number if number > 0 else None
+
+
+def official_empty_response(result, payload, page):
+    """013 only proves empty when it is the first page and contains no contradictions."""
+    if (page != 1 or result.get('noData') is not True or payload.get('status') != '013'
+            or ('list' in payload and payload['list'] != [])):
+        return False
+    for key, allowed in (('total_count', {'0'}), ('total_page', {'0', '1'}), ('page_no', {'1'})):
+        if key in payload:
+            value = payload[key]
+            if isinstance(value, bool) or not isinstance(value, (int, str)) or str(value) not in allowed:
+                return False
+    return True
+
+
+def filing_window(bgn_de, end_de):
+    """Validate the requested Korean receipt-date interval without inventing a time."""
+    def parse(value):
+        if not isinstance(value, str) or not re.fullmatch(r'[0-9]{8}', value):
+            return None
+        try:
+            return datetime.datetime.strptime(value, '%Y%m%d').date()
+        except ValueError:
+            return None
+    start, end = parse(bgn_de), parse(end_de)
+    return (start, end) if start and end and start <= end else None
+
+
+def valid_filing_row(row, window, expected_corp=None):
+    """A malformed or out-of-window row cannot prove that coverage is complete."""
+    if not isinstance(row, dict) or window is None:
+        return False
+    corp, receipt, title, day = (row.get(k) for k in ('corp_code', 'rcept_no', 'report_nm', 'rcept_dt'))
+    if (not isinstance(corp, str) or not re.fullmatch(r'[0-9]{8}', corp)
+            or (expected_corp is not None and corp != expected_corp)
+            or not isinstance(receipt, str) or not re.fullmatch(r'[0-9]{14}', receipt)
+            or not isinstance(title, str) or not title.strip()):
+        return False
+    dated = filing_window(day, day)
+    # Downstream Research uses the receipt-number prefix as the receipt day.
+    # Contradictory dates therefore cannot be stored as reliable evidence.
+    return bool(dated and receipt[:8] == day and window[0] <= dated[0] <= window[1])
+
+
 def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=None,
                         seen_path=None, source_mode=LIVE_DART_PIT, budget=None):
     """신규공시 목록 → 유니버스 매칭 → 중복 제거 → 정규화.
@@ -633,18 +687,23 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
     seen = SeenRegistry(seen_path or os.path.join(DART_ROOT, "seen_rcept.json"))
     by_corp = {v["corp_code"]: v for v in (corp_map.get("mapped") or {}).values()}
 
-    detected_at = dart_time.iso_now()
     stats = {"new_filings_detected": 0, "matched_gaeo_filings": 0,
              "duplicate_skipped": 0, "unmatched_filings": 0,
              "pages_fetched": 0, "list_requests": 0}
     events, errors = [], []
     observed_filings = []  # This query's matched rows, including already stored receipts.
     total_pages_reported = None
+    total_count_reported = None
+    received_ids = set()
     coverage_complete = True
     incomplete_reasons = []
+    window = filing_window(bgn_de, end_de)
+    if window is None:
+        coverage_complete = False
+        incomplete_reasons.append(PAGINATION_UNVERIFIED)
 
     page = 1
-    while True:
+    while coverage_complete:
         if page > page_limit:
             coverage_complete = False
             incomplete_reasons.append(PAGE_LIMIT_REACHED)
@@ -653,8 +712,12 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
             coverage_complete = False
             incomplete_reasons.append(BUDGET_LIMIT_REACHED)
             break
+        request_started = dart_time.iso_now()
         res = client.list_filings(bgn_de=bgn_de, end_de=end_de,
                                   page_no=page, page_count=100)
+        # An event is first observable only after the response arrived. Never
+        # give a future page the timestamp from before the request started.
+        detected_at = dart_time.iso_now()
         stats["list_requests"] += 1
         if budget is not None:
             budget.spend("list")
@@ -663,24 +726,67 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
             coverage_complete = False
             incomplete_reasons.append(API_ERROR)
             break
+        start_time, received_time = dart_time.parse_instant(request_started), dart_time.parse_instant(detected_at)
+        if start_time is None or received_time is None or received_time < start_time:
+            coverage_complete = False
+            incomplete_reasons.append(PAGINATION_UNVERIFIED)
+            break
         stats["pages_fetched"] += 1
-        payload = res["data"] or {}
-        rows = payload.get("list") or []
-        reported = payload.get("total_page")
-        if reported is not None:
-            try:
-                total_pages_reported = int(reported)
-            except (TypeError, ValueError):
-                total_pages_reported = None
+        payload = res.get("data")
+        payload = payload if isinstance(payload, dict) else {}
+        if res.get("noData") is True:
+            # 013 proves an empty query only at the first page. Later 013
+            # cannot make previously received rows disappear.
+            if official_empty_response(res, payload, page):
+                total_pages_reported, total_count_reported = 1, 0
+            else:
+                coverage_complete = False
+                incomplete_reasons.append(PAGINATION_UNVERIFIED)
+            break
+        rows = payload.get("list") if isinstance(payload.get("list"), list) else []
+        observed_pages = positive_decimal(payload.get("total_page"))
+        observed_total = positive_decimal(payload.get("total_count"))
+        reported_page = positive_decimal(payload.get("page_no"))
+        invalid_page = (payload.get("status") != "000" or not isinstance(payload.get("list"), list)
+                        or observed_pages is None or observed_total is None or reported_page != page
+                        or not rows or any(not isinstance(row, dict) for row in rows))
+        changed_page = (total_pages_reported is not None and
+                        (observed_pages != total_pages_reported or observed_total != total_count_reported))
+        if total_pages_reported is None and observed_pages is not None:
+            total_pages_reported, total_count_reported = observed_pages, observed_total
+        if invalid_page or changed_page:
+            coverage_complete = False
+            incomplete_reasons.append(PAGINATION_UNVERIFIED)
+            # None of this page is safe to save or acknowledge. Preserve only
+            # earlier pages whose response metadata was internally consistent.
+            break
         for row in rows:
+            if not isinstance(row, dict):
+                continue
             stats["new_filings_detected"] += 1
-            rcept_no = str(row.get("rcept_no") or "").strip()
+            if not valid_filing_row(row, window):
+                coverage_complete = False
+                incomplete_reasons.append(PAGINATION_UNVERIFIED)
+                continue
+            rcept_no = row["rcept_no"]
+            if rcept_no in received_ids:
+                coverage_complete = False
+                incomplete_reasons.append(PAGINATION_UNVERIFIED)
+                continue
+            received_ids.add(rcept_no)
             entry = by_corp.get(row.get("corp_code"))
             if entry is None:
                 stats["unmatched_filings"] += 1
                 continue          # 우리 유니버스 밖 — 저장하지 않는다
             observed_filings.append(normalize_filing(row, entry, detected_at, source_mode))
             if not seen.is_new(rcept_no):
+                prior = seen.seen.get(rcept_no)
+                if (not isinstance(prior, dict) or prior.get('ticker') != entry.get('ticker')
+                        or prior.get('report_name') != row['report_nm'].strip()):
+                    # Do not replace an acknowledged original or claim full
+                    # coverage when a receipt now carries different evidence.
+                    coverage_complete = False
+                    incomplete_reasons.append(PAGINATION_UNVERIFIED)
                 stats["duplicate_skipped"] += 1
                 continue
             ev = normalize_filing(row, entry, detected_at, source_mode)
@@ -692,12 +798,13 @@ def collect_new_filings(client, corp_map, bgn_de=None, end_de=None, max_pages=No
                                          "detected_at": detected_at})
             events.append(ev)
             stats["matched_gaeo_filings"] += 1
-        if not rows:
+        if not coverage_complete:
             break
-        if total_pages_reported is not None and page >= total_pages_reported:
+        if page >= total_pages_reported:
+            if len(received_ids) != total_count_reported:
+                coverage_complete = False
+                incomplete_reasons.append(PAGINATION_UNVERIFIED)
             break
-        if total_pages_reported is None and len(rows) < 100:
-            break              # 마지막 페이지로 본다
         page += 1
 
     # 실제로 다 훑었는지 최종 판정

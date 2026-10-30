@@ -103,7 +103,7 @@ def refresh_corp_map(client, budget=None):
             "mappingRate": round(rate, 4)}
 
 
-def _store_and_ack(events, registry):
+def _store_and_ack(events, registry, allow_ack=True):
     """발견한 공시를 오늘 Segment 에 저장하고, 저장이 읽히는 것만 ACK 한다. (stored, acknowledged, errors)"""
     stored = 0
     store_errors = []
@@ -122,10 +122,13 @@ def _store_and_ack(events, registry):
             saved_keys = {str(r.get("rcept_no")) for r in store.read_day(day)}
             ok_nos = [e["rcept_no"] for e in events if e["rcept_no"] in saved_keys]
             missing = [e["rcept_no"] for e in events if e["rcept_no"] not in saved_keys]
-            for no in ok_nos:
-                registry.mark_stored(no)
-            registry.acknowledge_many(ok_nos)
-            acknowledged = len(ok_nos)
+            if allow_ack:
+                for no in ok_nos:
+                    registry.mark_stored(no)
+                registry.acknowledge_many(ok_nos)
+                acknowledged = len(ok_nos)
+            # A partial query may have saved an earlier valid page, but it
+            # must be retried until the entire interval is verified.
             if missing:
                 store_errors.append({"stage": "verify",
                                      "error": f"저장 확인 실패 {len(missing)}건 — 다음 실행에서 재시도"})
@@ -164,7 +167,8 @@ def collect(client, corp_map, budget=None, since=None):
         # 하루씩 — 쪽수 상한(P.DEFAULT_MAX_PAGES)은 하루 공시 전체 기준이다.
         result = P.collect_new_filings(client, corp_map, bgn_de=compact, end_de=compact, budget=budget)
         registry = result["registry"]
-        day_stored, day_acked, store_errors = _store_and_ack(result["events"], registry)
+        day_stored, day_acked, store_errors = _store_and_ack(
+            result["events"], registry, allow_ack=result["pagination"]["coverage_complete"])
         stored += day_stored
         acknowledged += day_acked
         events.extend(result["events"])

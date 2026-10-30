@@ -135,11 +135,16 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
         'historicalBackfillComplete': False, 'unresolvedHistorical': 0,
         'responseRef': None, 'error': None,
         'comparisonScopeVersion': comparison.SCOPE_VERSION, 'comparisonFindings': []}
+    window = dart_pipeline.filing_window(bgn_de, end_de)
+    if (window is None or not isinstance(corp_code, str) or
+            dart_pipeline.re.fullmatch(r'[0-9]{8}', corp_code) is None):
+        base['error'] = 'RESPONSE_SHAPE_UNEXPECTED'
+        return base
     if budget['left'] <= 0:
         base['error'] = 'REQUEST_BUDGET_EXHAUSTED'
         return base
 
-    rows, pages_expected, digest = [], None, hashlib.sha256()
+    rows, pages_expected, total_expected, digest = [], None, None, hashlib.sha256()
     page_no = 1
     while True:
         if budget['left'] <= 0:
@@ -162,21 +167,42 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
             base['error'] = result['status']
             base['apiStatus'] = str((result.get('data') or {}).get('status') or '') or None
             return base
-        data = result.get('data') or {}
+        data = result.get('data')
+        if not isinstance(data, dict):
+            base['error'] = 'RESPONSE_SHAPE_UNEXPECTED'
+            return base
         base['apiStatus'] = str(data.get('status') or '')
         digest.update(json.dumps(data, ensure_ascii=False, sort_keys=True).encode('utf-8'))
         if result.get('noData'):
             # 013 = 그 조회 범위에 자료 없음. 대상·기간이 검증된 이 조회에 한해서만 0건이다.
+            # 중간 페이지의 013은 이미 받은 행이 없었다는 증거가 아니다.
+            if not dart_pipeline.official_empty_response(result, data, page_no):
+                base['error'] = 'PAGINATION_CHANGED'
+                return base
             pages_expected, rows = 1, []
             base['pagesCollected'] = 1
             base['structureVerified'] = True
             break
-        if not isinstance(data.get('list'), list) or 'total_page' not in data or 'total_count' not in data:
+        if (data.get('status') != '000' or not isinstance(data.get('list'), list)
+                or 'total_page' not in data or 'total_count' not in data):
             base['error'] = 'RESPONSE_SHAPE_UNEXPECTED'      # 구조가 다르면 0건으로 읽지 않는다
             return base
+        observed_pages = dart_pipeline.positive_decimal(data['total_page'])
+        observed_total = dart_pipeline.positive_decimal(data['total_count'])
+        reported_page = dart_pipeline.positive_decimal(data.get('page_no'))
+        if (observed_pages is None or observed_total is None or reported_page != page_no
+                or not all(isinstance(row, dict) for row in data['list'])):
+            base['error'] = 'RESPONSE_SHAPE_UNEXPECTED'
+            return base
+        if pages_expected is not None and (observed_pages != pages_expected or observed_total != total_expected):
+            # A changing result set cannot be certified as a single complete
+            # snapshot, even if the final page's count happens to match.
+            base['error'] = 'PAGINATION_CHANGED'
+            return base
         base['structureVerified'] = True
-        pages_expected = int(data['total_page'] or 0)
-        base['totalCount'] = int(data['total_count'] or 0)
+        pages_expected, total_expected = observed_pages, observed_total
+        base['pagesExpected'] = pages_expected
+        base['totalCount'] = total_expected
         rows.extend(data['list'])
         base['pagesCollected'] = page_no
         if page_no >= max(pages_expected, 1):
@@ -188,12 +214,13 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
         base['totalCount'] = 0
     ids, findings, uninterpreted = [], [], 0
     for row in rows:
-        rcept = str(row.get('rcept_no') or '')
-        title = str(row.get('report_nm') or '')
-        stock = str(row.get('stock_code') or '').strip()
-        if not rcept or not title:
+        stock_field = row.get('stock_code')
+        if (not dart_pipeline.valid_filing_row(row, window, expected_corp=corp_code) or
+                (stock_field is not None and not isinstance(stock_field, str))):
             uninterpreted += 1                 # 식별·제목이 없는 줄은 해석하지 못한 자료다
             continue
+        rcept, title = row['rcept_no'], row['report_nm'].strip()
+        stock = (stock_field or '').strip()
         if stock and stock != ticker:
             # 회사 단위 공시가 다른 종목코드를 가리키면 우리가 판단하지 않는다.
             uninterpreted += 1
@@ -223,8 +250,20 @@ def collect_one(client, ticker, corp_code, bgn_de, end_de, budget):
     base['documentsInterpreted'] = False      # 본문은 아직 한 건도 읽지 않았다
     # 이 회사 자신의 사건만, 사건 단위로 센다. 거래소 반영 확인 경로가 없어 종료보고서가 있어도 연다고 하지 않는다.
     base['unresolvedHistorical'] = summary['openSelf']
-    base['historicalBackfillComplete'] = True
     base['responseRef'] = 'sha256:' + digest.hexdigest()
+    if len(ids) != base['totalCount'] or len(set(ids)) != len(ids):
+        # Missing, mismatched or repeated rows are not a verified absence.
+        base['error'] = 'RESULT_COUNT_MISMATCH'
+        return base
+    observed_at = _today()
+    if (observed_at.tzinfo is None or observed_at < queried_at or
+            observed_at >= queried_at + datetime.timedelta(hours=EVIDENCE_TTL_HOURS)):
+        base['error'] = 'OBSERVATION_TIME_INVALID'
+        return base
+    # Completion is when the last response became observable. The expiry is
+    # still measured from the start so this change never extends freshness.
+    base['queriedAt'] = observed_at.isoformat()
+    base['historicalBackfillComplete'] = True
     base['ok'] = True
     return base
 
