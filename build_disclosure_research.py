@@ -469,9 +469,14 @@ def company_timelines(rows, chains):
             stage = _stage_of(r["title"], chain)
             if stage is None:
                 continue
-            items.append({"stage": stage["stage"], "stageLabel": stage["label"], "rceptNo": r["rceptNo"],
+            item = {"stage": stage["stage"], "stageLabel": stage["label"], "rceptNo": r["rceptNo"],
                           "title": r["title"], "receivedOn": r["receivedOn"], "isCorrection": r["isCorrection"],
-                          "correctionKind": r["correctionKind"], "url": r["url"], "sources": r["sources"]})
+                          "correctionKind": r["correctionKind"], "url": r["url"], "sources": r["sources"]}
+            # build_all's source loaders check this claim before merging. Keep
+            # that exact value; legacy helper inputs must never acquire a time.
+            if "observedAt" in r:
+                item["observedAt"] = r["observedAt"]
+            items.append(item)
         if not items:
             continue
         seen = []

@@ -319,6 +319,55 @@ class ObservationBoundary(unittest.TestCase):
         with open(path, 'w', encoding='utf-8') as output:
             json.dump(doc, output)
 
+    def test_timeline_items_preserve_checked_observations_and_manifest_bytes(self):
+        docs, blobs = B.build_all(**self.kw)
+        rows, _ = B.load_list_filings(UNIVERSE, self.seen, observed_by=docs['contract']['generatedAt'])
+        evidence, _ = B.load_evidence_filings(UNIVERSE, self.evidence, observed_by=docs['contract']['generatedAt'])
+        merged = B.merge_filings(rows, evidence)
+        count = 0
+        for code, company in docs['event_timelines']['companies'].items():
+            originals = {r['rceptNo']: r for r in merged[code]}
+            for chain in company['timelines']:
+                for item in chain['items']:
+                    count += 1
+                    self.assertIn('observedAt', item)
+                    self.assertEqual(item['observedAt'], originals[item['rceptNo']]['observedAt'])
+        self.assertGreater(count, 0)
+        manifest = next(f for f in docs['contract']['files'] if f['kind'] == 'event_timelines')
+        self.assertEqual(hashlib.sha256(blobs['event_timelines']).hexdigest(), manifest['sha256'])
+        self.assertEqual(len(blobs['event_timelines']), manifest['bytes'])
+
+    def test_timeline_keeps_subseconds_at_equivalent_timezone_boundary(self):
+        cutoff = '2026-09-23T13:50:00.123456Z'
+        self.kw['check'] = {'checkedAt': cutoff, 'coveredUntil': cutoff,
+                            'window': {'from': '2026-09-22', 'to': '2026-09-23'}}
+        self.change(self.seen, lambda d: d['seen']['20260901800001'].update(
+            detected_at='2026-09-23T22:50:00.123456+09:00'))
+        docs, _ = B.build_all(**self.kw)
+        items = [i for c in docs['event_timelines']['companies'].values()
+                 for t in c['timelines'] for i in t['items'] if i['rceptNo'] == '20260901800001']
+        self.assertTrue(items)
+        self.assertTrue(all('observedAt' in i for i in items))
+        self.assertTrue(all(i['observedAt'] == cutoff for i in items))
+
+    def test_legacy_timeline_projection_never_manufactures_an_observation(self):
+        row = B.filing('20260901800001', '자기주식취득결정', '2026-09-01', 'list')
+        chains = B.load_vocab()['chains']
+        self.assertTrue(B.company_timelines([row], chains))
+        for value in (None, '', 'invalid', '2026-09-01T00:00:00'):
+            row['observedAt'] = value
+            items = [i for t in B.company_timelines([row], chains) for i in t['items']]
+            self.assertTrue(all(i['observedAt'] == value for i in items))
+        row.pop('observedAt')
+        self.assertTrue(all('observedAt' not in i for t in B.company_timelines([row], chains) for i in t['items']))
+
+    def test_unverified_timeline_source_stops_whole_build(self):
+        for stamp in (None, 'invalid', '2026-09-23T13:50:00.000001Z', '2026-09-23T13:00:00'):
+            with self.subTest(stamp=stamp):
+                self.change(self.seen, lambda d: d['seen']['20260901800001'].update(detected_at=stamp))
+                with self.assertRaisesRegex(B.NoCompleteListCheck, 'OBSERVATION'):
+                    B.build_all(**self.kw)
+
     def test_later_same_day_observation_stops_instead_of_becoming_no_event(self):
         self.change(self.seen, lambda d: d['seen']['20260915800321'].update(
             detected_at='2026-09-23T13:50:00.000001Z'))
