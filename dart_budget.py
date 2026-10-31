@@ -404,7 +404,21 @@ class DailyBudget:
 
 def _normalize(doc):
     """원장 JSON → 비교 가능한 모양. dict 가 아니면 None."""
-    if not isinstance(doc, dict) or not isinstance(doc.get("counts"), dict):
+    if (not isinstance(doc, dict)
+            or set(doc) != {'schemaVersion', 'day', 'counts', 'runs', 'updatedAt'}
+            or doc.get('schemaVersion') != SCHEMA_VERSION
+            or not isinstance(doc.get('counts'), dict)
+            or not set(KINDS) <= set(doc['counts'])
+            or any(type(v) is not int or v < 0 for v in doc['counts'].values())
+            or type(doc.get('runs')) is not int or doc['runs'] < 0):
+        return None
+    day = doc.get('day')
+    try:
+        if not isinstance(day, str) or datetime.date.fromisoformat(day).isoformat() != day:
+            return None
+        if dart_time.parse_instant(doc.get('updatedAt')) is None:
+            return None
+    except (ValueError, OverflowError):
         return None
     counts = _empty_counts()
     for k, v in doc["counts"].items():
@@ -425,6 +439,10 @@ def merge_ledgers(base, ours, theirs):
       · 두 쪽 다 읽을 수 없으면 None(해결하지 않는다 — 사람이 본다).
     """
     b, o, t = _normalize(base), _normalize(ours), _normalize(theirs)
+    # An invalid original must not silently become an absent contribution.
+    if any(raw is not None and normalized is None
+           for raw, normalized in ((base, b), (ours, o), (theirs, t))):
+        return None
     sides = [s for s in (o, t) if s is not None]
     if not sides:
         return None
@@ -452,13 +470,16 @@ def _load_for_merge(path):
     try:
         with open(path, encoding="utf-8") as f:
             text = f.read()
-    except OSError:
+    except FileNotFoundError:
         return None
+    except (OSError, UnicodeDecodeError):
+        return _BROKEN
     if not text.strip():
         return None
     try:
-        return json.loads(text)
-    except json.JSONDecodeError:
+        doc = json.loads(text, object_pairs_hook=unique_json_object)
+        return doc if _normalize(doc) is not None else _BROKEN
+    except (ValueError, RecursionError):
         return _BROKEN
 
 

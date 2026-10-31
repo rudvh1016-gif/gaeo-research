@@ -311,6 +311,19 @@ def _save_in_child(path, kind, amount, delay, use_lock):
     b.save()
 
 
+def _reject_changed_budget_in_child(path, ready, release):
+    budget = dart_budget.DailyBudget(path)
+    budget.spend('list')
+    ready.put(True)
+    if not release.wait(10):
+        raise RuntimeError('TEST_RELEASE_TIMEOUT')
+    try:
+        budget.save()
+    except dart_budget.BudgetLedgerUnverified:
+        return
+    raise AssertionError('Ambiguous budget was accepted')
+
+
 class ConcurrentSavesOnOneMachine(unittest.TestCase):
     AMOUNTS = (100, 200, 300)
 
@@ -348,6 +361,39 @@ class ConcurrentSavesOnOneMachine(unittest.TestCase):
         """통제군: 잠금을 빼면 같은 겹침에서 한쪽 이상이 사라진다 — 위 시험이 실제로 경합을 만들고 있다는 증거."""
         saved = self.run_children(use_lock=False)
         self.assertLess(saved['counts']['list'], sum(self.AMOUNTS))
+
+    @unittest.skipIf(dart_budget.fcntl is None, 'Requires POSIX budget locking')
+    def test_pending_processes_all_refuse_a_duplicate_key_original(self):
+        doc = {'schemaVersion': dart_budget.SCHEMA_VERSION, 'day': dart_time.today_kst(),
+               'counts': {k: 0 for k in dart_budget.KINDS}, 'runs': 0,
+               'updatedAt': dart_time.iso_now()}
+        dart_budget._write_ledger(self.path, doc)
+        ctx = multiprocessing.get_context('fork')
+        ready, release = ctx.Queue(), ctx.Event()
+        procs = [ctx.Process(target=_reject_changed_budget_in_child,
+                             args=(self.path, ready, release)) for _ in self.AMOUNTS]
+        try:
+            for proc in procs:
+                proc.start()
+            for _ in procs:
+                self.assertTrue(ready.get(timeout=10))
+            damaged = json.dumps(doc).replace('"list": 0', '"list": 999, "list": 0').encode()
+            with open(self.path, 'wb') as output:
+                output.write(damaged)
+            release.set()
+            for proc in procs:
+                proc.join(15)
+            self.assertEqual([proc.exitcode for proc in procs], [0] * len(procs))
+            with open(self.path, 'rb') as original:
+                self.assertEqual(original.read(), damaged)
+        finally:
+            release.set()
+            for proc in procs:
+                if proc.is_alive():
+                    proc.terminate()
+                proc.join(5)
+            ready.close()
+            ready.join_thread()
 
 
 # ── ② 서로 다른 컴퓨터 사이 — git 병합·rebase ────────────────────────────────────────────
@@ -576,7 +622,7 @@ class MergeLedgersUnit(unittest.TestCase):
     def doc(self, day, runs=1, **counts):
         c = {k: 0 for k in dart_budget.KINDS}
         c.update(counts)
-        return {'schemaVersion': 'dart_budget_v1', 'day': day, 'counts': c, 'runs': runs, 'updatedAt': f'{day}T00:00:00'}
+        return {'schemaVersion': 'dart_budget_v1', 'day': day, 'counts': c, 'runs': runs, 'updatedAt': f'{day}T00:00:00+00:00'}
 
     def test_yesterday_base_today_sides_are_summed(self):
         out = dart_budget.merge_ledgers(self.doc('2026-09-22', list=3053, runs=27),
@@ -615,6 +661,87 @@ class MergeLedgersUnit(unittest.TestCase):
             self.assertEqual(dart_budget.main(['--git-merge', paths[0], paths[1]]), 2)
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
+
+
+class MergeRejectsAmbiguousOriginals(unittest.TestCase):
+    def doc(self, count=0):
+        return MergeLedgersUnit().doc('2026-10-30', list=count)
+
+    def driver(self, texts):
+        with tempfile.TemporaryDirectory(prefix='gaeo-merge-invalid-') as temporary:
+            paths = [os.path.join(temporary, name) for name in ('base', 'ours', 'theirs')]
+            for path, text in zip(paths, texts):
+                with open(path, 'wb') as output:
+                    output.write(text if isinstance(text, bytes) else text.encode())
+            def read_all():
+                bodies = []
+                for path in paths:
+                    with open(path, 'rb') as original:
+                        bodies.append(original.read())
+                return bodies
+            before = read_all()
+            code = dart_budget.git_merge_driver(*paths)
+            after = read_all()
+            return code, before, after
+
+    def test_duplicate_keys_at_every_position_leave_all_originals_unchanged(self):
+        valid = json.dumps(self.doc(7))
+        variants = [valid.replace('"list": 7', '"list": 999, "list": 7'),
+                    valid.replace('"list": 7', '"list": 7, "list": 7'),
+                    valid.replace('"runs": 1', '"runs": 99, "runs": 1'),
+                    valid.replace('"list": 7', '"list": 999, "l\\u0069st": 7'),
+                    valid[:-1] + ', "counts": ' + json.dumps(self.doc(0)['counts']) + '}']
+        for invalid in variants:
+            for position in range(3):
+                with self.subTest(position=position, invalid=invalid):
+                    texts = [valid] * 3
+                    texts[position] = invalid
+                    code, before, after = self.driver(texts)
+                    self.assertEqual(code, 1)
+                    self.assertEqual(after, before)
+
+    def test_corrupt_and_invalid_shapes_never_become_missing_contributions(self):
+        valid = json.dumps(self.doc(7))
+        bad_docs = [None, [], {}, {**self.doc(), 'counts': []},
+                    {**self.doc(), 'counts': {'list': 1}},
+                    {**self.doc(), 'day': '2026-02-30'},
+                    {**self.doc(), 'updatedAt': 'unreadable'},
+                    {**self.doc(), 'updatedAt': '9999-12-31T23:59:59-23:59'},
+                    {**self.doc(), 'updatedAt': '0001-01-01T00:00:00+23:59'},
+                    {**self.doc(), 'schemaVersion': 'unknown'},
+                    {**self.doc(), 'runs': True}]
+        for number in (-1, True, 1.5, '999', None, float('nan'), float('inf')):
+            doc = self.doc()
+            doc['counts']['list'] = number
+            bad_docs.append(doc)
+        invalid_texts = [json.dumps(doc) for doc in bad_docs]
+        invalid_texts += ['<<<<<<< conflict', '[' * 2000 + '0' + ']' * 2000, b'\xff']
+        for invalid in invalid_texts:
+            for position in range(3):
+                with self.subTest(position=position, invalid=repr(invalid)[:80]):
+                    texts = [valid] * 3
+                    texts[position] = invalid
+                    code, before, after = self.driver(texts)
+                    self.assertEqual(code, 1)
+                    self.assertEqual(after, before)
+
+    def test_invalid_direct_merge_inputs_fail_closed(self):
+        for invalid in ([], {}, {'counts': {'list': '999'}}):
+            for position in range(3):
+                docs = [self.doc()] * 3
+                docs[position] = invalid
+                self.assertIsNone(dart_budget.merge_ledgers(*docs))
+
+    def test_read_failure_is_not_treated_as_absence(self):
+        with mock.patch('builtins.open', side_effect=PermissionError('synthetic')):
+            self.assertIs(dart_budget._load_for_merge('unreadable'), dart_budget._BROKEN)
+
+    def test_normal_independent_runner_increments_are_preserved(self):
+        base, ours, theirs = self.doc(100), self.doc(107), self.doc(151)
+        code, before, after = self.driver([json.dumps(doc) for doc in (base, ours, theirs)])
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(after[1])['counts']['list'], 158)
+        self.assertEqual((after[0], after[2]), (before[0], before[2]))
 
 
 class DriverIsWiredWhereRunnersMerge(unittest.TestCase):
