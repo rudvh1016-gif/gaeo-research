@@ -1,10 +1,10 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-10-31 00:00",
+ "generatedAt": "2026-11-01 01:01",
  "priceLabel": "공시 접수일 2026-10-26~2026-10-30 기준 · 시세 자료 공급 종료(2026-09-24)",
  "count": 670,
- "coverageState": "EVENT_DETECTED",
+ "coverageState": "NO_EVENT",
  "note": "금융감독원 전자공시(DART) 자동 수집(하루 2회 · corporate-action-evidence.yml). 참고 정보이며 점수·판단에는 쓰지 않는다.",
  "items": [
   {
