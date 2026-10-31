@@ -60,7 +60,7 @@ REPORT_LABEL = {"11011": "사업보고서(연간)", "11012": "반기보고서", 
 # ── 공통 ─────────────────────────────────────────────────────────────────────
 def _read_json(path):
     with open(path, encoding="utf-8") as f:
-        return json.load(f)
+        return json.load(f, object_pairs_hook=P.dart_budget.unique_json_object)
 
 
 def load_vocab(path=VOCAB_PATH):
@@ -113,41 +113,85 @@ def filing(rcept_no, title, received_on, source):
 
 
 # ── 원천 읽기 ────────────────────────────────────────────────────────────────
-def load_list_filings(universe, path=SEEN_PATH):
+def _observed_at(value, observed_by):
+    """Require a real observation no later than the bundle's stated boundary."""
+    import dart_time
+    try:
+        observed = dart_time.parse_instant(value)
+        boundary = dart_time.parse_instant(observed_by)
+    except (ValueError, OverflowError):
+        observed = boundary = None
+    if observed is None or boundary is None or observed > boundary:
+        raise NoCompleteListCheck('DISCLOSURE_OBSERVATION_UNVERIFIED')
+    return observed.isoformat().replace('+00:00', 'Z')
+
+
+def load_list_filings(universe, path=SEEN_PATH, observed_by=None):
     """seen_rcept.json → {ticker: [filing]} (추적 종목만). 접수일은 접수번호 앞 8자리다."""
     try:
-        seen = _read_json(path).get("seen") or {}
-    except (OSError, ValueError, AttributeError):
+        seen = _read_json(path).get("seen")
+        if not isinstance(seen, dict):
+            raise ValueError('INVALID_SEEN_SHAPE')
+    except (OSError, ValueError, AttributeError, RecursionError):
+        if observed_by is not None:
+            raise NoCompleteListCheck('DISCLOSURE_LIST_UNREADABLE')
         seen = {}
     out, span = {}, []
     for rcept_no, entry in seen.items():
         if not isinstance(entry, dict):
+            if observed_by is not None:
+                raise NoCompleteListCheck('DISCLOSURE_LIST_UNREADABLE')
             continue
         code = str(entry.get("ticker") or "")
         day = _iso(rcept_no)
-        if code not in universe or not day or not entry.get("report_name"):
+        if code not in universe:
             continue
-        out.setdefault(code, []).append(filing(rcept_no, entry.get("report_name"), day, "list"))
+        if not day or not isinstance(entry.get('report_name'), str) or not entry['report_name'].strip():
+            if observed_by is not None:
+                raise NoCompleteListCheck('DISCLOSURE_LIST_UNREADABLE')
+            continue
+        record = filing(rcept_no, entry.get("report_name"), day, "list")
+        if observed_by is not None:
+            record['observedAt'] = _observed_at(entry.get('detected_at'), observed_by)
+        out.setdefault(code, []).append(record)
         span.append(day)
     meta = {"from": min(span) if span else None, "to": max(span) if span else None, "count": len(span)}
     return out, meta
 
 
-def load_evidence_filings(universe, path=EVIDENCE_PATH):
+def load_evidence_filings(universe, path=EVIDENCE_PATH, observed_by=None):
     """corporate_action_evidence.json → 관련 제목만 보존된 공시(comparisonFindings)."""
     try:
-        evidence = _read_json(path).get("evidence") or {}
-    except (OSError, ValueError, AttributeError):
+        evidence = _read_json(path).get("evidence")
+        if not isinstance(evidence, dict):
+            raise ValueError('INVALID_EVIDENCE_SHAPE')
+    except (OSError, ValueError, AttributeError, RecursionError):
+        if observed_by is not None:
+            raise NoCompleteListCheck('DISCLOSURE_EVIDENCE_UNREADABLE')
         evidence = {}
     out, span = {}, []
     for code, rec in evidence.items():
-        if code not in universe or not isinstance(rec, dict):
+        if code not in universe:
             continue
+        if not isinstance(rec, dict) or not isinstance(rec.get('comparisonFindings'), list):
+            if observed_by is not None:
+                raise NoCompleteListCheck('DISCLOSURE_EVIDENCE_UNREADABLE')
+            continue
+        observed = _observed_at(rec.get('queriedAt'), observed_by) if observed_by is not None else None
         for row in rec.get("comparisonFindings") or []:
+            if not isinstance(row, dict):
+                if observed_by is not None:
+                    raise NoCompleteListCheck('DISCLOSURE_EVIDENCE_UNREADABLE')
+                continue
             day = _iso(row.get("receivedOn"))
             if not row.get("id") or not day or not row.get("title"):
+                if observed_by is not None:
+                    raise NoCompleteListCheck('DISCLOSURE_EVIDENCE_UNREADABLE')
                 continue
-            out.setdefault(code, []).append(filing(row["id"], row["title"], day, "evidence"))
+            record = filing(row["id"], row["title"], day, "evidence")
+            if observed is not None:
+                record['observedAt'] = observed
+            out.setdefault(code, []).append(record)
             span.append(day)
     meta = {"from": min(span) if span else None, "to": max(span) if span else None, "count": len(span)}
     return out, meta
@@ -164,6 +208,12 @@ def merge_filings(*sources):
                 if cur is None:
                     bucket[row["rceptNo"]] = dict(row, sources=list(row["sources"]))
                 else:
+                    if any(cur.get(key) != row.get(key) for key in ('title', 'receivedOn')):
+                        raise NoCompleteListCheck('DISCLOSURE_RECEIPT_CONFLICT')
+                    if 'observedAt' in cur and 'observedAt' in row:
+                        # Both copies were already checked against the boundary.
+                        cur['observedAt'] = min(cur['observedAt'], row['observedAt'],
+                                                key=lambda value: dt.datetime.fromisoformat(value.replace('Z', '+00:00')))
                     for s in row["sources"]:
                         if s not in cur["sources"]:
                             cur["sources"].append(s)
@@ -493,7 +543,7 @@ def _utc_z(value):
     moment = dt.datetime.fromisoformat(str(value).replace("Z", "+00:00"))
     if moment.tzinfo is None:
         raise ValueError("timezone 없는 시각")
-    return moment.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return moment.astimezone(dt.timezone.utc).isoformat().replace('+00:00', 'Z')
 
 
 def contract(universe, files, vocab, as_of, generated_at, built_at=None, inputs=None):
@@ -525,10 +575,11 @@ def build_all(universe=None, vocab=None, as_of=None, now=None, fin_dir=FIN_DIR, 
     vocab = vocab or load_vocab()
     now = now or dt.datetime.now(dt.timezone.utc)
     generated_at = _utc_z(check.get("coveredUntil") or check["checkedAt"])
+    _observed_at(generated_at, now.isoformat())
     as_of = as_of or check["window"]["to"]
     inputs = {"list": check, "evidence": evidence_snapshot(evidence_path)}
-    list_rows, list_meta = load_list_filings(universe, seen_path)
-    ev_rows, ev_meta = load_evidence_filings(universe, evidence_path)
+    list_rows, list_meta = load_list_filings(universe, seen_path, observed_by=generated_at)
+    ev_rows, ev_meta = load_evidence_filings(universe, evidence_path, observed_by=generated_at)
     merged = merge_filings(list_rows, ev_rows)
     docs = {
         "disclosure_changes": build_disclosure_changes(universe, merged, list_meta, ev_meta, vocab, as_of, generated_at),

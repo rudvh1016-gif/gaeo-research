@@ -43,9 +43,9 @@ def _fixture(root):
     with open(os.path.join(root, 'dart', 'seen_rcept.json'), 'w', encoding='utf-8') as f:
         json.dump(seen, f)
     evidence = {'evidence': {
-        '000660': {'comparisonFindings': [{'id': '20260819800002', 'receivedOn': '20260819', 'title': '자기주식취득결정   '},
+        '000660': {'queriedAt': '2026-09-14T01:00:00Z', 'comparisonFindings': [{'id': '20260819800002', 'receivedOn': '20260819', 'title': '자기주식취득결정   '},
                                           {'id': '20260701800009', 'receivedOn': '20260701', 'title': '유상증자결정'}]},
-        '000100': {'comparisonFindings': []},
+        '000100': {'queriedAt': '2026-09-14T01:00:00Z', 'comparisonFindings': []},
     }}
     with open(os.path.join(root, 'evidence.json'), 'w', encoding='utf-8') as f:
         json.dump(evidence, f)
@@ -203,7 +203,7 @@ class HonestFreshness(unittest.TestCase):
         now = self.dt.datetime(2026, 9, 29, 2, 0, tzinfo=self.dt.timezone.utc)
         docs, blobs = self.build(now)
         c = docs['contract']
-        self.assertEqual(c['generatedAt'], '2026-09-25T15:41:33Z')
+        self.assertEqual(c['generatedAt'], '2026-09-25T15:41:33.305198Z')
         self.assertEqual(c['asOf'], '2026-09-26')                     # 확인한 조회의 끝날 — 빌드한 날이 아니다
         self.assertEqual(c['builtAt'], '2026-09-29T02:00:00Z')
         self.assertEqual(c['inputs']['list']['window'], {'from': '2026-09-25', 'to': '2026-09-26'})
@@ -246,7 +246,7 @@ class HonestFreshness(unittest.TestCase):
                 state='EVENT_COVERAGE_INCOMPLETE', last=last)
         docs, _ = self.build(self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc))
         c = docs['contract']
-        self.assertEqual(c['generatedAt'], '2026-09-25T15:41:33Z')
+        self.assertEqual(c['generatedAt'], '2026-09-25T15:41:33.305198Z')
         self.assertEqual(c['inputs']['list']['latestRun'],
                          {'ranAt': '2026-09-29T00:05:00+00:00', 'state': 'EVENT_COVERAGE_INCOMPLETE', 'complete': False})
 
@@ -276,6 +276,19 @@ class CatchUpFreshness(unittest.TestCase):
         doc["catchUp"] = {"state": "CATCHUP_IN_PROGRESS", "behindDays": 15, "today": "2026-09-29"}
         with open(path, "w", encoding="utf-8") as f:
             json.dump(doc, f)
+        # The fixture includes a receipt first observed after this old coverage
+        # boundary. It cannot be published under that earlier timestamp.
+        with self.assertRaises(B.NoCompleteListCheck):
+            B.build_all(universe=UNIVERSE, vocab=B.load_vocab(),
+                        now=self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc),
+                        fin_dir=os.path.join(tmp, 'fin'), seen_path=os.path.join(tmp, 'dart', 'seen_rcept.json'),
+                        evidence_path=os.path.join(tmp, 'evidence.json'), status_path=path)
+        seen_path = os.path.join(tmp, 'dart', 'seen_rcept.json')
+        with open(seen_path, encoding='utf-8') as f:
+            seen = json.load(f)
+        seen['seen'].pop('20260915800321')
+        with open(seen_path, 'w', encoding='utf-8') as f:
+            json.dump(seen, f)
         docs, _ = B.build_all(universe=UNIVERSE, vocab=B.load_vocab(), now=self.dt.datetime(2026, 9, 29, 0, 10, tzinfo=self.dt.timezone.utc),
                               fin_dir=os.path.join(tmp, 'fin'), seen_path=os.path.join(tmp, 'dart', 'seen_rcept.json'),
                               evidence_path=os.path.join(tmp, 'evidence.json'), status_path=path)
@@ -283,6 +296,90 @@ class CatchUpFreshness(unittest.TestCase):
         self.assertEqual((c['generatedAt'], c['asOf']), ('2026-09-14T15:00:00Z', '2026-09-14'))
         self.assertEqual(c['inputs']['list']['catchUp']['state'], 'CATCHUP_IN_PROGRESS')   # 장애가 아니라 복구 진행
         self.assertEqual(c['inputs']['list']['checkedAt'], '2026-09-29T00:05:00+00:00')    # 확인한 시각은 따로 남는다
+
+
+class ObservationBoundary(unittest.TestCase):
+    def setUp(self):
+        import datetime
+        self.tmp = tempfile.mkdtemp(prefix='gaeo-observation-')
+        self.addCleanup(shutil.rmtree, self.tmp, True)
+        _fixture(self.tmp)
+        self.seen = os.path.join(self.tmp, 'dart', 'seen_rcept.json')
+        self.evidence = os.path.join(self.tmp, 'evidence.json')
+        self.kw = dict(universe=UNIVERSE, vocab=B.load_vocab(),
+                       now=datetime.datetime(2026, 9, 23, 14, tzinfo=datetime.timezone.utc),
+                       fin_dir=os.path.join(self.tmp, 'fin'), seen_path=self.seen,
+                       evidence_path=self.evidence,
+                       status_path=os.path.join(self.tmp, 'dart', 'collection_status.json'))
+
+    def change(self, path, edit):
+        with open(path, encoding='utf-8') as original:
+            doc = json.load(original)
+        edit(doc)
+        with open(path, 'w', encoding='utf-8') as output:
+            json.dump(doc, output)
+
+    def test_later_same_day_observation_stops_instead_of_becoming_no_event(self):
+        self.change(self.seen, lambda d: d['seen']['20260915800321'].update(
+            detected_at='2026-09-23T13:50:00.000001Z'))
+        with self.assertRaisesRegex(B.NoCompleteListCheck, 'OBSERVATION'):
+            B.build_all(**self.kw)
+
+    def test_invalid_or_unproven_observations_stop_the_bundle(self):
+        for stamp in (None, 'invalid', '2026-09-23T13:00:00', '9999-12-31T23:59:59-23:59'):
+            with self.subTest(stamp=stamp):
+                self.change(self.seen, lambda d: d['seen']['20260915800321'].update(detected_at=stamp))
+                with self.assertRaises(B.NoCompleteListCheck):
+                    B.build_all(**self.kw)
+
+    def test_evidence_completion_must_fit_even_for_an_empty_result(self):
+        for stamp in (None, '2026-09-23T13:50:00.000001Z'):
+            self.change(self.evidence, lambda d: d['evidence']['000100'].update(queriedAt=stamp))
+            with self.assertRaises(B.NoCompleteListCheck):
+                B.build_all(**self.kw)
+
+    def test_exact_subsecond_boundary_and_timezone_equivalence_are_allowed(self):
+        cutoff = '2026-09-23T13:50:00.123456Z'
+        self.kw['check'] = {'checkedAt': cutoff, 'coveredUntil': cutoff,
+                            'window': {'from': '2026-09-22', 'to': '2026-09-23'}}
+        self.change(self.seen, lambda d: d['seen']['20260915800321'].update(
+            detected_at='2026-09-23T22:50:00.123456+09:00'))
+        docs, _ = B.build_all(**self.kw)
+        self.assertEqual(docs['contract']['generatedAt'], cutoff)
+        row = next(r for r in docs['disclosure_changes']['companies']['000100']['filings']
+                   if r['rceptNo'] == '20260915800321')
+        self.assertEqual(row['observedAt'], cutoff)
+
+    def test_conflicting_copies_cannot_be_merged_under_one_receipt(self):
+        self.change(self.evidence, lambda d: d['evidence']['000660']['comparisonFindings'][0].update(
+            title='Different synthetic title'))
+        with self.assertRaisesRegex(B.NoCompleteListCheck, 'RECEIPT_CONFLICT'):
+            B.build_all(**self.kw)
+
+    def test_corruption_and_duplicate_json_keys_preserve_previous_outputs(self):
+        from unittest import mock
+        import io
+        out = os.path.join(self.tmp, 'out')
+        os.makedirs(out)
+        old = {}
+        for name in ('contract',) + B.KINDS:
+            path = os.path.join(out, name + '.json')
+            old[path] = ('old-' + name).encode()
+            with open(path, 'wb') as f:
+                f.write(old[path])
+        original_build = B.build_all
+        for raw in (b'{"seen":{},"seen":{}}', b'{"seen":[]}', b'\xff', b'{"seen":'):
+            with open(self.seen, 'wb') as f:
+                f.write(raw)
+            with mock.patch.object(B, 'OUT_DIR', out), \
+                 mock.patch.object(B, 'build_all', side_effect=lambda **kw: original_build(**self.kw)), \
+                 mock.patch('sys.stdout', new=io.StringIO()):
+                self.assertEqual(B.main(), 3)
+            for path, body in old.items():
+                with open(path, 'rb') as f:
+                    self.assertEqual(f.read(), body)
+            with open(self.seen, 'rb') as f:
+                self.assertEqual(f.read(), raw)
 
 
 class RealOutputs(unittest.TestCase):

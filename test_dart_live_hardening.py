@@ -690,6 +690,90 @@ class DartArchiveSchema(unittest.TestCase):
         m = self.store.close_daily_segment(day, today="2026-08-16")
         self.assertEqual(m["recordType"], S.RECORD_DART)
 
+    def test_exact_retry_preserves_original_ciphertext(self):
+        day = '2026-08-15'
+        record = _dart_event('A1')
+        self.store.append_predictions(day, [record], today=day)
+        path = self.store.segment_path(day)
+        with open(path, 'rb') as original:
+            before = original.read()
+        self.assertEqual(self.store.append_predictions(day, [record], today=day), (0, 1))
+        with open(path, 'rb') as original:
+            self.assertEqual(original.read(), before)
+
+    def test_changed_retry_and_mixed_batch_preserve_the_original(self):
+        day = '2026-08-15'
+        record = _dart_event('A1')
+        self.store.append_predictions(day, [record], today=day)
+        path = self.store.segment_path(day)
+        with open(path, 'rb') as original:
+            before = original.read()
+        for field, value in (('detected_at', '2026-08-15T15:00:00Z'),
+                             ('fetched_at', '2026-08-15T15:00:01Z'),
+                             ('report_name', 'Changed synthetic title')):
+            with self.subTest(field=field):
+                changed = dict(record, **{field: value})
+                with self.assertRaisesRegex(ValueError, 'DART_RECORD_CONFLICT'):
+                    self.store.append_predictions(day, [_dart_event('A2'), changed], today=day)
+                with open(path, 'rb') as original:
+                    self.assertEqual(original.read(), before)
+                self.assertEqual(self.store.read_day(day), [record])
+
+    def test_ambiguous_stored_and_incoming_duplicates_are_never_rewritten(self):
+        day = '2026-08-15'
+        record = _dart_event('A1')
+        path = self.store.segment_path(day)
+        for body in (json.dumps(record) + '\n' + json.dumps(record) + '\n',
+                     json.dumps(record).replace('"rcept_no": "A1"',
+                                                '"rcept_no":"OTHER","rcept_no":"A1"') + '\n'):
+            CR.write_encrypted(path, body, self.store._label(day), gzip_first=True)
+            with open(path, 'rb') as original:
+                before = original.read()
+            with self.assertRaisesRegex(ValueError, 'DART_ARCHIVE_AMBIGUOUS'):
+                self.store.append_predictions(day, [_dart_event('A2')], today=day)
+            with open(path, 'rb') as original:
+                self.assertEqual(original.read(), before)
+
+    def test_incoming_duplicate_batch_does_not_create_a_segment(self):
+        day = '2026-08-15'
+        with self.assertRaisesRegex(ValueError, 'DART_BATCH_AMBIGUOUS'):
+            self.store.append_predictions(day, [_dart_event('A1'), _dart_event('A1')], today=day)
+        self.assertIsNone(self.store.existing_segment(day))
+
+    def test_new_receipt_keeps_prior_record_content(self):
+        day = '2026-08-15'
+        original, new = _dart_event('A1'), _dart_event('A2')
+        self.store.append_predictions(day, [original], today=day)
+        self.assertEqual(self.store.append_predictions(day, [new], today=day), (1, 0))
+        self.assertEqual(self.store.read_day(day), [original, new])
+
+    def test_research_prediction_replacement_remains_separate(self):
+        day = '2026-08-15'
+        store = S.ResearchArchiveStore(root=os.path.join(self.tmp, 'research'),
+                                       record_type=S.RECORD_RESEARCH)
+        old = {'code': 'synthetic', 'date': day, 'value': 1}
+        new = dict(old, value=2)
+        store.append_predictions(day, [old], today=day)
+        self.assertEqual(store.append_predictions(day, [new], today=day), (0, 1))
+        self.assertEqual(store.read_day(day), [new])
+
+    def test_collector_does_not_ack_a_changed_retry(self):
+        from unittest import mock
+        import collect_dart as collector
+        day = '2026-08-15'
+        record = _dart_event('A1')
+        self.store.append_predictions(day, [record], today=day)
+        registry = mock.Mock()
+        changed = dict(record, detected_at='2026-08-15T15:00:00Z')
+        with mock.patch.object(collector, '_dart_store', return_value=self.store), \
+             mock.patch.object(T, 'today_kst', return_value=day):
+            stored, acked, errors = collector._store_and_ack([changed], registry, allow_ack=True)
+        self.assertEqual((stored, acked), (0, 0))
+        self.assertTrue(errors)
+        registry.mark_stored.assert_not_called()
+        registry.acknowledge_many.assert_not_called()
+        self.assertEqual(self.store.read_day(day), [record])
+
 
 class DartArchiveIntegration(unittest.TestCase):
     """append → close → gzip → manifest → decompress → count → sha256 → restore."""

@@ -97,13 +97,22 @@ def _read_text(path, label=None):
         return f.read()
 
 
-def _iter_jsonl(path, label=None):
+def _unique_json_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError('DART_ARCHIVE_AMBIGUOUS')
+        result[key] = value
+    return result
+
+
+def _iter_jsonl(path, label=None, strict=False):
     """한 줄씩 dict로 돌려준다. 암호문이면 복호 후 파싱한다."""
     for lineno, line in enumerate(_read_text(path, label).splitlines(), 1):
         line = line.strip()
         if not line:
             continue
-        yield lineno, json.loads(line)
+        yield lineno, json.loads(line, object_pairs_hook=_unique_json_object if strict else None)
 
 
 def _stat_records(path, record_type=RECORD_RESEARCH, label=None):
@@ -285,7 +294,7 @@ class ResearchArchiveStore:
         path = self.existing_segment(day)
         if not path:
             return []
-        return [rec for _n, rec in _iter_jsonl(path, self._label(day))]
+        return [rec for _n, rec in _iter_jsonl(path, self._label(day), strict=self.record_type == RECORD_DART)]
 
     def append_predictions(self, day, records, today=None):
         """오늘(ACTIVE) Segment에만 쓴다.
@@ -302,16 +311,32 @@ class ResearchArchiveStore:
 
         existing = self.read_day(day)
         index = {self._key(r): i for i, r in enumerate(existing)}
+        if self.record_type == RECORD_DART and len(index) != len(existing):
+            raise ValueError('DART_ARCHIVE_AMBIGUOUS')
         added = replaced = 0
+        batch_keys = set()
         for rec in records:
             key = self._key(rec)
+            if self.record_type == RECORD_DART:
+                if key in batch_keys:
+                    raise ValueError('DART_BATCH_AMBIGUOUS')
+                batch_keys.add(key)
             if key in index:
-                existing[index[key]] = rec
+                if self.record_type == RECORD_DART:
+                    if existing[index[key]] != rec:
+                        raise ValueError('DART_RECORD_CONFLICT')
+                else:
+                    existing[index[key]] = rec
                 replaced += 1
             else:
                 index[key] = len(existing)
                 existing.append(rec)
                 added += 1
+
+        # An exact DART retry acknowledges an existing record without replacing
+        # its original encrypted bytes. The legacy return field counts matches.
+        if self.record_type == RECORD_DART and added == 0:
+            return added, replaced
 
         body = "".join(
             json.dumps(rec, ensure_ascii=False, separators=(",", ":")) + "\n"
