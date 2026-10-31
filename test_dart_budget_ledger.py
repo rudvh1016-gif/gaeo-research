@@ -706,6 +706,8 @@ class MergeRejectsAmbiguousOriginals(unittest.TestCase):
                     {**self.doc(), 'counts': {'list': 1}},
                     {**self.doc(), 'day': '2026-02-30'},
                     {**self.doc(), 'updatedAt': 'unreadable'},
+                    {**self.doc(), 'updatedAt': '9999-12-31T23:59:59-23:59'},
+                    {**self.doc(), 'updatedAt': '0001-01-01T00:00:00+23:59'},
                     {**self.doc(), 'schemaVersion': 'unknown'},
                     {**self.doc(), 'runs': True}]
         for number in (-1, True, 1.5, '999', None, float('nan'), float('inf')):

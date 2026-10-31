@@ -410,14 +410,15 @@ def _normalize(doc):
             or not isinstance(doc.get('counts'), dict)
             or not set(KINDS) <= set(doc['counts'])
             or any(type(v) is not int or v < 0 for v in doc['counts'].values())
-            or type(doc.get('runs')) is not int or doc['runs'] < 0
-            or dart_time.parse_instant(doc.get('updatedAt')) is None):
+            or type(doc.get('runs')) is not int or doc['runs'] < 0):
         return None
     day = doc.get('day')
     try:
         if not isinstance(day, str) or datetime.date.fromisoformat(day).isoformat() != day:
             return None
-    except ValueError:
+        if dart_time.parse_instant(doc.get('updatedAt')) is None:
+            return None
+    except (ValueError, OverflowError):
         return None
     counts = _empty_counts()
     for k, v in doc["counts"].items():
