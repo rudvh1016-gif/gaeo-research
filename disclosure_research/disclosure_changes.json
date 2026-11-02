@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "disclosure_changes",
- "generatedAt": "2026-11-01T17:35:44Z",
+ "generatedAt": "2026-11-02T02:01:31Z",
  "asOf": "2026-11-02",
  "source": {
   "provider": "opendart",
@@ -33,17 +33,17 @@
  "coverage": {
   "trackedCompanies": 600,
   "companiesWithFilings": 575,
-  "filings": 8092,
+  "filings": 8139,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-10-30",
-    "count": 7311
+    "to": "2026-11-02",
+    "count": 7359
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
-    "from": "2025-10-31",
+    "from": "2025-11-03",
     "to": "2026-10-30",
     "count": 951,
     "onlyTitlesMatching": [
@@ -2783,9 +2783,9 @@
   },
   "000640": {
    "name": "동아쏘시오홀딩스",
-   "filingCount": 36,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 19,
+   "filingCount": 37,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 20,
    "priorCount": 9,
    "changes": [
     {
@@ -2840,12 +2840,24 @@
     {
      "type": "FEWER",
      "category": "other",
-     "recent": 1,
+     "recent": 2,
      "prior": 3,
-     "text": "기타 공시 1건 — 이전 30일 3건보다 줄었다"
+     "text": "기타 공시 2건 — 이전 30일 3건보다 줄었다"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800007",
+     "title": "투자판단관련주요경영사항(자회사의 주요경영사항) (급만성위염 치료제 스티렌큐정 국내 품목허가 승인)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800007",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261030800944",
      "title": "투자판단관련주요경영사항(자회사의 주요경영사항) (제2형 당뇨병 치료 복합제 슈가엠파정 국내 품목허가 승인)",
@@ -5525,17 +5537,17 @@
   },
   "001200": {
    "name": "유진투자증권",
-   "filingCount": 79,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 30,
+   "filingCount": 80,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 31,
    "priorCount": 34,
    "changes": [
     {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 27,
+     "recent": 28,
      "prior": 34,
-     "text": "증권신고·발행 공시 27건 — 이전 30일 34건보다 줄었다"
+     "text": "증권신고·발행 공시 28건 — 이전 30일 34건보다 줄었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -5546,6 +5558,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000004",
+     "title": "증권발행실적보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000004",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
     {
      "rceptNo": "20261030000417",
      "title": "증권발행실적보고서",
@@ -6013,21 +6037,9 @@
       "list"
      ],
      "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20260922000292",
-     "title": "투자설명서(일괄신고)",
-     "receivedOn": "2026-09-22",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000292",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
     }
    ],
-   "filingsTruncated": 39
+   "filingsTruncated": 40
   },
   "001230": {
    "name": "동국홀딩스",
@@ -10900,9 +10912,9 @@
   },
   "002840": {
    "name": "미원상사",
-   "filingCount": 12,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 6,
+   "filingCount": 13,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 7,
    "priorCount": 4,
    "changes": [
     {
@@ -10922,9 +10934,9 @@
     {
      "type": "FEWER",
      "category": "major_shareholder",
-     "recent": 0,
+     "recent": 1,
      "prior": 2,
-     "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 2건"
+     "text": "최대주주·대량보유 공시 1건 — 이전 30일 2건보다 줄었다"
     },
     {
      "type": "MORE",
@@ -10935,6 +10947,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800216",
+     "title": "최대주주등소유주식변동신고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800216",
+     "sources": [
+      "list"
+     ],
+     "category": "major_shareholder"
+    },
     {
      "rceptNo": "20261030000180",
      "title": "임원ㆍ주요주주특정증권등소유상황보고서",
@@ -11947,9 +11971,9 @@
   },
   "003160": {
    "name": "디아이",
-   "filingCount": 5,
-   "latestReceivedOn": "2026-10-16",
-   "recentCount": 2,
+   "filingCount": 6,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 3,
    "priorCount": 1,
    "changes": [
     {
@@ -11968,6 +11992,13 @@
     },
     {
      "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
      "category": "ir",
      "recent": 1,
      "prior": 0,
@@ -11975,6 +12006,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800245",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800245",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261016000123",
      "title": "주식등의대량보유상황보고서(약식)",
@@ -12575,9 +12618,9 @@
   },
   "003470": {
    "name": "유안타증권",
-   "filingCount": 82,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 34,
+   "filingCount": 84,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 36,
    "priorCount": 36,
    "changes": [
     {
@@ -12595,11 +12638,11 @@
      "text": "임원·주요주주 거래 공시 3건 — 이전 30일 2건보다 늘었다"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "securities_filing",
-     "recent": 29,
+     "recent": 31,
      "prior": 31,
-     "text": "증권신고·발행 공시 29건 — 이전 30일 31건보다 줄었다"
+     "text": "증권신고·발행 공시 31건 (이전 30일과 같음)"
     },
     {
      "type": "FEWER",
@@ -12610,6 +12653,30 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000015",
+     "title": "증권발행실적보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000015",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
+    {
+     "rceptNo": "20261102000011",
+     "title": "증권발행실적보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000011",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
     {
      "rceptNo": "20261030801172",
      "title": "최대주주등소유주식변동신고서",
@@ -13065,33 +13132,9 @@
       "list"
      ],
      "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20261002000080",
-     "title": "[기재정정]투자설명서(일괄신고)",
-     "receivedOn": "2026-10-02",
-     "isCorrection": true,
-     "correctionKind": "기재정정",
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002000080",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20261002000078",
-     "title": "[기재정정]일괄신고추가서류(기타파생결합사채)",
-     "receivedOn": "2026-10-02",
-     "isCorrection": true,
-     "correctionKind": "기재정정",
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002000078",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
     }
    ],
-   "filingsTruncated": 42
+   "filingsTruncated": 44
   },
   "003490": {
    "name": "대한항공",
@@ -14789,9 +14832,9 @@
   },
   "003570": {
    "name": "SNT다이내믹스",
-   "filingCount": 4,
-   "latestReceivedOn": "2026-10-20",
-   "recentCount": 1,
+   "filingCount": 5,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 2,
    "priorCount": 3,
    "changes": [
     {
@@ -14816,6 +14859,13 @@
      "text": "최근 30일에 최대주주·대량보유 공시 1건 — 그 이전 30일에는 0건"
     },
     {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
      "type": "FEWER",
      "category": "shareholder_meeting",
      "recent": 0,
@@ -14824,6 +14874,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800197",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800197",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261020000272",
      "title": "주식등의대량보유상황보고서(약식)",
@@ -15004,9 +15066,9 @@
   },
   "003670": {
    "name": "포스코퓨처엠",
-   "filingCount": 24,
-   "latestReceivedOn": "2026-10-26",
-   "recentCount": 18,
+   "filingCount": 26,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 20,
    "priorCount": 2,
    "changes": [
     {
@@ -15032,6 +15094,13 @@
     },
     {
      "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 2,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 2건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
      "category": "investment",
      "recent": 2,
      "prior": 0,
@@ -15053,6 +15122,30 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800270",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800270",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
+    {
+     "rceptNo": "20261102800268",
+     "title": "영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800268",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261026000354",
      "title": "임원ㆍ주요주주특정증권등소유상황보고서",
@@ -20715,9 +20808,9 @@
   },
   "005940": {
    "name": "NH투자증권",
-   "filingCount": 237,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 94,
+   "filingCount": 238,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 95,
    "priorCount": 105,
    "changes": [
     {
@@ -20744,9 +20837,9 @@
     {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 83,
+     "recent": 84,
      "prior": 103,
-     "text": "증권신고·발행 공시 83건 — 이전 30일 103건보다 줄었다"
+     "text": "증권신고·발행 공시 84건 — 이전 30일 103건보다 줄었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -20764,6 +20857,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000003",
+     "title": "증권발행실적보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000003",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
     {
      "rceptNo": "20261030000403",
      "title": "증권발행실적보고서",
@@ -21231,21 +21336,9 @@
       "list"
      ],
      "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20261021000260",
-     "title": "일괄신고추가서류(파생결합사채-주가연계파생결합사채)",
-     "receivedOn": "2026-10-21",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261021000260",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
     }
    ],
-   "filingsTruncated": 197
+   "filingsTruncated": 198
   },
   "005950": {
    "name": "이수화학",
@@ -22022,20 +22115,77 @@
   },
   "006280": {
    "name": "녹십자",
-   "filingCount": 1,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 1,
+   "filingCount": 4,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 4,
    "priorCount": 0,
    "changes": [
+    {
+     "type": "NEW_CATEGORY",
+     "category": "contract",
+     "recent": 2,
+     "prior": 0,
+     "text": "최근 30일에 판매·공급계약 공시 2건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
     {
      "type": "NEW_CATEGORY",
      "category": "other",
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 기타 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "CORRECTIONS",
+     "category": null,
+     "recent": 1,
+     "prior": null,
+     "text": "최근 30일 정정 공시 1건 — 정정 전후는 원문 비교로 확인"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800297",
+     "title": "단일판매ㆍ공급계약체결",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800297",
+     "sources": [
+      "list"
+     ],
+     "category": "contract"
+    },
+    {
+     "rceptNo": "20261102800281",
+     "title": "[기재정정]단일판매ㆍ공급계약체결",
+     "receivedOn": "2026-11-02",
+     "isCorrection": true,
+     "correctionKind": "기재정정",
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800281",
+     "sources": [
+      "list"
+     ],
+     "category": "contract"
+    },
+    {
+     "rceptNo": "20261102800193",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800193",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261030800005",
      "title": "투자판단관련주요경영사항",
@@ -22053,27 +22203,63 @@
   },
   "006340": {
    "name": "대원전선",
-   "filingCount": 27,
-   "latestReceivedOn": "2026-10-19",
-   "recentCount": 9,
+   "filingCount": 30,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 12,
    "priorCount": 6,
    "changes": [
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "major_shareholder",
-     "recent": 2,
+     "recent": 3,
      "prior": 3,
-     "text": "최대주주·대량보유 공시 2건 — 이전 30일 3건보다 줄었다"
+     "text": "최대주주·대량보유 공시 3건 (이전 30일과 같음)"
     },
     {
      "type": "MORE",
      "category": "insider",
-     "recent": 7,
+     "recent": 9,
      "prior": 3,
-     "text": "임원·주요주주 거래 공시 7건 — 이전 30일 3건보다 늘었다"
+     "text": "임원·주요주주 거래 공시 9건 — 이전 30일 3건보다 늘었다"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800262",
+     "title": "최대주주등소유주식변동신고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800262",
+     "sources": [
+      "list"
+     ],
+     "category": "major_shareholder"
+    },
+    {
+     "rceptNo": "20261102000029",
+     "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000029",
+     "sources": [
+      "list"
+     ],
+     "category": "insider"
+    },
+    {
+     "rceptNo": "20261102000027",
+     "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000027",
+     "sources": [
+      "list"
+     ],
+     "category": "insider"
+    },
     {
      "rceptNo": "20261019800170",
      "title": "최대주주등소유주식변동신고서",
@@ -30437,17 +30623,17 @@
   },
   "011930": {
    "name": "신성이엔지",
-   "filingCount": 10,
-   "latestReceivedOn": "2026-10-23",
-   "recentCount": 5,
+   "filingCount": 11,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 6,
    "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
      "category": "major_shareholder",
-     "recent": 3,
+     "recent": 4,
      "prior": 0,
-     "text": "최근 30일에 최대주주·대량보유 공시 3건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 최대주주·대량보유 공시 4건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -30458,6 +30644,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000031",
+     "title": "주식등의대량보유상황보고서(일반)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000031",
+     "sources": [
+      "list"
+     ],
+     "category": "major_shareholder"
+    },
     {
      "rceptNo": "20261023000369",
      "title": "주식등의대량보유상황보고서(일반)",
@@ -37101,9 +37299,9 @@
   },
   "022100": {
    "name": "포스코DX",
-   "filingCount": 3,
-   "latestReceivedOn": "2026-10-29",
-   "recentCount": 2,
+   "filingCount": 4,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 3,
    "priorCount": 0,
    "changes": [
     {
@@ -37112,6 +37310,13 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 판매·공급계약 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -37129,6 +37334,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800277",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800277",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261029800243",
      "title": "[기재정정]단일판매ㆍ공급계약체결",
@@ -39192,9 +39409,9 @@
   },
   "028670": {
    "name": "팬오션",
-   "filingCount": 10,
-   "latestReceivedOn": "2026-10-29",
-   "recentCount": 5,
+   "filingCount": 11,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 6,
    "priorCount": 4,
    "changes": [
     {
@@ -39220,6 +39437,13 @@
     },
     {
      "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
      "category": "ir",
      "recent": 2,
      "prior": 0,
@@ -39234,6 +39458,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800247",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800247",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261029800310",
      "title": "기업설명회(IR)개최(안내공시)",
@@ -40454,9 +40690,9 @@
   },
   "030610": {
    "name": "교보증권",
-   "filingCount": 440,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 179,
+   "filingCount": 442,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 181,
    "priorCount": 178,
    "changes": [
     {
@@ -40469,9 +40705,9 @@
     {
      "type": "FEWER",
      "category": "securities_filing",
-     "recent": 174,
+     "recent": 176,
      "prior": 178,
-     "text": "증권신고·발행 공시 174건 — 이전 30일 178건보다 줄었다"
+     "text": "증권신고·발행 공시 176건 — 이전 30일 178건보다 줄었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -40482,6 +40718,30 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000038",
+     "title": "투자설명서(일괄신고)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000038",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
+    {
+     "rceptNo": "20261102000033",
+     "title": "일괄신고추가서류(파생결합사채-주가연계파생결합사채)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000033",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
     {
      "rceptNo": "20261030000398",
      "title": "증권발행실적보고서",
@@ -40937,33 +41197,9 @@
       "list"
      ],
      "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20261028000188",
-     "title": "투자설명서(일괄신고)",
-     "receivedOn": "2026-10-28",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000188",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20261028000187",
-     "title": "일괄신고추가서류(파생결합사채-주가연계파생결합사채)",
-     "receivedOn": "2026-10-28",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000187",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
     }
    ],
-   "filingsTruncated": 400
+   "filingsTruncated": 402
   },
   "031210": {
    "name": "서울보증보험",
@@ -41330,9 +41566,9 @@
   },
   "032350": {
    "name": "롯데관광개발",
-   "filingCount": 13,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 6,
+   "filingCount": 14,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 7,
    "priorCount": 6,
    "changes": [
     {
@@ -41350,11 +41586,11 @@
      "text": "최근 30일에 임원·주요주주 거래 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "earnings",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 30일에 실적 공시 공시 0건 — 그 이전 30일에는 1건"
+     "text": "실적 공시 공시 1건 (이전 30일과 같음)"
     },
     {
      "type": "FEWER",
@@ -41372,6 +41608,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800002",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800002",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261030801225",
      "title": "최대주주등소유주식변동신고서",
@@ -42582,7 +42830,7 @@
   },
   "034020": {
    "name": "두산에너빌리티",
-   "filingCount": 20,
+   "filingCount": 19,
    "latestReceivedOn": "2026-10-29",
    "recentCount": 10,
    "priorCount": 5,
@@ -42868,18 +43116,6 @@
      "isCorrection": true,
      "correctionKind": "기재정정",
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251124800632",
-     "sources": [
-      "evidence"
-     ],
-     "category": "other"
-    },
-    {
-     "rceptNo": "20251031800937",
-     "title": "[기재정정]거래처와의거래중단",
-     "receivedOn": "2025-10-31",
-     "isCorrection": true,
-     "correctionKind": "기재정정",
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251031800937",
      "sources": [
       "evidence"
      ],
@@ -43677,7 +43913,8 @@
      "correctionKind": "첨부정정",
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000166",
      "sources": [
-      "list"
+      "list",
+      "evidence"
      ],
      "category": "merger_split"
     },
@@ -45750,9 +45987,9 @@
   },
   "036530": {
    "name": "SNT홀딩스",
-   "filingCount": 20,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 8,
+   "filingCount": 21,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 9,
    "priorCount": 6,
    "changes": [
     {
@@ -45784,6 +46021,13 @@
      "text": "임원·주요주주 거래 공시 1건 (이전 30일과 같음)"
     },
     {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
      "type": "FEWER",
      "category": "shareholder_meeting",
      "recent": 0,
@@ -45799,6 +46043,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800213",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800213",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261030801203",
      "title": "최대주주등소유주식변동신고서",
@@ -47240,9 +47496,9 @@
   },
   "039490": {
    "name": "키움증권",
-   "filingCount": 225,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 92,
+   "filingCount": 226,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 93,
    "priorCount": 75,
    "changes": [
     {
@@ -47276,9 +47532,9 @@
     {
      "type": "MORE",
      "category": "securities_filing",
-     "recent": 79,
+     "recent": 80,
      "prior": 72,
-     "text": "증권신고·발행 공시 79건 — 이전 30일 72건보다 늘었다"
+     "text": "증권신고·발행 공시 80건 — 이전 30일 72건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -47303,6 +47559,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000043",
+     "title": "증권발행실적보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000043",
+     "sources": [
+      "list"
+     ],
+     "category": "securities_filing"
+    },
     {
      "rceptNo": "20261030800503",
      "title": "기업설명회(IR)개최(안내공시)",
@@ -47770,21 +48038,9 @@
       "list"
      ],
      "category": "securities_filing"
-    },
-    {
-     "rceptNo": "20261022000042",
-     "title": "일괄신고추가서류(파생결합증권-주가연계증권)",
-     "receivedOn": "2026-10-22",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000042",
-     "sources": [
-      "list"
-     ],
-     "category": "securities_filing"
     }
    ],
-   "filingsTruncated": 185
+   "filingsTruncated": 186
   },
   "041510": {
    "name": "에스엠",
@@ -47998,9 +48254,9 @@
   },
   "042660": {
    "name": "한화오션",
-   "filingCount": 39,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 20,
+   "filingCount": 40,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 21,
    "priorCount": 7,
    "changes": [
     {
@@ -48027,9 +48283,9 @@
     {
      "type": "NEW_CATEGORY",
      "category": "insider",
-     "recent": 9,
+     "recent": 10,
      "prior": 0,
-     "text": "최근 30일에 임원·주요주주 거래 공시 9건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 임원·주요주주 거래 공시 10건 — 그 이전 30일에는 0건"
     },
     {
      "type": "FEWER",
@@ -48082,6 +48338,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000017",
+     "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000017",
+     "sources": [
+      "list"
+     ],
+     "category": "insider"
+    },
     {
      "rceptNo": "20261030800228",
      "title": "단일판매ㆍ공급계약체결",
@@ -49123,9 +49391,9 @@
   },
   "047040": {
    "name": "대우건설",
-   "filingCount": 27,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 9,
+   "filingCount": 29,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 11,
    "priorCount": 9,
    "changes": [
     {
@@ -49171,14 +49439,38 @@
      "text": "최근 30일에 기업집단 공시 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "other",
-     "recent": 0,
+     "recent": 2,
      "prior": 2,
-     "text": "최근 30일에 기타 공시 0건 — 그 이전 30일에는 2건"
+     "text": "기타 공시 2건 (이전 30일과 같음)"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800306",
+     "title": "투자판단관련주요경영사항",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800306",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
+    {
+     "rceptNo": "20261102800295",
+     "title": "투자판단관련주요경영사항",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800295",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261030800384",
      "title": "단일판매ㆍ공급계약체결",
@@ -49508,9 +49800,9 @@
   },
   "047050": {
    "name": "포스코인터내셔널",
-   "filingCount": 14,
-   "latestReceivedOn": "2026-10-20",
-   "recentCount": 1,
+   "filingCount": 15,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 2,
    "priorCount": 8,
    "changes": [
     {
@@ -49526,6 +49818,13 @@
      "recent": 0,
      "prior": 2,
      "text": "최근 30일에 최대주주·대량보유 공시 0건 — 그 이전 30일에는 2건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
     },
     {
      "type": "FEWER",
@@ -49557,6 +49856,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800220",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800220",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261020800513",
      "title": "기업설명회(IR)개최(안내공시)",
@@ -51831,11 +52142,18 @@
   },
   "058430": {
    "name": "포스코스틸리온",
-   "filingCount": 4,
-   "latestReceivedOn": "2026-10-27",
-   "recentCount": 1,
+   "filingCount": 6,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 3,
    "priorCount": 0,
    "changes": [
+    {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 2,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 2건 — 그 이전 30일에는 0건"
+    },
     {
      "type": "NEW_CATEGORY",
      "category": "ir",
@@ -51845,6 +52163,30 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800231",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800231",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
+    {
+     "rceptNo": "20261102800229",
+     "title": "영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800229",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261027800342",
      "title": "기업설명회(IR)개최(안내공시)",
@@ -53746,9 +54088,9 @@
   },
   "064960": {
    "name": "SNT모티브",
-   "filingCount": 11,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 4,
+   "filingCount": 12,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 5,
    "priorCount": 4,
    "changes": [
     {
@@ -53787,6 +54129,13 @@
      "text": "최근 30일에 임원·주요주주 거래 공시 2건 — 그 이전 30일에는 0건"
     },
     {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
      "type": "FEWER",
      "category": "shareholder_meeting",
      "recent": 0,
@@ -53802,6 +54151,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800199",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800199",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261030000370",
      "title": "임원ㆍ주요주주특정증권등소유상황보고서",
@@ -54439,9 +54800,9 @@
   },
   "068270": {
    "name": "셀트리온",
-   "filingCount": 29,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 12,
+   "filingCount": 30,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 13,
    "priorCount": 8,
    "changes": [
     {
@@ -54482,9 +54843,9 @@
     {
      "type": "FEWER",
      "category": "other",
-     "recent": 2,
+     "recent": 3,
      "prior": 4,
-     "text": "기타 공시 2건 — 이전 30일 4건보다 줄었다"
+     "text": "기타 공시 3건 — 이전 30일 4건보다 줄었다"
     },
     {
      "type": "CORRECTIONS",
@@ -54495,6 +54856,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800302",
+     "title": "투자판단관련주요경영사항 (CTP13 SC(짐펜트라) 유럽 임상 3상 시험계획 승인(Part1&2) (류마티스 관절염 환자))",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800302",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261030000742",
      "title": "임원ㆍ주요주주특정증권등소유상황보고서",
@@ -55845,9 +56218,9 @@
   },
   "073240": {
    "name": "금호타이어",
-   "filingCount": 7,
-   "latestReceivedOn": "2026-10-29",
-   "recentCount": 4,
+   "filingCount": 9,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 6,
    "priorCount": 0,
    "changes": [
     {
@@ -55867,9 +56240,9 @@
     {
      "type": "NEW_CATEGORY",
      "category": "other",
-     "recent": 1,
+     "recent": 3,
      "prior": 0,
-     "text": "최근 30일에 기타 공시 1건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 기타 공시 3건 — 그 이전 30일에는 0건"
     },
     {
      "type": "CORRECTIONS",
@@ -55880,6 +56253,30 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800014",
+     "title": "생산중단",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800014",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
+    {
+     "rceptNo": "20261102800011",
+     "title": "중대재해발생",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800011",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261029800635",
      "title": "연결재무제표기준영업(잠정)실적(공정공시)",
@@ -60273,9 +60670,9 @@
   },
   "089030": {
    "name": "테크윙",
-   "filingCount": 7,
-   "latestReceivedOn": "2026-10-28",
-   "recentCount": 3,
+   "filingCount": 8,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 4,
    "priorCount": 2,
    "changes": [
     {
@@ -60298,9 +60695,28 @@
      "recent": 1,
      "prior": 0,
      "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "ir",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102900259",
+     "title": "기업설명회(IR)개최",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102900259",
+     "sources": [
+      "list"
+     ],
+     "category": "ir"
+    },
     {
      "rceptNo": "20261028900224",
      "title": "단일판매ㆍ공급계약체결(자율공시)",
@@ -63494,17 +63910,17 @@
   },
   "097230": {
    "name": "HJ중공업",
-   "filingCount": 16,
-   "latestReceivedOn": "2026-10-28",
-   "recentCount": 8,
+   "filingCount": 17,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 9,
    "priorCount": 5,
    "changes": [
     {
      "type": "MORE",
      "category": "contract",
-     "recent": 5,
+     "recent": 6,
      "prior": 4,
-     "text": "판매·공급계약 공시 5건 — 이전 30일 4건보다 늘었다"
+     "text": "판매·공급계약 공시 6건 — 이전 30일 4건보다 늘었다"
     },
     {
      "type": "MORE",
@@ -63516,12 +63932,24 @@
     {
      "type": "CORRECTIONS",
      "category": null,
-     "recent": 4,
+     "recent": 5,
      "prior": null,
-     "text": "최근 30일 정정 공시 4건 — 정정 전후는 원문 비교로 확인"
+     "text": "최근 30일 정정 공시 5건 — 정정 전후는 원문 비교로 확인"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800290",
+     "title": "[기재정정]단일판매ㆍ공급계약체결",
+     "receivedOn": "2026-11-02",
+     "isCorrection": true,
+     "correctionKind": "기재정정",
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800290",
+     "sources": [
+      "list"
+     ],
+     "category": "contract"
+    },
     {
      "rceptNo": "20261028800670",
      "title": "단일판매ㆍ공급계약체결",
@@ -64693,9 +65121,9 @@
   },
   "100840": {
    "name": "SNT에너지",
-   "filingCount": 5,
-   "latestReceivedOn": "2026-10-12",
-   "recentCount": 1,
+   "filingCount": 6,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 2,
    "priorCount": 1,
    "changes": [
     {
@@ -64706,6 +65134,13 @@
      "text": "최근 30일에 판매·공급계약 공시 1건 — 그 이전 30일에는 0건"
     },
     {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
      "type": "FEWER",
      "category": "shareholder_meeting",
      "recent": 0,
@@ -64714,6 +65149,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800233",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800233",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20261012800266",
      "title": "단일판매ㆍ공급계약체결(자율공시)",
@@ -65007,17 +65454,17 @@
   },
   "104700": {
    "name": "한국철강",
-   "filingCount": 5,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 5,
+   "filingCount": 7,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 7,
    "priorCount": 0,
    "changes": [
     {
      "type": "NEW_CATEGORY",
      "category": "merger_split",
-     "recent": 1,
+     "recent": 3,
      "prior": 0,
-     "text": "최근 30일에 합병·분할·양수도 공시 1건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 합병·분할·양수도 공시 3건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -65042,6 +65489,30 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102000002",
+     "title": "공개매수설명서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000002",
+     "sources": [
+      "list"
+     ],
+     "category": "merger_split"
+    },
+    {
+     "rceptNo": "20261102000001",
+     "title": "공개매수신고서",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000001",
+     "sources": [
+      "list"
+     ],
+     "category": "merger_split"
+    },
     {
      "rceptNo": "20261030800840",
      "title": "주주총회소집결의",
@@ -66229,9 +66700,9 @@
   },
   "112610": {
    "name": "씨에스윈드",
-   "filingCount": 11,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 4,
+   "filingCount": 12,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 5,
    "priorCount": 4,
    "changes": [
     {
@@ -66256,11 +66727,11 @@
      "text": "최근 30일에 임원·주요주주 거래 공시 1건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "SAME",
+     "type": "MORE",
      "category": "contract",
-     "recent": 1,
+     "recent": 2,
      "prior": 1,
-     "text": "판매·공급계약 공시 1건 (이전 30일과 같음)"
+     "text": "판매·공급계약 공시 2건 — 이전 30일 1건보다 늘었다"
     },
     {
      "type": "NEW_CATEGORY",
@@ -66285,6 +66756,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800240",
+     "title": "단일판매ㆍ공급계약체결",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800240",
+     "sources": [
+      "list"
+     ],
+     "category": "contract"
+    },
     {
      "rceptNo": "20261030800168",
      "title": "[기재정정]단일판매ㆍ공급계약체결",
@@ -71582,9 +72065,9 @@
   },
   "170900": {
    "name": "동아에스티",
-   "filingCount": 7,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 6,
+   "filingCount": 8,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 7,
    "priorCount": 0,
    "changes": [
     {
@@ -71611,12 +72094,24 @@
     {
      "type": "NEW_CATEGORY",
      "category": "other",
-     "recent": 1,
+     "recent": 2,
      "prior": 0,
-     "text": "최근 30일에 기타 공시 1건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 기타 공시 2건 — 그 이전 30일에는 0건"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800003",
+     "title": "투자판단관련주요경영사항 (급만성위염 치료제 스티렌큐정 국내 품목허가 승인)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800003",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261030800910",
      "title": "투자판단관련주요경영사항 (제2형 당뇨병 치료 복합제 슈가엠파정 국내 품목허가 승인)",
@@ -74765,9 +75260,9 @@
   },
   "207940": {
    "name": "삼성바이오로직스",
-   "filingCount": 45,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 30,
+   "filingCount": 46,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 31,
    "priorCount": 6,
    "changes": [
     {
@@ -74792,11 +75287,11 @@
      "text": "최근 30일에 임원·주요주주 거래 공시 20건 — 그 이전 30일에는 0건"
     },
     {
-     "type": "FEWER",
+     "type": "SAME",
      "category": "contract",
-     "recent": 0,
+     "recent": 1,
      "prior": 1,
-     "text": "최근 30일에 판매·공급계약 공시 0건 — 그 이전 30일에는 1건"
+     "text": "판매·공급계약 공시 1건 (이전 30일과 같음)"
     },
     {
      "type": "NEW_CATEGORY",
@@ -74822,12 +75317,24 @@
     {
      "type": "CORRECTIONS",
      "category": null,
-     "recent": 5,
+     "recent": 6,
      "prior": null,
-     "text": "최근 30일 정정 공시 5건 — 정정 전후는 원문 비교로 확인"
+     "text": "최근 30일 정정 공시 6건 — 정정 전후는 원문 비교로 확인"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800004",
+     "title": "[기재정정]단일판매ㆍ공급계약체결",
+     "receivedOn": "2026-11-02",
+     "isCorrection": true,
+     "correctionKind": "기재정정",
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800004",
+     "sources": [
+      "list"
+     ],
+     "category": "contract"
+    },
     {
      "rceptNo": "20261030000702",
      "title": "특수관계인의유상증자참여",
@@ -75305,21 +75812,9 @@
       "list"
      ],
      "category": "group"
-    },
-    {
-     "rceptNo": "20260828800325",
-     "title": "기업설명회(IR)개최(안내공시)",
-     "receivedOn": "2026-08-28",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800325",
-     "sources": [
-      "list"
-     ],
-     "category": "ir"
     }
    ],
-   "filingsTruncated": 5
+   "filingsTruncated": 6
   },
   "210980": {
    "name": "SK디앤디",
@@ -76837,9 +77332,9 @@
   },
   "226950": {
    "name": "올릭스",
-   "filingCount": 16,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 6,
+   "filingCount": 17,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 7,
    "priorCount": 3,
    "changes": [
     {
@@ -76852,19 +77347,31 @@
     {
      "type": "MORE",
      "category": "other",
-     "recent": 4,
+     "recent": 5,
      "prior": 3,
-     "text": "기타 공시 4건 — 이전 30일 3건보다 늘었다"
+     "text": "기타 공시 5건 — 이전 30일 3건보다 늘었다"
     },
     {
      "type": "CORRECTIONS",
      "category": null,
-     "recent": 2,
+     "recent": 3,
      "prior": null,
-     "text": "최근 30일 정정 공시 2건 — 정정 전후는 원문 비교로 확인"
+     "text": "최근 30일 정정 공시 3건 — 정정 전후는 원문 비교로 확인"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102900257",
+     "title": "[기재정정]투자판단관련주요경영사항(임상시험계획승인신청)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": true,
+     "correctionKind": "기재정정",
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102900257",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261030901020",
      "title": "[기재정정]투자판단관련주요경영사항(임상시험계획승인신청등결정)",
@@ -80704,9 +81211,9 @@
   },
   "272210": {
    "name": "한화시스템",
-   "filingCount": 28,
-   "latestReceivedOn": "2026-10-30",
-   "recentCount": 13,
+   "filingCount": 29,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 14,
    "priorCount": 5,
    "changes": [
     {
@@ -80740,9 +81247,9 @@
     {
      "type": "NEW_CATEGORY",
      "category": "investment",
-     "recent": 2,
+     "recent": 3,
      "prior": 0,
-     "text": "최근 30일에 투자·출자 공시 2건 — 그 이전 30일에는 0건"
+     "text": "최근 30일에 투자·출자 공시 3건 — 그 이전 30일에는 0건"
     },
     {
      "type": "NEW_CATEGORY",
@@ -80782,12 +81289,24 @@
     {
      "type": "CORRECTIONS",
      "category": null,
-     "recent": 1,
+     "recent": 2,
      "prior": null,
-     "text": "최근 30일 정정 공시 1건 — 정정 전후는 원문 비교로 확인"
+     "text": "최근 30일 정정 공시 2건 — 정정 전후는 원문 비교로 확인"
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800005",
+     "title": "[기재정정]타법인주식및출자증권처분결정(종속회사의주요경영사항)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": true,
+     "correctionKind": "기재정정",
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800005",
+     "sources": [
+      "list"
+     ],
+     "category": "investment"
+    },
     {
      "rceptNo": "20261030801362",
      "title": "투자판단관련주요경영사항",
@@ -81990,12 +82509,51 @@
   },
   "286940": {
    "name": "롯데이노베이트",
-   "filingCount": 1,
-   "latestReceivedOn": "2026-08-28",
-   "recentCount": 0,
+   "filingCount": 3,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 2,
    "priorCount": 0,
-   "changes": [],
+   "changes": [
+    {
+     "type": "NEW_CATEGORY",
+     "category": "earnings",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 실적 공시 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
+     "type": "NEW_CATEGORY",
+     "category": "ir",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
+    }
+   ],
    "filings": [
+    {
+     "rceptNo": "20261102800299",
+     "title": "기업설명회(IR)개최(안내공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800299",
+     "sources": [
+      "list"
+     ],
+     "category": "ir"
+    },
+    {
+     "rceptNo": "20261102800274",
+     "title": "연결재무제표기준영업(잠정)실적(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800274",
+     "sources": [
+      "list"
+     ],
+     "category": "earnings"
+    },
     {
      "rceptNo": "20260828000708",
      "title": "대규모기업집단현황공시[분기별공시(개별회사용)]",
@@ -85630,9 +86188,9 @@
   },
   "326030": {
    "name": "SK바이오팜",
-   "filingCount": 16,
-   "latestReceivedOn": "2026-09-23",
-   "recentCount": 0,
+   "filingCount": 17,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 1,
    "priorCount": 6,
    "changes": [
     {
@@ -85657,6 +86215,13 @@
      "text": "최근 30일에 판매·공급계약 공시 0건 — 그 이전 30일에는 2건"
     },
     {
+     "type": "NEW_CATEGORY",
+     "category": "ir",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 IR·설명회 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
      "type": "FEWER",
      "category": "other",
      "recent": 0,
@@ -85665,6 +86230,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800256",
+     "title": "기업설명회(IR)개최(안내공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800256",
+     "sources": [
+      "list"
+     ],
+     "category": "ir"
+    },
     {
      "rceptNo": "20260923800342",
      "title": "단일판매ㆍ공급계약체결",
@@ -91148,9 +91725,9 @@
   },
   "402340": {
    "name": "SK스퀘어",
-   "filingCount": 10,
-   "latestReceivedOn": "2026-10-28",
-   "recentCount": 4,
+   "filingCount": 11,
+   "latestReceivedOn": "2026-11-02",
+   "recentCount": 5,
    "priorCount": 0,
    "changes": [
     {
@@ -91175,6 +91752,13 @@
      "text": "최근 30일에 배당 공시 2건 — 그 이전 30일에는 0건"
     },
     {
+     "type": "NEW_CATEGORY",
+     "category": "other",
+     "recent": 1,
+     "prior": 0,
+     "text": "최근 30일에 기타 공시 1건 — 그 이전 30일에는 0건"
+    },
+    {
      "type": "CORRECTIONS",
      "category": null,
      "recent": 1,
@@ -91183,6 +91767,18 @@
     }
    ],
    "filings": [
+    {
+     "rceptNo": "20261102800271",
+     "title": "수시공시의무관련사항(공정공시)",
+     "receivedOn": "2026-11-02",
+     "isCorrection": false,
+     "correctionKind": null,
+     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800271",
+     "sources": [
+      "list"
+     ],
+     "category": "other"
+    },
     {
      "rceptNo": "20261028800051",
      "title": "주요사항보고서(자기주식취득결정)(자회사의 주요경영사항)",
