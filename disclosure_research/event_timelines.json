@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-11-03T16:43:37Z",
+ "generatedAt": "2026-11-04T02:41:05Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -291,19 +291,19 @@
  },
  "coverage": {
   "trackedCompanies": 600,
-  "companiesWithTimelines": 327,
+  "companiesWithTimelines": 326,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-11-03",
-    "count": 7640
+    "to": "2026-11-04",
+    "count": 7689
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
-    "from": "2025-11-03",
+    "from": "2025-11-04",
     "to": "2026-11-03",
-    "count": 960,
+    "count": 957,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -343,19 +343,6 @@
      "chain": "capital_increase",
      "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
      "items": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20251103000273",
-       "title": "증권발행실적보고서(합병등)",
-       "receivedOn": "2025-11-03",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251103000273",
-       "sources": [
-        "evidence"
-       ]
-      },
       {
        "stage": "REPORTED",
        "stageLabel": "발행 결과",
@@ -15240,6 +15227,19 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261104000073",
+       "title": "증권발행실적보고서",
+       "receivedOn": "2026-11-04",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104000073",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -15260,7 +15260,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-30",
+     "latestReceivedOn": "2026-11-04",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
@@ -32053,19 +32053,6 @@
      "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
      "items": [
       {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20251103000026",
-       "title": "증권발행실적보고서(합병등)",
-       "receivedOn": "2025-11-03",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251103000026",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
        "rceptNo": "20260320801902",
@@ -32162,10 +32149,16 @@
      ],
      "stagesSeen": [
       "PLANNED",
-      "FILED",
-      "REPORTED"
+      "FILED"
      ],
-     "stagesNotFound": [],
+     "stagesNotFound": [
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
      "latestStage": "FILED",
      "latestReceivedOn": "2026-10-22",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
@@ -32749,7 +32742,8 @@
        "correctionKind": null,
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800289",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -32796,7 +32790,8 @@
        "correctionKind": null,
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800289",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -35196,50 +35191,6 @@
      "latestStage": "PLANNED",
      "latestReceivedOn": "2026-08-21",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
-    }
-   ]
-  },
-  "300720": {
-   "name": "한일시멘트",
-   "timelines": [
-    {
-     "chain": "capital_increase",
-     "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
-     "items": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20251103000219",
-       "title": "증권발행실적보고서(합병등)",
-       "receivedOn": "2025-11-03",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251103000219",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "REPORTED"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "FILED",
-       "stageLabel": "증권신고서·발행가 확정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "REPORTED",
-     "latestReceivedOn": "2025-11-03",
-     "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
   },
