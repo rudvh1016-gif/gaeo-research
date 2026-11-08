@@ -1,12 +1,30 @@
 // 자동 생성: build_dart_today.py · 홈 '오늘의 공시' 위젯 전용 소형 스냅샷 (네트워크 0)
 // 원천: collect_dart.py 가 남긴 research_archive/dart/seen_rcept.json (OpenDART 공시 목록)
 const DART_TODAY = {
- "generatedAt": "2026-11-08 01:48",
+ "generatedAt": "2026-11-09 02:32",
  "priceLabel": "공시 접수일 2026-11-02~2026-11-06 기준 · 시세 자료 공급 종료(2026-09-24)",
  "count": 644,
- "coverageState": "NO_EVENT",
+ "coverageState": "EVENT_DETECTED",
  "note": "금융감독원 전자공시(DART) 자동 수집(하루 2회 · corporate-action-evidence.yml). 참고 정보이며 점수·판단에는 쓰지 않는다.",
  "items": [
+  {
+   "code": "178320",
+   "name": "서진시스템",
+   "title": "주요사항보고서(전환사채권발행결정)",
+   "receiptDate": "20261106",
+   "detectedAt": "2026-11-08T17:32:54.081631+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261106000482"
+  },
+  {
+   "code": "178320",
+   "name": "서진시스템",
+   "title": "주요사항보고서(전환사채권발행결정)",
+   "receiptDate": "20261106",
+   "detectedAt": "2026-11-08T17:32:54.081631+00:00",
+   "isCorrection": false,
+   "rceptNo": "20261106000481"
+  },
   {
    "code": "145020",
    "name": "휴젤",
@@ -546,15 +564,6 @@ const DART_TODAY = {
    "detectedAt": "2026-11-06T15:52:58.947936+00:00",
    "isCorrection": false,
    "rceptNo": "20261106000380"
-  },
-  {
-   "code": "178320",
-   "name": "서진시스템",
-   "title": "주식등의대량보유상황보고서(약식)",
-   "receiptDate": "20261106",
-   "detectedAt": "2026-11-06T15:52:58.947936+00:00",
-   "isCorrection": false,
-   "rceptNo": "20261106000359"
   },
   {
    "code": "006730",
@@ -3318,15 +3327,6 @@ const DART_TODAY = {
    "detectedAt": "2026-11-04T16:43:36.803975+00:00",
    "isCorrection": false,
    "rceptNo": "20261104000123"
-  },
-  {
-   "code": "178320",
-   "name": "서진시스템",
-   "title": "[기재정정]타인에대한채무보증결정",
-   "receiptDate": "20261104",
-   "detectedAt": "2026-11-04T16:43:36.803975+00:00",
-   "isCorrection": true,
-   "rceptNo": "20261104900666"
   },
   {
    "code": "062040",
