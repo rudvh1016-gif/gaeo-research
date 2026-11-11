@@ -5,6 +5,8 @@
 네트워크를 쓰지 않는다. 가짜 응답으로 수집기의 판단만 시험한다.
 실제 수집이 됐다는 증거가 아니다 — 그것은 워크플로 실행 기록으로만 말한다.
 """
+import hashlib
+import re
 import unittest
 
 import collect_corporate_action_evidence as collector
@@ -18,7 +20,11 @@ class FakeClient:
 
     def list_issuer_filings(self, corp_code, bgn_de, end_de, page_no=1, **kw):
         self.calls += 1
-        return self.pages[min(page_no - 1, len(self.pages) - 1)]
+        response = dict(self.pages[min(page_no - 1, len(self.pages) - 1)])
+        if isinstance(response.get('data'), dict) and response['data'].get('status') == '000':
+            response['data'] = dict(response['data'])
+            response['data'].setdefault('page_no', page_no)
+        return response
 
 
 def page(rows, total_page=1, total_count=None, status='000'):
@@ -29,7 +35,9 @@ def page(rows, total_page=1, total_count=None, status='000'):
 
 
 def filing(rcept, title, stock='005930'):
-    return {'rcept_no': rcept, 'report_nm': title, 'stock_code': stock, 'rcept_dt': '20260901'}
+    if not re.fullmatch(r'[0-9]{14}', rcept):
+        rcept = f"20260901{int.from_bytes(hashlib.sha256(rcept.encode()).digest()[:6], 'big') % 10**6:06d}"
+    return {'corp_code':'00126380', 'rcept_no': rcept, 'report_nm': title, 'stock_code': stock, 'rcept_dt': '20260901'}
 
 
 def run(client, budget=50):
@@ -37,6 +45,27 @@ def run(client, budget=50):
 
 
 class CollectorTests(unittest.TestCase):
+    def test_corrupt_budget_stops_before_client_and_reports_unknown(self):
+        import io, json, os, tempfile
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, 'budget.json')
+            raw = b'{"broken":'
+            with open(path, 'wb') as f:
+                f.write(raw)
+            with mock.patch.object(collector, 'BUDGET_FILE', path), \
+                 mock.patch.object(collector.dart_client, 'DartClient') as client, \
+                 mock.patch('sys.stdout', new=io.StringIO()) as stdout:
+                result = collector.main(['--tickers', '1', '--requests', '2'])
+            output = json.loads(stdout.getvalue())
+            client.assert_not_called()
+            self.assertEqual(result, 2)
+            self.assertEqual(output['status'], 'DART_BUDGET_UNVERIFIED')
+            self.assertIsNone(output['remaining'])
+            self.assertIsNone(output['deferrableHeadroom'])
+            with open(path, 'rb') as f:
+                self.assertEqual(f.read(), raw)
+
     def test_price_comparison_scope_is_additive_without_extra_requests(self):
         client = FakeClient([page([filing('20260901000001', '현금·현물배당 결정'),
                                   filing('20260901000002', '주식병합 안내')])])
@@ -51,13 +80,13 @@ class CollectorTests(unittest.TestCase):
         out = run(FakeClient([page([filing('R1', '현금·현물배당 결정')])]))
         self.assertTrue(out['ok'])
         self.assertEqual((out['pagesExpected'], out['pagesCollected']), (1, 1))
-        self.assertEqual((out['totalCount'], out['collectedIds']), (1, ['R1']))
+        self.assertEqual((out['totalCount'], out['collectedIds']), (1, [filing('R1','')['rcept_no']]))
         self.assertEqual(out['findings'], [])            # 현금배당은 주식 수를 바꾸지 않는다
         self.assertEqual(out['unresolvedHistorical'], 0)
 
     def test_a_relevant_filing_is_reported_and_counted_unresolved(self):
         out = run(FakeClient([page([filing('R2', '주요사항보고서(무상증자결정)')])]))
-        self.assertEqual([f['id'] for f in out['findings']], ['R2'])
+        self.assertEqual([f['id'] for f in out['findings']], [filing('R2','')['rcept_no']])
         self.assertEqual(out['unresolvedHistorical'], 1)
         self.assertEqual(out['eventCounts']['openSelf'], 1)
 
@@ -92,6 +121,14 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(out['apiStatus'], '013')
         self.assertEqual((out['totalCount'], out['pagesExpected'], out['pagesCollected']), (0, 1, 1))
 
+    def test_no_data_with_an_event_or_nonzero_count_is_not_zero(self):
+        for data in ({'status':'013', 'list':[filing('R1', '무상증자 결정')]},
+                     {'status':'013', 'total_count':1}, {'status':'000'}):
+            with self.subTest(data=data):
+                out = run(FakeClient([{'status': dart_client.OK, 'data': data, 'noData': True}]))
+                self.assertFalse(out['ok'])
+                self.assertFalse(out['historicalBackfillComplete'])
+
     def test_a_transport_failure_is_never_zero(self):
         dead = {'status': dart_client.DART_UNREACHABLE, 'data': None, 'error': 'x'}
         out = run(FakeClient([dead]))
@@ -119,6 +156,51 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual((out['pagesExpected'], out['pagesCollected']), (3, 3))
         self.assertEqual(client.calls, 3)
 
+    def test_empty_later_page_never_turns_partial_response_into_success(self):
+        client = FakeClient([page([filing('R1', '무상증자 결정')], total_page=2, total_count=2),
+                             {'status': dart_client.OK, 'data': {'status': '013'}, 'noData': True}])
+        out = run(client)
+        self.assertFalse(out['ok'])
+        self.assertFalse(out['historicalBackfillComplete'])
+        self.assertEqual(out['error'], 'PAGINATION_CHANGED')
+
+    def test_total_count_change_never_certifies_a_complete_history(self):
+        # The final count happens to match the two distinct rows. A downstream
+        # consumer cannot otherwise tell that the first page reported three.
+        client = FakeClient([page([filing('R1', '무상증자 결정')], total_page=2, total_count=3),
+                             page([filing('R2', '기타')], total_page=2, total_count=2)])
+        out = run(client)
+        self.assertFalse(out['ok'])
+        self.assertEqual(out['error'], 'PAGINATION_CHANGED')
+
+    def test_page_count_change_never_certifies_a_complete_history(self):
+        client = FakeClient([page([filing('R1', '기타')], total_page=3, total_count=2),
+                             page([filing('R2', '기타')], total_page=2, total_count=2)])
+        out = run(client)
+        self.assertFalse(out['ok'])
+        self.assertEqual(out['error'], 'PAGINATION_CHANGED')
+
+    def test_duplicate_and_missing_rows_do_not_count_as_verified(self):
+        for pages in ([page([filing('R1', '기타')], total_page=2, total_count=2),
+                       page([filing('R1', '기타')], total_page=2, total_count=2)],
+                      [page([filing('R1', '기타')], total_page=1, total_count=2)]):
+            with self.subTest(pages=pages):
+                out = run(FakeClient(pages))
+                self.assertFalse(out['ok'])
+                self.assertFalse(out['historicalBackfillComplete'])
+                self.assertEqual(out['error'], 'RESULT_COUNT_MISMATCH')
+
+    def test_bad_pagination_metadata_fails_without_crashing(self):
+        for field, value in [('total_page', 'bad'), ('total_page', 0),
+                             ('total_page', True), ('total_count', -1),
+                             ('total_count', 0), ('total_count', 'bad'), ('total_count', True)]:
+            with self.subTest(field=field, value=value):
+                response = page([filing('R1', '기타')])
+                response['data'][field] = value
+                out = run(FakeClient([response]))
+                self.assertFalse(out['ok'])
+                self.assertEqual(out['error'], 'RESPONSE_SHAPE_UNEXPECTED')
+
     def test_a_budget_stop_is_reported_not_completed(self):
         client = FakeClient([page([filing('R1', '기타')], total_page=5, total_count=5)])
         out = collector.collect_one(client, '005930', '00126380', '20250911', '20260911', {'left': 2})
@@ -131,12 +213,66 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(out['findings'], [])
         self.assertEqual(out['collectedIds'], [])
 
+    def test_wrong_company_or_blank_identity_never_proves_no_event(self):
+        for row in (dict(filing('R1', '기타', stock=''), corp_code='99999999'),
+                    dict(filing('R1', '기타'), corp_code=''),
+                    dict(filing('R1', '기타'), rcept_no='  '),
+                    dict(filing('R1', '기타'), report_nm='  '),
+                    dict(filing('R1', '기타'), rcept_dt='20260912'),
+                    dict(filing('R1', '기타'), rcept_dt='20260230'),
+                    dict(filing('R1', '기타'), rcept_dt=None),
+                    dict(filing('R1', '기타'), rcept_no='bad')):
+            with self.subTest(row=row):
+                out = run(FakeClient([page([row])]))
+                self.assertFalse(out['ok'])
+                self.assertFalse(out['historicalBackfillComplete'])
+
+    def test_receipt_identifier_is_not_assumed_to_encode_receipt_date(self):
+        # The issuer response preserves rcept_dt itself. Official OpenDART
+        # documents the 14-digit ID and receipt date as separate fields.
+        row = filing('20260902000001', '현금·현물배당 결정')
+        out = run(FakeClient([page([row])]))
+        self.assertTrue(out['ok'])
+        self.assertTrue(out['historicalBackfillComplete'])
+        self.assertEqual(out['collectedIds'], [row['rcept_no']])
+        self.assertEqual(out['comparisonFindings'][0]['receivedOn'], '20260901')
+
+    def test_missing_page_number_does_not_prove_issuer_response(self):
+        class RawClient:
+            def list_issuer_filings(self, *args, **kwargs):
+                return page([filing('R1','기타')])
+        out = run(RawClient())
+        self.assertFalse(out['ok'])
+
     def test_the_evidence_carries_a_way_back_to_the_real_response(self):
         out = run(FakeClient([page([filing('R1', '기타')])]))
         self.assertTrue(out['responseRef'].startswith('sha256:'))
         self.assertEqual(out['identityBasis'], 'corp_code_map')
         self.assertEqual(out['source'], 'OPENDART_API')
         self.assertLess(out['queriedAt'], out['expiresAt'])
+
+    def test_observation_time_is_after_the_last_page_and_expiry_is_conservative(self):
+        import datetime
+        from unittest import mock
+        started = datetime.datetime(2026,9,11,0,0,tzinfo=datetime.timezone.utc)
+        received = started + datetime.timedelta(minutes=3)
+        with mock.patch.object(collector, '_today', side_effect=[started, started, received]):
+            out = run(FakeClient([{'status':dart_client.OK,'data':{'status':'013'},'noData':True}]))
+        self.assertEqual(out['queriedAt'], received.isoformat())
+        self.assertEqual(out['expiresAt'], (started + datetime.timedelta(hours=20)).isoformat())
+
+    def test_clock_rollback_between_issuer_pages_is_not_verified(self):
+        import datetime
+        from unittest import mock
+        started = datetime.datetime(2026,9,11,0,0,tzinfo=datetime.timezone.utc)
+        responses = [page([filing('R1','기타')],total_page=2,total_count=2),
+                     page([filing('R2','기타')],total_page=2,total_count=2)]
+        with mock.patch.object(collector, '_today', side_effect=[started, started, started + datetime.timedelta(minutes=5),
+                                                                 started + datetime.timedelta(minutes=1),
+                                                                 started + datetime.timedelta(minutes=2)]):
+            out = run(FakeClient(responses))
+        self.assertFalse(out['ok'])
+        self.assertFalse(out['historicalBackfillComplete'])
 
 
 class DueTargetMode(unittest.TestCase):
@@ -440,7 +576,7 @@ class DeferrableReserveContract(unittest.TestCase):
             with open(path, 'w', encoding='utf-8') as fh:
                 json.dump({'schemaVersion': 'dart_budget_v1', 'day': '2000-01-01',
                            'counts': {'list': 9999, 'mapping': 0, 'detail': 0, 'financial': 0, 'other': 0},
-                           'runs': 40}, fh)
+                           'runs': 40, 'updatedAt': '2000-01-01T00:00:00+00:00'}, fh)
             a = dart_budget.DailyBudget(path)      # 어제 원장은 읽지 않는다(0부터)
             a.spend('list', 5)
             a.save()
@@ -469,7 +605,7 @@ class ReserveReachedMidRunKeepsUntouchedEvidence(unittest.TestCase):
         from unittest import mock
         import dart_budget
         tickers = ['000010', '000020', '000030']
-        mapped = {t: {'corp_code': f'C{t}'} for t in tickers}
+        mapped = {t: {'corp_code': f'11{t}'} for t in tickers}
         previous = {t: {'ok': True, 'ticker': t, 'error': None, 'findings': [], 'unresolvedHistorical': 0,
                         'queriedAt': '2026-09-23T00:00:00+00:00'} for t in tickers}
         client = FakeClient([{'status': dart_client.OK, 'noData': True, 'data': {'status': '013'}}])
@@ -548,7 +684,7 @@ class TimeBoundedResumableRun(unittest.TestCase):
     def run_main(self, client, args, clock=None, checkpoint=None):
         import os, io, json, datetime
         from unittest import mock
-        mapped = {t: {'corp_code': f'C{t}'} for t in self.TICKERS}
+        mapped = {t: {'corp_code': f'11{t}'} for t in self.TICKERS}
         when = datetime.datetime(2026, 9, 29, 1, 49, tzinfo=datetime.timezone.utc)
         writes = []
         real_write = collector._write
@@ -594,7 +730,7 @@ class TimeBoundedResumableRun(unittest.TestCase):
         code, saved, spent, writes = self.run_main(client, ['--tickers', '4000', '--requests', '5200', '--max-minutes', '2.5'],
                                                    clock=lambda: client.calls * 60.0)
         self.assertEqual(code, 0, '시간 상한 멈춤은 오류가 아니다 — 다음 회차가 잇는다')
-        self.assertEqual(client.queried, ['C000010', 'C000020', 'C000030'])
+        self.assertEqual(client.queried, ['11000010', '11000020', '11000030'])
         self.assertEqual((saved['succeeded'], saved['cursor'], saved['stoppedBy'], saved['runComplete']),
                          (3, '000030', 'deadline_reached', False))
         self.assertTrue(all(saved['evidence'][t]['ok'] for t in self.TICKERS[:3]))
@@ -608,7 +744,7 @@ class TimeBoundedResumableRun(unittest.TestCase):
         second = self.client()
         code, saved, spent, _ = self.run_main(second, ['--tickers', '2', '--requests', '5200'])
         self.assertEqual(code, 0)
-        self.assertEqual(second.queried, ['C000040', 'C000050'], '이미 받은 종목을 처음부터 다시 받지 않는다')
+        self.assertEqual(second.queried, ['11000040', '11000050'], '이미 받은 종목을 처음부터 다시 받지 않는다')
         self.assertEqual(saved['cursor'], '000050')
         self.assertEqual(len([t for t in self.TICKERS if saved['evidence'].get(t, {}).get('ok')]), 5)
         self.assertEqual(spent['list'], 5, '두 회차 사용량이 모두 원장에 남는다')

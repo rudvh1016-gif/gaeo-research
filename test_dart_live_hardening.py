@@ -10,7 +10,11 @@ import datetime
 import gzip
 import json
 import os
+import re
+import signal
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from zoneinfo import ZoneInfo
@@ -29,7 +33,12 @@ DART_ROWS = [{"corp_code": "00126380", "corp_name": "삼성전자", "stock_code"
              {"corp_code": "00164779", "corp_name": "에스케이하이닉스", "stock_code": "000660"}]
 
 
+_TEST_RECEIPTS = {}
 def _filing(no, corp="00126380", name="주요사항보고서"):
+    if not re.fullmatch(r'[0-9]{14}', no):
+        if no not in _TEST_RECEIPTS:
+            _TEST_RECEIPTS[no] = len(_TEST_RECEIPTS) + 1
+        no = f"20260815{_TEST_RECEIPTS[no]:06d}"
     return {"corp_code": corp, "rcept_no": no, "report_nm": name,
             "corp_cls": "Y", "rcept_dt": "20260815"}
 
@@ -51,8 +60,12 @@ class FakeClient:
         if self.fail_from is not None and page >= self.fail_from:
             self.stats["api_errors"] += 1
             return {"status": C.EVENT_DATA_ERROR, "data": None, "error": "HTTP 500"}
-        return {"status": C.OK, "data": self.pages.get(page, {"list": [], "total_page": 1}),
-                "error": None}
+        data = dict(self.pages.get(page, {"list": [], "total_page": 1}))
+        if 'status' not in data:
+            if data.get('list') == []:
+                return {'status':C.OK, 'data':{'status':'013'}, 'noData':True}
+            data.update(status='000', page_no=page, total_count=len(data.get('list', [])))
+        return {"status": C.OK, "data": data, "error": None}
 
     def efficiency_report(self, extra=None):
         out = dict(self.stats); out.update(extra or {}); return out
@@ -170,13 +183,13 @@ class DurableWrite(unittest.TestCase):
     def _collect(self, client=None):
         cmap = P.build_corp_map(DART_ROWS, UNIVERSE)
         client = client or FakeClient({1: {"list": [_filing("A1")], "total_page": 1}})
-        return P.collect_new_filings(client, cmap, seen_path=self.seen)
+        return P.collect_new_filings(client, cmap, seen_path=self.seen, bgn_de='20260815', end_de='20260815')
 
     def test_collection_only_marks_pending(self):
         """수집 단계에서 ACKNOWLEDGED로 확정하면 안 된다."""
         res = self._collect()
         reg = res["registry"]
-        self.assertEqual(reg.seen["A1"]["state"], P.SeenRegistry.PENDING)
+        self.assertEqual(reg.seen[_filing('A1')['rcept_no']]["state"], P.SeenRegistry.PENDING)
         self.assertEqual(res["events"][0]["processing_status"], P.SeenRegistry.PENDING)
 
     def test_pending_is_still_new_next_run(self):
@@ -184,12 +197,12 @@ class DurableWrite(unittest.TestCase):
         res = self._collect()
         res["registry"].save()                     # ACK 없이 저장(=크래시 흉내)
         res2 = self._collect()
-        self.assertEqual([e["rcept_no"] for e in res2["events"]], ["A1"],
+        self.assertEqual([e["rcept_no"] for e in res2["events"]], [_filing('A1')['rcept_no']],
                          "저장 실패한 공시가 재시도되지 않았다")
 
     def test_acknowledged_is_skipped(self):
         res = self._collect()
-        res["registry"].acknowledge_many(["A1"])
+        res["registry"].acknowledge_many([_filing('A1')['rcept_no']])
         res["registry"].save()
         res2 = self._collect()
         self.assertEqual(res2["events"], [])
@@ -214,9 +227,9 @@ class DurableWrite(unittest.TestCase):
         finally:
             store.append_predictions = orig
         reg.save()
-        self.assertNotEqual(reg.seen["A1"]["state"], P.SeenRegistry.ACKNOWLEDGED)
+        self.assertNotEqual(reg.seen[_filing('A1')['rcept_no']]["state"], P.SeenRegistry.ACKNOWLEDGED)
         res2 = self._collect()
-        self.assertEqual([e["rcept_no"] for e in res2["events"]], ["A1"])
+        self.assertEqual([e["rcept_no"] for e in res2["events"]], [_filing('A1')['rcept_no']])
 
     def test_ack_only_after_readback(self):
         """저장 후 실제로 읽히는 것만 ACK한다."""
@@ -227,9 +240,9 @@ class DurableWrite(unittest.TestCase):
         day = T.today_kst()
         store.append_predictions(day, [dict(e, date=day) for e in res["events"]], today=day)
         saved = {str(r.get("rcept_no")) for r in store.read_day(day)}
-        self.assertIn("A1", saved)
-        reg.acknowledge_many([n for n in ["A1"] if n in saved])
-        self.assertEqual(reg.seen["A1"]["state"], P.SeenRegistry.ACKNOWLEDGED)
+        self.assertIn(_filing('A1')['rcept_no'], saved)
+        reg.acknowledge_many([n for n in [_filing('A1')['rcept_no']] if n in saved])
+        self.assertEqual(reg.seen[_filing('A1')['rcept_no']]["state"], P.SeenRegistry.ACKNOWLEDGED)
 
     def test_pending_count_reported(self):
         res = self._collect()
@@ -256,16 +269,237 @@ class PaginationCoverage(unittest.TestCase):
     def _run(self, pages, max_pages=None, client=None):
         cmap = P.build_corp_map(DART_ROWS, UNIVERSE)
         client = client or FakeClient(pages)
-        return P.collect_new_filings(client, cmap, seen_path=self.seen,
+        return P.collect_new_filings(client, cmap, seen_path=self.seen, bgn_de='20260815', end_de='20260815',
                                      max_pages=max_pages)
 
+    class RawClient:
+        has_key = True
+        def __init__(self, responses):
+            self.responses = responses
+            self.calls = []
+        def list_filings(self, **kw):
+            self.calls.append(kw)
+            return self.responses[kw['page_no'] - 1]
+
+    def raw(self, responses):
+        return self._run({}, client=self.RawClient(responses))
+
+    @staticmethod
+    def response(rows, total_page=1, total_count=1, page_no=1):
+        return {'status': C.OK, 'error': None, 'data': {'status':'000', 'page_no':page_no,
+                'total_page':total_page, 'total_count':total_count, 'list':rows}}
+
+    def test_later_no_data_does_not_certify_partial_listing(self):
+        result = self.raw([self.response([_filing('A1')], total_page=2, total_count=2),
+                           {'status':C.OK,'data':{'status':'013'},'noData':True}])
+        self.assertFalse(result['pagination']['coverage_complete'])
+        self.assertNotIn(P.coverage_state(result['events'],result['errors'],True,result['pagination'])[0], P.COMPLETE_STATES)
+        self.assertEqual([event['rcept_no'] for event in result['events']], [_filing('A1')['rcept_no']])
+        self.assertEqual(result['registry'].pending_count(), 1)
+
+    def test_changing_page_or_total_count_is_not_complete(self):
+        for second in (self.response([_filing('A2')], total_page=2, total_count=2, page_no=2),
+                       self.response([_filing('A2')], total_page=3, total_count=3, page_no=2)):
+            with self.subTest(second=second):
+                result = self.raw([self.response([_filing('A1')], total_page=2, total_count=3), second])
+                self.assertFalse(result['pagination']['coverage_complete'])
+                self.assertEqual(result['registry'].pending_count(), 1)
+
+    def test_unrecognized_or_contradictory_page_metadata_is_incomplete(self):
+        for payload in ({'status':'000'},
+                        {'status':'000','list':[],'total_page':1,'total_count':3},
+                        {'status':'000','list':[_filing('A1')],'total_page':True,'total_count':1},
+                        {'status':'000','list':[_filing('A1')],'total_page':1,'total_count':0},
+                        {'status':'000','list':[None],'total_page':1,'total_count':1},
+                        {'status':'000','list':[_filing('A1')],'total_page':1,'total_count':1,'page_no':2}):
+            with self.subTest(payload=payload):
+                result = self.raw([{'status':C.OK,'error':None,'data':payload}])
+                self.assertFalse(result['pagination']['coverage_complete'])
+                self.assertNotIn(P.coverage_state(result['events'],result['errors'],True,result['pagination'])[0], P.COMPLETE_STATES)
+
+    def test_count_checks_include_unmatched_and_repeated_rows(self):
+        valid = self.raw([self.response([_filing('A1',corp='77777777'), _filing('A2')], total_count=2)])
+        self.assertTrue(valid['pagination']['coverage_complete'])
+        self.assertEqual(len(valid['events']), 1)
+        repeated = self.raw([self.response([_filing('A1')], total_page=2, total_count=2),
+                             self.response([_filing('A1')], total_page=2, total_count=2, page_no=2)])
+        self.assertFalse(repeated['pagination']['coverage_complete'])
+
+    def test_invalid_identifier_or_query_date_never_certifies_coverage(self):
+        for row in (dict(_filing('A1'), corp_code='N/A'), dict(_filing('A1'), rcept_no='notid'),
+                    dict(_filing('A1'), rcept_dt='20260816'), dict(_filing('A1'), rcept_dt='20260230'),
+                    dict(_filing('A1'), rcept_dt=None),
+                    dict(_filing('A1'), rcept_no='20260816000001')):
+            with self.subTest(row=row):
+                result = self.raw([self.response([row])])
+                self.assertFalse(result['pagination']['coverage_complete'])
+                self.assertEqual(result['events'], [])
+
+    def test_first_page_official_no_data_is_complete(self):
+        result = self.raw([{'status':C.OK,'data':{'status':'013'},'noData':True}])
+        self.assertTrue(result['pagination']['coverage_complete'])
+        self.assertEqual(P.coverage_state([], [], True, result['pagination'])[0],P.NO_OFFICIAL_EVENT_DETECTED)
+
+    def test_received_time_is_not_before_each_page_response(self):
+        from unittest import mock
+        clock = {'now':'2026-08-15T00:00:00+00:00'}
+        responses = [self.response([_filing('A1')],total_page=2,total_count=2),
+                     self.response([_filing('A2')],total_page=2,total_count=2,page_no=2)]
+        class Client(self.RawClient):
+            def list_filings(self, **kw):
+                clock['now'] = ('2026-08-15T00:00:05+00:00' if kw['page_no'] == 1
+                                else '2026-08-15T00:00:10+00:00')
+                return super().list_filings(**kw)
+        with mock.patch.object(T, 'iso_now', side_effect=lambda:clock['now']):
+            result = self._run({}, client=Client(responses))
+        self.assertEqual([e['detected_at'] for e in result['events']],
+                         ['2026-08-15T00:00:05+00:00','2026-08-15T00:00:10+00:00'])
+        self.assertFalse(P.event_visible_at(result['events'][0], '2026-08-15T00:00:04+00:00'))
+        self.assertFalse(P.event_visible_at(result['events'][1], '2026-08-15T00:00:09+00:00'))
+
+    def test_clock_rollback_between_pages_is_unverified(self):
+        from unittest import mock
+        clock = {'now':'2026-08-15T00:00:00+00:00'}
+        responses = [self.response([_filing('A1')],total_page=2,total_count=2),
+                     self.response([_filing('A2')],total_page=2,total_count=2,page_no=2)]
+        class Client(self.RawClient):
+            def list_filings(self, **kw):
+                clock['now'] = ('2026-08-15T00:00:05+00:00' if kw['page_no'] == 1
+                                else '2026-08-15T00:00:02+00:00')
+                return super().list_filings(**kw)
+        mark = P.SeenRegistry.mark_pending
+        def mark_then_rollback(registry, receipt, meta):
+            mark(registry, receipt, meta)
+            clock['now'] = '2026-08-15T00:00:01+00:00'
+        with mock.patch.object(T, 'iso_now', side_effect=lambda:clock['now']), \
+             mock.patch.object(P.SeenRegistry, 'mark_pending', mark_then_rollback):
+            result = self._run({},client=Client(responses))
+        self.assertFalse(result['pagination']['coverage_complete'])
+        self.assertEqual(len(result['events']), 1)
+
+    def test_clock_rollback_before_request_is_not_hidden_by_later_recovery(self):
+        from unittest import mock
+        clock = {'now':'2026-08-15T00:00:00+00:00'}
+        responses = [self.response([_filing('A1')],total_page=2,total_count=2),
+                     self.response([_filing('A2')],total_page=2,total_count=2,page_no=2)]
+        class Client(self.RawClient):
+            def list_filings(self, **kw):
+                clock['now'] = ('2026-08-15T00:00:05+00:00' if kw['page_no'] == 1
+                                else '2026-08-15T00:00:06+00:00')
+                return super().list_filings(**kw)
+        mark = P.SeenRegistry.mark_pending
+        def mark_then_rollback(registry, receipt, meta):
+            mark(registry, receipt, meta)
+            clock['now'] = '2026-08-15T00:00:01+00:00'
+        with mock.patch.object(T, 'iso_now', side_effect=lambda:clock['now']), \
+             mock.patch.object(P.SeenRegistry, 'mark_pending', mark_then_rollback):
+            result = self._run({},client=Client(responses))
+        self.assertFalse(result['pagination']['coverage_complete'])
+
+    def test_partial_pages_are_saved_pending_and_retry_before_ack(self):
+        from unittest import mock
+        import collect_dart as CD
+        first = _filing('A1',name='원본 공시')
+        unrelated = [_filing('U'+str(i),corp='77777777') for i in range(99)]
+        p1 = self.response([first] + unrelated,total_page=2,total_count=101)
+        partial = self.raw([p1,{'status':C.OK,'data':{'status':'013'},'noData':True}])
+        self.assertFalse(partial['pagination']['coverage_complete'])
+        class Store:
+            def __init__(self): self.records = {}
+            def segment_state(self, *a, **kw): return 'ACTIVE'
+            def append_predictions(self, day, rows, **kw):
+                for row in rows: self.records[row['rcept_no']] = row
+                return len(rows), 0
+            def read_day(self, day): return list(self.records.values())
+        store = Store()
+        with mock.patch.object(CD, '_dart_store', return_value=store):
+            stored, acked, errors = CD._store_and_ack(partial['events'], partial['registry'], allow_ack=False)
+            self.assertEqual((stored, acked, errors), (1, 0, []))
+            self.assertEqual(partial['registry'].seen[first['rcept_no']]['state'], P.SeenRegistry.PENDING)
+            changed = _filing('A1',name='[기재정정]원본 공시')
+            correction = _filing('A2',name='[첨부정정]원본 공시')
+            complete = self.raw([self.response([changed] + unrelated,total_page=2,total_count=101),
+                                 self.response([correction],total_page=2,total_count=101,page_no=2)])
+            self.assertTrue(complete['pagination']['coverage_complete'])
+            self.assertEqual(len(complete['events']), 2)
+            CD._store_and_ack(complete['events'], complete['registry'], allow_ack=True)
+        self.assertEqual(store.records[first['rcept_no']]['report_name'], '[기재정정]원본 공시')
+        self.assertEqual(complete['registry'].seen[first['rcept_no']]['state'], P.SeenRegistry.ACKNOWLEDGED)
+
+    def test_full_collector_does_not_ack_an_incomplete_interval(self):
+        from unittest import mock
+        import collect_dart as CD
+        first = _filing('A1', name='원본 공시')
+        changed = _filing('A1', name='[기재정정]원본 공시')
+        class Store:
+            def __init__(self): self.records = {}
+            def segment_state(self, *a, **kw): return 'ACTIVE'
+            def append_predictions(self, day, rows, **kw):
+                for row in rows: self.records[row['rcept_no']] = row
+                return len(rows), 0
+            def read_day(self, day): return list(self.records.values())
+        class DayClient:
+            has_key = True
+            def __init__(self, incomplete): self.incomplete = incomplete
+            def list_filings(self, **kw):
+                if kw['bgn_de'] == '20260814':
+                    return {'status':C.OK,'data':{'status':'013'},'noData':True}
+                if self.incomplete:
+                    # Two rows claim the same receipt with contradictory titles.
+                    return PaginationCoverage.response([first, changed],total_count=2)
+                return PaginationCoverage.response([changed])
+            def efficiency_report(self, extra=None): return extra or {}
+        store = Store()
+        cmap = P.build_corp_map(DART_ROWS, UNIVERSE)
+        with mock.patch.object(CD, '_dart_store', return_value=store), \
+             mock.patch.object(P, 'DART_ROOT', self.tmp), \
+             mock.patch.object(T, 'today_kst', return_value='2026-08-15'):
+            partial = CD.collect(DayClient(True), cmap)
+            self.assertEqual(partial['eventState'], P.EVENT_COVERAGE_INCOMPLETE)
+            self.assertEqual(partial['eventsAcknowledged'], 0)
+            with open(os.path.join(self.tmp, 'seen_rcept.json'), encoding='utf-8') as f:
+                self.assertEqual(json.load(f)['seen'][first['rcept_no']]['state'], P.SeenRegistry.PENDING)
+            complete = CD.collect(DayClient(False), cmap)
+            self.assertEqual(complete['eventState'], P.EVENT_DETECTED)
+            self.assertEqual(complete['eventsAcknowledged'], 1)
+        self.assertEqual(store.records[first['rcept_no']]['report_name'], '[기재정정]원본 공시')
+
+    def test_ack_requires_exact_unique_readback(self):
+        from unittest import mock
+        import collect_dart as CD
+        result = self.raw([self.response([_filing('A1',name='정정된 공시')])])
+        event = result['events'][0]
+        class Store:
+            def __init__(self, duplicate): self.duplicate = duplicate
+            def segment_state(self, *a, **kw): return 'ACTIVE'
+            def append_predictions(self, day, rows, **kw): self.rows = rows; return len(rows), 0
+            def read_day(self, day):
+                if self.duplicate: return self.rows + self.rows
+                return [dict(self.rows[0], report_name='이전 내용')]
+        for duplicate in (False, True):
+            with self.subTest(duplicate=duplicate), mock.patch.object(CD, '_dart_store', return_value=Store(duplicate)):
+                _, acked, errors = CD._store_and_ack([event], result['registry'], allow_ack=True)
+                self.assertEqual(acked, 0)
+                self.assertTrue(errors)
+                self.assertEqual(result['registry'].seen[event['rcept_no']]['state'], P.SeenRegistry.PENDING)
+
+    def test_already_acknowledged_receipt_with_changed_title_is_not_silently_ignored(self):
+        first = self.raw([self.response([_filing('A1',name='원본 공시')])])
+        first['registry'].acknowledge_many([first['events'][0]['rcept_no']])
+        first['registry'].save()
+        later = self.raw([self.response([_filing('A1',name='[기재정정]원본 공시')])])
+        self.assertFalse(later['pagination']['coverage_complete'])
+        self.assertEqual(later['events'], [])
+        self.assertEqual(later['registry'].seen[_filing('A1')['rcept_no']]['report_name'], '원본 공시')
+
     def test_full_coverage_marked_complete(self):
-        res = self._run({1: {"list": [_filing("A1")], "total_page": 1}})
+        res = self.raw([self.response([_filing("A1")])])
         self.assertTrue(res["pagination"]["coverage_complete"])
         self.assertEqual(res["pagination"]["incomplete_reasons"], [])
 
     def test_page_limit_marks_incomplete(self):
-        pages = {i: {"list": [_filing(f"A{i}")] * 100, "total_page": 5} for i in range(1, 6)}
+        pages = {i: {"status":"000", "page_no":i, "total_count":500, "total_page":5,
+                     "list": [_filing(f"A{i}-{j}") for j in range(100)]} for i in range(1, 6)}
         res = self._run(pages, max_pages=2)
         self.assertFalse(res["pagination"]["coverage_complete"])
         self.assertIn(P.PAGE_LIMIT_REACHED, res["pagination"]["incomplete_reasons"])
@@ -274,7 +508,8 @@ class PaginationCoverage(unittest.TestCase):
 
     def test_incomplete_never_reports_no_event(self):
         """전체를 못 훑었으면 '공시 없음'이라고 말하면 안 된다."""
-        pages = {i: {"list": [], "total_page": 5} for i in range(1, 6)}
+        pages = {i: {"status":"000", "page_no":i, "total_count":500, "total_page":5,
+                     "list": [_filing(f"B{i}-{j}", corp="77777777") for j in range(100)]} for i in range(1, 6)}
         res = self._run(pages, max_pages=2)
         state, reasons = P.coverage_state([], [], True, res["pagination"])
         self.assertEqual(state, P.EVENT_COVERAGE_INCOMPLETE)
@@ -282,20 +517,22 @@ class PaginationCoverage(unittest.TestCase):
         self.assertIn(P.PAGE_LIMIT_REACHED, reasons)
 
     def test_complete_and_empty_is_no_event(self):
-        res = self._run({1: {"list": [], "total_page": 1}})
+        res = self.raw([{'status':C.OK, 'data':{'status':'013'}, 'noData':True}])
         state, reasons = P.coverage_state([], [], True, res["pagination"])
         self.assertEqual(state, P.NO_OFFICIAL_EVENT_DETECTED)
         self.assertEqual(reasons, [])
 
     def test_api_error_marks_incomplete(self):
-        pages = {1: {"list": [_filing("A1")] * 100, "total_page": 3}}
+        pages = {1: {"status":"000", "page_no":1, "total_count":300, "total_page":3,
+                     "list": [_filing(f"A{j}") for j in range(100)]}}
         res = self._run(pages, client=FakeClient(pages, fail_from=2))
         self.assertFalse(res["pagination"]["coverage_complete"])
         state, reasons = P.coverage_state(res["events"], res["errors"], True, res["pagination"])
         self.assertEqual(state, P.EVENT_DATA_ERROR)
 
     def test_walks_all_pages_when_allowed(self):
-        pages = {i: {"list": [_filing(f"P{i}")] * 100, "total_page": 3} for i in range(1, 4)}
+        pages = {i: {"status":"000", "page_no":i, "total_count":300, "total_page":3,
+                     "list": [_filing(f"P{i}-{j}") for j in range(100)]} for i in range(1, 4)}
         res = self._run(pages, max_pages=10)
         self.assertEqual(res["pagination"]["pages_fetched"], 3)
         self.assertTrue(res["pagination"]["coverage_complete"])
@@ -535,15 +772,21 @@ class CatchUpAfterOutage(unittest.TestCase):
     """
 
     class DayClient(FakeClient):
-        def __init__(self, fail_days=()):
+        def __init__(self, fail_days=(), inconsistent_days=()):
             super().__init__({})
             self.fail_days = set(fail_days)
+            self.inconsistent_days = set(inconsistent_days)
 
         def list_filings(self, **kw):
             if kw.get("bgn_de") in self.fail_days:
                 self.calls.append(kw)
                 return {"status": C.EVENT_DATA_ERROR, "data": None, "error": "HTTP 500"}
-            return super().list_filings(**kw)
+            self.calls.append(kw)
+            if kw.get("bgn_de") in self.inconsistent_days and kw.get('page_no') == 1:
+                return {'status': C.OK, 'data': {'status':'000','page_no':1,'total_page':2,
+                        'total_count':2,'list':[dict(_filing('A1',corp='77777777'),rcept_dt=kw['bgn_de'],
+                                                     rcept_no=kw['bgn_de']+'000001')]}}
+            return {'status': C.OK, 'data': {'status':'013'}, 'noData':True}
 
     def setUp(self):
         import collect_dart as CD
@@ -617,6 +860,146 @@ class CatchUpAfterOutage(unittest.TestCase):
         self.assertEqual(status["lastComplete"], dict(kept, coveredUntil=P.covered_until(kept["finishedAt"], kept["windowEnd"])))
         self.assertEqual([e.get("day") for e in status["errors"]], ["2026-09-27"])
         self.assertEqual(len(client.calls), 4, "다른 날은 계속 본다 — 다음 회차가 다시 이어받는다")
+
+    def test_불일치_페이지는_마지막_확인_시각을_옮기지_않고_다음에_재조회한다(self):
+        kept = {"finishedAt":"2026-09-25T15:41:33.305198+00:00", "windowStart":"2026-09-25", "windowEnd":"2026-09-26"}
+        with open(self.status, "w", encoding="utf-8") as f:
+            json.dump({"status":"OK", "eventState":P.NO_OFFICIAL_EVENT_DETECTED, "lastComplete":kept},f)
+        bad = self.DayClient(inconsistent_days={"20260927"})
+        status = self.run_main(bad)
+        self.assertEqual(status['eventState'], P.EVENT_COVERAGE_INCOMPLETE)
+        self.assertEqual(status['lastComplete']['windowEnd'], '2026-09-26')
+        retried = self.DayClient()
+        recovered = self.run_main(retried)
+        self.assertIn('20260927', [call['bgn_de'] for call in retried.calls])
+        self.assertEqual(recovered['eventState'], P.NO_OFFICIAL_EVENT_DETECTED)
+        self.assertEqual(recovered['lastComplete']['windowEnd'], '2026-09-29')
+
+    def test_unexpected_list_exception_still_saves_attempted_budget(self):
+        class ExplodingClient(self.DayClient):
+            def list_filings(self, **kw):
+                self.calls.append(kw)
+                raise RuntimeError('unexpected response failure')
+        status = self.run_main(ExplodingClient())
+        self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        self.assertEqual(saved['counts']['list'], 1)
+
+    def test_failed_mapping_early_return_still_saves_attempted_budget(self):
+        from unittest import mock
+        client = self.DayClient()
+        client.corp_code_zip = lambda: {'status': C.EVENT_DATA_ERROR, 'data': None, 'error': 'offline'}
+        with mock.patch.object(P, 'load_corp_map', return_value=None):
+            status = self.run_main(client)
+        self.assertEqual(status['eventState'], P.EVENT_COVERAGE_INCOMPLETE)
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        self.assertEqual(saved['counts']['mapping'], 1)
+
+    def test_unexpected_mapping_exception_still_saves_attempted_budget(self):
+        from unittest import mock
+        client = self.DayClient()
+        def fail():
+            raise RuntimeError('unexpected response failure')
+        client.corp_code_zip = fail
+        with mock.patch.object(P, 'load_corp_map', return_value=None):
+            status = self.run_main(client)
+        self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        self.assertEqual(saved['counts']['mapping'], 1)
+
+    def test_interruption_saves_attempt_and_marks_status_unavailable(self):
+        from unittest import mock
+        class InterruptedClient(self.DayClient):
+            def list_filings(self, **kw):
+                self.calls.append(kw)
+                raise SystemExit(143)
+        with mock.patch.object(self.CD.dart_client, 'DartClient', return_value=InterruptedClient()):
+            with self.assertRaises(SystemExit):
+                self.CD.main()
+        with open(os.path.join(self.tmp, 'budget.json'), encoding='utf-8') as f:
+            saved = json.load(f)
+        with open(self.status, encoding='utf-8') as f:
+            status = json.load(f)
+        self.assertEqual(saved['counts']['list'], 1)
+        self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+        self.assertEqual(status['error'], 'COLLECTION_INTERRUPTED')
+
+    def test_sigterm_during_list_request_persists_reserved_attempt(self):
+        script = '''import os, signal, sys
+from unittest import mock
+import collect_dart as C, dart_pipeline as P, dart_time as T
+root = sys.argv[1]
+C.STATUS_PATH = os.path.join(root, "signal-status.json")
+C.BUDGET_PATH = os.path.join(root, "signal-budget.json")
+P.DART_ROOT = root
+class Client:
+    has_key = True
+    def list_filings(self, **kwargs):
+        os.kill(os.getpid(), signal.SIGTERM)
+client = Client()
+mapping = {"mapped": {"000001": {"corp_code": "00126380", "ticker": "000001"}}, "universeSize": 1}
+with mock.patch.object(C.dart_client, "DartClient", return_value=client), \\
+     mock.patch.object(P, "load_corp_map", return_value=mapping), \\
+     mock.patch.object(P, "load_universe", return_value={"000001": {}}), \\
+     mock.patch.object(T, "today_kst", return_value="2026-09-29"), \\
+     mock.patch.object(sys, "argv", ["collect_dart.py"]):
+    C.main()
+'''
+        result = subprocess.run([sys.executable, '-c', script, self.tmp], capture_output=True, timeout=5)
+        self.assertEqual(result.returncode, 128 + signal.SIGTERM, result.stderr.decode('utf-8'))
+        with open(os.path.join(self.tmp, 'signal-budget.json'), encoding='utf-8') as f:
+            self.assertEqual(json.load(f)['counts']['list'], 1)
+        with open(os.path.join(self.tmp, 'signal-status.json'), encoding='utf-8') as f:
+            self.assertEqual(json.load(f)['error'], 'COLLECTION_INTERRUPTED')
+
+    def test_budget_save_error_never_exposes_exception_text(self):
+        from unittest import mock
+        with mock.patch.object(dart_budget.DailyBudget, 'save', side_effect=OSError('sensitive-url-or-token')):
+            status = self.run_main(self.DayClient())
+        self.assertEqual(status.get('budgetSaveError'), 'BUDGET_SAVE_FAILED')
+        self.assertNotIn('sensitive-url-or-token', json.dumps(status))
+
+    def test_damaged_seen_registry_is_preserved_and_no_request_is_sent(self):
+        path = os.path.join(self.tmp, 'seen_rcept.json')
+        damaged = (b'{"seen":', b'[]', b'{"seen": []}',
+                   b'{"seen": {"one": null}}', b'{"seen": {}, "count": 2}',
+                   b'{"schemaVersion":"dart_seen_v2","updatedAt":"2026-09-29T00:00:00Z","count":1,"seen":{'
+                   b'"20260901000001":{"state":"PENDING","ticker":"000001","report_name":"x",'
+                   b'"detected_at":"2026-09-28T00:00:00Z"},'
+                   b'"20260901000001":{"state":"PENDING","ticker":"000001","report_name":"x",'
+                   b'"detected_at":"2026-09-28T00:00:00Z"}}}')
+        for raw in damaged:
+            with self.subTest(raw=raw):
+                with open(path, 'wb') as f:
+                    f.write(raw)
+                client = self.DayClient()
+                status = self.run_main(client)
+                with open(path, 'rb') as f:
+                    self.assertEqual(f.read(), raw)
+                self.assertEqual(client.calls, [])
+                self.assertEqual(status['eventState'], P.EVENT_DATA_ERROR)
+
+    def test_corrupt_budget_reports_unknown_without_touching_seen_or_sending(self):
+        budget_path = os.path.join(self.tmp, 'budget.json')
+        seen_path = os.path.join(self.tmp, 'seen_rcept.json')
+        with open(budget_path, 'w', encoding='utf-8') as f:
+            f.write('{"damaged":')
+        seen = '{"schemaVersion":"dart_seen_v2","updatedAt":"2026-09-29T00:00:00+00:00","count":0,"seen":{}}'
+        with open(seen_path, 'w', encoding='utf-8') as f:
+            f.write(seen)
+        client = self.DayClient()
+        status = self.run_main(client)
+        self.assertEqual(client.calls, [])
+        self.assertEqual(status['eventState'], P.EVENT_COVERAGE_INCOMPLETE)
+        self.assertIn('DART_BUDGET_UNVERIFIED', status['coverageReasons'])
+        self.assertEqual(status['budgetSaveError'], 'BUDGET_SAVE_FAILED')
+        with open(budget_path, encoding='utf-8') as f:
+            self.assertEqual(f.read(), '{"damaged":')
+        with open(seen_path, encoding='utf-8') as f:
+            self.assertEqual(f.read(), seen)
 
     def test_14일보다_오래_밀리면_회차마다_오래된_날부터_이어_보고_오늘까지_따라잡는다(self):
         kept = {"finishedAt": "2026-09-01T00:00:00+00:00", "windowStart": "2026-08-31", "windowEnd": "2026-09-01"}

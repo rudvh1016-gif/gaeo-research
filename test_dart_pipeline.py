@@ -9,6 +9,8 @@
 import io
 import json
 import os
+import subprocess
+import sys
 import tempfile
 import unittest
 import zipfile
@@ -168,10 +170,45 @@ class Deduplication(unittest.TestCase):
 
     def test_dedup_persists(self):
         reg = P.SeenRegistry(self.path)
-        reg.mark_pending("20260815000001", {"ticker": "005930", "report_name": "x"})
+        reg.mark_pending("20260815000001", {"ticker": "005930", "report_name": "x",
+                                            "detected_at": "2026-08-15T09:00:00+00:00"})
         reg.acknowledge("20260815000001")
         reg.save()
         self.assertFalse(P.SeenRegistry(self.path).is_new("20260815000001"))
+
+    def test_existing_temp_symlink_cannot_overwrite_another_file(self):
+        victim = os.path.join(self.tmp, 'victim')
+        with open(victim, 'w', encoding='utf-8') as f:
+            f.write('preserve')
+        os.symlink(victim, self.path + '.tmp')
+        reg = P.SeenRegistry(self.path)
+        reg.mark_pending('20260815000001', {'ticker': '000001', 'report_name': 'x',
+                                           'detected_at': '2026-08-15T09:00:00+00:00'})
+        reg.save()
+        with open(victim, encoding='utf-8') as f:
+            self.assertEqual(f.read(), 'preserve')
+        self.assertFalse(os.path.islink(self.path))
+
+    def test_registry_changed_after_read_is_never_overwritten(self):
+        reg = P.SeenRegistry(self.path)
+        other = '{"seen": {"20260815000002": {"state": "ACKNOWLEDGED"}}, "count": 1}'
+        with open(self.path, 'w', encoding='utf-8') as f:
+            f.write(other)
+        reg.mark_pending('20260815000001', {'ticker': '000001', 'report_name': 'x',
+                                           'detected_at': '2026-08-15T09:00:00+00:00'})
+        with self.assertRaises(P.SeenRegistryUnverified):
+            reg.save()
+        with open(self.path, encoding='utf-8') as f:
+            self.assertEqual(f.read(), other)
+
+    def test_fifo_registry_is_rejected_without_blocking(self):
+        os.mkfifo(self.path)
+        script = ("import dart_pipeline,sys\n"
+                  "try:\n dart_pipeline.SeenRegistry(sys.argv[1])\n"
+                  "except dart_pipeline.SeenRegistryUnverified:\n sys.exit(0)\n"
+                  "sys.exit(1)\n")
+        result = subprocess.run([sys.executable, '-c', script, self.path], capture_output=True, timeout=3)
+        self.assertEqual(result.returncode, 0)
 
     def test_correction_is_separate_receipt(self):
         """정정공시는 새 rcept_no라 별개 Event로 들어온다."""
@@ -337,10 +374,10 @@ class NoPerStockPolling(unittest.TestCase):
             self.calls.append(kw)
             self.stats["requests_per_run"] += 1
             page = kw.get("page_no", 1)
-            data = self.pages.get(page)
-            if data is None:
-                return {"status": C.OK, "data": {"list": [], "total_page": len(self.pages)},
-                        "error": None}
+            data = dict(self.pages.get(page) or {})
+            if not data.get('list'):
+                return {"status": C.OK, "data": {"status":"013"}, "noData":True, "error": None}
+            data.update(status='000', page_no=page, total_count=len(data['list']))
             return {"status": C.OK, "data": data, "error": None}
 
         def efficiency_report(self, extra=None):
@@ -349,7 +386,7 @@ class NoPerStockPolling(unittest.TestCase):
     def _run(self, pages, seen_path):
         cmap = P.build_corp_map(DART_ROWS, UNIVERSE)
         client = self.FakeClient(pages)
-        res = P.collect_new_filings(client, cmap, seen_path=seen_path)
+        res = P.collect_new_filings(client, cmap, seen_path=seen_path, bgn_de='20260815', end_de='20260815')
         return client, res
 
     def setUp(self):
@@ -373,26 +410,34 @@ class NoPerStockPolling(unittest.TestCase):
         for call in client.calls:
             self.assertNotIn("corp_code", call)
 
+    def test_global_list_keeps_prefix_mismatch_unverified_until_builder_is_migrated(self):
+        pages = {1: {"list": [{"corp_code": "00126380", "rcept_no": "20260816000001",
+                                 "report_nm": "주요사항보고서", "rcept_dt": "20260815"}],
+                     "total_page": 1}}
+        _, result = self._run(pages, self.seen)
+        self.assertFalse(result['pagination']['coverage_complete'])
+        self.assertEqual(result['events'], [])
+
     def test_out_of_universe_filings_are_dropped(self):
         pages = {1: {"list": [
-            {"corp_code": "00126380", "rcept_no": "A", "report_nm": "x", "rcept_dt": "20260815"},
-            {"corp_code": "00777777", "rcept_no": "B", "report_nm": "x", "rcept_dt": "20260815"},
+            {"corp_code": "00126380", "rcept_no": "20260815000001", "report_nm": "x", "rcept_dt": "20260815"},
+            {"corp_code": "00777777", "rcept_no": "20260815000002", "report_nm": "x", "rcept_dt": "20260815"},
         ], "total_page": 1}}
         _client, res = self._run(pages, self.seen)
         self.assertEqual(res["stats"]["matched_gaeo_filings"], 1)
         self.assertEqual(res["stats"]["unmatched_filings"], 1)
-        self.assertEqual([e["rcept_no"] for e in res["events"]], ["A"])
+        self.assertEqual([e["rcept_no"] for e in res["events"]], ["20260815000001"])
 
     def test_second_run_skips_duplicates(self):
         """⚠️ 저장 확인(ACK) 뒤에만 건너뛴다. ACK 전이면 반드시 재시도한다."""
         pages = {1: {"list": [
-            {"corp_code": "00126380", "rcept_no": "A", "report_nm": "x", "rcept_dt": "20260815"}],
+            {"corp_code": "00126380", "rcept_no": "20260815000001", "report_nm": "x", "rcept_dt": "20260815"}],
             "total_page": 1}}
         _c1, res1 = self._run(pages, self.seen)
         _c2, res2 = self._run(pages, self.seen)
-        self.assertEqual([e["rcept_no"] for e in res2["events"]], ["A"],
+        self.assertEqual([e["rcept_no"] for e in res2["events"]], ["20260815000001"],
                          "ACK 전인데 건너뛰면 유실된다")
-        res1["registry"].acknowledge_many(["A"])
+        res1["registry"].acknowledge_many(["20260815000001"])
         res1["registry"].save()
         _c3, res3 = self._run(pages, self.seen)
         self.assertEqual(res3["stats"]["duplicate_skipped"], 1)
