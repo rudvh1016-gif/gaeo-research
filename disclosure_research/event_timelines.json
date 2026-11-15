@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-11-14T16:58:32Z",
+ "generatedAt": "2026-11-15T18:09:31Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -301,9 +301,9 @@
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
-    "from": "2025-11-12",
-    "to": "2026-11-12",
-    "count": 979,
+    "from": "2025-11-13",
+    "to": "2026-11-13",
+    "count": 973,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -19586,32 +19586,6 @@
       {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
-       "rceptNo": "20251112000046",
-       "title": "[기재정정]주요사항보고서(유상증자결정)",
-       "receivedOn": "2025-11-12",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251112000046",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "FILED",
-       "stageLabel": "증권신고서·발행가 확정",
-       "rceptNo": "20251112800145",
-       "title": "유상증자신주발행가액(안내공시)",
-       "receivedOn": "2025-11-12",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251112800145",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
        "rceptNo": "20251217000048",
        "title": "[기재정정]주요사항보고서(유상증자결정)",
        "receivedOn": "2025-12-17",
@@ -19957,45 +19931,6 @@
    "name": "아시아나항공",
    "timelines": [
     {
-     "chain": "capital_increase",
-     "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
-     "items": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20251113801160",
-       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
-       "receivedOn": "2025-11-13",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251113801160",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "REPORTED"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "FILED",
-       "stageLabel": "증권신고서·발행가 확정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "REPORTED",
-     "latestReceivedOn": "2025-11-13",
-     "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
-    },
-    {
      "chain": "capital_reduction",
      "label": "감자 결정 → 매매거래정지 → 감자 완료",
      "items": [
@@ -20139,7 +20074,8 @@
        "correctionKind": "기재정정",
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113800537",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -20157,45 +20093,6 @@
      "latestStage": "PLANNED",
      "latestReceivedOn": "2026-11-13",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
-    },
-    {
-     "chain": "equity_linked_bond",
-     "label": "주식관련사채 발행 결정 → 발행 결과 → 전환·행사",
-     "items": [
-      {
-       "stage": "REPORTED",
-       "stageLabel": "발행 결과",
-       "rceptNo": "20251113801160",
-       "title": "유상증자또는주식관련사채등의발행결과(자율공시)",
-       "receivedOn": "2025-11-13",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251113801160",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "REPORTED"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "발행 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "전환·행사 청구",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "REPORTED",
-     "latestReceivedOn": "2025-11-13",
-     "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
     }
    ]
   },
@@ -31992,32 +31889,6 @@
      "label": "합병 결정 → 합병 종료 보고",
      "items": [
       {
-       "stage": "PLANNED",
-       "stageLabel": "합병 결정",
-       "rceptNo": "20251112000417",
-       "title": "주요사항보고서(회사합병결정)",
-       "receivedOn": "2025-11-12",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251112000417",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "합병 결정",
-       "rceptNo": "20251114000610",
-       "title": "[첨부정정]주요사항보고서(회사합병결정)",
-       "receivedOn": "2025-11-14",
-       "isCorrection": true,
-       "correctionKind": "첨부정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251114000610",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
        "stage": "COMPLETED",
        "stageLabel": "합병 종료 보고",
        "rceptNo": "20260127000258",
@@ -34874,19 +34745,6 @@
      "chain": "capital_increase",
      "label": "유상증자 결정 → 증권신고·발행가 확정 → 발행 결과",
      "items": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
-       "rceptNo": "20251112800250",
-       "title": "[기재정정]유상증자결정(종속회사의주요경영사항)",
-       "receivedOn": "2025-11-12",
-       "isCorrection": true,
-       "correctionKind": "기재정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251112800250",
-       "sources": [
-        "evidence"
-       ]
-      },
       {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
@@ -38454,7 +38312,8 @@
        "correctionKind": "기재정정",
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113000316",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -39428,19 +39287,6 @@
       {
        "stage": "PLANNED",
        "stageLabel": "증자 결정",
-       "rceptNo": "20251114000642",
-       "title": "주요사항보고서(유상증자결정)",
-       "receivedOn": "2025-11-14",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251114000642",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "PLANNED",
-       "stageLabel": "증자 결정",
        "rceptNo": "20251226000159",
        "title": "[기재정정]주요사항보고서(유상증자결정)",
        "receivedOn": "2025-12-26",
@@ -39583,7 +39429,8 @@
        "correctionKind": "기재정정",
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113000342",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -41040,58 +40887,6 @@
   "348370": {
    "name": "엔켐",
    "timelines": [
-    {
-     "chain": "capital_reduction",
-     "label": "감자 결정 → 매매거래정지 → 감자 완료",
-     "items": [
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "매매거래정지·해제",
-       "rceptNo": "20251114902922",
-       "title": "주권매매거래정지 (상장적격성 실질심사 대상 (사유발생))",
-       "receivedOn": "2025-11-14",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251114902922",
-       "sources": [
-        "evidence"
-       ]
-      },
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "매매거래정지·해제",
-       "rceptNo": "20251114903410",
-       "title": "주권매매거래정지해제 (상장적격성 실질심사 미해당 (사유발생 해소))",
-       "receivedOn": "2025-11-14",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251114903410",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "IN_PROGRESS"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "감자 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "COMPLETED",
-       "stageLabel": "감자 완료",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "IN_PROGRESS",
-     "latestReceivedOn": "2025-11-14",
-     "note": "감자 완료 공시를 찾지 못한 것은 \"미실행\" 이 아니다."
-    },
     {
      "chain": "merger",
      "label": "합병 결정 → 합병 종료 보고",
