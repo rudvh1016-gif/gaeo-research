@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-11-16T02:27:00Z",
+ "generatedAt": "2026-11-16T18:57:06Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -291,19 +291,19 @@
  },
  "coverage": {
   "trackedCompanies": 600,
-  "companiesWithTimelines": 350,
+  "companiesWithTimelines": 352,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
     "to": "2026-11-16",
-    "count": 9426
+    "count": 9891
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
     "from": "2025-11-17",
-    "to": "2026-11-13",
-    "count": 973,
+    "to": "2026-11-16",
+    "count": 976,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -4941,6 +4941,37 @@
      "latestStage": "REPORTED",
      "latestReceivedOn": "2026-04-06",
      "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
+    }
+   ]
+  },
+  "002030": {
+   "name": "아세아",
+   "timelines": [
+    {
+     "chain": "dividend",
+     "label": "배당 결정 → (지급은 공시로 확인되지 않음)",
+     "items": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "배당 결정",
+       "rceptNo": "20261116801039",
+       "title": "현금ㆍ현물배당결정",
+       "receivedOn": "2026-11-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116801039",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "PLANNED"
+     ],
+     "stagesNotFound": [],
+     "latestStage": "PLANNED",
+     "latestReceivedOn": "2026-11-16",
+     "note": "배당 결정 공시는 지급 완료가 아니다. 지급 여부·지급일은 원문의 기준일·지급 예정일로 확인한다(이 자료는 지급을 추적하지 않는다)."
     }
    ]
   },
@@ -20065,6 +20096,19 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "합병 결정",
+       "rceptNo": "20261116801390",
+       "title": "[기재정정]회사합병결정(종속회사의주요경영사항)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116801390",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -20079,7 +20123,7 @@
       }
      ],
      "latestStage": "PLANNED",
-     "latestReceivedOn": "2026-11-13",
+     "latestReceivedOn": "2026-11-16",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
     }
    ]
@@ -35054,6 +35098,32 @@
        "sources": [
         "evidence"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261116901628",
+       "title": "증권발행결과(자율공시)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116901628",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261116901659",
+       "title": "증권발행결과(자율공시) (제45회차 CB)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116901659",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -35069,7 +35139,7 @@
       }
      ],
      "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-04-30",
+     "latestReceivedOn": "2026-11-16",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     },
     {
@@ -35153,6 +35223,32 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261116901628",
+       "title": "증권발행결과(자율공시)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116901628",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "rceptNo": "20261116901659",
+       "title": "증권발행결과(자율공시) (제45회차 CB)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116901659",
+       "sources": [
+        "list"
+       ]
       }
      ],
      "stagesSeen": [
@@ -35167,8 +35263,8 @@
        "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
       }
      ],
-     "latestStage": "PLANNED",
-     "latestReceivedOn": "2026-11-09",
+     "latestStage": "REPORTED",
+     "latestReceivedOn": "2026-11-16",
      "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
     }
    ]
@@ -35306,6 +35402,37 @@
      "latestStage": "COMPLETED",
      "latestReceivedOn": "2026-10-01",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
+    }
+   ]
+  },
+  "183190": {
+   "name": "아세아시멘트",
+   "timelines": [
+    {
+     "chain": "dividend",
+     "label": "배당 결정 → (지급은 공시로 확인되지 않음)",
+     "items": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "배당 결정",
+       "rceptNo": "20261116800921",
+       "title": "현금ㆍ현물배당결정",
+       "receivedOn": "2026-11-16",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116800921",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "PLANNED"
+     ],
+     "stagesNotFound": [],
+     "latestStage": "PLANNED",
+     "latestReceivedOn": "2026-11-16",
+     "note": "배당 결정 공시는 지급 완료가 아니다. 지급 여부·지급일은 원문의 기준일·지급 예정일로 확인한다(이 자료는 지급을 추적하지 않는다)."
     }
    ]
   },
@@ -36160,7 +36287,8 @@
        "correctionKind": null,
        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116800009",
        "sources": [
-        "list"
+        "list",
+        "evidence"
        ]
       }
      ],
@@ -38316,6 +38444,20 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "합병 결정",
+       "rceptNo": "20261116000892",
+       "title": "[기재정정]주요사항보고서(회사합병결정)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116000892",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -38330,7 +38472,7 @@
       }
      ],
      "latestStage": "PLANNED",
-     "latestReceivedOn": "2026-11-13",
+     "latestReceivedOn": "2026-11-16",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
     }
    ]
@@ -39433,6 +39575,20 @@
         "list",
         "evidence"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "합병 결정",
+       "rceptNo": "20261116001097",
+       "title": "[기재정정]주요사항보고서(회사합병결정)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116001097",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -39447,7 +39603,7 @@
       }
      ],
      "latestStage": "PLANNED",
-     "latestReceivedOn": "2026-11-13",
+     "latestReceivedOn": "2026-11-16",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다. 합병 취소도 공시로 나온다."
     }
    ]
@@ -41666,6 +41822,45 @@
      "latestStage": "PLANNED",
      "latestReceivedOn": "2026-03-10",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
+    },
+    {
+     "chain": "equity_linked_bond",
+     "label": "주식관련사채 발행 결정 → 발행 결과 → 전환·행사",
+     "items": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "발행 결정",
+       "rceptNo": "20261116000742",
+       "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
+       "receivedOn": "2026-11-16",
+       "isCorrection": true,
+       "correctionKind": "기재정정",
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116000742",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "PLANNED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "REPORTED",
+       "stageLabel": "발행 결과",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      },
+      {
+       "stage": "IN_PROGRESS",
+       "stageLabel": "전환·행사 청구",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "PLANNED",
+     "latestReceivedOn": "2026-11-16",
+     "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
     }
    ]
   },
