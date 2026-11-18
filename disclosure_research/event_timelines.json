@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-11-18T04:12:20Z",
+ "generatedAt": "2026-11-18T17:45:34Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -297,13 +297,13 @@
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
     "to": "2026-11-18",
-    "count": 9975
+    "count": 10075
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
-    "from": "2025-11-17",
-    "to": "2026-11-17",
-    "count": 983,
+    "from": "2025-11-19",
+    "to": "2026-11-18",
+    "count": 984,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -1871,6 +1871,58 @@
      "latestStage": "PLANNED",
      "latestReceivedOn": "2026-05-14",
      "note": "종료 보고서를 찾지 못한 것은 \"미실행\" 이 아니다."
+    }
+   ]
+  },
+  "000990": {
+   "name": "DB하이텍",
+   "timelines": [
+    {
+     "chain": "buyback",
+     "label": "자기주식 취득 계획 → 취득 결과 보고 → 소각",
+     "items": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "취득 결정",
+       "rceptNo": "20261118000344",
+       "title": "주요사항보고서(자기주식취득신탁계약체결결정)",
+       "receivedOn": "2026-11-18",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118000344",
+       "sources": [
+        "list"
+       ]
+      },
+      {
+       "stage": "COMPLETED",
+       "stageLabel": "소각 결정·완료",
+       "rceptNo": "20261118800582",
+       "title": "주식소각결정",
+       "receivedOn": "2026-11-18",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800582",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "PLANNED",
+      "COMPLETED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "REPORTED",
+       "stageLabel": "취득 결과 보고",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "COMPLETED",
+     "latestReceivedOn": "2026-11-18",
+     "note": "취득 결과 보고나 소각 공시를 찾지 못한 것은 \"미실행\" 이 아니다 — 자료 창 밖이거나 아직 진행 중일 수 있다."
     }
    ]
   },
@@ -24022,50 +24074,6 @@
     }
    ]
   },
-  "033500": {
-   "name": "동성화인텍",
-   "timelines": [
-    {
-     "chain": "capital_reduction",
-     "label": "감자 결정 → 매매거래정지 → 감자 완료",
-     "items": [
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "매매거래정지·해제",
-       "rceptNo": "20251117900599",
-       "title": "주권매매거래정지해제 (상장적격성 실질심사 대상 제외 결정)",
-       "receivedOn": "2025-11-17",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251117900599",
-       "sources": [
-        "evidence"
-       ]
-      }
-     ],
-     "stagesSeen": [
-      "IN_PROGRESS"
-     ],
-     "stagesNotFound": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "감자 결정",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      },
-      {
-       "stage": "COMPLETED",
-       "stageLabel": "감자 완료",
-       "state": "NOT_FOUND",
-       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
-      }
-     ],
-     "latestStage": "IN_PROGRESS",
-     "latestReceivedOn": "2025-11-17",
-     "note": "감자 완료 공시를 찾지 못한 것은 \"미실행\" 이 아니다."
-    }
-   ]
-  },
   "033780": {
    "name": "KT&G",
    "timelines": [
@@ -27532,6 +27540,45 @@
    "name": "쏠리드",
    "timelines": [
     {
+     "chain": "buyback",
+     "label": "자기주식 취득 계획 → 취득 결과 보고 → 소각",
+     "items": [
+      {
+       "stage": "COMPLETED",
+       "stageLabel": "소각 결정·완료",
+       "rceptNo": "20261118900538",
+       "title": "주식소각결정",
+       "receivedOn": "2026-11-18",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118900538",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "COMPLETED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "취득 결정",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "취득 결과 보고",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "COMPLETED",
+     "latestReceivedOn": "2026-11-18",
+     "note": "취득 결과 보고나 소각 공시를 찾지 못한 것은 \"미실행\" 이 아니다 — 자료 창 밖이거나 아직 진행 중일 수 있다."
+    },
+    {
      "chain": "capital_reduction",
      "label": "감자 결정 → 매매거래정지 → 감자 완료",
      "items": [
@@ -29122,6 +29169,20 @@
        "sources": [
         "list"
        ]
+      },
+      {
+       "stage": "PLANNED",
+       "stageLabel": "증자 결정",
+       "rceptNo": "20261118800353",
+       "title": "유상증자결정(자회사의 주요경영사항)",
+       "receivedOn": "2026-11-18",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800353",
+       "sources": [
+        "list",
+        "evidence"
+       ]
       }
      ],
      "stagesSeen": [
@@ -29136,8 +29197,8 @@
        "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
       }
      ],
-     "latestStage": "REPORTED",
-     "latestReceivedOn": "2026-10-13",
+     "latestStage": "PLANNED",
+     "latestReceivedOn": "2026-11-18",
      "note": "결정 뒤 신고·확정·결과 공시를 찾지 못한 것은 \"미실행\" 이 아니다. 철회·정정도 공시로 나오므로 정정 표시를 함께 본다."
     }
    ]
