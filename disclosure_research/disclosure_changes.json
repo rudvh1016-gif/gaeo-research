@@ -2,8 +2,8 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "disclosure_changes",
- "generatedAt": "2026-11-21T17:56:06Z",
- "asOf": "2026-11-22",
+ "generatedAt": "2026-11-22T18:55:54Z",
+ "asOf": "2026-11-23",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) — 접수번호·보고서명·접수일·회사 고유번호",
@@ -17,13 +17,13 @@
  },
  "windows": {
   "recent": {
-   "from": "2026-10-24",
-   "to": "2026-11-22",
+   "from": "2026-10-25",
+   "to": "2026-11-23",
    "days": 30
   },
   "prior": {
-   "from": "2026-09-24",
-   "to": "2026-10-23",
+   "from": "2026-09-25",
+   "to": "2026-10-24",
    "days": 30,
    "fullyCovered": true
   },
@@ -33,7 +33,7 @@
  "coverage": {
   "trackedCompanies": 600,
   "companiesWithFilings": 598,
-  "filings": 11196,
+  "filings": 11193,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
@@ -45,7 +45,7 @@
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
     "from": "2025-11-20",
     "to": "2026-11-19",
-    "count": 986,
+    "count": 983,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -65473,7 +65473,7 @@
   },
   "047050": {
    "name": "포스코인터내셔널",
-   "filingCount": 17,
+   "filingCount": 16,
    "latestReceivedOn": "2026-11-19",
    "recentCount": 3,
    "priorCount": 2,
@@ -65696,18 +65696,6 @@
      "isCorrection": true,
      "correctionKind": "기재정정",
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260223801257",
-     "sources": [
-      "evidence"
-     ],
-     "category": "capital_increase"
-    },
-    {
-     "rceptNo": "20251120800002",
-     "title": "유상증자결정(종속회사의주요경영사항)",
-     "receivedOn": "2025-11-20",
-     "isCorrection": false,
-     "correctionKind": null,
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251120800002",
      "sources": [
       "evidence"
      ],
@@ -78791,7 +78779,7 @@
   },
   "085660": {
    "name": "차바이오텍",
-   "filingCount": 15,
+   "filingCount": 14,
    "latestReceivedOn": "2026-11-16",
    "recentCount": 3,
    "priorCount": 3,
@@ -78989,18 +78977,6 @@
      "isCorrection": false,
      "correctionKind": null,
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260114000359",
-     "sources": [
-      "evidence"
-     ],
-     "category": "capital_increase"
-    },
-    {
-     "rceptNo": "20251121000374",
-     "title": "[첨부정정]주요사항보고서(유상증자결정)",
-     "receivedOn": "2025-11-21",
-     "isCorrection": true,
-     "correctionKind": "첨부정정",
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251121000374",
      "sources": [
       "evidence"
      ],
@@ -91602,7 +91578,7 @@
   },
   "127120": {
    "name": "제이에스링크",
-   "filingCount": 23,
+   "filingCount": 22,
    "latestReceivedOn": "2026-11-17",
    "recentCount": 2,
    "priorCount": 5,
@@ -91909,18 +91885,6 @@
      "isCorrection": true,
      "correctionKind": "기재정정",
      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251128900857",
-     "sources": [
-      "evidence"
-     ],
-     "category": "other"
-    },
-    {
-     "rceptNo": "20251121900710",
-     "title": "[기재정정]거래처와의거래중단",
-     "receivedOn": "2025-11-21",
-     "isCorrection": true,
-     "correctionKind": "기재정정",
-     "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251121900710",
      "sources": [
       "evidence"
      ],
