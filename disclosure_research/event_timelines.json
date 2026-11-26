@@ -2,7 +2,7 @@
  "schemaVersion": "gaeo_disclosure_research_v1",
  "contractVersion": "disclosure-research-public-v1",
  "kind": "event_timelines",
- "generatedAt": "2026-11-25T19:07:40Z",
+ "generatedAt": "2026-11-26T04:39:59Z",
  "source": {
   "provider": "opendart",
   "dataset": "공시 목록(list.json) 제목·접수번호·접수일",
@@ -291,19 +291,19 @@
  },
  "coverage": {
   "trackedCompanies": 600,
-  "companiesWithTimelines": 359,
+  "companiesWithTimelines": 360,
   "sources": {
    "list": {
     "label": "공시 목록(list.json) 전수 · 추적 종목",
     "from": "2026-08-14",
-    "to": "2026-11-25",
-    "count": 10969
+    "to": "2026-11-26",
+    "count": 11018
    },
    "evidence": {
     "label": "기업행사 증거(종목별 list.json 365일 · 관련 제목만 보존)",
     "from": "2025-11-25",
     "to": "2026-11-25",
-    "count": 995,
+    "count": 993,
     "onlyTitlesMatching": [
      "합병",
      "분할",
@@ -5139,19 +5139,6 @@
      "chain": "merger",
      "label": "합병 결정 → 합병 종료 보고",
      "items": [
-      {
-       "stage": "PLANNED",
-       "stageLabel": "합병 결정",
-       "rceptNo": "20251125800319",
-       "title": "[첨부정정]주요사항보고서(회사합병결정)(자회사의 주요경영사항)",
-       "receivedOn": "2025-11-25",
-       "isCorrection": true,
-       "correctionKind": "첨부정정",
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251125800319",
-       "sources": [
-        "evidence"
-       ]
-      },
       {
        "stage": "PLANNED",
        "stageLabel": "합병 결정",
@@ -13223,6 +13210,50 @@
      "latestStage": "REPORTED",
      "latestReceivedOn": "2026-06-18",
      "note": "발행 결정은 발행 완료가 아니고, 전환·행사는 사채권자의 선택이라 이 자료가 예측하지 않는다."
+    }
+   ]
+  },
+  "006400": {
+   "name": "삼성SDI",
+   "timelines": [
+    {
+     "chain": "buyback",
+     "label": "자기주식 취득 계획 → 취득 결과 보고 → 소각",
+     "items": [
+      {
+       "stage": "COMPLETED",
+       "stageLabel": "소각 결정·완료",
+       "rceptNo": "20261126800186",
+       "title": "주식소각결정",
+       "receivedOn": "2026-11-26",
+       "isCorrection": false,
+       "correctionKind": null,
+       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261126800186",
+       "sources": [
+        "list"
+       ]
+      }
+     ],
+     "stagesSeen": [
+      "COMPLETED"
+     ],
+     "stagesNotFound": [
+      {
+       "stage": "PLANNED",
+       "stageLabel": "취득 결정",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      },
+      {
+       "stage": "REPORTED",
+       "stageLabel": "취득 결과 보고",
+       "state": "NOT_FOUND",
+       "meaning": "후속 공시를 찾지 못함 — 미실행이 아니다"
+      }
+     ],
+     "latestStage": "COMPLETED",
+     "latestReceivedOn": "2026-11-26",
+     "note": "취득 결과 보고나 소각 공시를 찾지 못한 것은 \"미실행\" 이 아니다 — 자료 창 밖이거나 아직 진행 중일 수 있다."
     }
    ]
   },
@@ -42332,19 +42363,6 @@
      "chain": "capital_reduction",
      "label": "감자 결정 → 매매거래정지 → 감자 완료",
      "items": [
-      {
-       "stage": "IN_PROGRESS",
-       "stageLabel": "매매거래정지·해제",
-       "rceptNo": "20251125900488",
-       "title": "주권매매거래정지 (단일판매공급계약)",
-       "receivedOn": "2025-11-25",
-       "isCorrection": false,
-       "correctionKind": null,
-       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251125900488",
-       "sources": [
-        "evidence"
-       ]
-      },
       {
        "stage": "IN_PROGRESS",
        "stageLabel": "매매거래정지·해제",
